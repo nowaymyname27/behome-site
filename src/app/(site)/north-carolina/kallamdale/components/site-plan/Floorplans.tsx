@@ -2,40 +2,14 @@
 "use client";
 
 import Image from "next/image";
-
-type Floorplan = {
-  name: string;
-  image: string;
-  sqFt: number;
-  beds: number;
-  baths: number;
-  price: string;
-};
-
-const floorplans: Floorplan[] = [
-  {
-    name: "Quarter Unit",
-    image: "/north-carolina/kallamdale/corner-unit/k6.png",
-    sqFt: 1850,
-    beds: 3,
-    baths: 2.5,
-    price: "$325,000",
-  },
-  {
-    name: "Center Unit",
-    image: "/north-carolina/kallamdale/middle-unit/k5.png",
-    sqFt: 1720,
-    beds: 3,
-    baths: 2.5,
-    price: "$299,000",
-  },
-];
+import Link from "next/link";
+import { floorplans } from "@/app/(site)/north-carolina/kallamdale/data/floorplans";
 
 export default function Floorplans() {
   return (
     <div className="flex flex-col gap-6">
       {floorplans.map((fp) => (
-        <div key={fp.name} className="card-surface p-6 flex flex-col">
+        <div key={fp.slug} className="card-surface p-6 flex flex-col">
           {/* Image */}
           <div className="relative h-44 w-full rounded-lg overflow-hidden border border-border">
             <Image
@@ -61,18 +35,18 @@ export default function Floorplans() {
 
           {/* Actions */}
           <div className="mt-4 flex flex-wrap gap-3">
-            <a
-              href="#"
+            <Link
+              href={`/north-carolina/kallamdale/${fp.slug}`}
               className="btn btn-primary flex-1 sm:flex-none justify-center"
             >
               See details
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href={`/north-carolina/kallamdale/${fp.slug}#floorplan`}
               className="btn btn-secondary flex-1 sm:flex-none justify-center"
             >
               Floorplan
-            </a>
+            </Link>
           </div>
         </div>
       ))}
