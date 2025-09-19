@@ -10,7 +10,7 @@ import {
   useMap,
 } from "react-leaflet";
 import L from "leaflet";
-import type { Map as LeafletMap, LatLngBoundsExpression } from "leaflet";
+import type { Map as LeafletMap } from "leaflet";
 import type { Marker as MarkerType, InteractiveMode } from "./Map";
 
 /** Click outside helper — type accepts HTMLElement | null to avoid RefObject type mismatch */
@@ -37,15 +37,23 @@ function setInteractivity(map: LeafletMap, enabled: boolean) {
     map.scrollWheelZoom.enable();
     map.dragging.enable();
     map.doubleClickZoom.enable();
-    // keyboard exists in Leaflet but may be missing from your TS types; feature-detect safely
-    const kb: any = (map as any).keyboard;
-    if (kb && typeof kb.enable === "function") kb.enable();
   } else {
     map.scrollWheelZoom.disable();
     map.dragging.disable();
     map.doubleClickZoom.disable();
-    const kb: any = (map as any).keyboard;
-    if (kb && typeof kb.disable === "function") kb.disable();
+  }
+
+  // Safely access the keyboard handler without `any`
+  const kb = (
+    map as unknown as {
+      keyboard?: { enable?: () => void; disable?: () => void };
+    }
+  ).keyboard;
+
+  if (enabled) {
+    kb?.enable?.();
+  } else {
+    kb?.disable?.();
   }
 }
 
