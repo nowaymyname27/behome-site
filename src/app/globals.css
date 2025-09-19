@@ -1,26 +1,95 @@
+/* src/app/globals.css */
 @import "tailwindcss";
 
+/* Leaflet map CSS */
+@import "leaflet/dist/leaflet.css";
+
+/* ===== Theme (no dark mode) ===== */
+@theme {
+  --color-background: #e8f0f5; /* page background */
+  --color-foreground: #171717; /* default text */
+
+  --color-chrome: #2a3845; /* header/footer background */
+  --color-chrome-foreground: #ffffff; /* text on header/footer */
+
+  --color-surface: #e8f0f5; /* light blocks, subtle panels */
+  --color-border: #e5e7eb; /* borders on white/surface */
+
+  --color-FL: #ecae74ff;
+  --color-FL-foreground: #1f2937;
+
+  --color-NC: #598555ff;
+  --color-NC-foreground: #ffffffff;
+
+  --color-accent: #ffefc7ff; /* gold CTAs, highlights, links */
+  --color-accent-foreground: #1f2937; /* readable text on gold */
+}
+
+html,
+body,
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-background text-foreground antialiased;
+}
+
+/* ===== App primitives ===== */
+.section {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+.section-pad {
+  @apply py-16 sm:py-20;
+}
+
+.h1 {
+  @apply text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight;
+}
+.h2 {
+  @apply text-2xl sm:text-3xl font-semibold;
+}
+.muted {
+  @apply text-neutral-600;
+}
+
+/* ===== Reusable building blocks ===== */
+
+/* Header / Footer */
+.site-chrome {
+  @apply bg-chrome text-chrome-foreground;
+}
+
+/* Cards / panels */
+.card {
+  @apply rounded-2xl border border-border shadow-sm overflow-hidden bg-background;
+}
+.card-surface {
+  @apply rounded-2xl border border-border shadow-sm overflow-hidden bg-surface;
+}
+
+/* Buttons */
+.btn {
+  @apply inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium shadow-sm
+         transition active:scale-[.99];
+}
+.btn-FL {
+  @apply bg-FL text-FL-foreground hover:bg-accent/90;
+}
+.btn-NC {
+  @apply bg-NC text-NC-foreground hover:bg-chrome/90;
+}
+.btn-primary {
+  @apply bg-chrome text-chrome-foreground hover:bg-chrome/90;
+}
+.btn-secondary {
+  @apply bg-accent text-accent-foreground hover:bg-accent/90;
+}
+.btn-ghost {
+  @apply bg-transparent text-foreground hover:bg-surface;
+}
+
+/* Links */
+.link {
+  @apply text-accent hover:underline;
 }
