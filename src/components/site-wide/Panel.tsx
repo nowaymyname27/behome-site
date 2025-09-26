@@ -1,8 +1,10 @@
 // File: /components/site-wide/Panel.tsx
 "use client";
 
+import Image, { StaticImageData } from "next/image";
+
 type Props = {
-  src: string;
+  src: string | StaticImageData;
   title: string;
   caption: string;
   className?: string; // width/height utilities
@@ -28,11 +30,15 @@ export default function Panel({
       aria-haspopup="dialog"
       aria-label={title}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={src}
         alt={title}
+        fill
         className="absolute inset-0 h-full w-full object-cover"
+        sizes="(max-width: 768px) 100vw,
+               (max-width: 1200px) 50vw,
+               33vw"
+        priority={false}
       />
       <div className="absolute inset-x-0 bottom-0">
         <div className="h-20 bg-gradient-to-t from-black/40 to-transparent" />

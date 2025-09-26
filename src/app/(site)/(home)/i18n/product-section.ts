@@ -3,7 +3,7 @@ import type { Locale } from "@/i18n/locale-context";
 
 // EN is the source of truth for shape/keys
 const en = {
-  regionLabel: { FL: "Florida", NC: "North Carolina" },
+  regionLabel: { FL: "Florida", PP: "Past Projects" },
   products: [
     {
       id: "fl-btr",
@@ -24,9 +24,9 @@ const en = {
       cta: "Explore",
     },
     {
-      id: "nc-th",
-      title: "Townhomes (For Sale)",
-      region: "NC",
+      id: "wwd-op",
+      title: "North Carolina Townhomes",
+      region: "PP",
       summary:
         "Thoughtfully designed townhomes close to work, schools, and weekend getaways across North Carolina.",
       href: "/products/townhomes",
@@ -41,13 +41,13 @@ type DeepString<T> = T extends string
   : { [K in keyof T]: DeepString<T[K]> };
 type ProductSectionSchema = DeepString<typeof en>;
 
-// ES copy using widened schema
+// ES copy using widened schema (kept consistent with EN keys/ids/regions)
 const es: ProductSectionSchema = {
-  regionLabel: { FL: "Florida", NC: "Carolina del Norte" },
+  regionLabel: { FL: "Florida", PP: "Proyectos anteriores" },
   products: [
     {
       id: "fl-btr",
-      title: "Casas Build-to-Rent",
+      title: "Casas build-to-rent",
       region: "FL",
       summary:
         "Casas unifamiliares administradas profesionalmente para alquiler a largo plazo en comunidades de Florida.",
@@ -56,7 +56,7 @@ const es: ProductSectionSchema = {
     },
     {
       id: "fl-sfh",
-      title: "Casas Unifamiliares (En venta)",
+      title: "Casas unifamiliares (en venta)",
       region: "FL",
       summary:
         "Obra nueva para compradores que buscan diseño moderno y vida de bajo mantenimiento en Florida.",
@@ -64,11 +64,11 @@ const es: ProductSectionSchema = {
       cta: "Explorar",
     },
     {
-      id: "nc-th",
-      title: "Townhouses (En venta)",
-      region: "NC",
+      id: "wwd-op",
+      title: "Casas adosadas en Carolina del Norte",
+      region: "PP",
       summary:
-        "Townhouses diseñadas con intención, cerca del trabajo, escuelas y escapadas de fin de semana en Carolina del Norte.",
+        "Casas adosadas diseñadas con intención, cerca del trabajo, escuelas y escapadas de fin de semana en Carolina del Norte.",
       href: "/products/townhomes",
       cta: "Explorar",
     },

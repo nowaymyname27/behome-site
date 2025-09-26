@@ -5,16 +5,13 @@ import Header from "@/components/site-wide/Header";
 import Hero from "@/app/(site)/(home)/components/Hero";
 import Phrase from "@/app/(site)/(home)/components/Phrase";
 import dynamic from "next/dynamic";
-import ProductSection from "@/app/(site)/(home)/components/ProductSection";
+import MapProductsGrid from "./components/MapProduct/MapProductsGrid";
+import HomeMap from "./components/MapProduct/HomeMap";
+import HomeProductCard from "./components/MapProduct/HomeProductCard";
 import Philosophy from "@/app/(site)/(home)/components/Philosophy";
 import Footer from "@/components/site-wide/Footer";
 
-const MapSection = dynamic(
-  () => import("@/app/(site)/(home)/components/MapSection"),
-  {
-    ssr: false,
-  }
-);
+const gridHeight = 860;
 
 export default function Page() {
   return (
@@ -23,8 +20,13 @@ export default function Page() {
       <main className="flex-1">
         <Hero />
         <Phrase />
-        <MapSection />
-        <ProductSection />
+        <MapProductsGrid
+          heading="Location & Projects"
+          height={gridHeight}
+          left={<HomeMap height={gridHeight} />}
+          rightTop={<HomeProductCard productId="fl-btr" theme="FL" />}
+          rightBottom={<HomeProductCard productId="fl-sfh" theme="FL" />}
+        />
         <Philosophy />
       </main>
       <Footer />

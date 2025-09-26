@@ -27,7 +27,7 @@ export default function ProductSection() {
               {/* Region label + title */}
               <header className="text-center">
                 <div className="text-sm uppercase tracking-wide opacity-80 mb-1">
-                  {i.regionLabel[p.region as "FL" | "NC"]}
+                  {i.regionLabel[p.region as "FL" | "PP"]}
                 </div>
                 <h3 className="text-2xl font-semibold">{p.title}</h3>
               </header>

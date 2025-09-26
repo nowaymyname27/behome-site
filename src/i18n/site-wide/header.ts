@@ -1,44 +1,45 @@
-// File: src/i18n/site-wide/header.ts
+// File: /i18n/site-wide/header.ts
 import type { Locale } from "@/i18n/locale-context";
 
-// EN is the shape source
-const en = {
-  brand: "Your Company",
-  nav: {
-    florida: "Florida",
-    northCarolina: "North Carolina",
-  },
-} as const;
-
-// Widen leaves to string, keep structure identical to EN
-type DeepString<T> = T extends string
-  ? string
-  : { [K in keyof T]: DeepString<T[K]> };
-type HeaderSchema = DeepString<typeof en>;
-
-const es: HeaderSchema = {
-  brand: "Tu Empresa",
-  nav: {
-    florida: "Florida",
-    northCarolina: "Carolina del Norte",
-  },
+type NavChild = { label: string; href: string };
+type NavItem = {
+  label: string;
+  href: string;
+  state?: "florida" | "partner-with-us"; // state is used only for theming/active color
+  children?: NavChild[];
 };
 
-// Export a single dict for the aggregator
-export const dict = { en: en as HeaderSchema, es } as const;
-export type HeaderI18n = typeof dict.en;
+export function tHeader(locale: Locale) {
+  // ...your existing copy; ensure brand etc. still here
+  return {
+    brand: locale === "es" ? "BeHome" : "BeHome",
+  };
+}
 
-// (Optional) helper if you still use it elsewhere
-export const tHeader = (locale: Locale) => dict[locale];
+export function getHeaderNav(locale: Locale): NavItem[] {
+  const FL_LABEL = locale === "es" ? "Florida" : "Florida";
+  const BTR_LABEL =
+    locale === "es" ? "Casas build-to-rent" : "Build-to-rent homes";
+  const SFH_LABEL =
+    locale === "es" ? "Casas unifamiliares" : "Single-family homes";
 
-export function getHeaderNav(locale: Locale) {
-  const i = tHeader(locale);
+  const WHAT_LABEL =
+    locale === "es" ? "Colabora con nosotros" : "Partner with us";
+
   return [
-    { label: i.nav.florida, href: "/?state=fl", state: "fl" },
     {
-      label: i.nav.northCarolina,
-      href: "/north-carolina",
-      state: "north-carolina",
+      label: FL_LABEL,
+      href: "/florida",
+      state: "florida",
+      children: [
+        { label: BTR_LABEL, href: "/florida/build-to-rent" },
+        { label: SFH_LABEL, href: "/florida/single-family" },
+      ],
     },
-  ] as const;
+    {
+      label: WHAT_LABEL,
+      href: "/partner-with-us",
+      // no state => uses default header theme
+    },
+  ];
 }

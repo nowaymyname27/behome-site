@@ -4,7 +4,7 @@ import type { Locale } from "@/i18n/locale-context";
 // EN is the source of truth for keys/shape
 const en = {
   overlay: {
-    title: "Where we build",
+    title: "Where we build/sell",
     hint: "Click to explore the map",
   },
 } as const;
@@ -17,7 +17,7 @@ type HomeMapSchema = DeepString<typeof en>;
 
 const es: HomeMapSchema = {
   overlay: {
-    title: "Dónde construimos",
+    title: "Dónde construimos/vendemos",
     hint: "Haz clic para explorar el mapa",
   },
 };

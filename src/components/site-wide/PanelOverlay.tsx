@@ -1,7 +1,13 @@
 // File: /components/site-wide/PanelOverlay.tsx
 "use client";
 
-type SlideLike = { src: string; title: string; body?: string };
+import Image, { StaticImageData } from "next/image";
+
+type SlideLike = {
+  src: string | StaticImageData;
+  title: string;
+  body?: string;
+};
 
 export default function PanelOverlay({
   slide,
@@ -25,12 +31,14 @@ export default function PanelOverlay({
         className="relative max-w-3xl w-full bg-background text-foreground shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="aspect-[2/1] w-full overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <div className="relative aspect-[2/1] w-full overflow-hidden">
+          <Image
             src={slide.src}
             alt={slide.title}
-            className="h-full w-full object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 768px"
+            priority={false}
           />
         </div>
         <div className="p-6">

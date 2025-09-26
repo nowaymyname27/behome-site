@@ -7,7 +7,7 @@ const en = {
   tagline: "Thoughtfully designed homes across Florida and North Carolina.",
   ctas: {
     florida: "Explore Florida",
-    northCarolina: "Explore North Carolina",
+    northCarolina: "Partner with us",
   },
 } as const;
 
@@ -22,7 +22,7 @@ const es: HeroSchema = {
   tagline: "Viviendas diseñadas con cuidado en Florida y Carolina del Norte.",
   ctas: {
     florida: "Explorar Florida",
-    northCarolina: "Explorar Carolina del Norte",
+    northCarolina: "Colabore con nosotros",
   },
 };
 

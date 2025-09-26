@@ -29,10 +29,10 @@ export default function Hero() {
         <h1 className="h1">{i.title}</h1>
         <p className="mt-3 text-lg muted">{i.tagline}</p>
         <div className="mt-6 flex gap-3 justify-center">
-          <a className="btn btn-FL" href="/north-carolina">
+          <a className="btn btn-FL" href="/florida">
             {i.ctas.florida}
           </a>
-          <a className="btn btn-NC" href="/north-carolina">
+          <a className="btn btn-NC" href="/what-we-do">
             {i.ctas.northCarolina}
           </a>
         </div>
