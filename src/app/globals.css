@@ -15,13 +15,13 @@
   --color-surface: #e8f0f5; /* light blocks, subtle panels */
   --color-border: #e5e7eb; /* borders on white/surface */
 
-  --color-FL: #ecae74ff;
+  --color-FL: #ecae74;
   --color-FL-foreground: #1f2937;
 
-  --color-NC: #598555ff;
-  --color-NC-foreground: #ffffffff;
+  --color-NC: #399693;
+  --color-NC-foreground: #ffffff;
 
-  --color-accent: #ffefc7ff; /* gold CTAs, highlights, links */
+  --color-accent: #ffefc7; /* gold CTAs, highlights, links */
   --color-accent-foreground: #1f2937; /* readable text on gold */
 }
 

@@ -2,13 +2,12 @@
 "use client";
 
 import Header from "@/components/site-wide/Header";
-import Hero from "@/app/(site)/(home)/components/Hero";
+import HomeHero from "./components/HomeHero";
 import Phrase from "@/app/(site)/(home)/components/Phrase";
 import dynamic from "next/dynamic";
-import MapProductsGrid from "./components/MapProduct/MapProductsGrid";
-import HomeMap from "./components/MapProduct/HomeMap";
-import HomeProductCard from "./components/MapProduct/HomeProductCard";
-import Philosophy from "@/app/(site)/(home)/components/Philosophy";
+import HomeFeatureCards from "./components/HomeFeatureCards";
+import HomeBrochure from "./components/HomeBrochure";
+import HomeDisplay from "./components/HomeDisplay";
 import Footer from "@/components/site-wide/Footer";
 
 const gridHeight = 860;
@@ -18,16 +17,11 @@ export default function Page() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <Hero />
+        <HomeHero />
         <Phrase />
-        <MapProductsGrid
-          heading="Location & Projects"
-          height={gridHeight}
-          left={<HomeMap height={gridHeight} />}
-          rightTop={<HomeProductCard productId="fl-btr" theme="FL" />}
-          rightBottom={<HomeProductCard productId="fl-sfh" theme="FL" />}
-        />
-        <Philosophy />
+        <HomeFeatureCards />
+        <HomeDisplay />
+        <HomeBrochure />
       </main>
       <Footer />
     </div>

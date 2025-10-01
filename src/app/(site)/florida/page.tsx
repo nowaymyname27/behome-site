@@ -37,8 +37,6 @@ export default function NorthCarolinaPage() {
             </div>
           }
         />
-
-        <Brochure />
       </main>
       <Footer />
     </div>
