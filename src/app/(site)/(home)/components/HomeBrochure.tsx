@@ -1,4 +1,4 @@
-// file: src/app/(site)/(home)/components/HomeBrochure.tsx
+// File: src/app/(site)/(home)/components/HomeBrochure.tsx
 "use client";
 
 import { useLocale } from "@/i18n/locale-context";
@@ -8,6 +8,7 @@ import { getHomePhilosophySlides } from "@/app/(site)/(home)/i18n/philosophy-sli
 import Brochure, { useBrochure } from "@/components/site-wide/Brochure";
 import Panel from "@/components/site-wide/Panel";
 import ScrollChevron from "@/components/site-wide/primitives/ScrollChevron";
+import type { StaticImageData } from "next/image";
 
 export default function HomeBrochure() {
   const { locale } = useLocale();
@@ -42,11 +43,14 @@ export default function HomeBrochure() {
 
 /* --- helpers (inside provider) --- */
 
-function PanelsList({
-  slides,
-}: {
-  slides: Array<{ src: any; title: string; caption: string; body?: string }>;
-}) {
+type HomeSlide = {
+  src: string | StaticImageData;
+  title: string;
+  caption: string;
+  body?: string;
+};
+
+function PanelsList({ slides }: { slides: HomeSlide[] }) {
   const { openIndex, setOpenIndex } = useBrochure();
 
   return (

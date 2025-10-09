@@ -1,7 +1,7 @@
-// file: src/app/(site)/(home)/components/HomeDisplay.tsx
+// File: src/app/(site)/(home)/components/HomeDisplay.tsx
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import ScrollChevron from "@/components/site-wide/primitives/ScrollChevron";
 
@@ -38,18 +38,30 @@ export default function HomeDisplay() {
   const timerRef = useRef<number | null>(null);
 
   const count = SLIDES.length;
-  const next = () => setIndex((i) => (i + 1) % count);
-  const prev = () => setIndex((i) => (i - 1 + count) % count);
+
+  // Stable callbacks (satisfy exhaustive-deps; logic unchanged)
+  const next = useCallback(() => {
+    setIndex((i) => (i + 1) % count);
+  }, [count]);
+
+  const prev = useCallback(() => {
+    setIndex((i) => (i - 1 + count) % count);
+  }, [count]);
 
   // Auto-advance (image mode only)
   useEffect(() => {
     if (USE_VIDEO || count < 2 || paused) return;
-    timerRef.current && window.clearInterval(timerRef.current);
+
+    if (timerRef.current) window.clearInterval(timerRef.current);
     timerRef.current = window.setInterval(next, 4000);
+
     return () => {
-      if (timerRef.current) window.clearInterval(timerRef.current);
+      if (timerRef.current) {
+        window.clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
     };
-  }, [paused, count]);
+  }, [paused, count, next]); // ✅ include next to satisfy exhaustive-deps
 
   const nextSrc = useMemo(
     () => (count ? SLIDES[(index + 1) % count].src : ""),
@@ -96,13 +108,13 @@ export default function HomeDisplay() {
         {/* LEFT COLUMN (text) */}
         <aside
           className="
-        flex flex-col justify-center
-        px-6 sm:px-10 py-12
-        bg-transparent md:bg-background
-        text-foreground
-        z-10
-        h-full
-      "
+            flex flex-col justify-center
+            px-6 sm:px-10 py-12
+            bg-transparent md:bg-background
+            text-foreground
+            z-10
+            h-full
+          "
         >
           <h2 className="h2">{HEADING}</h2>
           <div className="mt-10 space-y-10 max-w-md">
