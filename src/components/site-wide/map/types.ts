@@ -32,7 +32,7 @@ export type Point = {
   /** Optional tags to drive filtering */
   tags?: string[];
   /** Room for app-specific fields */
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 export type Config = {

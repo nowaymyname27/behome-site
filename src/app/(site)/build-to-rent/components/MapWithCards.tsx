@@ -1,4 +1,5 @@
 // file: src/app/(site)/single-family/components/MapWithCards.tsx
+/*
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -143,7 +144,7 @@ export default function MapWithCards() {
           items-start
         "
       >
-        {/* LEFT: Scrollable list (aligned with map top, same height) */}
+        
         <CardsPanel
           ref={cardsRef}
           houses={houses}
@@ -154,7 +155,7 @@ export default function MapWithCards() {
           className="h-[600px]"
         />
 
-        {/* RIGHT: Map with overlay enabled (default) */}
+
         <div className="relative w-full h-[600px] overflow-hidden rounded-xl border border-border shadow">
           <SiteMap
             config={config}
@@ -168,3 +169,4 @@ export default function MapWithCards() {
     </div>
   );
 }
+*/

@@ -1,7 +1,8 @@
-// file: src/components/site-wide/MediaCarousel.tsx
+// File: src/components/site-wide/MediaCarousel.tsx
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 
 export type MediaItem =
   | { type?: "image"; src: string; alt: string; caption?: string }
@@ -32,6 +33,14 @@ export type MediaCarouselProps = {
 function cx(...c: Array<string | false | null | undefined>) {
   return c.filter(Boolean).join(" ");
 }
+
+// Type guard to avoid `any` casts in the video branch
+function isVideo(m: MediaItem): m is Extract<MediaItem, { type: "video" }> {
+  return m.type === "video";
+}
+
+// Helper for CSS var typing (avoid `any`)
+type CSSVars = React.CSSProperties & { ["--carousel-h"]?: string };
 
 export default function MediaCarousel({
   media,
@@ -115,18 +124,14 @@ export default function MediaCarousel({
   // ---- HEIGHT CONTROL VIA WRAPPER ----
   // If viewportOffset > 0, cap height to the visible area.
   const heightVar =
-    viewportOffset > 0
-      ? (`calc(100svh - ${viewportOffset}px)` as const)
-      : undefined;
+    viewportOffset > 0 ? `calc(100svh - ${viewportOffset}px)` : undefined;
 
   return (
     <div
       className={cx("relative group", className)}
       aria-label={label}
       style={
-        heightVar
-          ? ({ ["--carousel-h" as any]: heightVar } as React.CSSProperties)
-          : undefined
+        heightVar ? ({ ["--carousel-h"]: heightVar } as CSSVars) : undefined
       }
     >
       {/* Scroll viewport */}
@@ -155,23 +160,26 @@ export default function MediaCarousel({
                   : { aspectRatio: aspect } // default behavior
               }
             >
-              {m.type === "video" ? (
+              {isVideo(m) ? (
                 <video
                   className="h-full w-full object-cover"
                   src={m.src}
                   poster={m.poster}
-                  muted={(m as any).muted ?? true}
-                  loop={(m as any).loop ?? true}
-                  autoPlay={(m as any).autoplay ?? false}
+                  muted={m.muted ?? true}
+                  loop={m.loop ?? true}
+                  autoPlay={m.autoplay ?? false}
                   playsInline
                   aria-label={m.alt}
                 />
               ) : (
-                <img
+                <Image
                   className="h-full w-full object-cover"
                   src={m.src}
                   alt={m.alt}
-                  loading={i === 0 ? "eager" : "lazy"}
+                  fill
+                  sizes="100vw"
+                  // Eager-load the first slide for LCP; others lazy by default
+                  priority={i === 0}
                 />
               )}
               {m.caption && (

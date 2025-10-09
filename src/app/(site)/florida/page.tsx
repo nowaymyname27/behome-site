@@ -4,7 +4,6 @@
 import Header from "@/components/site-wide/Header";
 import Footer from "@/components/site-wide/Footer";
 import FloridaHero from "./components/FloridaHero";
-import FloridaProjectsSection from "./components/FloridaProjectsSection";
 import FloridaMapSection from "./components/FloridaMapSection";
 import Description from "@/app/(site)/florida/components/Description";
 import FloridaBrochure from "./components/FloridaBrochure";

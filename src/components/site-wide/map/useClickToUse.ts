@@ -1,4 +1,4 @@
-// src/components/site-wide/map/useClickToUse.ts
+// File: src/components/site-wide/map/useClickToUse.ts
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -27,16 +27,17 @@ export function useClickToUse(options?: { initialLocked?: boolean }) {
       if (!root) return;
 
       // Resolve the event target node
-      const target = (ev as any).target as Node | null;
+      const target = ev.target as Node | null;
       if (!target) return;
+
+      // Support Shadow DOM: composedPath may include the host
+      const path = (ev as Event).composedPath?.();
 
       // If the click/tap is outside the container, re-lock
       const inside =
         root === target ||
         root.contains(target) ||
-        // Support Shadow DOM: composedPath may include the host
-        (typeof (ev as any).composedPath === "function" &&
-          (ev as any).composedPath().includes(root));
+        (Array.isArray(path) && path.includes(root));
 
       if (!inside) {
         setLocked(true);

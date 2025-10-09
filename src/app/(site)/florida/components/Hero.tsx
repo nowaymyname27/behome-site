@@ -1,10 +1,21 @@
-// File: /components/florida/Hero.tsx
+// File: src/app/(site)/florida/components/Hero.tsx
 "use client";
 
 import type { Locale } from "@/i18n/locale-context";
 import { tFlorida } from "@/app/(site)/florida/i18n";
-import type { StaticImageData } from "next/image";
 import heroPoster from "@/app/(site)/florida/images/hero/Greensboro.jpg";
+
+// Narrow safely without `any`
+function isRecord(v: unknown): v is Record<string, unknown> {
+  return typeof v === "object" && v !== null;
+}
+function getHeroTitle(i: unknown): string {
+  if (!isRecord(i)) return "";
+  if (typeof i.title === "string") return i.title;
+  const hero = i.hero;
+  if (isRecord(hero) && typeof hero.title === "string") return hero.title;
+  return "";
+}
 
 export default function Hero({ locale }: { locale: Locale }) {
   const i = tFlorida(locale).hero;
@@ -19,7 +30,7 @@ export default function Hero({ locale }: { locale: Locale }) {
           muted
           loop
           playsInline
-          poster={(heroPoster as StaticImageData).src}
+          poster={heroPoster.src}
           aria-hidden
         >
           {/* Put your file at /public/videos/fl-hero.mp4 */}
@@ -31,8 +42,7 @@ export default function Hero({ locale }: { locale: Locale }) {
       <div className="pointer-events-none absolute inset-0 flex items-end justify-start">
         <div className="m-8 rounded-2xl bg-black/40 px-6 py-4 backdrop-blur">
           <h1 className="text-3xl font-semibold tracking-tight text-white md:text-5xl">
-            {/* Use whichever your i18n provides */}
-            {("title" in i ? (i as any).title : i?.hero?.title) ?? ""}
+            {getHeroTitle(i)}
           </h1>
         </div>
       </div>

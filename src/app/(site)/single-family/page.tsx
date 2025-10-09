@@ -4,7 +4,6 @@ import Header from "@/components/site-wide/Header";
 import Footer from "@/components/site-wide/Footer";
 import InvestmentHero from "./components/SingleFamilyHero";
 import HouseCard from "@/components/site-wide/HouseCard";
-import MapWithCards from "./components/MapWithCards";
 
 import SF1 from "./images/SF1.jpg";
 import SF2 from "./images/SF2.jpg";

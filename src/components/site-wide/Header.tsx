@@ -1,6 +1,7 @@
+// File: src/components/site-wide/Header.tsx
 "use client";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { tHeader, getHeaderNav } from "@/i18n/site-wide/header";
 import { useLocale, uiLangCode } from "@/i18n/locale-context";
 import { useMemo, useState } from "react";
@@ -14,9 +15,7 @@ function rewriteFloridaPath(href: string | undefined) {
 
 export default function Header() {
   const pathname = usePathname() || "/";
-  const search = useSearchParams();
   const { locale, toggleLocale } = useLocale();
-
   const i = tHeader(locale);
 
   // Build nav:
@@ -167,13 +166,7 @@ export default function Header() {
           })}
 
           <button
-            onClick={() => {
-              // preserve ?state param across toggles if you need it:
-              // const currentState = search.get("state");
-              // (no-op for now)
-              const { toggleLocale } = useLocale();
-              toggleLocale();
-            }}
+            onClick={toggleLocale} // ✅ call the hook result, not useLocale() inside
             className="text-sm font-semibold transition opacity-80 hover:text-accent"
             aria-label="Toggle language"
           >

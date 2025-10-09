@@ -4,13 +4,10 @@
 import Header from "@/components/site-wide/Header";
 import HomeHero from "./components/HomeHero";
 import Phrase from "@/app/(site)/(home)/components/Phrase";
-import dynamic from "next/dynamic";
 import HomeFeatureCards from "./components/HomeFeatureCards";
 import HomeBrochure from "./components/HomeBrochure";
 import HomeDisplay from "./components/HomeDisplay";
 import Footer from "@/components/site-wide/Footer";
-
-const gridHeight = 860;
 
 export default function Page() {
   return (
