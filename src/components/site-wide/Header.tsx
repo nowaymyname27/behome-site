@@ -1,43 +1,54 @@
-// File: src/components/site-wide/Header.tsx
 "use client";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { tHeader, getHeaderNav } from "@/i18n/site-wide/header";
 import { useLocale, uiLangCode } from "@/i18n/locale-context";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+
+// strip a leading "/florida" so "/florida/cluster" -> "/cluster", "/florida" -> "/"
+function rewriteFloridaPath(href: string | undefined) {
+  if (!href) return href;
+  const out = href.replace(/^\/florida(?=\/|$)/, "");
+  return out === "" ? "/" : out;
+}
 
 export default function Header() {
   const pathname = usePathname() || "/";
   const search = useSearchParams();
-  const currentState = search.get("state");
-
   const { locale, toggleLocale } = useLocale();
+
   const i = tHeader(locale);
-  const nav = getHeaderNav(locale);
 
-  // Determine which site section we're on for theming + active state
-  const activeKey: "florida" | "partner-with-us" | null = pathname.startsWith(
-    "/florida"
-  )
-    ? "florida"
-    : pathname.startsWith("/partner-with-us")
-    ? "partner-with-us"
-    : pathname === "/" &&
-      (currentState === "florida" || currentState === "partner-with-us")
-    ? (currentState as "florida" | "partner-with-us")
-    : null;
+  // Build nav:
+  // 1) filter out partner-with-us
+  // 2) rewrite any "/florida/..." hrefs to root-level ("/...")
+  const nav = useMemo(() => {
+    const raw = getHeaderNav(locale);
+    return raw
+      .filter(
+        (item) =>
+          item.state !== "partner-with-us" &&
+          !item.href?.startsWith("/partner-with-us")
+      )
+      .map((item) => {
+        const rewrittenHref = rewriteFloridaPath(item.href);
+        const children = Array.isArray(item.children)
+          ? item.children
+              .filter((c) => !c.href?.startsWith("/partner-with-us"))
+              .map((c) => ({ ...c, href: rewriteFloridaPath(c.href) }))
+          : undefined;
+        return { ...item, href: rewrittenHref, children };
+      });
+  }, [locale]);
 
-  const headerTheme =
-    activeKey === "florida"
-      ? "bg-FL text-FL-foreground"
-      : activeKey === "partner-with-us"
-      ? "bg-NC text-NC-foreground"
-      : "bg-chrome text-chrome-foreground"; // default: Home / What we do
+  // Theming (kept simple now that pages are root-level)
+  const headerTheme = "bg-chrome text-chrome-foreground";
 
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <header
+      id="site-header"
       className={`sticky top-0 z-[2000] w-full border-border ${headerTheme}`}
     >
       <div className="h-16 flex items-center justify-between px-6 lg:px-8">
@@ -47,21 +58,27 @@ export default function Header() {
 
         <nav className="flex items-center gap-6">
           {nav.map((item, idx) => {
-            const isSectionActive =
-              item.state &&
-              ((item.state === "florida" && pathname.startsWith("/florida")) ||
-                (item.state === "partner-with-us" &&
-                  pathname.startsWith("/partner-with-us")));
-
             const hasChildren =
               Array.isArray(item.children) && item.children.length > 0;
             const isOpen = openIndex === idx;
 
+            // Parent is considered active if any child href matches current path
+            const anyChildActive =
+              hasChildren &&
+              item.children!.some(
+                (c) => c.href !== "/" && pathname.startsWith(c.href!)
+              );
+            const isSectionActive =
+              anyChildActive ||
+              (!!item.href &&
+                item.href !== "/" &&
+                pathname.startsWith(item.href));
+
             if (!hasChildren) {
               return (
                 <Link
-                  key={item.href}
-                  href={item.href}
+                  key={item.href ?? idx}
+                  href={item.href ?? "/"}
                   aria-current={isSectionActive ? "page" : undefined}
                   className={`text-sm transition ${
                     isSectionActive
@@ -74,10 +91,10 @@ export default function Header() {
               );
             }
 
-            // Parent with dropdown (menu anchors to the right, extending left)
+            // Parent with dropdown
             return (
               <div
-                key={item.href}
+                key={item.href ?? idx}
                 className="relative"
                 onPointerEnter={() => setOpenIndex(idx)}
                 onPointerLeave={() =>
@@ -86,7 +103,7 @@ export default function Header() {
               >
                 <div className="flex items-center gap-1">
                   <Link
-                    href={item.href}
+                    href={item.href ?? item.children![0]?.href ?? "/"}
                     aria-current={isSectionActive ? "page" : undefined}
                     className={`text-sm transition ${
                       isSectionActive
@@ -117,24 +134,19 @@ export default function Header() {
                 {isOpen && (
                   <div
                     role="menu"
-                    className={`absolute right-0 top-full w-56 overflow-hidden rounded-md border shadow-lg
-                      ${
-                        activeKey === "florida"
-                          ? "bg-FL text-FL-foreground border-border"
-                          : activeKey === "partner-with-us"
-                          ? "bg-NC text-NC-foreground border-border"
-                          : "bg-chrome text-chrome-foreground border-border"
-                      }`}
+                    className={`absolute right-0 top-full w-56 overflow-hidden rounded-md border shadow-lg bg-chrome text-chrome-foreground border-border`}
                   >
                     <ul className="py-1">
                       {item.children!.map((child) => {
                         const childActive =
-                          child.href !== "/" && pathname.startsWith(child.href);
+                          child.href !== "/" &&
+                          !!child.href &&
+                          pathname.startsWith(child.href);
                         return (
                           <li key={child.href}>
                             <Link
                               role="menuitem"
-                              href={child.href}
+                              href={child.href ?? "/"}
                               className={`block px-3 py-2 text-sm transition ${
                                 childActive
                                   ? "bg-accent/20"
@@ -155,7 +167,13 @@ export default function Header() {
           })}
 
           <button
-            onClick={toggleLocale}
+            onClick={() => {
+              // preserve ?state param across toggles if you need it:
+              // const currentState = search.get("state");
+              // (no-op for now)
+              const { toggleLocale } = useLocale();
+              toggleLocale();
+            }}
             className="text-sm font-semibold transition opacity-80 hover:text-accent"
             aria-label="Toggle language"
           >

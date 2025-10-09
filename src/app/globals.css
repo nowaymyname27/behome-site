@@ -3,19 +3,20 @@
 
 /* Leaflet map CSS */
 @import "leaflet/dist/leaflet.css";
+@import "maplibre-gl/dist/maplibre-gl.css";
 
 /* ===== Theme (no dark mode) ===== */
 @theme {
   --color-background: #e8f0f5; /* page background */
   --color-foreground: #171717; /* default text */
 
-  --color-chrome: #2a3845; /* header/footer background */
+  --color-chrome: #233340; /* header/footer background */
   --color-chrome-foreground: #ffffff; /* text on header/footer */
 
   --color-surface: #e8f0f5; /* light blocks, subtle panels */
   --color-border: #e5e7eb; /* borders on white/surface */
 
-  --color-FL: #ecae74;
+  --color-FL: #f0a665;
   --color-FL-foreground: #1f2937;
 
   --color-NC: #399693;

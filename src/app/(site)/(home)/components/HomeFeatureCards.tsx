@@ -61,8 +61,12 @@ export default function HomeFeatureCards() {
           {FEATURES.slice(0, 3).map((f) => (
             <article
               key={f.id}
-              className="rounded-2xl border border-border shadow-sm bg-white overflow-hidden
-                         transition hover:-translate-y-0.5 hover:shadow-md focus-within:shadow-md"
+              className="
+    rounded-2xl border border-border bg-white overflow-hidden
+    shadow-md transition
+    hover:-translate-y-1 hover:shadow-xl focus-within:shadow-xl
+    hover:ring-1 hover:ring-accent/20
+  "
             >
               {/* Image */}
               <div className="relative aspect-[16/9]">

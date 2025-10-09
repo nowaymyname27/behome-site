@@ -22,6 +22,7 @@ export function getHeaderNav(locale: Locale): NavItem[] {
     locale === "es" ? "Casas build-to-rent" : "Build-to-rent homes";
   const SFH_LABEL =
     locale === "es" ? "Casas unifamiliares" : "Single-family homes";
+  const CLUSTER_LABEL = locale === "es" ? "Casas en clúster" : "Cluster homes";
 
   const WHAT_LABEL =
     locale === "es" ? "Colabora con nosotros" : "Partner with us";
@@ -34,6 +35,7 @@ export function getHeaderNav(locale: Locale): NavItem[] {
       children: [
         { label: BTR_LABEL, href: "/florida/build-to-rent" },
         { label: SFH_LABEL, href: "/florida/single-family" },
+        { label: CLUSTER_LABEL, href: "/florida/cluster" },
       ],
     },
     {

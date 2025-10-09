@@ -15,7 +15,6 @@ export default function Page() {
       <main className="flex-1">
         <Hero />
         <SitePlanSection />
-        <LocationMap />
         <WhyUs />
       </main>
       <Footer />
