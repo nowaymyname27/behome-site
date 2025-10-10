@@ -1,43 +1,49 @@
 // app/(site)/single-family/page.tsx
-"use client";
-
-import { useEffect, useState } from "react";
 import Header from "@/components/site-wide/Header";
 import Footer from "@/components/site-wide/Footer";
 import InvestmentHero from "./components/SingleFamilyHero";
 import HouseCard, { HouseCardProps } from "@/components/site-wide/HouseCard";
-import { client } from "@/sanity/lib/client";
-import { housesByTypeQuery } from "@/sanity/lib/queries";
+import { client } from "@/sanity/lib/client.server";
+import { housesByTypeQuery } from "@/sanity/lib/queries.server";
 
-export default function SingleFamilyPage() {
-  const [houses, setHouses] = useState<HouseCardProps[]>([]);
+type HouseListItem = {
+  image: { src: string; alt?: string };
+  address: string;
+  price: number;
+  beds: number;
+  baths: number;
+  cars: number;
+  sqft: number;
+  slug: string;
+  badgeKey?: string | null;
+};
 
-  useEffect(() => {
-    client.fetch(housesByTypeQuery, { type: "single" }).then((data) => {
-      const mapped = data.map((h: any) => ({
-        image: h.image,
-        address: h.address,
-        price: h.price,
-        beds: h.beds,
-        baths: h.baths,
-        cars: h.cars,
-        sqft: h.sqft,
-        href: `/single-family/${h.slug}`,
-        badge: h.badgeKey ? h.badgeKey.replace("_", " ") : undefined,
-      }));
-      setHouses(mapped);
-    });
-  }, []);
+export const revalidate = 60;
+
+export default async function SingleFamilyPage() {
+  const data: HouseListItem[] = await client.fetch(housesByTypeQuery, {
+    type: "single",
+  });
+
+  const houses: HouseCardProps[] = data.map((h) => ({
+    image: h.image,
+    address: h.address,
+    price: h.price,
+    beds: h.beds,
+    baths: h.baths,
+    cars: h.cars,
+    sqft: h.sqft,
+    href: `/single-family/${h.slug}`,
+    badge: h.badgeKey ? h.badgeKey.replace("_", " ") : undefined,
+  }));
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
         <InvestmentHero />
-
         <section className="w-full px-6 sm:px-12 lg:px-20 py-10">
           <h1 className="h2 mb-6">Single-Family Homes</h1>
-
           <div className="grid gap-6 lg:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {houses.map((house, i) => (
               <HouseCard key={i} {...house} />

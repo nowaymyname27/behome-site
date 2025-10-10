@@ -1,10 +1,10 @@
 // app/(site)/single-family/[slug]/page.tsx
 import { notFound } from "next/navigation";
-import { client } from "@/sanity/lib/client";
+import { client } from "@/sanity/lib/client.server";
 import {
   houseBySlugAndTypeQuery,
   houseSlugsByTypeQuery,
-} from "@/sanity/lib/queries";
+} from "@/sanity/lib/queries.server";
 
 import StickyInfoHeader from "@/components/property-detail/StickyInfoHeader";
 import HeroGallery from "@/components/property-detail/HeroGallery";
@@ -39,10 +39,8 @@ export default async function SingleFamilyDetail({
         price={house.price}
         height={HEADER_H}
       />
-
       <main className="space-y-12" style={{ paddingTop: HEADER_H }}>
         <HeroGallery images={house.images ?? []} headerHeight={HEADER_H} />
-
         <FloorplanSection
           plan={house.floorplan}
           name={house.name}
@@ -52,7 +50,6 @@ export default async function SingleFamilyDetail({
           cars={house.cars}
           notes="Open-concept living with split-bedroom layout and covered patio."
         />
-
         <div className="space-y-0">
           {house.matterportModelId && (
             <VirtualTourSection
@@ -73,7 +70,6 @@ export default async function SingleFamilyDetail({
           )}
         </div>
       </main>
-
       <Footer />
     </div>
   );

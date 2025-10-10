@@ -1,9 +1,11 @@
-// Querying with "sanityFetch" will keep content automatically updated
-// Before using it, import and render "<SanityLive />" in your layout, see
-// https://github.com/sanity-io/next-sanity#live-content-api for more information.
+// sanity/lib/live.ts
+import "server-only";
 import { defineLive } from "next-sanity/live";
-import { client } from './client'
+import { client } from "./client.server";
 
-export const { sanityFetch, SanityLive } = defineLive({
-  client,
-});
+// Only expose the server-side fetch helper.
+// Do NOT export SanityLive here to avoid dragging Studio into client bundles.
+export const { sanityFetch } = defineLive({ client });
+
+// If some file still imports SanityLive, it'll error — that's good;
+// it tells us exactly where to remove that client import.

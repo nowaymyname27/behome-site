@@ -1,6 +1,7 @@
+// file: src/sanity/lib/queries.server.ts
 import "server-only";
 
-export const housesQuery = `
+export const housesQuery = /* groq */ `
   *[_type == "house"]{
     _id,
     "slug": slug.current,
@@ -18,7 +19,7 @@ export const housesQuery = `
   } | order(_createdAt desc)
 `;
 
-export const houseBySlugQuery = `
+export const houseBySlugQuery = /* groq */ `
   *[_type == "house" && slug.current == $slug][0]{
     "slug": slug.current,
     name,
@@ -48,13 +49,13 @@ export const houseBySlugQuery = `
   }
 `;
 
-export const houseSlugsQuery = `
+export const houseSlugsQuery = /* groq */ `
   *[_type == "house" && defined(slug.current)]{
     "slug": slug.current
   }
 `;
 
-export const housesByTypeQuery = `
+export const housesByTypeQuery = /* groq */ `
   *[_type == "house" && productType == $type]{
     _id,
     "slug": slug.current,
@@ -72,7 +73,7 @@ export const housesByTypeQuery = `
   } | order(_createdAt desc)
 `;
 
-export const houseBySlugAndTypeQuery = `
+export const houseBySlugAndTypeQuery = /* groq */ `
   *[_type == "house" && slug.current == $slug && productType == $type][0]{
     "slug": slug.current,
     name,
@@ -98,7 +99,7 @@ export const houseBySlugAndTypeQuery = `
   }
 `;
 
-export const houseSlugsByTypeQuery = `
+export const houseSlugsByTypeQuery = /* groq */ `
   *[_type == "house" && productType == $type && defined(slug.current)]{
     "slug": slug.current
   }
