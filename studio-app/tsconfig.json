@@ -1,13 +1,7 @@
-// studio-app/tsconfig.json
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "."
+    // no baseUrl needed here
   },
-  "include": [
-    "app",
-    "next-env.d.ts",
-    "sanity.config.ts",
-    ".next/types/**/*.ts"
-  ]
+  "include": ["app", "next-env.d.ts", "sanity.config.ts", ".next/types/**/*.ts"]
 }
