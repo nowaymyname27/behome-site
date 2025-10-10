@@ -15,9 +15,6 @@ export default function HeroCard() {
         <a href="/florida" className="btn btn-FL">
           Explore Florida
         </a>
-        <a href="/partners" className="btn btn-NC">
-          Partner With Us
-        </a>
       </div>
     </aside>
   );
