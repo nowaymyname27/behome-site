@@ -1,14 +1,14 @@
-// file: studio/schemaTypes/index.ts
-import { type SchemaTypeDefinition } from "sanity";
+// /studio/schemaTypes/index.ts
+import type { SchemaTypeDefinition } from "sanity";
 import house from "./house";
 import { localeString, localeText } from "./_locale";
 
-export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [
-    localeString,
-    localeText,
+const schemaTypes: SchemaTypeDefinition[] = [
+  localeString,
+  localeText,
 
-    // documents:
-    house,
-  ],
-};
+  // documents:
+  house,
+];
+
+export default schemaTypes;
