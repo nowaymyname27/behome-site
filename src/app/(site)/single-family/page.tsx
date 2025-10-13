@@ -3,8 +3,8 @@ import Header from "@/components/site-wide/Header";
 import Footer from "@/components/site-wide/Footer";
 import InvestmentHero from "./components/SingleFamilyHero";
 import HouseCard, { HouseCardProps } from "@/components/site-wide/HouseCard";
-import { client } from "@/sanity/lib/client.server";
-import { housesByTypeQuery } from "@/sanity/lib/queries.server";
+import { sanityClient } from "@/sanity/lib/client";
+import { housesByTypeQuery } from "@/sanity/lib/queries";
 
 type HouseListItem = {
   image: { src: string; alt?: string };
@@ -21,7 +21,7 @@ type HouseListItem = {
 export const revalidate = 60;
 
 export default async function SingleFamilyPage() {
-  const data: HouseListItem[] = await client.fetch(housesByTypeQuery, {
+  const data: HouseListItem[] = await sanityClient.fetch(housesByTypeQuery, {
     type: "single",
   });
 

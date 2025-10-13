@@ -1,10 +1,10 @@
 // app/(site)/single-family/[slug]/page.tsx
 import { notFound } from "next/navigation";
-import { client } from "@/sanity/lib/client.server";
+import { sanityClient } from "@/sanity/lib/client";
 import {
   houseBySlugAndTypeQuery,
   houseSlugsByTypeQuery,
-} from "@/sanity/lib/queries.server";
+} from "@/sanity/lib/queries";
 
 import StickyInfoHeader from "@/components/property-detail/StickyInfoHeader";
 import HeroGallery from "@/components/property-detail/HeroGallery";
@@ -21,7 +21,7 @@ export default async function SingleFamilyDetail({
 }: {
   params: { slug: string };
 }) {
-  const house = await client.fetch(houseBySlugAndTypeQuery, {
+  const house = await sanityClient.fetch(houseBySlugAndTypeQuery, {
     slug: params.slug,
     type: "single",
   });
@@ -76,8 +76,9 @@ export default async function SingleFamilyDetail({
 }
 
 export async function generateStaticParams() {
-  const slugs: { slug: string }[] = await client.fetch(houseSlugsByTypeQuery, {
-    type: "single",
-  });
+  const slugs: { slug: string }[] = await sanityClient.fetch(
+    houseSlugsByTypeQuery,
+    { type: "single" }
+  );
   return slugs.map((s) => ({ slug: s.slug }));
 }

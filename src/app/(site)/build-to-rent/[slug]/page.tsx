@@ -1,10 +1,10 @@
 // app/(site)/build-to-rent/[slug]/page.tsx
 import { notFound } from "next/navigation";
-import { client } from "@/sanity/lib/client.server";
+import { sanityClient } from "@/sanity/lib/client";
 import {
   houseBySlugAndTypeQuery,
   houseSlugsByTypeQuery,
-} from "@/sanity/lib/queries.server";
+} from "@/sanity/lib/queries";
 
 import StickyInfoHeader from "@/components/property-detail/StickyInfoHeader";
 import HeroGallery from "@/components/property-detail/HeroGallery";
@@ -21,7 +21,7 @@ export default async function BuildToRentDetail({
 }: {
   params: { slug: string };
 }) {
-  const house = await client.fetch(houseBySlugAndTypeQuery, {
+  const house = await sanityClient.fetch(houseBySlugAndTypeQuery, {
     slug: params.slug,
     type: "btr",
   });
@@ -76,8 +76,9 @@ export default async function BuildToRentDetail({
 }
 
 export async function generateStaticParams() {
-  const slugs: { slug: string }[] = await client.fetch(houseSlugsByTypeQuery, {
-    type: "btr",
-  });
+  const slugs: { slug: string }[] = await sanityClient.fetch(
+    houseSlugsByTypeQuery,
+    { type: "btr" }
+  );
   return slugs.map((s) => ({ slug: s.slug }));
 }

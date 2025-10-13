@@ -1,11 +1,11 @@
-// src/sanity/lib/client.ts
-import "server-only"; // 🚫 prevents client imports at build time
+import { createClient } from "@sanity/client";
+import { apiVersion, dataset, projectId, token, useCdn } from "@/sanity/env";
 
-import { createClient } from "next-sanity";
-
-export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
-  apiVersion: "2025-01-01", // or your pinned API date
-  useCdn: true,
+export const sanityClient = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn,
+  token, // omit/leave undefined if you don’t use preview
+  perspective: "published",
 });
