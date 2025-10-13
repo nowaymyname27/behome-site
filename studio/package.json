@@ -1,13 +1,10 @@
 {
   "name": "studio",
-  "version": "1.0.0",
   "private": true,
-  "description": "Sanity Studio for BeHome Site",
   "scripts": {
     "dev": "sanity dev",
     "build": "sanity build",
-    "deploy": "sanity deploy",
-    "start": "sanity start"
+    "deploy": "sanity deploy"
   },
   "dependencies": {
     "@sanity/vision": "^4.10.2",
