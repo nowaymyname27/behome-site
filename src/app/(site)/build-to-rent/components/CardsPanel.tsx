@@ -8,7 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
-import HouseCard from "@/components/site-wide/HouseCard";
+import HouseCard from "../../../../components/site-wide/HouseCard";
 
 export type House = {
   id: string;

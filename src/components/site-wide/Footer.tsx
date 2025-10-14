@@ -2,8 +2,8 @@
 "use client";
 
 import { useState } from "react";
-import { useLocale } from "@/i18n/locale-context";
-import { tFooter } from "@/i18n/site-wide/footer";
+import { useLocale } from "../../i18n/locale-context";
+import { tFooter } from "../../i18n/site-wide/footer";
 
 export default function Footer() {
   const { locale } = useLocale();

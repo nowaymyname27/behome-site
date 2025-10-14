@@ -1,10 +1,10 @@
 // app/(site)/build-to-rent/page.tsx
-import Header from "@/components/site-wide/Header";
-import Footer from "@/components/site-wide/Footer";
+import Header from "../../../components/site-wide/Header";
+import Footer from "../../../components/site-wide/Footer";
 import InvestmentHero from "./components/SingleFamilyHero";
-import HouseCard, { HouseCardProps } from "@/components/site-wide/HouseCard";
-import { sanityClient } from "@/sanity/lib/client";
-import { housesByTypeQuery } from "@/sanity/lib/queries";
+import HouseCard, { HouseCardProps } from "../../../components/site-wide/HouseCard";
+import { sanityClient } from "../../../sanity/lib/client";
+import { housesByTypeQuery } from "../../../sanity/lib/queries";
 
 type HouseListItem = {
   image: { src: string; alt?: string };

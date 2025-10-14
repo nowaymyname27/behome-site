@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import SectionSubmenu from "@/components/site-wide/SectionSubmenu";
+import SectionSubmenu from "../../../../components/site-wide/SectionSubmenu";
 
 type Item = { id: string; label: string };
 

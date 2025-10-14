@@ -1,5 +1,5 @@
 // File: /i18n/site-wide/footer.ts
-import type { Locale } from "@/i18n/locale-context";
+import type { Locale } from "../locale-context";
 
 // EN is the source of truth for keys/shape
 const en = {

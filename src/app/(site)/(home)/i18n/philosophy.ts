@@ -1,5 +1,5 @@
 // File: src/app/(site)/(home)/i18n/philosophy.ts
-import type { Locale } from "@/i18n/locale-context";
+import type { Locale } from "../../../../i18n/locale-context";
 
 // EN is the source of truth for keys/shape
 const en = {

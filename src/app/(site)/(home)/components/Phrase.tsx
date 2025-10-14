@@ -1,8 +1,8 @@
 // File: src/app/(site)/(home)/components/Phrase.tsx
 "use client";
 
-import { useLocale } from "@/i18n/locale-context";
-import { tHome } from "@/app/(site)/(home)/i18n";
+import { useLocale } from "../../../../i18n/locale-context";
+import { tHome } from "../i18n";
 
 export default function Phrase() {
   const { locale } = useLocale();

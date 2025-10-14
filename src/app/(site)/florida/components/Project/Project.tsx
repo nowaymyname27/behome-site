@@ -2,8 +2,8 @@
 "use client";
 
 import Link from "next/link";
-import { useLocale } from "@/i18n/locale-context";
-import { tFlorida } from "@/app/(site)/florida/i18n";
+import { useLocale } from "../../../../../i18n/locale-context";
+import { tFlorida } from "../../i18n";
 
 export default function ProjectCard() {
   const { locale } = useLocale();

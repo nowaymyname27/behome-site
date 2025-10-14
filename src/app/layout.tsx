@@ -1,9 +1,9 @@
 // src/app/layout.tsx
 import "./globals.css";
 import { cookies } from "next/headers";
-import Providers from "@/app/providers"; // move/keep Providers at src/app/providers.tsx
-import Header from "@/components/site-wide/Header";
-import Footer from "@/components/site-wide/Footer";
+import Providers from "./providers"; // move/keep Providers at src/app/providers.tsx
+import Header from "../components/site-wide/Header";
+import Footer from "../components/site-wide/Footer";
 
 export default async function RootLayout({
   children,

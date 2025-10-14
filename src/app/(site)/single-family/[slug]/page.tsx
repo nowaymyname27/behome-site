@@ -1,17 +1,17 @@
 // app/(site)/single-family/[slug]/page.tsx
 import { notFound } from "next/navigation";
-import { sanityClient } from "@/sanity/lib/client";
+import { sanityClient } from "../../../../sanity/lib/client";
 import {
   houseBySlugAndTypeQuery,
   houseSlugsByTypeQuery,
-} from "@/sanity/lib/queries";
+} from "../../../../sanity/lib/queries";
 
-import StickyInfoHeader from "@/components/property-detail/StickyInfoHeader";
-import HeroGallery from "@/components/property-detail/HeroGallery";
-import FloorplanSection from "@/components/property-detail/FloorplanSection";
-import VirtualTourSection from "@/components/property-detail/VirtualTourSection";
-import MapSection from "@/components/property-detail/MapSection";
-import Footer from "@/components/site-wide/Footer";
+import StickyInfoHeader from "../../../../components/property-detail/StickyInfoHeader";
+import HeroGallery from "../../../../components/property-detail/HeroGallery";
+import FloorplanSection from "../../../../components/property-detail/FloorplanSection";
+import VirtualTourSection from "../../../../components/property-detail/VirtualTourSection";
+import MapSection from "../../../../components/property-detail/MapSection";
+import Footer from "../../../../components/site-wide/Footer";
 
 const HEADER_H = 72;
 export const revalidate = 60;

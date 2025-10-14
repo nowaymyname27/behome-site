@@ -1,5 +1,5 @@
 // file: src/app/(site)/cluster/components/ClusterDescription.tsx
-import InvestmentDescription from "@/components/site-wide/InvestmentDescription";
+import InvestmentDescription from "../../../../components/site-wide/InvestmentDescription";
 
 export default function ClusterDescription() {
   return (

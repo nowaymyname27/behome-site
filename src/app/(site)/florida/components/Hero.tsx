@@ -1,9 +1,9 @@
 // File: src/app/(site)/florida/components/Hero.tsx
 "use client";
 
-import type { Locale } from "@/i18n/locale-context";
-import { tFlorida } from "@/app/(site)/florida/i18n";
-import heroPoster from "@/app/(site)/florida/images/hero/Greensboro.jpg";
+import type { Locale } from "../../../../i18n/locale-context";
+import { tFlorida } from "../i18n";
+import heroPoster from "../images/hero/Greensboro.jpg";
 
 // Narrow safely without `any`
 function isRecord(v: unknown): v is Record<string, unknown> {

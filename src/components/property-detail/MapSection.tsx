@@ -1,8 +1,8 @@
 "use client";
 
-import SiteMap from "@/components/site-wide/SiteMap";
-import type { Config, Point } from "@/components/site-wide/map/types";
-import type { LngLat } from "@/app/(site)/single-family/data/types";
+import SiteMap from "../site-wide/SiteMap";
+import type { Config, Point } from "../site-wide/map/types";
+import type { LngLat } from "../../app/(site)/single-family/data/types";
 
 export default function MapSection({
   coords,

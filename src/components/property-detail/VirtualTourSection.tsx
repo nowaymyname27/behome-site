@@ -1,7 +1,7 @@
 // file: src/components/property-detail/VirtualTourSection.tsx
 "use client";
 
-import VirtualTour from "@/components/property-detail/VirtualTour";
+import VirtualTour from "./VirtualTour";
 
 export default function VirtualTourSection({
   modelId,

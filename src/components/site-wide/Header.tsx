@@ -2,8 +2,8 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { tHeader, getHeaderNav } from "@/i18n/site-wide/header";
-import { useLocale, uiLangCode } from "@/i18n/locale-context";
+import { tHeader, getHeaderNav } from "../../i18n/site-wide/header";
+import { useLocale, uiLangCode } from "../../i18n/locale-context";
 import { useMemo } from "react";
 
 export default function Header() {

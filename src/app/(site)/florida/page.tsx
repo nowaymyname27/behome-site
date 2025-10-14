@@ -1,14 +1,14 @@
 // File: /app/florida/page.tsx
 "use client";
 
-import Header from "@/components/site-wide/Header";
-import Footer from "@/components/site-wide/Footer";
+import Header from "../../../components/site-wide/Header";
+import Footer from "../../../components/site-wide/Footer";
 import FloridaHero from "./components/FloridaHero";
 import FloridaMapSection from "./components/FloridaMapSection";
-import Description from "@/app/(site)/florida/components/Description";
+import Description from "./components/Description";
 import FloridaBrochure from "./components/FloridaBrochure";
-import { useLocale } from "@/i18n/locale-context";
-import type { Point } from "@/components/site-wide/map/types";
+import { useLocale } from "../../../i18n/locale-context";
+import type { Point } from "../../../components/site-wide/map/types";
 
 const FLORIDA_POINTS: Point[] = [
   {

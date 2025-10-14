@@ -1,5 +1,5 @@
 // File: src/app/(site)/florida/i18n/project-map.ts
-import type { Locale } from "@/i18n/locale-context";
+import type { Locale } from "../../../../i18n/locale-context";
 
 // EN = source of truth
 const en = {

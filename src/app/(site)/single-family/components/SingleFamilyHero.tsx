@@ -1,8 +1,8 @@
 // file: src/app/(site)/(invest)/components/InvestmentHero.tsx
 "use client";
 
-import Hero from "@/components/site-wide/Hero";
-import InvestmentCard from "@/components/site-wide/InvestmentCard";
+import Hero from "../../../../components/site-wide/Hero";
+import InvestmentCard from "../../../../components/site-wide/InvestmentCard";
 
 export default function InvestmentHero() {
   return (

@@ -1,13 +1,13 @@
 // File: src/app/(site)/(home)/components/HomeBrochure.tsx
 "use client";
 
-import { useLocale } from "@/i18n/locale-context";
-import { tHome } from "@/app/(site)/(home)/i18n";
-import { getHomePhilosophySlides } from "@/app/(site)/(home)/i18n/philosophy-slides";
+import { useLocale } from "../../../../i18n/locale-context";
+import { tHome } from "../i18n";
+import { getHomePhilosophySlides } from "../i18n/philosophy-slides";
 
-import Brochure, { useBrochure } from "@/components/site-wide/Brochure";
-import Panel from "@/components/site-wide/Panel";
-import ScrollChevron from "@/components/site-wide/primitives/ScrollChevron";
+import Brochure, { useBrochure } from "../../../../components/site-wide/Brochure";
+import Panel from "../../../../components/site-wide/Panel";
+import ScrollChevron from "../../../../components/site-wide/primitives/ScrollChevron";
 import type { StaticImageData } from "next/image";
 
 export default function HomeBrochure() {

@@ -1,6 +1,6 @@
 // file: src/app/(site)/cluster/components/HouseCardList.tsx
 "use client";
-import HouseCard from "@/components/site-wide/HouseCard";
+import HouseCard from "../../../../components/site-wide/HouseCard";
 
 export default function HouseCardList() {
   const houses = [

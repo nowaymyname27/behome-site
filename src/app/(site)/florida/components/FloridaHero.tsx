@@ -1,5 +1,5 @@
 // file: src/components/florida/FloridaHero.tsx
-import Hero from "@/components/site-wide/Hero";
+import Hero from "../../../../components/site-wide/Hero";
 
 export default function FloridaHero() {
   return (

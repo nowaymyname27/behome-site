@@ -3,8 +3,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import SiteMap from "@/components/site-wide/SiteMap";
-import type { Config, Point } from "@/components/site-wide/map/types";
+import SiteMap from "../../../../components/site-wide/SiteMap";
+import type { Config, Point } from "../../../../components/site-wide/map/types";
 import CardsPanel, {
   type CardsPanelHandle,
   type House as BaseHouse,

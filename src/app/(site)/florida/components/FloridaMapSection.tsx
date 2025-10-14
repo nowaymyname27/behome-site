@@ -2,15 +2,15 @@
 "use client";
 
 import * as React from "react";
-import SiteMap from "@/components/site-wide/SiteMap";
+import SiteMap from "../../../../components/site-wide/SiteMap";
 import type {
   Point,
   Config,
   ThemeKey,
   Variant,
-} from "@/components/site-wide/map/types";
-import { MARKER_VARIANTS } from "@/components/site-wide/map/markerButton";
-import type { MarkerMode } from "@/components/site-wide/map/useMarkersController";
+} from "../../../../components/site-wide/map/types";
+import { MARKER_VARIANTS } from "../../../../components/site-wide/map/markerButton";
+import type { MarkerMode } from "../../../../components/site-wide/map/useMarkersController";
 import MapCard from "./MapCard";
 
 type ProductId = "single-family" | "btr" | "cluster";

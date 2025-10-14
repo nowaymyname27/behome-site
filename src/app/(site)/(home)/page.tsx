@@ -1,13 +1,13 @@
 // src/app/(site)/(home)/page.tsx
 "use client";
 
-import Header from "@/components/site-wide/Header";
+import Header from "../../../components/site-wide/Header";
 import HomeHero from "./components/HomeHero";
-import Phrase from "@/app/(site)/(home)/components/Phrase";
+import Phrase from "./components/Phrase";
 import HomeFeatureCards from "./components/HomeFeatureCards";
 import HomeBrochure from "./components/HomeBrochure";
 import HomeDisplay from "./components/HomeDisplay";
-import Footer from "@/components/site-wide/Footer";
+import Footer from "../../../components/site-wide/Footer";
 
 export default function Page() {
   return (

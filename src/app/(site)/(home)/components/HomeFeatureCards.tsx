@@ -2,9 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { useLocale } from "@/i18n/locale-context";
-import { tHome } from "@/app/(site)/(home)/i18n";
-import { getHomeFeatureCards } from "@/app/(site)/(home)/i18n/feature-cards";
+import { useLocale } from "../../../../i18n/locale-context";
+import { tHome } from "../i18n";
+import { getHomeFeatureCards } from "../i18n/feature-cards";
 
 export default function HomeFeatureCards() {
   const { locale } = useLocale();

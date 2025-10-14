@@ -2,11 +2,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useLocale } from "@/i18n/locale-context";
-import { tFlorida } from "@/app/(site)/florida/i18n";
-import Panel from "@/components/site-wide/Panel";
-import PanelOverlay from "@/components/site-wide/PanelOverlay";
-import ScrollChevron from "@/components/site-wide/primitives/ScrollChevron";
+import { useLocale } from "../../../../i18n/locale-context";
+import { tFlorida } from "../i18n";
+import Panel from "../../../../components/site-wide/Panel";
+import PanelOverlay from "../../../../components/site-wide/PanelOverlay";
+import ScrollChevron from "../../../../components/site-wide/primitives/ScrollChevron";
 
 export default function Brochure() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);

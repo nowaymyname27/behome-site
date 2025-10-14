@@ -1,10 +1,10 @@
 // file: src/app/(site)/(home)/components/HomeHero.tsx
 "use client";
 
-import Hero from "@/components/site-wide/Hero";
-import HeroCard from "@/app/(site)/(home)/components/HeroCard";
-import { useLocale } from "@/i18n/locale-context";
-import { tHome } from "@/app/(site)/(home)/i18n";
+import Hero from "../../../../components/site-wide/Hero";
+import HeroCard from "./HeroCard";
+import { useLocale } from "../../../../i18n/locale-context";
+import { tHome } from "../i18n";
 
 export default function HomeHero() {
   const { locale } = useLocale();

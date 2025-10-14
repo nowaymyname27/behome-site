@@ -1,5 +1,5 @@
 // File: src/app/(site)/florida/i18n/index.ts
-import type { Locale } from "@/i18n/locale-context";
+import type { Locale } from "../../../../i18n/locale-context";
 
 import { dict as description } from "./description";
 import { dict as hero } from "./hero";

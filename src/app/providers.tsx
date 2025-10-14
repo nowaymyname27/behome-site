@@ -1,7 +1,7 @@
 // src/app/providers.tsx
 "use client";
 
-import { LocaleProvider } from "@/i18n/locale-context";
+import { LocaleProvider } from "../i18n/locale-context";
 
 export default function Providers({
   children,

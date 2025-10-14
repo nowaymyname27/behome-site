@@ -1,10 +1,10 @@
 // file: src/components/florida/FloridaBrochure.tsx
 "use client";
 
-import { useLocale } from "@/i18n/locale-context";
-import Brochure, { useBrochure } from "@/components/site-wide/Brochure";
-import Panel from "@/components/site-wide/Panel";
-import ScrollChevron from "@/components/site-wide/primitives/ScrollChevron";
+import { useLocale } from "../../../../i18n/locale-context";
+import Brochure, { useBrochure } from "../../../../components/site-wide/Brochure";
+import Panel from "../../../../components/site-wide/Panel";
+import ScrollChevron from "../../../../components/site-wide/primitives/ScrollChevron";
 
 export default function FloridaBrochure() {
   const { locale } = useLocale();

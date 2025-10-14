@@ -1,5 +1,5 @@
 // File: src/i18n/site-wide/index.ts
-import type { Locale } from "@/i18n/locale-context";
+import type { Locale } from "../locale-context";
 import { tHeader } from "./header";
 import { dict as footer } from "./footer";
 

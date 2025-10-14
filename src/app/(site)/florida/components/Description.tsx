@@ -1,6 +1,6 @@
 // File: /components/florida/Description.tsx
-import type { Locale } from "@/i18n/locale-context";
-import { tFlorida } from "@/app/(site)/florida/i18n";
+import type { Locale } from "../../../../i18n/locale-context";
+import { tFlorida } from "../i18n";
 
 export default function Description({ locale }: { locale: Locale }) {
   const i = tFlorida(locale).description;

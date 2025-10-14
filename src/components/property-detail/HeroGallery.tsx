@@ -2,7 +2,7 @@
 
 import Image, { StaticImageData } from "next/image";
 import { useRef } from "react";
-import ScrollChevron from "@/components/site-wide/primitives/ScrollChevron";
+import ScrollChevron from "../site-wide/primitives/ScrollChevron";
 
 type Img = { src: StaticImageData | string; alt?: string };
 

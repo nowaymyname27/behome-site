@@ -1,13 +1,13 @@
 // file: src/app/(site)/cluster/page.tsx
 "use client";
 
-import Header from "@/components/site-wide/Header";
-import Footer from "@/components/site-wide/Footer";
+import Header from "../../../components/site-wide/Header";
+import Footer from "../../../components/site-wide/Footer";
 import ClusterHero from "./components/ClusterHero";
 import ClusterDescription from "./components/ClusterDescription";
 import ClusterSubmenuWrapper from "./components/ClusterSubmenuWrapper";
-import HomeShowcase from "@/components/site-wide/HomeShowcase";
-import MediaCarousel from "@/components/site-wide/MediaCarousel";
+import HomeShowcase from "../../../components/site-wide/HomeShowcase";
+import MediaCarousel from "../../../components/site-wide/MediaCarousel";
 import useStickyOffsets from "./components/useStickyOffsets";
 
 // Import local images

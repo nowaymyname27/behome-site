@@ -3,11 +3,11 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import ScrollChevron from "@/components/site-wide/primitives/ScrollChevron";
+import ScrollChevron from "../../../../components/site-wide/primitives/ScrollChevron";
 
-import { useLocale } from "@/i18n/locale-context";
-import { tHome } from "@/app/(site)/(home)/i18n";
-import { getHomeDisplaySlides } from "@/app/(site)/(home)/i18n/display-slides";
+import { useLocale } from "../../../../i18n/locale-context";
+import { tHome } from "../i18n";
+import { getHomeDisplaySlides } from "../i18n/display-slides";
 
 /** ====== CONFIG ====== */
 const USE_VIDEO = true; // toggle between video and image carousel
