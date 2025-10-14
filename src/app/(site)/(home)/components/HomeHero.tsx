@@ -2,9 +2,14 @@
 "use client";
 
 import Hero from "@/components/site-wide/Hero";
-import HeroCard from "@/components/site-wide/HeroCard";
+import HeroCard from "@/app/(site)/(home)/components/HeroCard";
+import { useLocale } from "@/i18n/locale-context";
+import { tHome } from "@/app/(site)/(home)/i18n";
 
 export default function HomeHero() {
+  const { locale } = useLocale();
+  const i = tHome(locale).hero;
+
   return (
     <Hero>
       <Hero.Background>
@@ -16,6 +21,7 @@ export default function HomeHero() {
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
+          aria-label={i.videoAria}
         />
         <Hero.Scrim />
       </Hero.Background>
@@ -24,7 +30,7 @@ export default function HomeHero() {
         <Hero.Grid>
           {/* Copy */}
           <Hero.Copy>
-            <h1 className="h1 text-white">Find your next home</h1>
+            <h1 className="h1 text-white">{i.title}</h1>
 
             {/* Mobile card goes right below text */}
             <Hero.PromoMobile>

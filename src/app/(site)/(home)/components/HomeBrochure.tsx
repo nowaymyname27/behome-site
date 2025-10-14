@@ -13,7 +13,7 @@ import type { StaticImageData } from "next/image";
 export default function HomeBrochure() {
   const { locale } = useLocale();
   const i = tHome(locale).philosophy;
-  const slides = getHomePhilosophySlides(locale); // ensure each slide has {src, title, caption, body?}
+  const slides = getHomePhilosophySlides(locale); // {src, title, caption, body?}
 
   return (
     <Brochure>
@@ -24,9 +24,7 @@ export default function HomeBrochure() {
             <span className="text-accent font-semibold">{i.left.leadEm}</span>{" "}
             {i.left.leadRest}
           </p>
-          <p className="mt-3 text-sm opacity-80">
-            Tip: tap a card to read more.
-          </p>
+          <p className="mt-3 text-sm opacity-80">{i.tip}</p>
         </Brochure.Left>
 
         <Brochure.Right>

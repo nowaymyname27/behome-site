@@ -5,41 +5,27 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import ScrollChevron from "@/components/site-wide/primitives/ScrollChevron";
 
+import { useLocale } from "@/i18n/locale-context";
+import { tHome } from "@/app/(site)/(home)/i18n";
+import { getHomeDisplaySlides } from "@/app/(site)/(home)/i18n/display-slides";
+
 /** ====== CONFIG ====== */
 const USE_VIDEO = true; // toggle between video and image carousel
 const VIDEO_SRC = "/hero.mp4";
-
-const SLIDES = [
-  { src: "/images/looks/slide-1.jpg", alt: "Hardwood samples on display rack" },
-  { src: "/images/looks/slide-2.jpg", alt: "Quartz countertop close-up" },
-  { src: "/images/looks/slide-3.jpg", alt: "Tile layout and color swatches" },
-];
-
-const HEADING = "Looks that make life easier";
-const POINTS = [
-  {
-    title: "Beautiful designs",
-    body: "Curated styles where every color, material and detail is coordinated for you.",
-  },
-  {
-    title: "Simple choices",
-    body: "A few decisions to express your taste—applied consistently throughout the home.",
-  },
-  {
-    title: "Honest pricing",
-    body: "Clear, transparent pricing—no hidden costs or fees along the way.",
-  },
-];
 /** ==================== */
 
 export default function HomeDisplay() {
+  const { locale } = useLocale();
+  const i = tHome(locale).display;
+  const SLIDES = getHomeDisplaySlides(locale);
+
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<number | null>(null);
 
   const count = SLIDES.length;
 
-  // Stable callbacks (satisfy exhaustive-deps; logic unchanged)
+  // Stable callbacks
   const next = useCallback(() => {
     setIndex((i) => (i + 1) % count);
   }, [count]);
@@ -61,11 +47,11 @@ export default function HomeDisplay() {
         timerRef.current = null;
       }
     };
-  }, [paused, count, next]); // ✅ include next to satisfy exhaustive-deps
+  }, [paused, count, next]);
 
   const nextSrc = useMemo(
     () => (count ? SLIDES[(index + 1) % count].src : ""),
-    [index, count]
+    [index, count, SLIDES]
   );
 
   return (
@@ -80,10 +66,11 @@ export default function HomeDisplay() {
             muted
             playsInline
             className="absolute inset-0 h-full w-full object-cover"
+            aria-label={i.media.videoAria}
           />
         ) : (
           <>
-            {SLIDES.map((s, i) => (
+            {SLIDES.map((s, idx) => (
               <Image
                 key={s.src}
                 src={s.src}
@@ -92,9 +79,9 @@ export default function HomeDisplay() {
                 sizes="100vw"
                 className={[
                   "absolute inset-0 object-cover transition-opacity duration-700",
-                  i === index ? "opacity-100" : "opacity-0",
+                  idx === index ? "opacity-100" : "opacity-0",
                 ].join(" ")}
-                priority={i === index}
+                priority={idx === index}
               />
             ))}
             {nextSrc ? <link rel="preload" as="image" href={nextSrc} /> : null}
@@ -116,10 +103,10 @@ export default function HomeDisplay() {
             h-full
           "
         >
-          <h2 className="h2">{HEADING}</h2>
+          <h2 className="h2">{i.heading}</h2>
           <div className="mt-10 space-y-10 max-w-md">
-            {POINTS.map((p, i) => (
-              <div key={i}>
+            {i.points.map((p, idx) => (
+              <div key={idx}>
                 <div className="text-lg font-semibold tracking-tight uppercase">
                   {p.title}
                 </div>
@@ -145,10 +132,11 @@ export default function HomeDisplay() {
               muted
               playsInline
               className="absolute inset-0 h-full w-full object-cover"
+              aria-label={i.media.videoAria}
             />
           ) : (
             <>
-              {SLIDES.map((s, i) => (
+              {SLIDES.map((s, idx) => (
                 <Image
                   key={s.src}
                   src={s.src}
@@ -157,9 +145,9 @@ export default function HomeDisplay() {
                   sizes="(min-width:1024px) 66vw, 100vw"
                   className={[
                     "absolute inset-0 object-cover transition-opacity duration-700",
-                    i === index ? "opacity-100" : "opacity-0",
+                    idx === index ? "opacity-100" : "opacity-0",
                   ].join(" ")}
-                  priority={i === index}
+                  priority={idx === index}
                 />
               ))}
 
@@ -172,13 +160,13 @@ export default function HomeDisplay() {
                   <ScrollChevron
                     dir={-1}
                     side="left"
-                    ariaLabel="Previous image"
+                    ariaLabel={i.aria.previous}
                     onClick={prev}
                   />
                   <ScrollChevron
                     dir={1}
                     side="right"
-                    ariaLabel="Next image"
+                    ariaLabel={i.aria.next}
                     onClick={next}
                   />
                 </>
@@ -186,14 +174,14 @@ export default function HomeDisplay() {
 
               {count > 1 && (
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-                  {SLIDES.map((_, i) => (
+                  {SLIDES.map((_, dot) => (
                     <button
-                      key={i}
-                      onClick={() => setIndex(i)}
-                      aria-label={`Go to slide ${i + 1}`}
+                      key={dot}
+                      onClick={() => setIndex(dot)}
+                      aria-label={i.aria.goToSlide(dot + 1)}
                       className={[
                         "h-2.5 w-2.5 rounded-full transition",
-                        i === index
+                        dot === index
                           ? "bg-accent"
                           : "bg-background/70 hover:bg-background",
                       ].join(" ")}

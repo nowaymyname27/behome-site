@@ -40,7 +40,7 @@ export default function SiteMap({
     navigationControl: true,
     attribution: {
       compact: true,
-      customAttribution: "© BeHome",
+      customAttribution: "© Rent Porfolio",
       position: "bottom-left",
     },
   });
