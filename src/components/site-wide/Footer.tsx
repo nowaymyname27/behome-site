@@ -5,24 +5,54 @@ import { useMemo, useState } from "react";
 import { useLocale } from "../../i18n/locale-context";
 import { tFooter } from "../../i18n/site-wide/footer";
 
+// --- readonly-friendly types ---
+type LegalDoc = Readonly<{
+  id: string;
+  title: string;
+  content: string;
+  lastUpdated?: string;
+}>;
+
+type FooterI18n = Readonly<{
+  brand: string;
+  tagline: string;
+  contact: Readonly<{
+    title: string;
+    phoneLabel: string;
+    emailLabel: string;
+    addressLabel: string;
+    phone: string;
+    email: string;
+    address: string;
+  }>;
+  legal: Readonly<{
+    title: string;
+    disclaimer: string;
+    rights: string;
+    more: string;
+    less: string;
+    documents?: ReadonlyArray<LegalDoc>;
+  }>;
+}>;
+
 export default function Footer() {
   const { locale } = useLocale();
-  const i = tFooter(locale);
+
+  // Cast once to a readonly-compatible shape
+  const i = tFooter(locale) as FooterI18n;
+
   const [expanded, setExpanded] = useState(false);
   const [activeDocId, setActiveDocId] = useState<string | null>(null);
   const legalId = "footer-legal";
 
-  const documents = (i.legal as any)?.documents as
-    | { id: string; title: string; lastUpdated?: string; content: string }[]
-    | undefined;
+  const documents = i.legal.documents; // ReadonlyArray<LegalDoc> | undefined
+  const hasDocuments = Boolean(documents?.length);
 
-  const activeDoc = useMemo(() => {
+  const activeDoc = useMemo<LegalDoc | null>(() => {
     if (!documents?.length) return null;
     const id = activeDocId ?? documents[0].id;
     return documents.find((d) => d.id === id) ?? documents[0];
   }, [documents, activeDocId]);
-
-  const hasDocuments = Boolean(documents?.length);
 
   return (
     <footer className="w-full bg-accent text-accent-foreground">
@@ -30,7 +60,6 @@ export default function Footer() {
       <section className="px-6 lg:px-8 py-10 border-b border-border/50">
         <h3 className="font-semibold text-lg">{i.legal.title}</h3>
 
-        {/* Document switcher (only if documents provided) */}
         {hasDocuments && (
           <div className="mt-3 flex flex-wrap gap-2 text-xs">
             {documents!.map((doc) => {
@@ -91,7 +120,7 @@ export default function Footer() {
         </div>
       </section>
 
-      {/* ===== Brand + Contact (below, separate block) ===== */}
+      {/* ===== Brand + Contact ===== */}
       <section className="px-6 lg:px-8 py-12 grid gap-10 sm:grid-cols-3">
         <div>
           <div className="font-semibold text-lg">{i.brand}</div>
@@ -113,7 +142,6 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Third column intentionally empty unless you add more sections */}
         <div />
       </section>
 
