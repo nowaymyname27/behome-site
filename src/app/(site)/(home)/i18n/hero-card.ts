@@ -1,3 +1,4 @@
+// file: src/app/(site)/(home)/i18n/hero-card.ts
 import type { Locale, HeroCardStrings, Cta } from "./types";
 
 // Define hrefs once
@@ -8,12 +9,19 @@ const BASE_CTAS = {
 // Locale text
 const HERO_CARD_COPY = {
   en: {
+    // kept for backward-compat (component now uses heading/subheading/tabs)
     title: "Thoughtfully designed homes across Florida",
     aria: { promotion: "Promotion" },
+    heading: "Sarasota County – Florida’s Gulf Coast",
+    subheading: "SaraHomes by RentPortfolio",
+    tabs: ["No-HOA Homes", "Dollar Cash Flow", "Management Included"],
   },
   es: {
     title: "Hogares diseñados con cuidado en toda Florida",
     aria: { promotion: "Promoción" },
+    heading: "Sarasota County – Costa Oeste de Florida",
+    subheading: "SaraHomes by RentPortfolio",
+    tabs: ["Casas sin HOA", "Flujo en dólares", "Administración incluida"],
   },
 } satisfies Record<Locale, HeroCardStrings>;
 

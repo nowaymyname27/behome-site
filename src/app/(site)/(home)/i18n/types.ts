@@ -31,13 +31,19 @@ export type HomeStrings = {
 };
 
 // ---- HeroCard types
-export type HeroCardStrings = {
-  title: string;
-  aria: { promotion: string };
+export type Cta = {
+  href: string;
+  label: string;
 };
 
-export type Cta = { label: string; href: string };
-
+export type HeroCardStrings = {
+  aria: { promotion: string };
+  // keep title optional for backward-compat
+  title?: string;
+  heading: string;
+  subheading: string; // “SaraHomes by RentPortfolio”
+  tabs: readonly [string, string, string];
+};
 // ---- Home brochure/philosophy slides
 export type HomePhilosophySlide = {
   src: string; // builder returns string paths
