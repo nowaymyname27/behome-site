@@ -1,4 +1,5 @@
-// File: /components/florida/Description.tsx
+// file: src/components/florida/Description.tsx
+// (unchanged imports per your instruction)
 import type { Locale } from "../../../../i18n/locale-context";
 import { tFlorida } from "../i18n";
 

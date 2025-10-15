@@ -1,27 +1,30 @@
-// File: src/app/(site)/florida/i18n/index.ts
-import type { Locale } from "../../../../i18n/locale-context";
+// Florida/i18n/index.ts
+import type { FloridaStrings, Locale } from "./types";
+import { hero } from "./hero";
+import { description } from "./description";
+import { map } from "./map";
+import { project } from "./project";
+import { brochure } from "./brochure";
 
-import { dict as description } from "./description";
-import { dict as hero } from "./hero";
-import { dict as projectMap } from "./project-map";
-import { dict as project } from "./project";
-import { dict as brochure } from "./brochure";
-import { slides as brochureSlides } from "./brochure-slides";
+const dict = {
+  en: {
+    heading: "Florida Portfolio",
+    hero: hero.en,
+    description: description.en,
+    map: map.en,
+    project: project.en,
+    brochure: brochure.en,
+  } satisfies FloridaStrings,
+  es: {
+    heading: "Portafolio de Florida",
+    hero: hero.es,
+    description: description.es,
+    map: map.es,
+    project: project.es,
+    brochure: brochure.es,
+  } satisfies FloridaStrings,
+} as const;
 
-export type FloridaI18n = {
-  description: typeof description.en;
-  hero: typeof hero.en;
-  projectMap: typeof projectMap.en;
-  project: typeof project.en;
-  brochure: typeof brochure.en;
-  brochureSlides: typeof brochureSlides.en;
-};
-
-export const tFlorida = (l: Locale): FloridaI18n => ({
-  description: description[l],
-  hero: hero[l],
-  projectMap: projectMap[l],
-  project: project[l],
-  brochure: brochure[l],
-  brochureSlides: brochureSlides[l],
-});
+export function tFlorida(locale: Locale): FloridaStrings {
+  return locale === "es" ? dict.es : dict.en;
+}

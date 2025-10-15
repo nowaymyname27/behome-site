@@ -1,5 +1,5 @@
 // File: src/app/(site)/(home)/i18n/display-slides.ts
-import type { Locale } from "./index";
+import type { Locale, HomeDisplaySlide } from "./types";
 
 type SlideId = "hardwood" | "quartz" | "tile";
 
@@ -30,7 +30,9 @@ const LABELS = {
 } as const;
 
 // 3) Builder
-export function getHomeDisplaySlides(locale: Locale) {
+export function getHomeDisplaySlides(
+  locale: Locale
+): ReadonlyArray<HomeDisplaySlide> {
   const dict = locale === "es" ? LABELS.es : LABELS.en;
   return BASE_SLIDES.map(({ id, src }) => ({
     src,

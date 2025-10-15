@@ -1,7 +1,7 @@
 // File: /components/Footer.tsx
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useLocale } from "../../i18n/locale-context";
 import { tFooter } from "../../i18n/site-wide/footer";
 
@@ -9,7 +9,20 @@ export default function Footer() {
   const { locale } = useLocale();
   const i = tFooter(locale);
   const [expanded, setExpanded] = useState(false);
+  const [activeDocId, setActiveDocId] = useState<string | null>(null);
   const legalId = "footer-legal";
+
+  const documents = (i.legal as any)?.documents as
+    | { id: string; title: string; lastUpdated?: string; content: string }[]
+    | undefined;
+
+  const activeDoc = useMemo(() => {
+    if (!documents?.length) return null;
+    const id = activeDocId ?? documents[0].id;
+    return documents.find((d) => d.id === id) ?? documents[0];
+  }, [documents, activeDocId]);
+
+  const hasDocuments = Boolean(documents?.length);
 
   return (
     <footer className="w-full bg-accent text-accent-foreground">
@@ -17,24 +30,55 @@ export default function Footer() {
       <section className="px-6 lg:px-8 py-10 border-b border-border/50">
         <h3 className="font-semibold text-lg">{i.legal.title}</h3>
 
-        <div className="relative mt-2 text-xs leading-relaxed">
-          {/* Collapsible area */}
+        {/* Document switcher (only if documents provided) */}
+        {hasDocuments && (
+          <div className="mt-3 flex flex-wrap gap-2 text-xs">
+            {documents!.map((doc) => {
+              const active = (activeDoc?.id ?? "") === doc.id;
+              return (
+                <button
+                  key={doc.id}
+                  type="button"
+                  onClick={() => setActiveDocId(doc.id)}
+                  className={`px-2 py-1 rounded border ${
+                    active
+                      ? "bg-accent-foreground text-accent"
+                      : "border-border/60"
+                  }`}
+                >
+                  {doc.title}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        <div className="relative mt-3 text-xs leading-relaxed">
           <div
             id={legalId}
             className={`transition-[max-height] duration-300 ease-in-out overflow-hidden ${
-              expanded ? "max-h-[48rem]" : "max-h-24"
+              expanded ? "max-h-[64rem]" : "max-h-24"
             }`}
             aria-live="polite"
           >
-            <p className="opacity-70">{i.legal.disclaimer}</p>
+            {hasDocuments ? (
+              <>
+                {activeDoc?.lastUpdated && (
+                  <div className="opacity-70 mb-2">{activeDoc.lastUpdated}</div>
+                )}
+                <pre className="whitespace-pre-wrap opacity-70 font-sans">
+                  {activeDoc?.content}
+                </pre>
+              </>
+            ) : (
+              <p className="opacity-70">{i.legal.disclaimer}</p>
+            )}
           </div>
 
-          {/* Fade when collapsed */}
           {!expanded && (
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-accent to-accent/0" />
           )}
 
-          {/* Toggle */}
           <button
             type="button"
             onClick={() => setExpanded((v) => !v)}
@@ -69,7 +113,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* (Optional third column reserved for later content) */}
+        {/* Third column intentionally empty unless you add more sections */}
         <div />
       </section>
 

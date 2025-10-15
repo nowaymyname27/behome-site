@@ -2,10 +2,11 @@
 "use client";
 
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHome } from "../i18n";
-import { getHomePhilosophySlides } from "../i18n/philosophy-slides";
+import { tHome, getHomePhilosophySlides } from "../i18n";
 
-import Brochure, { useBrochure } from "../../../../components/site-wide/Brochure";
+import Brochure, {
+  useBrochure,
+} from "../../../../components/site-wide/Brochure";
 import Panel from "../../../../components/site-wide/Panel";
 import ScrollChevron from "../../../../components/site-wide/primitives/ScrollChevron";
 import type { StaticImageData } from "next/image";
@@ -13,7 +14,7 @@ import type { StaticImageData } from "next/image";
 export default function HomeBrochure() {
   const { locale } = useLocale();
   const i = tHome(locale).philosophy;
-  const slides = getHomePhilosophySlides(locale); // {src, title, caption, body?}
+  const slides = getHomePhilosophySlides(locale); // readonly array
 
   return (
     <Brochure>
@@ -42,13 +43,13 @@ export default function HomeBrochure() {
 /* --- helpers (inside provider) --- */
 
 type HomeSlide = {
-  src: string | StaticImageData;
+  src: string | StaticImageData; // builder returns string; StaticImageData keeps future flexibility
   title: string;
   caption: string;
   body?: string;
 };
 
-function PanelsList({ slides }: { slides: HomeSlide[] }) {
+function PanelsList({ slides }: { slides: ReadonlyArray<HomeSlide> }) {
   const { openIndex, setOpenIndex } = useBrochure();
 
   return (

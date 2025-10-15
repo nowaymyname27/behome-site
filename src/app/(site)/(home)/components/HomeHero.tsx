@@ -13,7 +13,6 @@ export default function HomeHero() {
   return (
     <Hero>
       <Hero.Background>
-        {/* Background video */}
         <video
           src="/hero.mp4"
           autoPlay
@@ -28,11 +27,10 @@ export default function HomeHero() {
 
       <Hero.Container>
         <Hero.Grid>
-          {/* Copy */}
           <Hero.Copy>
             <h1 className="h1 text-white">{i.title}</h1>
+            <p className="mt-4 text-lg text-white/90">{i.subtitle}</p>
 
-            {/* Mobile card goes right below text */}
             <Hero.PromoMobile>
               <div className="mt-6">
                 <HeroCard />
@@ -40,7 +38,6 @@ export default function HomeHero() {
             </Hero.PromoMobile>
           </Hero.Copy>
 
-          {/* Desktop card stays in the right column */}
           <Hero.PromoDesktop>
             <HeroCard />
           </Hero.PromoDesktop>

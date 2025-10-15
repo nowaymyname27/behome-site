@@ -1,28 +1,21 @@
-// File: src/app/(site)/florida/i18n/hero.ts
-import type { Locale } from "../../../../i18n/locale-context";
-
-// EN = source of truth
-const en = {
-  hero: {
-    title: "Florida",
+// Florida/i18n/hero.ts
+export const hero = {
+  en: {
+    title: "Welcome to Sarasota",
+    subtitle:
+      "Discover the beauty of Florida living with our thoughtfully designed communities and homes.",
+    promoTitle: "Explore Our Projects",
+    promoText:
+      "From single-family homes to cluster communities, see what we’re building in Sarasota.",
+    promoCta: "View Projects",
+  },
+  es: {
+    title: "Bienvenido a Sarasota",
+    subtitle:
+      "Descubre la belleza de vivir en Florida con nuestras comunidades y hogares diseñados con cuidado.",
+    promoTitle: "Explora Nuestros Proyectos",
+    promoText:
+      "Desde casas unifamiliares hasta comunidades tipo clúster, conoce lo que estamos construyendo en Sarasota.",
+    promoCta: "Ver Proyectos",
   },
 } as const;
-
-// Widen leaves to string, keep structure
-type DeepString<T> = T extends string
-  ? string
-  : { [K in keyof T]: DeepString<T[K]> };
-type NcHeroSchema = DeepString<typeof en>;
-
-const es: NcHeroSchema = {
-  hero: {
-    title: "Florida",
-  },
-};
-
-// Export a single dict for the aggregator
-export const dict = { en: en as NcHeroSchema, es } as const;
-export type NcHeroI18n = typeof dict.en;
-
-// (Optional) helper if you still use it elsewhere
-export const tNcHero = (locale: Locale) => dict[locale];

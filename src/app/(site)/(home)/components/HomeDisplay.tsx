@@ -6,8 +6,7 @@ import Image from "next/image";
 import ScrollChevron from "../../../../components/site-wide/primitives/ScrollChevron";
 
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHome } from "../i18n";
-import { getHomeDisplaySlides } from "../i18n/display-slides";
+import { tHome, getHomeDisplaySlides } from "../i18n"; // <-- updated import
 
 /** ====== CONFIG ====== */
 const USE_VIDEO = true; // toggle between video and image carousel
@@ -17,7 +16,7 @@ const VIDEO_SRC = "/hero.mp4";
 export default function HomeDisplay() {
   const { locale } = useLocale();
   const i = tHome(locale).display;
-  const SLIDES = getHomeDisplaySlides(locale);
+  const SLIDES = getHomeDisplaySlides(locale); // readonly array
 
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -93,16 +92,7 @@ export default function HomeDisplay() {
       {/* CONTENT GRID */}
       <div className="relative grid grid-cols-1 md:grid-cols-3 min-h-screen">
         {/* LEFT COLUMN (text) */}
-        <aside
-          className="
-            flex flex-col justify-center
-            px-6 sm:px-10 py-12
-            bg-transparent md:bg-background
-            text-foreground
-            z-10
-            h-full
-          "
-        >
+        <aside className="flex flex-col justify-center px-6 sm:px-10 py-12 bg-transparent md:bg-background text-foreground z-10 h-full">
           <h2 className="h2">{i.heading}</h2>
           <div className="mt-10 space-y-10 max-w-md">
             {i.points.map((p, idx) => (

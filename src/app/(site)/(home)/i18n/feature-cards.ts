@@ -1,81 +1,82 @@
 // File: src/app/(site)/(home)/i18n/feature-cards.ts
-import type { Locale } from "./index";
-
-type CardId = "fl-plans" | "nc-communities" | "features";
+import type { Locale, CardId, HomeFeatureCard } from "./types";
 
 type BaseCard = {
   id: CardId;
   href: string;
-  imageSrc: string; // keep asset paths stable; translate labels separately
+  imageSrc: string;
 };
 
-// 1) Define once (href + imageSrc only)
-const BASE_CARDS: BaseCard[] = [
+const BASE_CARDS: ReadonlyArray<BaseCard> = [
   {
     id: "fl-plans",
-    href: "/floor-plans",
-    imageSrc: "/images/philosophy/slide-1.jpg",
+    href: "/build-to-rent",
+    imageSrc: "/images/home/btr.jpg",
   },
   {
     id: "nc-communities",
-    href: "/communities",
-    imageSrc: "/images/home/community.jpg",
+    href: "/single-family",
+    imageSrc: "/images/home/single-family.jpg",
   },
-  { id: "features", href: "/features", imageSrc: "/images/home/features.jpg" },
+  {
+    id: "features",
+    href: "/clusters",
+    imageSrc: "/images/home/clusters.jpg",
+  },
 ];
 
-// 2) Locale labels
 const LABELS = {
   en: {
     "fl-plans": {
-      imageAlt: "Open concept kitchen and living room with large windows",
-      heading: "Flexible Floor Plans",
+      imageAlt: "New homes built for rent from day one",
+      heading: "Built to Rent (BTR)",
       description:
-        "Choose layouts that fit your lifestyle—add a study, expand the kitchen, or create a guest suite.",
-      ctaLabel: "Explore plans",
+        "New homes built exclusively for rent from day one. Individual or grouped properties ready to generate stable, predictable income—ideal for investors seeking security, tax advantages, and capital appreciation.",
+      ctaLabel: "Explore more",
     },
     "nc-communities": {
-      imageAlt: "Tree-lined street with family-friendly sidewalks",
-      heading: "Thoughtful Communities",
+      imageAlt: "Modern single-family home with quality finishes",
+      heading: "Single Family Home",
       description:
-        "Walkable streets, nearby parks, and quick access to what matters—designed with daily life in mind.",
-      ctaLabel: "See locations",
+        "New single-family homes with excellent design, finishes, and location. Buy at pre-sale prices, rent long-term, and enjoy simple management—perfect for those starting or diversifying their portfolio.",
+      ctaLabel: "Explore more",
     },
     features: {
-      imageAlt: "Bright bedroom with natural light and soft finishes",
-      heading: "Comfort, Inside & Out",
+      imageAlt: "Group of rental homes within a shared development",
+      heading: "Rental Clusters (4–8 Homes)",
       description:
-        "Light-filled rooms, durable finishes, and energy-smart options that feel good now and later.",
-      ctaLabel: "View features",
+        "Clusters of homes within the same lot or project, designed for scale. They offer operational advantages, consolidated returns, and management efficiency—perfect for investors ready to grow faster.",
+      ctaLabel: "Explore more",
     },
   },
   es: {
     "fl-plans": {
-      imageAlt: "Cocina y sala de concepto abierto con grandes ventanales",
-      heading: "Planos Flexibles",
+      imageAlt: "Viviendas nuevas construidas para rentar desde el primer día",
+      heading: "Built to Rent (BTR)",
       description:
-        "Elige distribuciones que se adapten a tu estilo de vida: añade un estudio, amplía la cocina o crea una suite de invitados.",
-      ctaLabel: "Explorar planos",
+        "Viviendas nuevas construidas exclusivamente para rentar desde el primer día. Son propiedades individuales o agrupadas, listas para generar ingresos de forma estable y predecible. Ideal para inversores que buscan seguridad, ahorro fiscal y apreciación de capital.",
+      ctaLabel: "Explorar más",
     },
     "nc-communities": {
-      imageAlt: "Calle arbolada con aceras ideales para familias",
-      heading: "Comunidades Pensadas",
+      imageAlt: "Casa unifamiliar moderna con acabados de alta calidad",
+      heading: "Single Family Home",
       description:
-        "Calles caminables, parques cercanos y acceso rápido a lo importante—diseñadas para la vida diaria.",
-      ctaLabel: "Ver ubicaciones",
+        "Casas unifamiliares nuevas con excelente diseño, acabados y ubicación. Puedes comprarlas con precio de preventa, alquilarlas a largo plazo y contar con una estructura simple de gestión. Apta para quien inicia o diversifica su portafolio.",
+      ctaLabel: "Explorar más",
     },
     features: {
-      imageAlt: "Dormitorio luminoso con luz natural y acabados suaves",
-      heading: "Comodidad por Dentro y por Fuera",
+      imageAlt: "Agrupación de casas dentro de un mismo proyecto",
+      heading: "Clusters de Renta (4–8 casas)",
       description:
-        "Ambientes luminosos, materiales duraderos y opciones de eficiencia que se sienten bien hoy y mañana.",
-      ctaLabel: "Ver características",
+        "Agrupaciones de casas dentro del mismo lote o proyecto, diseñadas para generar escala. Ofrecen ventajas operativas, mayor retorno consolidado y eficiencia administrativa. Perfecto para quienes desean escalar más rápido.",
+      ctaLabel: "Explorar más",
     },
   },
 } as const;
 
-// 3) Builder
-export function getHomeFeatureCards(locale: Locale) {
+export function getHomeFeatureCards(
+  locale: Locale
+): ReadonlyArray<HomeFeatureCard> {
   const dict = locale === "es" ? LABELS.es : LABELS.en;
   return BASE_CARDS.map(({ id, href, imageSrc }) => ({
     id,

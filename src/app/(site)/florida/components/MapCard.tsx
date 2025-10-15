@@ -1,8 +1,9 @@
-// src/app/(site)/florida/components/MapCard.tsx
 "use client";
 
 import * as React from "react";
 import Link from "next/link";
+import type { Locale } from "../../../../i18n/locale-context";
+import { tFlorida } from "../i18n";
 
 export type MapCardProps = {
   id: string;
@@ -11,9 +12,9 @@ export type MapCardProps = {
   href: string;
   active: boolean;
   onToggle: (id: string, nextActive: boolean) => void;
-  /** Tailwind classes for the color swatch, e.g. "bg-red-600 ring-red-400/40" */
   swatchClass?: string;
   className?: string;
+  locale: Locale;
 };
 
 export default function MapCard({
@@ -25,7 +26,10 @@ export default function MapCard({
   onToggle,
   swatchClass = "bg-accent ring-accent/40",
   className = "",
+  locale,
 }: MapCardProps) {
+  const i = tFlorida(locale).map.card;
+
   return (
     <div
       className={[
@@ -48,11 +52,10 @@ export default function MapCard({
           <div className="flex items-start justify-between gap-3">
             <h3 className="text-base font-semibold text-foreground">{title}</h3>
 
-            {/* Updated toggle: passes swatchClass so the toggle matches product color */}
             <Toggle
               checked={active}
               onChange={(next) => onToggle(id, next)}
-              ariaLabel={`Show ${title} on map`}
+              ariaLabel={i.toggleAria.replace("{title}", title)}
               accentClass={swatchClass}
             />
           </div>
@@ -61,7 +64,7 @@ export default function MapCard({
 
           <div className="mt-3">
             <Link href={href} className="btn btn-FL">
-              Explore
+              {i.explore}
             </Link>
           </div>
         </div>
@@ -80,10 +83,8 @@ function Toggle({
   checked: boolean;
   onChange: (next: boolean) => void;
   ariaLabel?: string;
-  /** e.g. "bg-red-600 ring-red-400/40" */
   accentClass?: string;
 }) {
-  // Pull a single bg-* token and a single ring-* token out of the provided class string
   const tokens = accentClass.trim().split(/\s+/).filter(Boolean);
   const bgToken = tokens.find((t) => t.startsWith("bg-")) ?? "bg-accent";
   const ringToken =
@@ -99,15 +100,11 @@ function Toggle({
       className={[
         "relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full transition-colors",
         "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent",
-        // Track styles
         checked
-          ? // ON: filled with accent color
-            `${bgToken} shadow-inner`
-          : // OFF: neutral track + visible colored ring so it stands out on white
-            `bg-background border border-border ${ringToken} ring-2 ring-offset-2 ring-offset-background`,
+          ? `${bgToken} shadow-inner`
+          : `bg-background border border-border ${ringToken} ring-2 ring-offset-2 ring-offset-background`,
       ].join(" ")}
     >
-      {/* Knob */}
       <span
         className={[
           "pointer-events-none absolute top-0.5 left-0.5 inline-flex h-5 w-5 transform items-center justify-center rounded-full",
@@ -115,11 +112,10 @@ function Toggle({
           checked ? "translate-x-5" : "translate-x-0",
         ].join(" ")}
       >
-        {/* Inner dot: shows accent color when OFF, hidden when ON */}
         <span
           className={[
             "h-2.5 w-2.5 rounded-full transition-opacity",
-            checked ? "opacity-0" : bgToken, // off: colored dot for contrast
+            checked ? "opacity-0" : bgToken,
           ].join(" ")}
         />
       </span>

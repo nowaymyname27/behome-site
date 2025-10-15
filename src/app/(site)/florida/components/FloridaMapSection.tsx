@@ -1,4 +1,4 @@
-// src/app/(site)/florida/components/FloridaMapSection.tsx
+// file: src/app/(site)/florida/components/FloridaMapSection.tsx
 "use client";
 
 import * as React from "react";
@@ -13,39 +13,32 @@ import { MARKER_VARIANTS } from "../../../../components/site-wide/map/markerButt
 import type { MarkerMode } from "../../../../components/site-wide/map/useMarkersController";
 import MapCard from "./MapCard";
 
+// i18n
+import type { Locale } from "../../../../i18n/locale-context";
+import { tFlorida } from "../i18n";
+
 type ProductId = "single-family" | "btr" | "cluster";
 
-const PRODUCTS: Array<{
+const PRODUCTS_META: Array<{
   id: ProductId;
-  title: string;
-  description: string;
   href: string;
   variant: Variant;
   tagKey: string;
 }> = [
   {
     id: "btr",
-    title: "Build-to-Rent",
-    description:
-      "We build homes specifically for investors to rent—optimized for durability, yield, and low vacancy.",
     href: "/products/build-to-rent",
     variant: "info",
     tagKey: "btr",
   },
   {
     id: "single-family",
-    title: "Single-Family Homes",
-    description:
-      "Own your home outright. Classic single-family residences in great neighborhoods.",
     href: "/products/single-family",
     variant: "danger",
     tagKey: "single-family",
   },
   {
     id: "cluster",
-    title: "Clusters",
-    description:
-      "A set of single-family homes delivered together—operate as a micro-portfolio.",
     href: "/products/clusters",
     variant: "warning",
     tagKey: "cluster",
@@ -53,18 +46,22 @@ const PRODUCTS: Array<{
 ];
 
 export default function FloridaMapSection({
+  locale,
   points,
   center,
   zoom = 6.5,
   theme = "light",
   className = "",
 }: {
+  locale: Locale;
   points: Point[];
   center: [number, number];
   zoom?: number;
   theme?: ThemeKey;
   className?: string;
 }) {
+  const i = tFlorida(locale).map;
+
   const [active, setActive] = React.useState<Set<ProductId>>(new Set());
 
   const toggle = (id: ProductId, next: boolean) => {
@@ -83,7 +80,7 @@ export default function FloridaMapSection({
   const mode: MarkerMode<Point> | undefined = React.useMemo(() => {
     if (active.size === 0) return undefined;
 
-    const byId = new Map(PRODUCTS.map((p) => [p.id, p]));
+    const byId = new Map(PRODUCTS_META.map((p) => [p.id, p]));
     const activeTagKeys = new Set(
       Array.from(active).map((id) => byId.get(id)!.tagKey)
     );
@@ -92,7 +89,7 @@ export default function FloridaMapSection({
       filter: (p) => !!p.tags?.some((t) => activeTagKeys.has(t)),
       variantFor: (p) => {
         if (!p.tags) return undefined;
-        for (const prod of PRODUCTS) {
+        for (const prod of PRODUCTS_META) {
           if (active.has(prod.id) && p.tags.includes(prod.tagKey)) {
             return prod.variant;
           }
@@ -101,6 +98,20 @@ export default function FloridaMapSection({
       },
     };
   }, [active]);
+
+  // Merge meta + i18n copy for render
+  const PRODUCTS = React.useMemo(
+    () =>
+      PRODUCTS_META.map((meta) => {
+        const copy = i.products[meta.id];
+        return {
+          ...meta,
+          title: copy.title,
+          description: copy.description,
+        };
+      }),
+    [i.products]
+  );
 
   return (
     <section className={["w-full", className].join(" ")}>
@@ -141,10 +152,8 @@ export default function FloridaMapSection({
                 <div
                   key={p.id}
                   className={[
-                    // Bigger cards on mobile; keep square shape
                     "aspect-square flex-none",
                     "w-[280px] sm:w-[300px] md:w-[240px] xl:w-full",
-                    // Snap for nicer mobile scroll
                     "snap-center md:snap-none",
                   ].join(" ")}
                 >
@@ -157,6 +166,7 @@ export default function FloridaMapSection({
                     onToggle={(id, next) => toggle(id as ProductId, next)}
                     swatchClass={MARKER_VARIANTS[p.variant]}
                     className="h-full flex flex-col"
+                    locale={locale}
                   />
                 </div>
               ))}
@@ -168,7 +178,7 @@ export default function FloridaMapSection({
                 onClick={() => setActive(new Set())}
                 className="mt-3 md:mt-4 text-sm text-muted-foreground hover:text-foreground underline underline-offset-4"
               >
-                Clear filters
+                {i.clearFilters}
               </button>
             )}
           </div>

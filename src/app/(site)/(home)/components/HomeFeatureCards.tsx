@@ -3,13 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHome } from "../i18n";
-import { getHomeFeatureCards } from "../i18n/feature-cards";
+import { tHome, getHomeFeatureCards } from "../i18n"; // <— updated
 
 export default function HomeFeatureCards() {
   const { locale } = useLocale();
   const i = tHome(locale).featureCards;
-  const FEATURES = getHomeFeatureCards(locale);
+  const FEATURES = getHomeFeatureCards(locale); // readonly array; slice/map work fine
 
   if (!FEATURES.length) return null;
 
@@ -22,20 +21,13 @@ export default function HomeFeatureCards() {
         </header>
       ) : null}
 
-      {/* grid uses full width with padding, no max-w */}
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.slice(0, 3).map((f) => (
             <article
               key={f.id}
-              className="
-                rounded-2xl border border-border bg-white overflow-hidden
-                shadow-md transition
-                hover:-translate-y-1 hover:shadow-xl focus-within:shadow-xl
-                hover:ring-1 hover:ring-accent/20
-              "
+              className="rounded-2xl border border-border bg-white overflow-hidden shadow-md transition hover:-translate-y-1 hover:shadow-xl focus-within:shadow-xl hover:ring-1 hover:ring-accent/20"
             >
-              {/* Image */}
               <div className="relative aspect-[16/9]">
                 <Image
                   src={f.imageSrc}
@@ -46,7 +38,6 @@ export default function HomeFeatureCards() {
                 />
               </div>
 
-              {/* Body */}
               <div className="p-5 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-semibold tracking-tight line-clamp-2">
                   {f.heading}
