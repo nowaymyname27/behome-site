@@ -1,6 +1,26 @@
 // File: src/app/(site)/(home)/i18n/feature-cards.ts
 import type { Locale, CardId, HomeFeatureCard } from "./types";
 
+/* ============================================
+   1️⃣  Section-level i18n (moved from copy.ts)
+   ============================================ */
+const enFeatureCards = {
+  showHeader: true,
+  title: "How to Invest with Us",
+  blurb: "Three models to build your rental portfolio.",
+};
+
+const esFeatureCards = {
+  showHeader: true,
+  title: "Cómo invertir con nosotros",
+  blurb: "Tres modelos para construir tu portafolio de renta.",
+};
+
+export const homeFeatureCardsCopy = { en: enFeatureCards, es: esFeatureCards };
+
+/* ============================================
+   2️⃣  Card definitions and builder
+   ============================================ */
 type BaseCard = {
   id: CardId;
   href: string;

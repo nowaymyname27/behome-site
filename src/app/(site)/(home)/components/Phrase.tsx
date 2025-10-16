@@ -2,11 +2,11 @@
 "use client";
 
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHome } from "../i18n";
+import { tHomePhrase } from "../i18n"; // ✅ dedicated helper
 
 export default function Phrase() {
   const { locale } = useLocale();
-  const i = tHome(locale).phrase;
+  const i = tHomePhrase(locale); // ✅ now scoped to phrase only
 
   return (
     <section className="w-full px-6 lg:px-8 section-pad text-center text-foreground bg-background">

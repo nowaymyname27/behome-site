@@ -1,4 +1,4 @@
-// File: src/app/(site)/(home)/i18n/philosophy-slides.ts
+// File: src/app/(site)/(home)/i18n/philosophy.ts
 import type { Locale, HomePhilosophySlide } from "./types";
 
 type SlideId =
@@ -14,7 +14,9 @@ type BaseSlide = {
   src: string;
 };
 
-// 1) Define base slides — only need IDs and image paths
+// ------------------------------
+// Slides (images + per-card copy)
+// ------------------------------
 const BASE_SLIDES: BaseSlide[] = [
   { id: "experience", src: "/images/philosophy/experience.jpg" },
   { id: "returns", src: "/images/philosophy/returns.jpg" },
@@ -24,7 +26,6 @@ const BASE_SLIDES: BaseSlide[] = [
   { id: "timeline", src: "/images/philosophy/timeline.jpg" },
 ];
 
-// 2) Text labels — bilingual content for front and back of each card
 const LABELS = {
   es: {
     experience: {
@@ -92,7 +93,6 @@ const LABELS = {
   },
 } as const;
 
-// 3) Export builder — automatically adapts if you add new slides
 export function getHomePhilosophySlides(
   locale: Locale
 ): ReadonlyArray<HomePhilosophySlide> {
@@ -103,4 +103,40 @@ export function getHomePhilosophySlides(
     caption: dict[id].caption,
     body: dict[id].body,
   }));
+}
+
+// ------------------------------
+// Section header / aria strings
+// ------------------------------
+const PHILOSOPHY = {
+  en: {
+    left: {
+      title: "Our philosophy",
+      leadEm: "Built for living,",
+      leadRest: "designed for life.",
+    },
+    tip: "Tip: tap a card to read more.",
+    aria: {
+      panels: "Philosophy panels",
+      previous: "Previous card",
+      next: "Next card",
+    },
+  },
+  es: {
+    left: {
+      title: "Nuestra filosofía",
+      leadEm: "Hecho para vivir,",
+      leadRest: "diseñado para la vida.",
+    },
+    tip: "Consejo: toca una tarjeta para leer más.",
+    aria: {
+      panels: "Paneles de filosofía",
+      previous: "Tarjeta anterior",
+      next: "Siguiente tarjeta",
+    },
+  },
+} as const;
+
+export function tHomePhilosophy(locale: Locale) {
+  return locale === "es" ? PHILOSOPHY.es : PHILOSOPHY.en;
 }

@@ -2,7 +2,7 @@
 "use client";
 
 import Hero from "../../../../components/site-wide/Hero";
-import InvestmentCard from "../../../../components/site-wide/InvestmentCard";
+import InvestmentCard from "./ClusterInvestmentCard";
 
 export default function InvestmentHero() {
   return (

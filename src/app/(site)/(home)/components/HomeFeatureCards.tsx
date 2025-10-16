@@ -1,14 +1,16 @@
-// File: src/components/HomeFeatureCards.tsx
+// File: src/app/(site)/(home)/components/HomeFeatureCards.tsx
 import Image from "next/image";
 import Link from "next/link";
 
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHome, getHomeFeatureCards } from "../i18n"; // <— updated
+import { tHomeFeatureCards, getHomeFeatureCards } from "../i18n";
 
 export default function HomeFeatureCards() {
   const { locale } = useLocale();
-  const i = tHome(locale).featureCards;
-  const FEATURES = getHomeFeatureCards(locale); // readonly array; slice/map work fine
+  // Localized section text
+  const i = tHomeFeatureCards(locale);
+  // Localized card data
+  const FEATURES = getHomeFeatureCards(locale);
 
   if (!FEATURES.length) return null;
 

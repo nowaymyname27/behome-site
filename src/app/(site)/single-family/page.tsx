@@ -1,8 +1,11 @@
-// app/(site)/single-family/page.tsx
+// File: app/(site)/build-to-rent/page.tsx
 import Header from "../../../components/site-wide/Header";
 import Footer from "../../../components/site-wide/Footer";
 import InvestmentHero from "./components/SingleFamilyHero";
-import HouseCard, { HouseCardProps } from "../../../components/site-wide/HouseCard";
+import LocalizedBtrHeading from "./components/LocalizedSFHeading"; // ⬅️ add
+import HouseCard, {
+  HouseCardProps,
+} from "../../../components/site-wide/HouseCard";
 import { sanityClient } from "../../../sanity/lib/client";
 import { housesByTypeQuery } from "../../../sanity/lib/queries";
 
@@ -20,9 +23,9 @@ type HouseListItem = {
 
 export const revalidate = 60;
 
-export default async function SingleFamilyPage() {
+export default async function BuildToRentPage() {
   const data: HouseListItem[] = await sanityClient.fetch(housesByTypeQuery, {
-    type: "single",
+    type: "btr",
   });
 
   const houses: HouseCardProps[] = data.map((h) => ({
@@ -33,7 +36,7 @@ export default async function SingleFamilyPage() {
     baths: h.baths,
     cars: h.cars,
     sqft: h.sqft,
-    href: `/single-family/${h.slug}`,
+    href: `/build-to-rent/${h.slug}`,
     badge: h.badgeKey ? h.badgeKey.replace("_", " ") : undefined,
   }));
 
@@ -42,8 +45,8 @@ export default async function SingleFamilyPage() {
       <Header />
       <main className="flex-1">
         <InvestmentHero />
-        <section className="w-full px-6 sm:px-12 lg:px-20 py-10">
-          <h1 className="h2 mb-6">Single-Family Homes</h1>
+        <LocalizedBtrHeading />
+        <section className="w-full px-6 sm:px-12 lg:px-20 pb-10">
           <div className="grid gap-6 lg:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {houses.map((house, i) => (
               <HouseCard key={i} {...house} />

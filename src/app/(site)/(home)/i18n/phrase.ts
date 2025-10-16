@@ -1,16 +1,15 @@
 // File: src/app/(site)/(home)/i18n/phrase.ts
-import type { Locale } from "../../../../i18n/locale-context";
+import type { Locale } from "./types"; // ✅ from local types
 
-// EN source of truth
 const en = {
   text: "“Homes built for how people really live.”",
   attribution: "— Your Company Philosophy",
 } as const;
 
-// Widen leaves to string, keep shape
 type DeepString<T> = T extends string
   ? string
   : { [K in keyof T]: DeepString<T[K]> };
+
 type PhraseSchema = DeepString<typeof en>;
 
 const es: PhraseSchema = {
@@ -18,9 +17,8 @@ const es: PhraseSchema = {
   attribution: "— Filosofía de Tu Empresa",
 };
 
-// Export a single dict for the aggregator
 export const dict = { en: en as PhraseSchema, es } as const;
 export type HomePhraseI18n = typeof dict.en;
 
-// (Optional) helper if you still use it elsewhere
+// ✅ Helper
 export const tHomePhrase = (locale: Locale) => dict[locale];

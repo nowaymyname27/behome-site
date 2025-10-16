@@ -1,14 +1,14 @@
-// file: src/app/(site)/(home)/components/HomeHero.tsx
+// File: src/app/(site)/(home)/components/HomeHero.tsx
 "use client";
 
 import Hero from "../../../../components/site-wide/Hero";
 import HeroCard from "./HeroCard";
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHome } from "../i18n";
+import { tHomeHero } from "../i18n"; // ✅ modular helper
 
 export default function HomeHero() {
   const { locale } = useLocale();
-  const i = tHome(locale).hero;
+  const i = tHomeHero(locale); // ✅ directly localized hero copy
 
   return (
     <Hero>

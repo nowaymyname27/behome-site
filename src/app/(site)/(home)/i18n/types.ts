@@ -1,4 +1,5 @@
 // File: src/app/(site)/(home)/i18n/types.ts
+
 export type Locale = "en" | "es";
 
 // Reusable function type for aria formatters
@@ -7,6 +8,18 @@ export type Formatter = (n: number) => string;
 export type Point = {
   title: string;
   body: string;
+};
+
+// extracted type for the display section
+export type HomeDisplayStrings = {
+  heading: string;
+  points: ReadonlyArray<Point>;
+  aria: {
+    previous: string;
+    next: string;
+    goToSlide: Formatter;
+  };
+  media: { videoAria: string };
 };
 
 export type HomeStrings = {
@@ -18,16 +31,8 @@ export type HomeStrings = {
     aria: { panels: string; previous: string; next: string };
   };
   featureCards: { showHeader: boolean; title: string; blurb: string };
-  display: {
-    heading: string;
-    points: ReadonlyArray<Point>;
-    aria: {
-      previous: string;
-      next: string;
-      goToSlide: Formatter;
-    };
-    media: { videoAria: string };
-  };
+  // Use the new type here instead of inline definition
+  display: HomeDisplayStrings;
 };
 
 // ---- HeroCard types
@@ -44,6 +49,7 @@ export type HeroCardStrings = {
   subheading: string; // “SaraHomes by RentPortfolio”
   tabs: readonly [string, string, string];
 };
+
 // ---- Home brochure/philosophy slides
 export type HomePhilosophySlide = {
   src: string; // builder returns string paths
@@ -51,10 +57,12 @@ export type HomePhilosophySlide = {
   caption: string;
   body?: string;
 };
+
 export type HomeDisplaySlide = {
   src: string;
   alt: string;
 };
+
 export type CardId = "fl-plans" | "nc-communities" | "features";
 
 export type HomeFeatureCard = {
@@ -65,4 +73,10 @@ export type HomeFeatureCard = {
   heading: string;
   description: string;
   ctaLabel: string;
+};
+
+export type HomeFeatureCardsStrings = {
+  showHeader: boolean;
+  title: string;
+  blurb: string;
 };

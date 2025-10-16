@@ -1,13 +1,17 @@
-// file: src/app/(site)/(invest)/components/InvestmentHero.tsx
+// File: src/app/(site)/(invest)/components/InvestmentHero.tsx
 "use client";
 
 import Hero from "../../../../components/site-wide/Hero";
-import InvestmentCard from "../../../../components/site-wide/InvestmentCard";
+import InvestmentCard from "./BTRInvestmentCard";
+import { useLocale } from "../../../../i18n/locale-context";
+import { tInvestmentHero } from "../i18n";
 
 export default function InvestmentHero() {
+  const { locale } = useLocale();
+  const i = tInvestmentHero(locale);
+
   return (
     <Hero>
-      {/* background (could be image/video later) */}
       <Hero.Background>
         <video
           src="/videos/cluster-hero.mp4"
@@ -23,11 +27,8 @@ export default function InvestmentHero() {
       <Hero.Container>
         <Hero.Grid>
           <Hero.Copy>
-            <h1 className="h1 text-white">Invest in Our Single Family Homes</h1>
-            <p className="mt-4 text-lg text-white/90">
-              Diversified exposure to new-build homes with professional
-              operations and steady income targets.
-            </p>
+            <h1 className="h1 text-white">{i.title}</h1>
+            <p className="mt-4 text-lg text-white/90">{i.subtitle}</p>
 
             <Hero.PromoMobile>
               <div className="mt-6">
