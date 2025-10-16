@@ -10,6 +10,9 @@ import HomeShowcase from "../../../components/site-wide/HomeShowcase";
 import MediaCarousel from "../../../components/site-wide/MediaCarousel";
 import useStickyOffsets from "./components/useStickyOffsets";
 
+import { useLocale } from "../../../i18n/locale-context";
+import { tSite } from "../../../i18n/site-wide";
+
 // Import local images
 import K1 from "./images/townhomes/K1.png";
 import K2 from "./images/townhomes/K2.png";
@@ -19,6 +22,9 @@ import K6 from "./images/townhomes/K6.png";
 import K7 from "./images/townhomes/K7.png";
 
 export default function Page() {
+  const { locale } = useLocale();
+  const site = tSite(locale);
+
   const stickyTop = useStickyOffsets(); // Header + submenu combined
   const SHOWCASE_HEADER_PX = 64; // tight HomeShowcase header height (adjust if needed)
 
@@ -37,7 +43,7 @@ export default function Page() {
       cars: 2,
       price: 334995,
       estPayment: 2855,
-      cta: { label: "View Home Details", href: "/homes/clyde-ii" },
+      cta: { label: "View Home Details", href: "/homes/clyde-ii" }, // label no longer used
       media: mediaFrom([K1, K2, K3, K4]),
     },
     {
@@ -107,7 +113,7 @@ export default function Page() {
               viewportOffset={stickyTop + SHOWCASE_HEADER_PX} // Header + submenu + showcase header
               showDetailsCard
               detailsLink={home.cta?.href ?? "#"}
-              detailsLabel={home.cta?.label ?? "See Details"}
+              detailsLabel={site.homeShowcase.viewDetailsLabel} // <-- i18n label
             />
           </HomeShowcase>
         ))}

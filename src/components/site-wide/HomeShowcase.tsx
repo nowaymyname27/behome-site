@@ -2,6 +2,8 @@
 "use client";
 
 import * as React from "react";
+import { useLocale } from "../../i18n/locale-context";
+import { tSite } from "../../i18n/site-wide";
 
 export type HomeSpec = {
   id: string;
@@ -13,7 +15,7 @@ export type HomeSpec = {
   cars: number;
   price: number;
   estPayment?: number;
-  cta?: { label: string; href: string };
+  cta?: { label: string; href: string }; // label no longer needed, kept for back-compat
 };
 
 export type HomeShowcaseProps = {
@@ -24,12 +26,16 @@ export type HomeShowcaseProps = {
   stickyTop?: number; // combined header+submenu from hook
 };
 
-function formatMoney(v: number) {
-  return new Intl.NumberFormat("en-US", {
+function formatMoney(v: number, locale: "en" | "es" = "en") {
+  return new Intl.NumberFormat(locale === "es" ? "es-US" : "en-US", {
     style: "currency",
     currency: "USD",
     maximumFractionDigits: 0,
   }).format(v);
+}
+
+function formatNumber(v: number, locale: "en" | "es" = "en") {
+  return new Intl.NumberFormat(locale === "es" ? "es-US" : "en-US").format(v);
 }
 
 export default function HomeShowcase({
@@ -39,6 +45,9 @@ export default function HomeShowcase({
   stickyHeader = true,
   stickyTop = 128,
 }: HomeShowcaseProps) {
+  const { locale } = useLocale();
+  const i18n = tSite(locale).homeShowcase;
+
   return (
     <section
       id={home.id}
@@ -60,23 +69,33 @@ export default function HomeShowcase({
             <div>
               <h2 className="h2 leading-tight">{home.name}</h2>
               <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1.5 text-sm sm:text-[15px] text-foreground/80">
-                <span>{home.sqft.toLocaleString()} Sq ft</span>
+                <span>
+                  {formatNumber(home.sqft, locale)} {i18n.sqftUnit}
+                </span>
                 <span>{home.stories}</span>
-                <span>{home.beds} Beds</span>
-                <span>{home.baths} Baths</span>
-                <span>{home.cars} Cars</span>
+                <span>
+                  {home.beds} {i18n.bedsLabel}
+                </span>
+                <span>
+                  {home.baths} {i18n.bathsLabel}
+                </span>
+                <span>
+                  {home.cars} {i18n.carsLabel}
+                </span>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-8">
               <div>
                 <div className="text-xs sm:text-sm text-foreground/70">
-                  Estimated payment
+                  {i18n.estimatedPaymentLabel}
                 </div>
                 {home.estPayment ? (
                   <div className="text-lg sm:text-xl font-semibold leading-none">
-                    {formatMoney(home.estPayment)}
-                    <span className="text-sm font-normal">/mo.</span>
+                    {formatMoney(home.estPayment, locale)}
+                    <span className="text-sm font-normal">
+                      {i18n.perMonthSuffix}
+                    </span>
                   </div>
                 ) : (
                   <div className="text-base font-semibold">—</div>
@@ -85,13 +104,13 @@ export default function HomeShowcase({
 
               <div>
                 <div className="text-xs sm:text-sm text-foreground/70">
-                  Starting price
+                  {i18n.startingPriceLabel}
                 </div>
                 <div className="text-lg sm:text-xl font-semibold leading-none">
-                  {formatMoney(home.price)}
+                  {formatMoney(home.price, locale)}
                 </div>
                 <div className="text-[11px] sm:text-xs text-foreground/60 mt-1">
-                  Starting price may include lot premium
+                  {i18n.startingPriceNote}
                 </div>
               </div>
             </div>
@@ -102,10 +121,10 @@ export default function HomeShowcase({
               <a
                 href={home.cta.href}
                 className="text-sm underline-offset-2 hover:underline focus:underline outline-none"
-                // use theme var
                 style={{ color: "var(--color-NC)" }}
               >
-                {home.cta.label}
+                {/* Use i18n label; fallback to data label if present */}
+                {i18n.viewDetailsLabel ?? home.cta.label}
               </a>
             </div>
           )}

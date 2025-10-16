@@ -3,6 +3,8 @@
 
 import * as React from "react";
 import Image from "next/image";
+import { useLocale } from "../../i18n/locale-context";
+import { tSite } from "../../i18n/site-wide";
 
 export type MediaItem =
   | { type?: "image"; src: string; alt: string; caption?: string }
@@ -46,13 +48,19 @@ export default function MediaCarousel({
   media,
   aspect = "16/9",
   initial = 0,
-  label = "Home media",
+  label, // default from i18n below
   className,
   showDetailsCard = false,
   detailsLink = "#",
-  detailsLabel = "See Details",
+  detailsLabel, // default from i18n below
   viewportOffset = 0,
 }: MediaCarouselProps) {
+  const { locale } = useLocale();
+  const i18n = tSite(locale).mediaCarousel;
+
+  const resolvedLabel = label ?? i18n.label;
+  const resolvedDetailsLabel = detailsLabel ?? i18n.seeDetails;
+
   const viewportRef = React.useRef<HTMLDivElement>(null);
   const slidesRef = React.useRef<HTMLDivElement>(null);
   const [idx, setIdx] = React.useState(
@@ -129,7 +137,7 @@ export default function MediaCarousel({
   return (
     <div
       className={cx("relative group", className)}
-      aria-label={label}
+      aria-label={resolvedLabel}
       style={
         heightVar ? ({ ["--carousel-h"]: heightVar } as CSSVars) : undefined
       }
@@ -139,7 +147,7 @@ export default function MediaCarousel({
         ref={viewportRef}
         role="region"
         aria-roledescription="carousel"
-        aria-label={label}
+        aria-label={resolvedLabel}
         tabIndex={0}
         onKeyDown={onKeyDown}
         className={cx(
@@ -202,14 +210,11 @@ export default function MediaCarousel({
             >
               <div className="card p-8 text-center max-w-sm">
                 <h3 className="text-xl font-semibold mb-3">
-                  Want to learn more?
+                  {i18n.learnMoreTitle}
                 </h3>
-                <p className="text-sm mb-5">
-                  Explore detailed floor plans, materials, and neighborhood
-                  insights.
-                </p>
+                <p className="text-sm mb-5">{i18n.learnMoreBody}</p>
                 <a href={detailsLink} className="btn btn-primary">
-                  {detailsLabel}
+                  {resolvedDetailsLabel}
                 </a>
               </div>
             </div>
@@ -221,14 +226,14 @@ export default function MediaCarousel({
       {total > 1 && (
         <>
           <button
-            aria-label="Previous"
+            aria-label={i18n.prevAria}
             onClick={prev}
             className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-chrome/70 text-chrome-foreground p-2 shadow-sm hover:bg-chrome transition focus:outline-none focus:ring-2 focus:ring-accent"
           >
             <ChevronLeft />
           </button>
           <button
-            aria-label="Next"
+            aria-label={i18n.nextAria}
             onClick={next}
             className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-chrome/70 text-chrome-foreground p-2 shadow-sm hover:bg-chrome transition focus:outline-none focus:ring-2 focus:ring-accent"
           >
@@ -243,7 +248,7 @@ export default function MediaCarousel({
           {Array.from({ length: total }).map((_, i) => (
             <button
               key={i}
-              aria-label={`Go to slide ${i + 1}`}
+              aria-label={i18n.goToSlideAria(i + 1)}
               onClick={() => scrollToIndex(i)}
               className={cx(
                 "h-1.5 rounded-full transition-all",
