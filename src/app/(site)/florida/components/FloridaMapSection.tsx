@@ -99,23 +99,17 @@ export default function FloridaMapSection({
     };
   }, [active]);
 
-  // Merge meta + i18n copy for render
   const PRODUCTS = React.useMemo(
     () =>
       PRODUCTS_META.map((meta) => {
         const copy = i.products[meta.id];
-        return {
-          ...meta,
-          title: copy.title,
-          description: copy.description,
-        };
+        return { ...meta, title: copy.title, description: copy.description };
       }),
     [i.products]
   );
 
   return (
     <section className={["w-full", className].join(" ")}>
-      {/* xl: map + side rail; <xl: stacked. */}
       <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_auto] gap-4 md:gap-6 items-stretch">
         {/* Map */}
         <div className="rounded-2xl overflow-hidden border border-border bg-background shadow">
@@ -123,27 +117,20 @@ export default function FloridaMapSection({
             config={config}
             mode={mode}
             clickToUse
-            // Give mobile a tall, resilient height; md keeps the previous fixed value; xl fills its column
-            className="h-[80vh] min-h-[420px] md:h-[680px] xl:h-full"
+            className="h-[70vh] min-h-[420px] md:h-[680px] xl:h-full"
           />
         </div>
 
-        {/* Cards: mobile = horizontal scroll row; md = centered row with wrap; xl = vertical rail */}
+        {/* Cards */}
         <div className="justify-self-stretch xl:justify-self-end w-full xl:w-[280px]">
           <div className="h-full flex flex-col">
             <div
               className={[
-                // Layout modes by breakpoint
                 "flex",
-                // base/mobile: horizontal scroll row
                 "flex-row flex-nowrap overflow-x-auto overflow-y-visible",
-                // enable snap on mobile, disable at md+
                 "snap-x snap-mandatory md:snap-none",
-                // md+: regular flow, show rows centered
                 "md:flex-row md:flex-wrap md:overflow-visible md:justify-center",
-                // xl: back to vertical rail
                 "xl:flex-col xl:flex-nowrap xl:justify-start",
-                // spacing
                 "gap-4 md:gap-5 xl:gap-6",
                 "py-2 md:py-3",
               ].join(" ")}

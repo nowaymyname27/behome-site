@@ -5,6 +5,28 @@
 @import "leaflet/dist/leaflet.css";
 @import "maplibre-gl/dist/maplibre-gl.css";
 
+/* Ensure MapLibre popups sit above overlays */
+.maplibregl-popup {
+  z-index: 50; /* higher than your overlay's z-10 */
+}
+
+.maplibregl-popup-close-button {
+  font-size: 20px !important;
+  color: #111 !important;
+  font-weight: bold !important;
+  top: 4px !important;
+  right: 8px !important;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 6px;
+  padding: 2px;
+  transition: background 0.2s;
+}
+
+.maplibregl-popup-close-button:hover {
+  background: #f0a665 !important; /* Florida accent */
+  color: white !important;
+}
+
 /* ===== Theme (no dark mode) ===== */
 @theme {
   --color-background: #e8f0f5; /* page background */

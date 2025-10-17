@@ -17,24 +17,24 @@ const BASE_NAV: Array<{
   href: string;
 }> = [
   { id: "florida", href: "/florida" },
-  { id: "singleFamily", href: "/single-family" },
   { id: "btr", href: "/build-to-rent" },
   { id: "clusters", href: "/cluster" },
+  { id: "singleFamily", href: "/single-family" },
 ];
 
 // 2) Labels per locale
 const LABELS = {
   en: {
     florida: "Explore Florida",
-    singleFamily: "Single-Family Homes",
     btr: "Build-to-Rent",
     clusters: "Clusters",
+    singleFamily: "Single-Family Homes",
   },
   es: {
     florida: "Explorar Florida",
-    singleFamily: "Casas Unifamiliares",
     btr: "Build-to-Rent",
     clusters: "Clústeres",
+    singleFamily: "Casas Unifamiliares",
   },
 } as const;
 

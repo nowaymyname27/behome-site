@@ -1,5 +1,3 @@
-import "server-only";
-
 export const housesQuery = `
   *[_type == "house"]{
     _id,
@@ -102,4 +100,18 @@ export const houseSlugsByTypeQuery = `
   *[_type == "house" && productType == $type && defined(slug.current)]{
     "slug": slug.current
   }
+`;
+
+// src/sanity/lib/queries.ts
+export const mapPointsByRegionQuery = `
+  *[_type == "mapPoint" && region == $region]{
+    _id,
+    title,
+    address,
+    blurb,
+    href,
+    productType,
+    lng,
+    lat
+  } | order(_createdAt desc)
 `;

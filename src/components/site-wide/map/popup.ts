@@ -9,6 +9,9 @@ import type { Point } from "./types";
  * evolve this to a templating util or i18n-aware function later.
  */
 export function buildPopupHtml(p: Point): string | null {
+  // Debug: log each point passed to the popup builder
+  console.log("popup point:", p);
+
   const hasContent = p.name || p.blurb || p.href || p.image;
   if (!hasContent) return null;
 
@@ -23,8 +26,8 @@ export function buildPopupHtml(p: Point): string | null {
   const image = p.image
     ? `<div class="mt-2 overflow-hidden rounded-lg border border-border">
          <img src="${encodeURI(p.image)}" alt="${escapeHtml(
-        p.name ?? "Location"
-      )}" class="block w-full h-auto" />
+           p.name ?? "Location"
+         )}" class="block w-full h-auto" />
        </div>`
     : "";
 

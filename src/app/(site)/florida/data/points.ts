@@ -3,31 +3,48 @@ import type { Point } from "../../../../components/site-wide/map/types";
 
 export const FLORIDA_POINTS: Point[] = [
   {
-    id: "miami-001",
-    name: "Sunset Ridge 12A",
-    coords: [-80.1937, 25.7617],
+    id: "sarasota-sf-001",
+    name: "123 Bayfront Dr, Sarasota, FL", // address shows in popup title
+    coords: [-82.539, 27.331], // near downtown Sarasota
     tags: ["single-family"],
     variant: "primary",
-    blurb: "3bd/2ba • Miami",
-    href: "/listings/miami-001",
+    blurb: "Bayfront Estates • 3bd/2ba • Downtown Sarasota",
+    href: "/listings/sarasota-sf-001",
   },
   {
-    id: "tampa-btr-003",
-    name: "Harbor View BTR",
-    coords: [-82.4572, 27.9506],
+    id: "sarasota-btr-002",
+    name: "205 Beach Rd, Siesta Key, FL",
+    coords: [-82.5485, 27.2665], // near Siesta Key
     tags: ["btr"],
     variant: "primary",
-    blurb: "Build-to-Rent • Tampa",
-    href: "/listings/tampa-btr-003",
+    blurb: "Siesta Key BTR • Build-to-Rent • Beachside Living",
+    href: "/listings/sarasota-btr-002",
   },
   {
-    id: "orlando-cluster-02",
-    name: "Lake Nona Cluster",
-    coords: [-81.3792, 28.5383],
+    id: "sarasota-cluster-003",
+    name: "4800 Lakewood Ranch Blvd, Sarasota, FL",
+    coords: [-82.52852697173405, 27.254932055477546], // east Sarasota / Lakewood Ranch area
     tags: ["cluster"],
     variant: "primary",
-    blurb: "5-home cluster • Orlando",
-    href: "/listings/orlando-cluster-02",
+    blurb: "Lakewood Cluster Homes • 5-home community • Lakewood Ranch",
+    href: "/listings/sarasota-cluster-003",
   },
-  // …more points as needed
+  {
+    id: "sarasota-sf-004",
+    name: "2200 Palmer Ranch Pkwy, Sarasota, FL",
+    coords: [-82.4712, 27.2309], // south Sarasota / Palmer Ranch
+    tags: ["single-family"],
+    variant: "primary",
+    blurb: "Palmer Ranch Villas • 4bd/3ba • Family Living",
+    href: "/listings/sarasota-sf-004",
+  },
+  {
+    id: "sarasota-btr-005",
+    name: "301 Gulf Gate Dr, Sarasota, FL",
+    coords: [-82.512, 27.2525], // Gulf Gate area
+    tags: ["btr"],
+    variant: "primary",
+    blurb: "Gulf Gate Residences • Build-to-Rent • Modern Comfort",
+    href: "/listings/sarasota-btr-005",
+  },
 ];

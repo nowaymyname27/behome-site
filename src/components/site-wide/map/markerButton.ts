@@ -8,8 +8,8 @@ import type { Variant, Point } from "./types";
  * Keep all visual changes here.
  */
 export const MARKER_VARIANTS: Record<Variant, string> = {
-  primary: "bg-accent ring-accent/40",
-  info: "bg-chrome ring-chrome/40",
+  primary: "bg-chrome ring-chrome/40",
+  info: "bg-NC ring-NC/40",
   success: "bg-emerald-600 ring-emerald-400/40",
   warning: "bg-amber-500 ring-amber-300/40",
   danger: "bg-red-600 ring-red-400/40",

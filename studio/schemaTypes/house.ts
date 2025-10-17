@@ -33,7 +33,7 @@ export default defineType({
       validation: (r) => r.required(),
     }),
 
-    // NEW: public-facing name (what you show on detail pages)
+    // NEW: public-facing name
     defineField({
       name: "name",
       title: "Display Name",
@@ -79,7 +79,7 @@ export default defineType({
       validation: (r) => r.min(0),
     }),
 
-    // Card image (keep)
+    // Card image
     defineField({
       name: "image",
       title: "Card Image",
@@ -89,7 +89,7 @@ export default defineType({
       validation: (r) => r.required(),
     }),
 
-    // Badge key (keep)
+    // Badge key
     defineField({
       name: "badgeKey",
       title: "Badge (key, not label)",
@@ -104,7 +104,7 @@ export default defineType({
       },
     }),
 
-    // NEW: Gallery for Hero
+    // Gallery
     defineField({
       name: "gallery",
       title: "Gallery",
@@ -118,7 +118,7 @@ export default defineType({
       ],
     }),
 
-    // NEW: Floorplan
+    // Floorplan
     defineField({
       name: "floorplan",
       title: "Floorplan Image",
@@ -127,7 +127,7 @@ export default defineType({
       fields: [{ name: "alt", title: "Alt (optional)", type: "string" }],
     }),
 
-    // NEW: Matterport model ID (store ID, not the whole URL to keep it simple)
+    // Matterport model ID
     defineField({
       name: "matterportModelId",
       title: "Matterport Model ID",
@@ -135,16 +135,31 @@ export default defineType({
       description:
         "Example: 3DWalkThruID — keep just the ID, not the whole URL.",
     }),
-    // (Optional, if you want to also store URL)
+
+    // Optional: Matterport full URL
     defineField({
       name: "matterportUrl",
       title: "Matterport URL",
       type: "url",
     }),
 
-    // Map coords (we’ll map to [lng, lat] in the query)
-    defineField({ name: "lat", title: "Latitude", type: "number" }),
-    defineField({ name: "lng", title: "Longitude", type: "number" }),
+    // --- Updated coordinate fields ---
+    defineField({
+      name: "lat",
+      title: "Latitude (north/south position)",
+      type: "number",
+      description:
+        "Use the second number from Google Maps (the one that changes as you move north/south). Example for Sarasota: 27.3364",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "lng",
+      title: "Longitude (east/west position)",
+      type: "number",
+      description:
+        "Use the first number from Google Maps (the one that changes as you move east/west). Example for Sarasota: -82.5307",
+      validation: (r) => r.required(),
+    }),
   ],
   preview: {
     select: { title: "title", subtitle: "address", media: "image" },
