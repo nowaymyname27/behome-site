@@ -18,6 +18,18 @@ import { sanityClient } from "../../../sanity/lib/client";
 import { mapPointsByRegionQuery } from "../../../sanity/lib/queries";
 import type { Point } from "../../../components/site-wide/map/types";
 
+// Type the Sanity mapPoint document
+type MapPointDoc = {
+  _id: string;
+  title: string;
+  address?: string;
+  blurb?: string;
+  href?: string;
+  productType?: "single-family" | "btr" | "cluster";
+  lng: number;
+  lat: number;
+};
+
 export default function FloridaPage() {
   const { locale } = useLocale();
   const i = tFlorida(locale);
@@ -30,22 +42,24 @@ export default function FloridaPage() {
 
     async function load() {
       try {
-        const data = await sanityClient.fetch(mapPointsByRegionQuery, {
-          region: "florida",
-        });
+        const data = await sanityClient.fetch<MapPointDoc[]>(
+          mapPointsByRegionQuery,
+          { region: "florida" }
+        );
 
         // Map Sanity docs -> Point[]
-        const mapped: Point[] = (data || []).map((d: any) => ({
+        const mapped: Point[] = (data || []).map((d) => ({
           id: d._id,
           name: d.title,
-          coords: [d.lng, d.lat], // ensure [lng, lat]
-          blurb: d.blurb ?? undefined,
-          href: d.href ?? undefined,
+          coords: [d.lng, d.lat], // [lng, lat]
+          blurb: d.blurb,
+          href: d.href,
           variant: "primary",
+          // derive tags from productType so existing filter logic keeps working
           tags: d.productType ? [d.productType] : [],
         }));
 
-        console.log("🗺️ map points from Sanity:", data, "→ mapped:", mapped);
+        // console.log("🗺️ map points from Sanity:", data, "→ mapped:", mapped);
 
         if (mounted) setPoints(mapped);
       } catch (err) {
@@ -82,7 +96,7 @@ export default function FloridaPage() {
             <FloridaMapSection
               locale={locale}
               points={points}
-              center={[-82.5307, 27.3364]}
+              center={[-82.5307, 27.3364]} // Sarasota
               zoom={11.5}
               className="w-full"
             />
