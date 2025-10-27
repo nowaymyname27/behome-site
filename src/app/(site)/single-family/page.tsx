@@ -1,4 +1,4 @@
-// File: app/(site)/build-to-rent/page.tsx
+// File: app/(site)/single-family/page.tsx
 import Header from "../../../components/site-wide/Header";
 import Footer from "../../../components/site-wide/Footer";
 import InvestmentHero from "./components/SingleFamilyHero";
@@ -25,9 +25,9 @@ export const revalidate = 60;
 
 export default async function BuildToRentPage() {
   const data: HouseListItem[] = await sanityClient.fetch(housesByTypeQuery, {
-    type: "btr",
+    type: "single",
   });
-
+  console.log("SANITY DATA", data);
   const houses: HouseCardProps[] = data.map((h) => ({
     image: h.image,
     address: h.address,
@@ -36,7 +36,7 @@ export default async function BuildToRentPage() {
     baths: h.baths,
     cars: h.cars,
     sqft: h.sqft,
-    href: `/build-to-rent/${h.slug}`,
+    href: `/single-family/${h.slug}`,
     badge: h.badgeKey ? h.badgeKey.replace("_", " ") : undefined,
   }));
 

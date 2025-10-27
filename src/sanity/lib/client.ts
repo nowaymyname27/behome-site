@@ -1,3 +1,4 @@
+// file: src/sanity/lib/client.ts
 import { createClient } from "@sanity/client";
 import { apiVersion, dataset, projectId, token, useCdn } from "../env";
 
