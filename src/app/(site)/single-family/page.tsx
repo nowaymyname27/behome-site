@@ -27,7 +27,6 @@ export default async function BuildToRentPage() {
   const data: HouseListItem[] = await sanityClient.fetch(housesByTypeQuery, {
     type: "single",
   });
-  console.log("SANITY DATA", data);
   const houses: HouseCardProps[] = data.map((h) => ({
     image: h.image,
     address: h.address,
