@@ -40,7 +40,7 @@ export default function SiteMap({
     navigationControl: true,
     attribution: {
       compact: true,
-      customAttribution: "© Rent Porfolio",
+      customAttribution: "© Rent Portfolio",
       position: "bottom-left",
     },
   });

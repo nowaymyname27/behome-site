@@ -6,16 +6,18 @@ type Props = {
   baths: number;
   cars?: number;
   sqft: number;
+  price: number;
   height?: number; // px (default 72)
   children?: React.ReactNode; // allows adding more info later
 };
 
-export default function StickyInfoHeader({
+export default function BtrStickyHeader({
   name,
   beds,
   baths,
   cars = 0,
   sqft,
+  price,
   height = 72,
   children,
 }: Props) {
@@ -35,6 +37,16 @@ export default function StickyInfoHeader({
 
           {/* expandable area */}
           {children && <div className="mt-1 text-sm">{children}</div>}
+        </div>
+
+        <div className="text-right ml-4">
+          <div className="text-base sm:text-lg font-semibold">
+            {new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }).format(price)}
+          </div>
         </div>
       </div>
     </header>

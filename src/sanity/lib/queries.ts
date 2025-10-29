@@ -1,15 +1,6 @@
 // src/sanity/lib/queries.ts
 // Handles both label ("Single-Family") and value ("single") for $type
 
-const productTypeValue = `
-  select(
-    $type in ["single","btr"] => $type,
-    $type == "Single-Family" => "single",
-    $type == "Build-to-Rent" => "btr",
-    lower($type)
-  )
-`;
-
 export const housesQuery = `
   *[_type == "house"]{
     _id,
@@ -61,36 +52,37 @@ export const houseSlugsQuery = `
 `;
 
 export const housesByTypeQuery = `
-  *[_type == "house" && productType == ${productTypeValue}]{
+  *[_type == "house"]{
     _id,
-    "slug": slug.current,
+    title,
     address,
     price,
-    beds,
-    baths,
-    cars,
-    sqft,
     "image": {
       "src": image.asset->url,
       "alt": coalesce(image.alt, address)
     },
-    badgeKey
+    // pull both title and slug from the style reference
+    "style": style->title,
+    "styleSlug": style->slug.current,
+    mapPoint->{
+      lat,
+      lng
+    }
   } | order(_createdAt desc)
 `;
 
-export const houseBySlugAndTypeQuery = `
-  *[_type == "house" && slug.current == $slug && productType == ${productTypeValue}][0]{
+export const styleBySlugQuery = `
+  *[_type == "style" && slug.current == $slug][0]{
+    _id,
+    title,
     "slug": slug.current,
-    name,
-    address,
-    price,
     beds,
     baths,
     cars,
     sqft,
-    "images": gallery[]{
+    "gallery": gallery[]{
       "src": asset->url,
-      "alt": coalesce(alt, ^.address)
+      "alt": coalesce(alt, ^.title)
     },
     "floorplan": select(
       defined(floorplan) => {
@@ -100,12 +92,12 @@ export const houseBySlugAndTypeQuery = `
       null
     ),
     matterportModelId,
-    "coords": select(defined(lng) && defined(lat) => [lng, lat], null)
+    matterportUrl
   }
 `;
 
-export const houseSlugsByTypeQuery = `
-  *[_type == "house" && productType == ${productTypeValue} && defined(slug.current)]{
+export const styleSlugsQuery = `
+  *[_type == "style" && defined(slug.current)]{
     "slug": slug.current
   }
 `;
@@ -121,4 +113,65 @@ export const mapPointsByRegionQuery = `
     lng,
     lat
   } | order(_createdAt desc)
+`;
+
+export const singleFamilyHousesQuery = `
+  *[_type == "singleFamilyHouse"]{
+    _id,
+    title,
+    "slug": slug.current,
+    price,
+    beds,
+    baths,
+    cars,
+    sqft,
+    "gallery": gallery[]{
+      "src": asset->url,
+      "alt": coalesce(alt, ^.title)
+    },
+    mapPoint->{
+      _id,
+      title,
+      lat,
+      lng,
+      address
+    }
+  } | order(_createdAt desc)
+`;
+
+export const singleFamilyHouseBySlugQuery = `
+  *[_type == "singleFamilyHouse" && slug.current == $slug][0]{
+    _id,
+    title,
+    "slug": slug.current,
+    price,
+    beds,
+    baths,
+    cars,
+    sqft,
+    "gallery": gallery[]{
+      "src": asset->url,
+      "alt": coalesce(alt, ^.title)
+    },
+    "floorplan": select(
+      defined(floorplan) => {
+        "src": floorplan.asset->url,
+        "alt": coalesce(floorplan.alt, "Floorplan")
+      },
+      null
+    ),
+    matterportModelId,
+    matterportUrl,
+    mapPoint->{
+      lat,
+      lng,
+      address
+    }
+  }
+`;
+
+export const singleFamilyHouseSlugsQuery = `
+  *[_type == "singleFamilyHouse" && defined(slug.current)]{
+    "slug": slug.current
+  }
 `;
