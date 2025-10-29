@@ -175,3 +175,27 @@ export const singleFamilyHouseSlugsQuery = `
     "slug": slug.current
   }
 `;
+
+export const mapPointsByProductTypeQuery = `
+  *[_type == "mapPoint" && productType == $type]{
+    _id,
+    title,
+    address,
+    lat,
+    lng,
+    productType
+  } | order(_createdAt desc)
+`;
+
+export const allMapPointsQuery = `
+  *[_type == "mapPoint" && defined(lat) && defined(lng)]{
+    _id,
+    title,
+    address,
+    lat,
+    lng,
+    productType,
+    blurb,
+    href
+  } | order(_createdAt desc)
+`;

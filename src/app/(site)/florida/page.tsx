@@ -15,7 +15,7 @@ import { useLocale } from "../../../i18n/locale-context";
 import { tFlorida } from "./i18n";
 
 import { sanityClient } from "../../../sanity/lib/client";
-import { mapPointsByRegionQuery } from "../../../sanity/lib/queries";
+import { allMapPointsQuery } from "../../../sanity/lib/queries";
 import type { Point } from "../../../components/site-wide/map/types";
 
 // Type the Sanity mapPoint document
@@ -42,10 +42,7 @@ export default function FloridaPage() {
 
     async function load() {
       try {
-        const data = await sanityClient.fetch<MapPointDoc[]>(
-          mapPointsByRegionQuery,
-          { region: "florida" }
-        );
+        const data = await sanityClient.fetch<MapPointDoc[]>(allMapPointsQuery);
 
         // Map Sanity docs -> Point[]
         const mapped: Point[] = (data || []).map((d) => ({

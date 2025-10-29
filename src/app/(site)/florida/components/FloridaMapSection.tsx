@@ -17,7 +17,8 @@ import MapCard from "./MapCard";
 import type { Locale } from "../../../../i18n/locale-context";
 import { tFlorida } from "../i18n";
 
-type ProductId = "single-family" | "btr" | "cluster";
+// Match schema productType values directly
+type ProductId = "btr" | "single" | "cluster";
 
 const PRODUCTS_META: Array<{
   id: ProductId;
@@ -27,19 +28,19 @@ const PRODUCTS_META: Array<{
 }> = [
   {
     id: "btr",
-    href: "/products/build-to-rent",
+    href: "/build-to-rent",
     variant: "info",
     tagKey: "btr",
   },
   {
-    id: "single-family",
-    href: "/products/single-family",
+    id: "single",
+    href: "/single-family",
     variant: "danger",
-    tagKey: "single-family",
+    tagKey: "single",
   },
   {
     id: "cluster",
-    href: "/products/clusters",
+    href: "/clusters",
     variant: "warning",
     tagKey: "cluster",
   },
@@ -102,7 +103,14 @@ export default function FloridaMapSection({
   const PRODUCTS = React.useMemo(
     () =>
       PRODUCTS_META.map((meta) => {
-        const copy = i.products[meta.id];
+        // map our schema IDs to the old i18n keys
+        const key =
+          meta.id === "single"
+            ? "single-family"
+            : meta.id === "btr"
+              ? "btr"
+              : meta.id; // cluster already matches
+        const copy = i.products[key as keyof typeof i.products];
         return { ...meta, title: copy.title, description: copy.description };
       }),
     [i.products]
