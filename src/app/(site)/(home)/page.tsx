@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import Header from "../../../components/site-wide/Header";
 import HomeHero from "./components/HomeHero";
+import HomeHero2 from "./components/HomeHero2";
 import Phrase from "./components/Phrase";
 import HomeFeatureCards from "./components/HomeFeatureCards";
 import HomeBrochure from "./components/HomeBrochure";
