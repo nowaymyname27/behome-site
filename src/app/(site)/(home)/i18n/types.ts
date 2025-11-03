@@ -4,6 +4,7 @@ export type Locale = "en" | "es";
 
 // Reusable function type for aria formatters
 export type Formatter = (n: number) => string;
+export type CardId = "fl-plans" | "nc-communities" | "features";
 
 export type Point = {
   title: string;
@@ -63,8 +64,6 @@ export type HomeDisplaySlide = {
   alt: string;
 };
 
-export type CardId = "fl-plans" | "nc-communities" | "features";
-
 export type HomeFeatureCard = {
   id: CardId;
   href: string;
@@ -79,4 +78,48 @@ export type HomeFeatureCardsStrings = {
   showHeader: boolean;
   title: string;
   blurb: string;
+};
+
+export type ProductId = "single-family" | "btr" | "cluster";
+
+export type Slide = {
+  src: string;
+  title: string;
+  caption: string;
+  body?: string;
+};
+
+export type FloridaStrings = {
+  heading: string;
+  hero: {
+    title: string;
+    subtitle: string;
+    promoTitle: string;
+    promoText: string;
+    promoCta: string;
+  };
+  description: {
+    desc: { title: string; body: string };
+  };
+  map: {
+    products: Record<ProductId, { title: string; description: string }>;
+    clearFilters: string;
+    card: { explore: string; toggleAria: string };
+  };
+  project: {
+    project: { name: string };
+    card: {
+      image?: string;
+      description: string;
+      href: string;
+      cta: string;
+      aria: { openDetails: string };
+    };
+    map: { overlayCta: string; aria: { clickToInteract: string } };
+  };
+  brochure: {
+    left: { title: string; leadEm: string; leadRest: string; tip: string };
+    aria: { panels: string; previous: string; next: string };
+    slides: ReadonlyArray<Slide>;
+  };
 };

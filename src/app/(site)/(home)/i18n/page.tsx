@@ -1,15 +1,15 @@
-// File: src/app/florida/page.tsx
+// src/app/(site)/(home)/page.tsx
 "use client";
 
-import { useEffect, useState } from "react";
-
 import Header from "../../../components/site-wide/Header";
+import HomeHero from "./components/HomeHero";
+import Phrase from "./components/Phrase";
+import HomeFeatureCards from "./components/HomeFeatureCards";
+import HomeBrochure from "./components/HomeBrochure";
+import HomeDisplay from "./components/HomeDisplay";
 import Footer from "../../../components/site-wide/Footer";
-
-import FloridaHero from "./components/FloridaHero";
-import FloridaMapSection from "./components/FloridaMapSection";
-import Description from "./components/Description";
 import FloridaBrochure from "./components/FloridaBrochure";
+import FloridaMapSection from "./components/FloridaMapSection";
 
 import { useLocale } from "../../../i18n/locale-context";
 import { tFlorida } from "./i18n";
@@ -72,14 +72,14 @@ export default function FloridaPage() {
     };
   }, []);
 
+export default function Page() {
   return (
-    <div className="w-full bg-[--color-background] text-[--color-foreground]">
+    <div className="min-h-screen flex flex-col">
       <Header />
-
-      <main className="w-full">
-        <FloridaHero />
-        <Description locale={locale} />
-
+      <main className="flex-1">
+        <HomeHero />
+        <Phrase />
+        <HomeFeatureCards />
         <div className="w-full p-4 md:p-6 bg-accent">
           <h1 className="h2 mb-6">{i.heading}</h1>
 
@@ -101,8 +101,9 @@ export default function FloridaPage() {
         </div>
 
         <FloridaBrochure />
+        <HomeDisplay />
+        <HomeBrochure />
       </main>
-
       <Footer />
     </div>
   );

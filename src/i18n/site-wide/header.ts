@@ -13,10 +13,9 @@ type HeaderStrings = {
 
 // 1) Static base nav (hrefs defined once)
 const BASE_NAV: Array<{
-  id: "florida" | "singleFamily" | "btr" | "clusters";
+  id: "singleFamily" | "btr" | "clusters";
   href: string;
 }> = [
-  { id: "florida", href: "/florida" },
   { id: "btr", href: "/build-to-rent" },
   { id: "clusters", href: "/cluster" },
   { id: "singleFamily", href: "/single-family" },
@@ -25,13 +24,11 @@ const BASE_NAV: Array<{
 // 2) Labels per locale
 const LABELS = {
   en: {
-    florida: "Explore Florida",
     btr: "Build-to-Rent",
     clusters: "Clusters",
     singleFamily: "Single-Family Homes",
   },
   es: {
-    florida: "Explorar Florida",
     btr: "Build-to-Rent",
     clusters: "Clústeres",
     singleFamily: "Casas Unifamiliares",

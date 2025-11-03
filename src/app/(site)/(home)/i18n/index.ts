@@ -1,5 +1,10 @@
 // File: src/app/(site)/(home)/i18n/index.ts
-import type { Locale, HomeDisplayStrings, HomeFeatureCard } from "./types";
+import type {
+  Locale,
+  HomeDisplayStrings,
+  HomeFeatureCard,
+  FloridaStrings,
+} from "./types";
 
 // --- Section imports ---
 import { tHomeHero } from "./hero";
@@ -7,6 +12,30 @@ import { tHomePhrase } from "./phrase";
 import { tHomePhilosophy, getHomePhilosophySlides } from "./philosophy";
 import { homeDisplayCopy } from "./display";
 import { homeFeatureCardsCopy } from "./feature-cards";
+import { project } from "./project";
+import { brochure } from "./brochure";
+import { hero } from "./hero2";
+import { description } from "./description";
+import { map } from "./map";
+
+const dict = {
+  en: {
+    heading: "Florida Portfolio",
+    hero: hero.en,
+    description: description.en,
+    map: map.en,
+    project: project.en,
+    brochure: brochure.en,
+  } satisfies FloridaStrings,
+  es: {
+    heading: "Portafolio de Florida",
+    hero: hero.es,
+    description: description.es,
+    map: map.es,
+    project: project.es,
+    brochure: brochure.es,
+  } satisfies FloridaStrings,
+} as const;
 
 // --- Section helpers (exported to components) ---
 export { tHomeHero, tHomePhilosophy, tHomePhrase };
@@ -28,3 +57,7 @@ export { tHeroCard, getHeroCardCtas } from "./hero-card";
 
 // re-export types
 export type { Locale, HomeFeatureCard } from "./types";
+
+export function tFlorida(locale: Locale): FloridaStrings {
+  return locale === "es" ? dict.es : dict.en;
+}
