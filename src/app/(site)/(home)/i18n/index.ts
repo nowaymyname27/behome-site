@@ -17,6 +17,7 @@ import { brochure } from "./brochure";
 import { hero } from "./hero2";
 import { description } from "./description";
 import { map } from "./map";
+import { tHeroCard } from "./hero-card"; // updated import
 
 const dict = {
   en: {
@@ -53,7 +54,7 @@ export function tHomeFeatureCards(locale: Locale) {
 // builder exports
 export { getHomeFeatureCards } from "./feature-cards";
 export { getHomePhilosophySlides } from "./philosophy";
-export { tHeroCard, getHeroCardCtas } from "./hero-card";
+export { tHeroCard } from "./hero-card"; // cleaned up
 
 // re-export types
 export type { Locale, HomeFeatureCard } from "./types";

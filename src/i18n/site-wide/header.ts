@@ -24,14 +24,14 @@ const BASE_NAV: Array<{
 // 2) Labels per locale
 const LABELS = {
   en: {
-    btr: "Build-to-Rent",
-    clusters: "Clusters",
-    singleFamily: "Single-Family Homes",
+    btr: "Portfolio",
+    clusters: "Build-to-rent",
+    singleFamily: "360 Collection",
   },
   es: {
-    btr: "Build-to-Rent",
-    clusters: "Clústeres",
-    singleFamily: "Casas Unifamiliares",
+    btr: "Portafolio",
+    clusters: "Build-to-rent",
+    singleFamily: "360 Colleccion",
   },
 } as const;
 

@@ -1,46 +1,58 @@
 // file: src/app/(site)/(home)/i18n/hero-card.ts
-import type { Locale, HeroCardStrings, Cta } from "./types";
+import type { Locale, Cta } from "./types";
 
-// Define hrefs once
-const BASE_CTAS = {
-  exploreFlorida: { href: "/florida" },
-} as const;
-
-// Locale text
 const HERO_CARD_COPY = {
   en: {
-    // kept for backward-compat (component now uses heading/subheading/tabs)
-    title: "Thoughtfully designed homes across Florida",
-    aria: { promotion: "Promotion" },
-    heading: "Sarasota County – Florida’s Gulf Coast",
-    subheading: "SaraHomes by RentPortfolio",
-    tabs: ["No-HOA Homes", "Dollar Cash Flow", "Management Included"],
+    aria: { promotion: "Investment options" },
+    heading: "Ready to invest in BTR properties?",
+    subheading: "Choose the path that fits your goals:",
+    sections: [
+      {
+        title: "One Home",
+        description: "Hire us to build your new Build-to-Rent property.",
+        cta: { label: "Learn More", href: "/one-home" },
+      },
+      {
+        title: "Portfolio Growth",
+        description:
+          "Develop multiple BTR homes for long-term income and scale.",
+        cta: { label: "Learn More", href: "/portfolio-growth" },
+      },
+      {
+        title: "Immediate Income",
+        description:
+          "Acquire an already built, rented home generating cash flow today.",
+        cta: { label: "Learn More", href: "/immediate-income" },
+      },
+    ],
   },
   es: {
-    title: "Hogares diseñados con cuidado en toda Florida",
-    aria: { promotion: "Promoción" },
-    heading: "Sarasota County – Costa Oeste de Florida",
-    subheading: "SaraHomes by RentPortfolio",
-    tabs: ["Casas sin HOA", "Flujo en dólares", "Administración incluida"],
+    aria: { promotion: "Opciones de inversión" },
+    heading: "¿Listo para invertir en propiedades BTR?",
+    subheading: "Elija el camino que se adapte a sus objetivos:",
+    sections: [
+      {
+        title: "Una Propiedad",
+        description:
+          "Contrátenos para construir su nueva propiedad Build-to-Rent.",
+        cta: { label: "Más información", href: "/one-home" },
+      },
+      {
+        title: "Crecimiento de Portafolio",
+        description:
+          "Desarrolle múltiples hogares BTR para ingresos y escala a largo plazo.",
+        cta: { label: "Más información", href: "/portfolio-growth" },
+      },
+      {
+        title: "Ingresos Inmediatos",
+        description:
+          "Adquiera un hogar ya construido y alquilado que genere flujo de efectivo hoy.",
+        cta: { label: "Más información", href: "/immediate-income" },
+      },
+    ],
   },
-} satisfies Record<Locale, HeroCardStrings>;
-
-const LABELS = {
-  en: { exploreFlorida: { label: "Explore Florida" } },
-  es: { exploreFlorida: { label: "Explorar Florida" } },
 } as const;
 
-// Main getters
-export function tHeroCard(locale: Locale): HeroCardStrings {
+export function tHeroCard(locale: Locale) {
   return HERO_CARD_COPY[locale];
-}
-
-export function getHeroCardCtas(locale: Locale): { exploreFlorida: Cta } {
-  const dict = LABELS[locale];
-  return {
-    exploreFlorida: {
-      href: BASE_CTAS.exploreFlorida.href,
-      label: dict.exploreFlorida.label,
-    },
-  };
 }

@@ -1,75 +1,51 @@
-// file: src/(home)/components/HeroCard.tsx
+// file: src/app/(site)/(home)/components/HeroCard.tsx
 "use client";
 
 import Link from "next/link";
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHeroCard, getHeroCardCtas } from "../i18n";
+import { tHeroCard } from "../i18n";
 
 export default function HeroCard() {
   const { locale } = useLocale();
   const i = tHeroCard(locale);
-  const ctas = getHeroCardCtas(locale);
 
   return (
     <aside
       aria-label={i.aria.promotion}
-      className="card bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 text-foreground
-                 shadow-xl p-8 md:p-10 rounded-2xl text-center
-                 max-w-3xl mx-auto min-h-[320px] flex flex-col items-center justify-center"
+      className="w-full max-w-xs md:max-w-sm
+                 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/70
+                 text-foreground shadow-lg p-5 md:p-6 rounded-2xl
+                 flex flex-col space-y-5"
     >
       {/* Heading */}
-      <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
-        {i.heading}
-      </h3>
-
-      {/* Sub-heading (logo/brand line) */}
-      <div className="mt-2">
-        <span className="inline-flex items-center gap-2 text-sm md:text-base opacity-90 font-medium">
-          {/* Place a small SVG logo here later if you wish */}
-          <span>{i.subheading}</span>
-        </span>
+      <div className="text-center">
+        <h3 className="text-lg md:text-xl font-semibold tracking-tight">
+          {i.heading}
+        </h3>
+        <p className="mt-1 text-sm opacity-90 font-medium">{i.subheading}</p>
       </div>
 
-      {/* Tabs-as-buttons with vertical separators: word | word | word */}
-      <div className="mt-5">
-        <div
-          role="group"
-          aria-label={i.aria.promotion}
-          className="inline-flex items-stretch text-xs md:text-sm"
-        >
-          {i.tabs.map((label, idx) => (
-            <div key={idx} className="inline-flex items-center">
-              <span
-                className="inline-flex items-center justify-center rounded-full
-                           border border-border/70 bg-background/70 px-3 py-1.5
-                           font-medium shadow-sm"
-                aria-hidden="false"
-              >
-                {label}
-              </span>
-
-              {/* Vertical divider (|) between items */}
-              {idx < i.tabs.length - 1 && (
-                <span
-                  className="px-2 md:px-3 select-none opacity-50"
-                  aria-hidden="true"
-                >
-                  |
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* CTA */}
-      <div className="mt-6">
-        <Link
-          href={ctas.exploreFlorida.href}
-          className="btn btn-FL text-sm md:text-base px-5 md:px-6 py-2.5"
-        >
-          {ctas.exploreFlorida.label}
-        </Link>
+      {/* Vertical stack of sections */}
+      <div className="flex flex-col space-y-3 text-left">
+        {i.sections.map((section, idx) => (
+          <div
+            key={idx}
+            className="rounded-xl border border-border/40 bg-background/60 p-3 shadow-sm hover:shadow-md transition-shadow"
+          >
+            <h4 className="text-sm md:text-base font-semibold text-foreground">
+              {section.title}
+            </h4>
+            <p className="mt-1 text-xs md:text-sm text-foreground/80 leading-snug">
+              {section.description}
+            </p>
+            <Link
+              href={section.cta.href}
+              className="btn btn-FL mt-3 text-xs md:text-sm px-3 py-1.5 self-start"
+            >
+              {section.cta.label}
+            </Link>
+          </div>
+        ))}
       </div>
     </aside>
   );

@@ -20,5 +20,5 @@ export const homeHeroVideos = [
   "https://7esnbwodoees4lcz.public.blob.vercel-storage.com/home_hero/Picnic.mp4",
   "https://7esnbwodoees4lcz.public.blob.vercel-storage.com/home_hero/Pool_1.mp4",
   "https://7esnbwodoees4lcz.public.blob.vercel-storage.com/home_hero/Pool_2.mp4",
-  "https://7esnbwodoees4lcz.public.blob.vercel-storage.com/home_hero/Retirees.mp4",
+  "https://7esnbwodoees4lcz.public.blob.vercel-storage.com/home_hero/Retirees_1.mp4",
 ];

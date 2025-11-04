@@ -1,3 +1,4 @@
+// file: src/app/(site)/(home)/components/HomeHero.tsx
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -10,119 +11,138 @@ import { homeHeroVideos } from "../data/homeHeroVideos";
 export default function HomeHero() {
   const { locale } = useLocale();
   const i = tHomeHero(locale);
-  const videos = homeHeroVideos;
+  const copies = i.copies;
 
+  const [videos, setVideos] = useState<string[]>([]);
   const [current, setCurrent] = useState(0);
   const [isFading, setIsFading] = useState(false);
-  const [activeBuffer, setActiveBuffer] = useState(0); // 0 or 1
+  const [activeBuffer, setActiveBuffer] = useState(0);
   const videoRefs = [
     useRef<HTMLVideoElement>(null),
     useRef<HTMLVideoElement>(null),
   ];
 
-  const fadeDuration = 1000; // ms
+  const fadeDuration = 500;
+
+  // shuffle videos once per load
+  const shuffleArray = (arr: string[]) => {
+    const result = [...arr];
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+  };
+
+  useEffect(() => {
+    setVideos(shuffleArray(homeHeroVideos));
+  }, []);
+
+  const preloadNextVideo = (index: number, bufferIndex: number) => {
+    const nextVideo = videoRefs[bufferIndex].current;
+    if (!nextVideo || !videos[index]) return;
+    nextVideo.src = videos[index];
+    nextVideo.load();
+  };
 
   const playNext = () => {
+    if (videos.length === 0) return;
     const nextIndex = (current + 1) % videos.length;
-    const nextBuffer = 1 - activeBuffer; // swap which <video> is active
+    const nextBuffer = 1 - activeBuffer;
 
     const currentVideo = videoRefs[activeBuffer].current;
     const nextVideo = videoRefs[nextBuffer].current;
-
     if (!currentVideo || !nextVideo) return;
 
-    // Load and play next video in hidden buffer
-    nextVideo.src = videos[nextIndex];
-    nextVideo.load();
+    preloadNextVideo(nextIndex, nextBuffer);
+    nextVideo.currentTime = 0;
+    setIsFading(true);
     nextVideo.play().catch(() => {});
 
-    // Start fade
-    setIsFading(true);
-
-    // After fade, swap roles
     setTimeout(() => {
       setCurrent(nextIndex);
       setActiveBuffer(nextBuffer);
       setIsFading(false);
+      const afterNext = (nextIndex + 1) % videos.length;
+      preloadNextVideo(afterNext, activeBuffer);
     }, fadeDuration);
   };
 
-  // When the active video ends, trigger transition
   useEffect(() => {
     const video = videoRefs[activeBuffer].current;
     if (!video) return;
-
     const handleEnded = () => playNext();
     video.addEventListener("ended", handleEnded);
     return () => video.removeEventListener("ended", handleEnded);
-  }, [activeBuffer, current]);
+  }, [activeBuffer, current, videos]);
 
-  // Start first video on mount
   useEffect(() => {
-    videoRefs[0].current?.play().catch(() => {});
-  }, []);
+    if (videos.length > 0) {
+      videoRefs[0].current?.play().catch(() => {});
+      if (videos.length > 1) preloadNextVideo(1, 1);
+    }
+  }, [videos]);
+
+  const copy = copies[current % copies.length];
 
   return (
     <Hero>
+      {/* --- Background videos --- */}
       <Hero.Background>
         <div className="absolute inset-0 w-full h-full overflow-hidden">
-          {/* Video buffer 1 */}
           <video
             ref={videoRefs[0]}
             src={videos[0]}
             muted
             playsInline
             autoPlay
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+            preload="auto"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
               activeBuffer === 0
                 ? isFading
                   ? "opacity-0"
                   : "opacity-100"
-                : isFading
-                  ? "opacity-100"
-                  : "opacity-0"
+                : "opacity-0"
             }`}
             aria-label={i.videoAria}
           />
-
-          {/* Video buffer 2 */}
           <video
             ref={videoRefs[1]}
             muted
             playsInline
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+            preload="auto"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
               activeBuffer === 1
                 ? isFading
                   ? "opacity-0"
                   : "opacity-100"
-                : isFading
-                  ? "opacity-100"
-                  : "opacity-0"
+                : "opacity-0"
             }`}
           />
         </div>
-
         <Hero.Scrim />
       </Hero.Background>
 
-      <Hero.Container>
-        <Hero.Grid>
-          <Hero.Copy>
-            <h1 className="h1 text-white">{i.title}</h1>
-            <p className="mt-4 text-lg text-white/90">{i.subtitle}</p>
+      {/* --- Full-width overlay content --- */}
+      <div className="absolute inset-0 flex flex-col justify-center">
+        <div className="flex flex-col md:flex-row items-center justify-between px-8 md:px-16 lg:px-24">
+          {/* Copy block (left-aligned) */}
+          <div
+            key={current}
+            className={`transition-opacity duration-500 ${
+              isFading ? "opacity-0" : "opacity-100"
+            } max-w-3xl text-center md:text-left`}
+          >
+            <h1 className="h1 text-white">{copy.title}</h1>
+            <p className="mt-4 text-lg text-white/90">{copy.subtitle}</p>
+          </div>
 
-            <Hero.PromoMobile>
-              <div className="mt-6">
-                <HeroCard />
-              </div>
-            </Hero.PromoMobile>
-          </Hero.Copy>
-
-          <Hero.PromoDesktop>
+          {/* HeroCard vertically centered on the right */}
+          <div className="mt-10 md:mt-0 md:ml-12 flex justify-center md:justify-end">
             <HeroCard />
-          </Hero.PromoDesktop>
-        </Hero.Grid>
-      </Hero.Container>
+          </div>
+        </div>
+      </div>
     </Hero>
   );
 }
