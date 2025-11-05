@@ -15,3 +15,15 @@ export interface InvestmentHeroStrings {
   heading: string;
   subheading: string;
 }
+
+export type BtrBuiltForInvestorsHighlight = {
+  title: string;
+  description: string;
+  tags: string[];
+};
+
+export type BtrBuiltForInvestorsStrings = {
+  title: string;
+  paragraphs: string[];
+  highlight: BtrBuiltForInvestorsHighlight;
+};

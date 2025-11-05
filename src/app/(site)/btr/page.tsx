@@ -4,11 +4,11 @@
 import Header from "../../../components/site-wide/Header";
 import Footer from "../../../components/site-wide/Footer";
 import ClusterHero from "./components/ClusterHero";
-import ClusterDescription from "./components/ClusterDescription";
 import ClusterSubmenuWrapper from "./components/ClusterSubmenuWrapper";
 import HomeShowcase from "../../../components/site-wide/HomeShowcase";
 import MediaCarousel from "../../../components/site-wide/MediaCarousel";
 import useStickyOffsets from "./components/useStickyOffsets";
+import BuiltForInvestors from "./components/BuiltForInvestors";
 
 import { useLocale } from "../../../i18n/locale-context";
 import { tSite } from "../../../i18n/site-wide";
@@ -20,6 +20,8 @@ import K3 from "./images/townhomes/K3.png";
 import K4 from "./images/townhomes/K4.png";
 import K6 from "./images/townhomes/K6.png";
 import K7 from "./images/townhomes/K7.png";
+import SectionTransition from "./components/SectionTransition";
+import EvergladesShowcase from "./components/EvergladesShowcase";
 
 export default function Page() {
   const { locale } = useLocale();
@@ -33,7 +35,7 @@ export default function Page() {
 
   const homes = [
     {
-      id: "clyde-ii",
+      id: "Everglades",
       label: "Clyde II",
       name: "Clyde II",
       sqft: 1452,
@@ -95,7 +97,9 @@ export default function Page() {
       <Header />
       <main className="flex-1">
         <ClusterHero />
-        <ClusterDescription />
+        <BuiltForInvestors />
+        <EvergladesShowcase />
+        <SectionTransition />
         <ClusterSubmenuWrapper
           items={homes.map((h) => ({ id: h.id, label: h.label }))}
         />
