@@ -2,8 +2,8 @@
 import type { Locale } from "./types"; // ✅ from local types
 
 const en = {
-  text: "“Homes built for how people really live.”",
-  attribution: "— Your Company Philosophy",
+  text: "“Stability. Community. Real Returns.”",
+  attribution: "— RentPortfolio",
 } as const;
 
 type DeepString<T> = T extends string
@@ -13,8 +13,8 @@ type DeepString<T> = T extends string
 type PhraseSchema = DeepString<typeof en>;
 
 const es: PhraseSchema = {
-  text: "“Hogares construidos para cómo vive realmente la gente.”",
-  attribution: "— Filosofía de Tu Empresa",
+  text: "“Estabilidad. Comunidad. Rentabilidad Real.”",
+  attribution: "— RentPortfolio",
 };
 
 export const dict = { en: en as PhraseSchema, es } as const;

@@ -1,96 +1,91 @@
-// Florida/i18n/brochure.ts
+// File: src/app/(site)/florida/i18n/brochure.ts
 export const brochure = {
   en: {
     left: {
-      title: "Sarasota at a Glance",
-      leadEm: "Sunlit beaches, arts & dining,",
-      leadRest: " and connected neighborhoods—see why Sarasota stands out.",
+      title: "Sarasota At A glance",
+      leadEm: "In Sarasota County —",
+      leadRest:
+        " a vibrant, family-oriented community where quality of life meets opportunity. Its growing economy, excellent schools, modern hospitals, and abundant parks make it one of Florida’s most desirable places to live. Surrounded by natural beauty and just minutes from Venice and Siesta Key, two of Florida’s best beaches, North Port offers a relaxed lifestyle, year-round sunshine, and a welcoming atmosphere for residents and visitors alike.",
       tip: "Tip: tap a card to read more.",
     },
-    aria: { panels: "Sarasota highlights", previous: "Previous", next: "Next" },
+    aria: {
+      panels: "North Port highlights",
+      previous: "Previous",
+      next: "Next",
+    },
     slides: [
       {
-        src: "/images/florida/sarasota/beach.jpg",
-        title: "Beaches & Outdoors",
+        src: "/images/florida/northport/beaches.jpg",
+        title: "Best Beaches in Florida",
         caption:
-          "Siesta Key’s powder-soft sand, bayfront trails, and Gulf sunsets.",
-        body: "Miles of coastline, boat launches, and nature preserves make Sarasota an everyday escape.",
+          "Minutes from Venice Beach and Siesta Key—sun, surf, and Gulf sunsets await.",
+        body: "Only a short drive from the white sands of Venice Beach and Siesta Key, North Port residents enjoy easy access to some of Florida’s most beautiful Gulf Coast beaches — perfect for swimming, boating, and unforgettable sunsets.",
       },
       {
-        src: "/images/florida/sarasota/neighborhoods.jpg",
-        title: "Connected Neighborhoods",
+        src: "/images/florida/northport/neighborhoods.jpg",
+        title: "Livable Neighborhoods",
         caption:
-          "Walkable streets, pocket parks, and daily essentials within reach.",
-        body: "From downtown to Palmer Ranch, neighborhoods balance calm streets with quick access.",
+          "Safe, modern communities with new homes and top-rated schools.",
+        body: "Thoughtfully planned communities with new homes, safe streets, and excellent schools make North Port ideal for families and professionals seeking comfort, value, and long-term stability.",
       },
       {
-        src: "/images/florida/sarasota/culture.jpg",
-        title: "Arts, Culture & Dining",
-        caption: "The Ringling, Sarasota Opera, galleries—and coastal dining.",
-        body: "A year-round calendar of performances, festivals, and local restaurants fuels a vibrant scene.",
+        src: "/images/florida/northport/culture.jpg",
+        title: "Parks, Culture & Dining",
+        caption:
+          "Outdoor recreation meets art, dining, and community all year long.",
+        body: "From miles of greenways and natural springs to local art venues and diverse restaurants, North Port offers a rich lifestyle where outdoor recreation, culture, and cuisine come together year-round.",
       },
       {
-        src: "/images/florida/sarasota/education.jpg",
-        title: "Education & Work",
+        src: "/images/florida/northport/golf.jpg",
+        title: "Golf & Recreation",
         caption:
-          "Strong schools, healthcare and tech growth, easy regional access.",
-        body: "Proximity to I-75 and Tampa Bay expands options for careers, colleges, and commutes.",
-      },
-      {
-        src: "/images/florida/sarasota/homes.jpg",
-        title: "Homes & Communities",
-        caption:
-          "Build-to-rent, single-family, and cluster communities—thoughtfully planned.",
-        body: "Flexible floor plans, durable finishes, and shared green spaces designed for real life.",
+          "Dozens of golf courses and outdoor escapes within easy reach.",
+        body: "With dozens of golf courses nearby — from championship layouts to relaxed local clubs — North Port is a haven for golf enthusiasts who enjoy the game year-round amid Florida’s beautiful natural surroundings.",
       },
     ],
   },
+
   es: {
     left: {
       title: "Sarasota de un vistazo",
-      leadEm: "Playas bañadas por el sol, arte y gastronomía,",
-      leadRest: " barrios conectados — descubre por qué destaca Sarasota.",
+      leadEm: "En el condado de Sarasota —",
+      leadRest:
+        " una comunidad vibrante y familiar donde la calidad de vida se une con la oportunidad. Su economía en crecimiento, excelentes escuelas, hospitales modernos y abundantes parques la convierten en uno de los lugares más deseables para vivir en Florida. Rodeada de belleza natural y a solo minutos de Venice y Siesta Key, dos de las mejores playas del estado, North Port ofrece un estilo de vida relajado, sol todo el año y un ambiente acogedor para residentes y visitantes.",
       tip: "Consejo: toca una tarjeta para leer más.",
     },
     aria: {
-      panels: "Aspectos destacados de Sarasota",
+      panels: "Aspectos destacados de North Port",
       previous: "Anterior",
       next: "Siguiente",
     },
     slides: [
       {
-        src: "/images/florida/sarasota/beach.jpg",
-        title: "Playas y Naturaleza",
+        src: "/images/florida/northport/beaches.jpg",
+        title: "Las Mejores Playas de Florida",
         caption:
-          "Arena suave de Siesta Key, senderos junto a la bahía y atardeceres.",
-        body: "Kilómetros de costa, rampas para botes y reservas naturales para disfrutar cada día.",
+          "A minutos de Venice Beach y Siesta Key: sol, mar y atardeceres del Golfo.",
+        body: "A poca distancia de las arenas blancas de Venice Beach y Siesta Key, los residentes de North Port disfrutan fácil acceso a algunas de las playas más hermosas de la costa oeste de Florida — perfectas para nadar, navegar y disfrutar de atardeceres inolvidables.",
       },
       {
-        src: "/images/florida/sarasota/neighborhoods.jpg",
-        title: "Barrios Conectados",
+        src: "/images/florida/northport/neighborhoods.jpg",
+        title: "Barrios Habitables",
         caption:
-          "Calles caminables, parques de bolsillo y servicios cotidianos cerca.",
-        body: "Del centro a Palmer Ranch, los barrios combinan calma con acceso rápido.",
+          "Comunidades seguras y modernas con viviendas nuevas y excelentes escuelas.",
+        body: "Comunidades cuidadosamente planificadas con calles seguras y escuelas de calidad hacen de North Port un lugar ideal para familias y profesionales que buscan comodidad, valor y estabilidad a largo plazo.",
       },
       {
-        src: "/images/florida/sarasota/culture.jpg",
-        title: "Arte, Cultura y Gastronomía",
-        caption: "The Ringling, Ópera de Sarasota, galerías y cocina costera.",
-        body: "Una agenda activa de espectáculos, festivales y restaurantes locales.",
+        src: "/images/florida/northport/culture.jpg",
+        title: "Parques, Cultura y Gastronomía",
+        caption:
+          "Naturaleza, arte y buena comida: un estilo de vida activo todo el año.",
+        body: "Desde kilómetros de senderos y manantiales naturales hasta galerías locales y restaurantes diversos, North Port ofrece un estilo de vida rico donde la recreación al aire libre, la cultura y la gastronomía se unen durante todo el año.",
       },
       {
-        src: "/images/florida/sarasota/education.jpg",
-        title: "Educación y Trabajo",
+        src: "/images/florida/northport/golf.jpg",
+        title: "Golf y Recreación",
         caption:
-          "Buenas escuelas, crecimiento en salud y tecnología, acceso regional.",
-        body: "La cercanía a la I-75 y Tampa Bay amplía opciones de estudio y empleo.",
-      },
-      {
-        src: "/images/florida/sarasota/homes.jpg",
-        title: "Viviendas y Comunidades",
-        caption:
-          "Build-to-rent, casas unifamiliares y clústeres bien planificados.",
-        body: "Planos flexibles, acabados duraderos y áreas verdes compartidas.",
+          "Docenas de campos de golf y espacios naturales a pocos minutos.",
+        body: "Con docenas de campos de golf cercanos — desde diseños de campeonato hasta clubes locales — North Port es un paraíso para los amantes del golf que disfrutan del deporte todo el año entre la belleza natural de Florida.",
       },
     ],
   },

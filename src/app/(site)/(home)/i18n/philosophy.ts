@@ -1,13 +1,7 @@
 // File: src/app/(site)/(home)/i18n/philosophy.ts
 import type { Locale, HomePhilosophySlide } from "./types";
 
-type SlideId =
-  | "experience"
-  | "returns"
-  | "transparency"
-  | "security"
-  | "liquidity"
-  | "timeline";
+type SlideId = "track" | "cashflow" | "transparency";
 
 type BaseSlide = {
   id: SlideId;
@@ -18,81 +12,52 @@ type BaseSlide = {
 // Slides (images + per-card copy)
 // ------------------------------
 const BASE_SLIDES: BaseSlide[] = [
-  { id: "experience", src: "/images/philosophy/experience.jpg" },
-  { id: "returns", src: "/images/philosophy/returns.jpg" },
+  { id: "track", src: "/images/philosophy/track.jpg" },
+  { id: "cashflow", src: "/images/philosophy/cashflow.jpg" },
   { id: "transparency", src: "/images/philosophy/transparency.jpg" },
-  { id: "security", src: "/images/philosophy/security.jpg" },
-  { id: "liquidity", src: "/images/philosophy/liquidity.jpg" },
-  { id: "timeline", src: "/images/philosophy/timeline.jpg" },
 ];
 
 const LABELS = {
-  es: {
-    experience: {
-      title: "Trayectoria y Experiencia",
-      caption: "Más de 25 años en desarrollo inmobiliario",
-      body: "Contamos con una sólida trayectoria en proyectos residenciales, comerciales y de capital. En la Costa Oeste de Florida hemos entregado más de 60 viviendas solo en el último año. Construimos viviendas unifamiliares, casas built-to-rent y dúplex, con capacidad de entrega de hasta 120 casas anuales.",
+  en: {
+    track: {
+      title: "1. Proven Track Record",
+      caption: "Experience, execution, and trust — earned through results.",
+      body: "With over 25 years of experience in nearly every facet of real estate — from development and construction to brokerage and investment structuring — we’ve built and sold hundreds of homes and raised millions in private equity for real estate ventures. Our foundation is experience, execution, and trust earned through results.",
     },
-    returns: {
-      title: "Altos Retornos y Potencial de Inversión",
-      caption: "Ingresos pasivos, modelo probado",
-      body: "Nuestro modelo está diseñado para ofrecer retornos constantes y atractivos. Desde $250,000 puedes iniciar tu inversión. Cada casa genera ingresos desde el mes 16 y puede venderse luego de 36 meses con un retorno anual estimado de hasta 22%. Administramos todo el proceso: construcción, permisos, renta y refinanciación.",
+    cashflow: {
+      title: "2. Focused on Cash Flow and Long-Term Wealth",
+      caption: "Balancing performance with stability.",
+      body: "We believe true financial success in real estate comes from steady income and sustainable appreciation. Our Build-to-Rent model is designed to generate consistent cash flow today while creating lasting wealth over time — balancing performance with stability.",
     },
     transparency: {
-      title: "Transparencia y Seguimiento en Tiempo Real",
-      caption: "Seguimiento digital total de tu inversión",
-      body: "Utilizamos una plataforma de construcción que documenta cada etapa de tu casa: cronograma, fotografías diarias, costos, pagos, contratos y avances financieros. Así puedes monitorear tu inversión de forma clara y segura, desde cualquier lugar del mundo.",
-    },
-    security: {
-      title: "Seguridad y Control",
-      caption: "Propiedad a tu nombre desde el inicio",
-      body: "Cada casa está respaldada por un activo real. Firmas el contrato, compras el terreno a través de una casa de títulos y eres el dueño desde el primer día. El capital se desembolsa por etapas, con total control sobre tu inversión y sin intermediarios innecesarios.",
-    },
-    liquidity: {
-      title: "Liquidez Inteligente",
-      caption: "Flexibilidad para vender cuando lo necesites",
-      body: "Puedes vender tu propiedad al finalizar la construcción, después de 2 años de renta, o en el momento que el mercado esté a tu favor. Tú eliges. Además, te ayudamos a refinanciar tu capital inicial, generando ingresos sin necesidad de vender.",
-    },
-    timeline: {
-      title: "Tiempo de Obra y Acompañamiento Total",
-      caption: "15 meses para construir y rentar, 36 para vender",
-      body: "Desde la firma te acompañamos: creamos tu corporación, buscamos el terreno, gestionamos permisos, préstamos y construcción. En 15 meses tienes una casa terminada y rentada. A los 3 meses de renta se inicia la refinanciación y comienzas a recibir ingresos pasivos por 2 años.",
+      title: "3. Transparency and Control",
+      caption: "Every stage. Every milestone. Every result.",
+      body: "We empower our investors through technology. Our secure platform gives real-time access to every stage of construction and performance, ensuring full transparency and confidence in how their investment is built and managed.",
     },
   },
-  en: {
-    experience: {
-      title: "Track Record and Experience",
-      caption: "Over 25 years in real estate development",
-      body: "We have a solid background in residential, commercial, and capital projects. On Florida’s West Coast alone, we’ve delivered over 60 homes in the past year. We build single-family homes, build-to-rent units, and duplexes, with a delivery capacity of up to 120 homes annually.",
+
+  es: {
+    track: {
+      title: "1. Trayectoria Comprobada",
+      caption: "Experiencia, ejecución y confianza — ganadas con resultados.",
+      body: "Con más de 25 años de experiencia en casi todas las áreas del sector inmobiliario — desde desarrollo y construcción hasta corretaje y estructuración de inversiones — hemos construido y vendido cientos de viviendas y recaudado millones en capital privado para proyectos inmobiliarios. Nuestra base es la experiencia, la ejecución y la confianza ganada con resultados.",
     },
-    returns: {
-      title: "High Returns and Investment Potential",
-      caption: "Passive income, proven model",
-      body: "Our model is designed to deliver consistent, attractive returns. You can start investing from $250,000. Each home generates income from month 16 and can be sold after 36 months, with an estimated annual return of up to 22%. We manage the entire process—construction, permits, leasing, and refinancing.",
+    cashflow: {
+      title: "2. Enfocados en Flujo de Efectivo y Riqueza a Largo Plazo",
+      caption: "Equilibrio entre desempeño y estabilidad.",
+      body: "Creemos que el verdadero éxito financiero en bienes raíces proviene de ingresos estables y apreciación sostenible. Nuestro modelo Build-to-Rent está diseñado para generar flujo de efectivo constante hoy mientras crea riqueza duradera a lo largo del tiempo — equilibrando rendimiento con estabilidad.",
     },
     transparency: {
-      title: "Transparency and Real-Time Tracking",
-      caption: "Full digital tracking of your investment",
-      body: "We use a construction platform that documents every stage of your home: schedule, daily photos, costs, payments, contracts, and financial updates. You can monitor your investment clearly and securely from anywhere in the world.",
-    },
-    security: {
-      title: "Security and Control",
-      caption: "Property in your name from day one",
-      body: "Each home is backed by a tangible asset. You sign the contract, purchase the lot through a title company, and own it from day one. Funds are disbursed in stages, giving you full control over your investment with no unnecessary intermediaries.",
-    },
-    liquidity: {
-      title: "Smart Liquidity",
-      caption: "Flexibility to sell when you need to",
-      body: "You can sell your property after construction, after two years of rental income, or whenever market conditions are favorable. You decide. We also assist you in refinancing your initial capital, generating income without selling.",
-    },
-    timeline: {
-      title: "Construction Timeline and Full Support",
-      caption: "15 months to build and rent, 36 to sell",
-      body: "From day one, we guide you through the process: forming your corporation, finding the land, handling permits, financing, and construction. In 15 months, your home is built and rented. After three months of rental income, refinancing begins and you start earning passive income for two years.",
+      title: "3. Transparencia y Control",
+      caption: "Cada etapa. Cada logro. Cada resultado.",
+      body: "Empoderamos a nuestros inversionistas con tecnología. Nuestra plataforma segura ofrece acceso en tiempo real a cada fase de construcción y desempeño, garantizando transparencia total y confianza en cómo se construye y gestiona su inversión.",
     },
   },
 } as const;
 
+// ------------------------------
+// Slides builder
+// ------------------------------
 export function getHomePhilosophySlides(
   locale: Locale
 ): ReadonlyArray<HomePhilosophySlide> {
@@ -111,26 +76,28 @@ export function getHomePhilosophySlides(
 const PHILOSOPHY = {
   en: {
     left: {
-      title: "Our philosophy",
-      leadEm: "Built for living,",
-      leadRest: "designed for life.",
+      title: "Our Guiding Principles",
+      leadEm: "We build more than homes —",
+      leadRest:
+        "we build performance. Over 25 years of experience. Hundreds of homes delivered. Millions raised in private equity and partnerships built on trust. We believe in cash flow first, wealth forever. In real assets you can see, touch, and control. In strategies that work for families and funds alike. We believe investors deserve transparency. A clear view of every stage, every milestone, every result. Because confidence comes from knowing — not guessing. This is how we build. With integrity. With purpose. With results.",
     },
     tip: "Tip: tap a card to read more.",
     aria: {
-      panels: "Philosophy panels",
+      panels: "Guiding principles panels",
       previous: "Previous card",
       next: "Next card",
     },
   },
   es: {
     left: {
-      title: "Nuestra filosofía",
-      leadEm: "Hecho para vivir,",
-      leadRest: "diseñado para la vida.",
+      title: "Nuestros Principios Rectores",
+      leadEm: "Construimos más que viviendas —",
+      leadRest:
+        "construimos rendimiento. Más de 25 años de experiencia. Cientos de viviendas entregadas. Millones recaudados en capital privado y asociaciones basadas en la confianza. Creemos en flujo de efectivo primero, riqueza para siempre. En activos reales que se pueden ver, tocar y controlar. En estrategias que funcionan tanto para familias como para fondos. Creemos que los inversionistas merecen transparencia. Una visión clara de cada etapa, cada logro, cada resultado. Porque la confianza proviene del conocimiento, no de la suposición. Así construimos. Con integridad. Con propósito. Con resultados.",
     },
     tip: "Consejo: toca una tarjeta para leer más.",
     aria: {
-      panels: "Paneles de filosofía",
+      panels: "Paneles de principios rectores",
       previous: "Tarjeta anterior",
       next: "Siguiente tarjeta",
     },

@@ -4,16 +4,25 @@ export type Locale = "en" | "es";
 
 // Reusable function type for aria formatters
 export type Formatter = (n: number) => string;
-export type CardId = "fl-plans" | "nc-communities" | "features";
+
+// ✅ Expanded union so both legacy and new IDs are valid
+export type CardId =
+  | "fl-plans"
+  | "nc-communities"
+  | "features"
+  | "one"
+  | "portfolios"
+  | "collection";
 
 export type Point = {
   title: string;
   body: string;
 };
 
-// extracted type for the display section
+// ---- Home Display section
 export type HomeDisplayStrings = {
   heading: string;
+  description: ReadonlyArray<string>;
   points: ReadonlyArray<Point>;
   aria: {
     previous: string;
@@ -23,6 +32,7 @@ export type HomeDisplayStrings = {
   media: { videoAria: string };
 };
 
+// ---- Home page text bundles
 export type HomeStrings = {
   hero: { title: string; subtitle: string; videoAria: string };
   phrase: { text: string; attribution: string };
@@ -32,7 +42,6 @@ export type HomeStrings = {
     aria: { panels: string; previous: string; next: string };
   };
   featureCards: { showHeader: boolean; title: string; blurb: string };
-  // Use the new type here instead of inline definition
   display: HomeDisplayStrings;
 };
 
@@ -44,16 +53,15 @@ export type Cta = {
 
 export type HeroCardStrings = {
   aria: { promotion: string };
-  // keep title optional for backward-compat
-  title?: string;
+  title?: string; // kept optional for backward compatibility
   heading: string;
-  subheading: string; // “SaraHomes by RentPortfolio”
+  subheading: string;
   tabs: readonly [string, string, string];
 };
 
-// ---- Home brochure/philosophy slides
+// ---- Home brochure / philosophy slides
 export type HomePhilosophySlide = {
-  src: string; // builder returns string paths
+  src: string;
   title: string;
   caption: string;
   body?: string;
@@ -64,6 +72,7 @@ export type HomeDisplaySlide = {
   alt: string;
 };
 
+// ---- Home Feature Cards
 export type HomeFeatureCard = {
   id: CardId;
   href: string;
@@ -82,6 +91,7 @@ export type HomeFeatureCardsStrings = {
 
 export type ProductId = "single-family" | "btr" | "cluster";
 
+// ---- Florida page types
 export type Slide = {
   src: string;
   title: string;

@@ -2,18 +2,18 @@
 import type { Locale, CardId, HomeFeatureCard } from "./types";
 
 /* ============================================
-   1️⃣  Section-level i18n (moved from copy.ts)
+   1️⃣  Section-level i18n
    ============================================ */
 const enFeatureCards = {
   showHeader: true,
-  title: "How to Invest with Us",
-  blurb: "Three models to build your rental portfolio.",
+  title: "Build your own RentPortfolio",
+  blurb: "Three investment paths to fit your goals.",
 };
 
 const esFeatureCards = {
   showHeader: true,
-  title: "Cómo invertir con nosotros",
-  blurb: "Tres modelos para construir tu portafolio de renta.",
+  title: "Construya su propio RentPortfolio",
+  blurb: "Tres caminos de inversión que se adaptan a sus objetivos.",
 };
 
 export const homeFeatureCardsCopy = { en: enFeatureCards, es: esFeatureCards };
@@ -29,82 +29,91 @@ type BaseCard = {
 
 const BASE_CARDS: ReadonlyArray<BaseCard> = [
   {
-    id: "fl-plans",
-    href: "/build-to-rent",
-    imageSrc: "/images/home/btr.jpg",
+    id: "one",
+    href: "/invest/one",
+    imageSrc: "/images/home/feature-one.jpg",
   },
   {
-    id: "nc-communities",
-    href: "/single-family",
-    imageSrc: "/images/home/single-family.jpg",
+    id: "portfolios",
+    href: "/invest/portfolios",
+    imageSrc: "/images/home/feature-portfolios.jpg",
   },
   {
-    id: "features",
-    href: "/clusters",
-    imageSrc: "/images/home/clusters.jpg",
+    id: "collection",
+    href: "/invest/360-collection",
+    imageSrc: "/images/home/feature-360.jpg",
   },
 ];
 
 const LABELS = {
   en: {
-    "fl-plans": {
-      imageAlt: "New homes built for rent from day one",
-      heading: "Built to Rent (BTR)",
+    one: {
+      imageAlt: "Single build-to-rent home exterior",
+      heading: "One",
       description:
-        "New homes built exclusively for rent from day one. Individual or grouped properties ready to generate stable, predictable income—ideal for investors seeking security, tax advantages, and capital appreciation.",
-      ctaLabel: "Explore more",
+        "Start small, think big. Major institutional investors are pouring billions into Build-to-Rent communities — and you can follow their lead on a personal scale. By investing in just one or two BTR homes, you begin building a portfolio that generates rental income and appreciates over time. As your equity grows, so does your ability to expand — transforming a single investment into a long-term wealth strategy guided by the same fundamentals driving institutional success.",
+      ctaLabel: "Invest Now",
     },
-    "nc-communities": {
-      imageAlt: "Modern single-family home with quality finishes",
-      heading: "Single Family Home",
+    portfolios: {
+      imageAlt: "Group of homes in a pre-construction community",
+      heading: "Portfolios",
       description:
-        "New single-family homes with excellent design, finishes, and location. Buy at pre-sale prices, rent long-term, and enjoy simple management—perfect for those starting or diversifying their portfolio.",
-      ctaLabel: "Explore more",
+        "High-net-worth investors, family offices, and wealth advisors can secure a position in this powerful asset class by acquiring a 4- or 8-unit BTR portfolio during the pre-construction phase. Early buyers benefit from preferred pricing and additional discounts from retail values, positioning themselves for attractive appreciation and strong future income once the homes are completed and leased. Don’t just follow the trend — get ahead of it.",
+      ctaLabel: "Learn More",
     },
-    features: {
-      imageAlt: "Group of rental homes within a shared development",
-      heading: "Rental Clusters (4–8 Homes)",
+    collection: {
+      imageAlt: "Turnkey rental home generating income",
+      heading: "360° Collection",
       description:
-        "Clusters of homes within the same lot or project, designed for scale. They offer operational advantages, consolidated returns, and management efficiency—perfect for investors ready to grow faster.",
-      ctaLabel: "Explore more",
+        "Discover the 360° Collection — a limited selection of turnkey, income-producing homes already built, leased, and generating steady cash flow from day one. These performing assets offer investors a simple, hassle-free way to own real estate that’s already working for them. Invest today and start earning immediately.",
+      ctaLabel: "Explore Collection",
     },
   },
   es: {
-    "fl-plans": {
-      imageAlt: "Viviendas nuevas construidas para rentar desde el primer día",
-      heading: "Built to Rent (BTR)",
+    one: {
+      imageAlt: "Fachada de una vivienda Build-to-Rent individual",
+      heading: "Uno",
       description:
-        "Viviendas nuevas construidas exclusivamente para rentar desde el primer día. Son propiedades individuales o agrupadas, listas para generar ingresos de forma estable y predecible. Ideal para inversores que buscan seguridad, ahorro fiscal y apreciación de capital.",
-      ctaLabel: "Explorar más",
+        "Empiece en pequeño, piense en grande. Los principales inversores institucionales están invirtiendo miles de millones en comunidades Build-to-Rent, y usted puede seguir su ejemplo a escala personal. Al invertir en una o dos viviendas BTR, comienza a construir un portafolio que genera ingresos por alquiler y se aprecia con el tiempo. A medida que crece su capital, también crece su capacidad para expandirse, transformando una sola inversión en una estrategia de riqueza a largo plazo basada en los mismos principios que impulsan el éxito institucional.",
+      ctaLabel: "Invertir Ahora",
     },
-    "nc-communities": {
-      imageAlt: "Casa unifamiliar moderna con acabados de alta calidad",
-      heading: "Single Family Home",
+    portfolios: {
+      imageAlt: "Grupo de viviendas en una comunidad en preventa",
+      heading: "Portafolios",
       description:
-        "Casas unifamiliares nuevas con excelente diseño, acabados y ubicación. Puedes comprarlas con precio de preventa, alquilarlas a largo plazo y contar con una estructura simple de gestión. Apta para quien inicia o diversifica su portafolio.",
-      ctaLabel: "Explorar más",
+        "Los inversionistas de alto patrimonio, oficinas familiares y asesores financieros pueden asegurar su posición en esta poderosa clase de activos adquiriendo un portafolio BTR de 4 u 8 unidades durante la fase de preconstrucción. Los compradores tempranos se benefician de precios preferenciales y descuentos adicionales sobre los valores minoristas, posicionándose para una apreciación atractiva y sólidos ingresos futuros una vez completadas y alquiladas las viviendas. No solo siga la tendencia: anticípese a ella.",
+      ctaLabel: "Más Información",
     },
-    features: {
-      imageAlt: "Agrupación de casas dentro de un mismo proyecto",
-      heading: "Clusters de Renta (4–8 casas)",
+    collection: {
+      imageAlt: "Casa alquilada y generando ingresos desde el primer día",
+      heading: "Colección 360°",
       description:
-        "Agrupaciones de casas dentro del mismo lote o proyecto, diseñadas para generar escala. Ofrecen ventajas operativas, mayor retorno consolidado y eficiencia administrativa. Perfecto para quienes desean escalar más rápido.",
-      ctaLabel: "Explorar más",
+        "Descubra la Colección 360° — una selección limitada de viviendas llave en mano, generadoras de ingresos, ya construidas, alquiladas y produciendo flujo de efectivo desde el primer día. Estos activos listos ofrecen a los inversores una manera simple y sin complicaciones de poseer bienes raíces que ya están trabajando para ellos. Invierta hoy y comience a ganar de inmediato.",
+      ctaLabel: "Explorar Colección",
     },
   },
 } as const;
 
+/* ============================================
+   3️⃣  Builder (safe with dynamic narrowing)
+   ============================================ */
 export function getHomeFeatureCards(
   locale: Locale
 ): ReadonlyArray<HomeFeatureCard> {
   const dict = locale === "es" ? LABELS.es : LABELS.en;
-  return BASE_CARDS.map(({ id, href, imageSrc }) => ({
-    id,
-    href,
-    imageSrc,
-    imageAlt: dict[id].imageAlt,
-    heading: dict[id].heading,
-    description: dict[id].description,
-    ctaLabel: dict[id].ctaLabel,
-  }));
+
+  return BASE_CARDS.filter((c) => c.id in dict).map(
+    ({ id, href, imageSrc }) => {
+      const d = dict[id as keyof typeof dict];
+      return {
+        id,
+        href,
+        imageSrc,
+        imageAlt: d.imageAlt,
+        heading: d.heading,
+        description: d.description,
+        ctaLabel: d.ctaLabel,
+      };
+    }
+  );
 }

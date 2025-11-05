@@ -2,31 +2,36 @@
 import type { HomeDisplayStrings } from "./types";
 
 const en: HomeDisplayStrings = {
-  heading: "Key Business Advantages",
+  heading: "The Smarter Way to Invest in Real Estate",
+  description: [
+    "At our core, we believe residential real estate should perform like a business — delivering steady income, low risk, and long-term value.",
+    "Our Build-to-Rent model allows investors to own brand-new homes purpose-built for rental performance. Whether you choose to purchase an already leased property or hire us to develop a new one for you, each home is designed from the ground up to maximize yield, durability, and tenant demand.",
+    "Here’s why this asset class is redefining how investors grow wealth through real estate:",
+  ],
   points: [
     {
-      title: "No HOA or restrictions",
-      body: "Properties without HOA fees or community rules limiting your freedom as an owner.",
+      title: "Location, Location, Location",
+      body: "Invest where returns are strongest — we build in high-growth markets with proven rental performance.",
     },
     {
-      title: "Flexible liquidity",
-      body: "You decide when to sell—adjust your strategy as the market evolves.",
+      title: "Size Doesn’t Matter",
+      body: "Start small, think big. Build your portfolio one home at a time and scale at your own pace.",
     },
     {
-      title: "Scheduled income",
-      body: "Stable, predictable rental cash flow managed professionally.",
+      title: "Yield Over Appreciation",
+      body: "Earn money today. Each property is designed to generate strong rental income while still offering long-term upside.",
     },
     {
-      title: "Tangible asset",
-      body: "Your investment is backed by a real, physical property with lasting value.",
+      title: "Low Carrying Costs",
+      body: "No HOA fees and easy to rent — a simple, efficient model for sustainable performance.",
     },
     {
-      title: "Entry from $250,000",
-      body: "Start your real estate portfolio with an attainable investment and growth potential.",
+      title: "Liquidity",
+      body: "Need access to cash? Sell one home without disrupting your entire portfolio.",
     },
     {
-      title: "Full control",
-      body: "Monitor and optimize your investment directly, with no intermediaries.",
+      title: "Direct Control",
+      body: "No intermediaries, no funds — you own the property directly and control your investment.",
     },
   ],
   aria: {
@@ -35,36 +40,41 @@ const en: HomeDisplayStrings = {
     goToSlide: (n: number) => `Go to slide ${n}`,
   },
   media: {
-    videoAria: "Video showcasing key business highlights",
+    videoAria: "Video showcasing our Build-to-Rent investment model",
   },
 };
 
 const es: HomeDisplayStrings = {
-  heading: "Claves del negocio",
+  heading: "La forma más inteligente de invertir en bienes raíces",
+  description: [
+    "En esencia, creemos que el sector residencial debe funcionar como un negocio: generar ingresos estables, bajo riesgo y valor a largo plazo.",
+    "Nuestro modelo Build-to-Rent permite a los inversionistas ser dueños de casas nuevas diseñadas específicamente para el rendimiento en renta. Ya sea que elija adquirir una propiedad arrendada o contratar el desarrollo de una nueva, cada casa está construida para maximizar rentabilidad, durabilidad y demanda.",
+    "Así es como esta clase de activo está redefiniendo la forma en que los inversionistas generan riqueza a través de bienes raíces:",
+  ],
   points: [
     {
-      title: "Sin HOA ni restricciones",
-      body: "Propiedades sin cuotas de HOA ni reglas de comunidad que limiten su libertad como propietario.",
+      title: "Ubicación, Ubicación, Ubicación",
+      body: "Invierta donde los rendimientos son más fuertes: construimos en mercados de alto crecimiento con desempeño comprobado en renta.",
     },
     {
-      title: "Liquidez flexible",
-      body: "Usted decide cuándo vender, con la libertad de ajustar su estrategia según el mercado.",
+      title: "El tamaño no importa",
+      body: "Empiece pequeño, piense en grande. Construya su portafolio una casa a la vez y escale a su propio ritmo.",
     },
     {
-      title: "Ingreso programado",
-      body: "Flujo de renta estable y predecible con contratos administrados profesionalmente.",
+      title: "Rendimiento sobre apreciación",
+      body: "Gane dinero hoy. Cada propiedad está diseñada para generar ingresos sólidos por renta y aún ofrecer apreciación a largo plazo.",
     },
     {
-      title: "Activo tangible",
-      body: "Su inversión está respaldada por una propiedad física que genera valor real.",
+      title: "Bajos costos de mantenimiento",
+      body: "Sin cuotas HOA y fácil de rentar: un modelo simple y eficiente para un desempeño sostenible.",
     },
     {
-      title: "Acceso desde $250,000",
-      body: "Inicie su portafolio inmobiliario con una inversión accesible y potencial de crecimiento.",
+      title: "Liquidez",
+      body: "¿Necesita efectivo? Venda una casa sin afectar todo su portafolio.",
     },
     {
-      title: "Control total",
-      body: "Supervise, decida y optimice cada aspecto de su inversión sin intermediarios.",
+      title: "Control directo",
+      body: "Sin intermediarios ni fondos: usted es dueño directo de la propiedad y controla su inversión.",
     },
   ],
   aria: {
@@ -73,7 +83,7 @@ const es: HomeDisplayStrings = {
     goToSlide: (n: number) => `Ir a la diapositiva ${n}`,
   },
   media: {
-    videoAria: "Video que muestra los principales beneficios del negocio",
+    videoAria: "Video que muestra nuestro modelo de inversión Build-to-Rent",
   },
 };
 

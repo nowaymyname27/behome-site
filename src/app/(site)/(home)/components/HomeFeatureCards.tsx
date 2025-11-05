@@ -1,36 +1,40 @@
 // File: src/app/(site)/(home)/components/HomeFeatureCards.tsx
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-
 import { useLocale } from "../../../../i18n/locale-context";
 import { tHomeFeatureCards, getHomeFeatureCards } from "../i18n";
 
 export default function HomeFeatureCards() {
   const { locale } = useLocale();
-  // Localized section text
   const i = tHomeFeatureCards(locale);
-  // Localized card data
   const FEATURES = getHomeFeatureCards(locale);
 
   if (!FEATURES.length) return null;
 
   return (
     <section className="section-pad bg-accent">
-      {i.showHeader && (i.title || i.blurb) ? (
-        <header className="mx-auto max-w-2xl text-center text-accent-foreground mb-10 sm:mb-12">
-          {i.title ? <h2 className="h2">{i.title}</h2> : null}
-          {i.blurb ? <p className="mt-3 muted">{i.blurb}</p> : null}
+      {/* Header */}
+      {i.showHeader && (i.title || i.blurb) && (
+        <header className="mx-auto max-w-3xl text-center text-accent-foreground mb-14">
+          {i.title && <h2 className="h2">{i.title}</h2>}
+          {i.blurb && <p className="mt-3 text-lg opacity-80">{i.blurb}</p>}
         </header>
-      ) : null}
+      )}
 
+      {/* Cards */}
       <div className="px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.slice(0, 3).map((f) => (
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map((f) => (
             <article
               key={f.id}
-              className="rounded-2xl border border-border bg-white overflow-hidden shadow-md transition hover:-translate-y-1 hover:shadow-xl focus-within:shadow-xl hover:ring-1 hover:ring-accent/20"
+              className="rounded-2xl border border-border/50 bg-white/95 backdrop-blur-sm overflow-hidden
+                         shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl
+                         flex flex-col"
             >
-              <div className="relative aspect-[16/9]">
+              {/* Image */}
+              <div className="relative aspect-[16/10]">
                 <Image
                   src={f.imageSrc}
                   alt={f.imageAlt}
@@ -40,19 +44,25 @@ export default function HomeFeatureCards() {
                 />
               </div>
 
-              <div className="p-5 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-semibold tracking-tight line-clamp-2">
-                  {f.heading}
-                </h3>
-                <p className="mt-2 muted line-clamp-3">{f.description}</p>
+              {/* Text */}
+              <div className="p-7 flex flex-col flex-1 justify-between">
+                <div>
+                  <h3 className="text-2xl font-semibold tracking-tight text-foreground">
+                    {f.heading}
+                  </h3>
+                  <div className="h-[2px] w-12 bg-accent mt-2 mb-4" />
+                  <p className="text-base text-foreground/90 leading-relaxed">
+                    {f.description}
+                  </p>
+                </div>
 
-                <div className="mt-5">
+                <div className="mt-8">
                   <Link
                     href={f.href}
-                    className="btn btn-FL w-full sm:w-auto"
-                    aria-label={`${f.ctaLabel}: ${f.heading}`}
+                    className="btn btn-FL w-full sm:w-auto text-sm md:text-base px-6 py-2.5"
+                    aria-label={`Learn More: ${f.heading}`}
                   >
-                    {f.ctaLabel}
+                    Learn More
                   </Link>
                 </div>
               </div>
