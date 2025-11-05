@@ -19,6 +19,19 @@ export type Point = {
   body: string;
 };
 
+export type HomeBTRExplainedStat = {
+  label: string;
+  value: string;
+  detail: string;
+};
+
+export type HomeBTRExplained = {
+  title: string;
+  description: string;
+  quote: string;
+  stats: HomeBTRExplainedStat[];
+};
+
 // ---- Home Display section
 export type HomeDisplayStrings = {
   heading: string;

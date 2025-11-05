@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import Header from "../../../components/site-wide/Header";
 import HomeHero from "./components/HomeHero";
-import HomeHero2 from "./components/HomeHero2";
+import BTRExplained from "./components/BTRExplained";
 import Phrase from "./components/Phrase";
 import HomeFeatureCards from "./components/HomeFeatureCards";
 import HomeBrochure from "./components/HomeBrochure";
@@ -79,6 +79,7 @@ export default function Page() {
       <Header />
       <main className="flex-1">
         <HomeHero />
+        <BTRExplained />
         <Phrase />
         <HomeFeatureCards />
         <div className="w-full p-4 md:p-6 bg-accent">

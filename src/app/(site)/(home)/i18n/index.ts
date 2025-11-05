@@ -17,7 +17,8 @@ import { brochure } from "./brochure";
 import { hero } from "./hero2";
 import { description } from "./description";
 import { map } from "./map";
-import { tHeroCard } from "./hero-card"; // updated import
+import { tHeroCard } from "./hero-card";
+import { tHomeBTRExplained } from "./btrExplained";
 
 const dict = {
   en: {
@@ -39,7 +40,7 @@ const dict = {
 } as const;
 
 // --- Section helpers (exported to components) ---
-export { tHomeHero, tHomePhilosophy, tHomePhrase };
+export { tHomeHero, tHomePhilosophy, tHomePhrase, tHomeBTRExplained };
 
 // display
 export function tHomeDisplay(locale: Locale): HomeDisplayStrings {
@@ -54,7 +55,7 @@ export function tHomeFeatureCards(locale: Locale) {
 // builder exports
 export { getHomeFeatureCards } from "./feature-cards";
 export { getHomePhilosophySlides } from "./philosophy";
-export { tHeroCard } from "./hero-card"; // cleaned up
+export { tHeroCard } from "./hero-card";
 
 // re-export types
 export type { Locale, HomeFeatureCard } from "./types";
