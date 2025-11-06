@@ -22,6 +22,7 @@ import K6 from "./images/townhomes/K6.png";
 import K7 from "./images/townhomes/K7.png";
 import SectionTransition from "./components/SectionTransition";
 import EvergladesShowcase from "./components/EvergladesShowcase";
+import OtherStylesComparison from "./components/OtherStylesComparison";
 
 export default function Page() {
   const { locale } = useLocale();
@@ -99,6 +100,7 @@ export default function Page() {
         <ClusterHero />
         <BuiltForInvestors />
         <EvergladesShowcase />
+        <OtherStylesComparison />
         <SectionTransition />
         <ClusterSubmenuWrapper
           items={homes.map((h) => ({ id: h.id, label: h.label }))}

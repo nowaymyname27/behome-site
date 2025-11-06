@@ -13,7 +13,7 @@ export default function SectionTransition() {
       : "Check out our different house styles";
 
   return (
-    <section className="w-full bg-chrome text-white pt-28 md:pt-10 pb-10 text-center m-0 relative">
+    <section className="w-full bg-chrome text-white pt-15 md:pt-10 pb-10 text-center m-0 relative">
       <motion.h2
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
