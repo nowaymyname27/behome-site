@@ -1,4 +1,4 @@
-// file: src/components/site-wide/HouseCard.tsx
+// File: src/components/site-wide/HouseCard.tsx
 "use client";
 
 import * as React from "react";
@@ -6,15 +6,13 @@ import * as React from "react";
 export type HouseCardProps = {
   id?: string;
   image: { src: string; alt?: string };
-  address: string; // heading
-  price: number; // starting price
-  beds: number;
-  baths: number;
-  cars?: number;
-  sqft?: number;
+  address: string;
+  price: number; // asking or sold price
+  sold?: boolean; // true = sold, false = available
+  styleBadge?: string; // e.g. "Modern", "Colonial"
+  returnRate?: number; // % return from renting
   href: string; // details link
   className?: string;
-  badge?: string; // optional small tag (e.g., "New", "Move-in ready")
 };
 
 function formatMoney(v: number) {
@@ -30,59 +28,76 @@ export default function HouseCard({
   image,
   address,
   price,
-  beds,
-  baths,
-  cars,
-  sqft,
+  sold = false,
+  styleBadge,
+  returnRate,
   href,
   className,
-  badge,
 }: HouseCardProps) {
+  const statusLabel = sold ? "Sold" : "Available";
+  const statusColor = sold
+    ? "bg-red-600/90 text-white shadow-sm shadow-red-400/40"
+    : "bg-emerald-500/90 text-white shadow-sm shadow-emerald-400/40";
+
   return (
     <article
       id={id}
       className={[
-        "group rounded-2xl border border-border bg-card text-card-foreground overflow-hidden",
-        "shadow-sm hover:shadow-md transition-shadow",
+        "group relative overflow-hidden rounded-2xl border border-border/50",
+        "bg-background text-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-border",
         className ?? "",
       ].join(" ")}
     >
-      {/* Square media */}
-      <figure className="relative w-full aspect-square bg-surface/40">
+      {/* Image */}
+      <figure className="relative w-full aspect-square overflow-hidden">
         <img
           src={image.src}
           alt={image.alt ?? address}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover transform transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
         />
-        {badge && (
-          <div className="absolute left-3 top-3 rounded-full bg-accent/90 text-accent-foreground text-xs px-2 py-1">
-            {badge}
+
+        {/* gradient overlay for subtle fade */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        {/* Style badge (top-left) */}
+        {styleBadge && (
+          <div className="absolute left-3 top-3 rounded-full bg-accent/90 text-accent-foreground text-xs px-2 py-1 backdrop-blur-sm">
+            {styleBadge}
           </div>
         )}
+
+        {/* Status badge (top-right) */}
+        <div
+          className={`absolute right-3 top-3 rounded-full text-xs px-2 py-1 font-semibold ${statusColor}`}
+        >
+          {statusLabel}
+        </div>
       </figure>
 
       {/* Body */}
-      <div className="p-4 sm:p-5">
-        <h3 className="text-base sm:text-lg font-semibold leading-tight line-clamp-2">
+      <div className="p-5 flex flex-col">
+        <h3 className="text-lg font-semibold leading-tight tracking-tight line-clamp-2 mb-2">
           {address}
         </h3>
 
-        <div className="mt-1.5 text-xs text-foreground/70">Starting price</div>
-        <div className="text-lg font-semibold">{formatMoney(price)}</div>
-
-        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-foreground/80">
-          <span>{beds} Beds</span>
-          <span>{baths} Baths</span>
-          {typeof cars === "number" && <span>{cars} Cars</span>}
-          {typeof sqft === "number" && (
-            <span>{sqft.toLocaleString()} Sq ft</span>
-          )}
+        <div className="text-sm text-muted-foreground">
+          {sold ? "Sold price" : "Asking price"}
         </div>
+        <div className="text-xl font-semibold mb-3">{formatMoney(price)}</div>
+
+        {typeof returnRate === "number" && (
+          <div className="text-sm text-muted-foreground mb-4">
+            Est. Return:{" "}
+            <span className="font-semibold text-foreground">
+              {returnRate.toFixed(1)}%
+            </span>
+          </div>
+        )}
 
         <a
           href={href}
-          className="btn btn-primary w-full mt-4"
+          className="mt-auto btn btn-primary w-full group-hover:shadow-md transition-all duration-300"
           aria-label={`See details for ${address}`}
         >
           See Details

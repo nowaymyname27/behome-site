@@ -115,67 +115,6 @@ export const mapPointsByRegionQuery = `
   } | order(_createdAt desc)
 `;
 
-export const singleFamilyHousesQuery = `
-  *[_type == "singleFamilyHouse"]{
-    _id,
-    title,
-    "slug": slug.current,
-    price,
-    beds,
-    baths,
-    cars,
-    sqft,
-    "gallery": gallery[]{
-      "src": asset->url,
-      "alt": coalesce(alt, ^.title)
-    },
-    mapPoint->{
-      _id,
-      title,
-      lat,
-      lng,
-      address
-    }
-  } | order(_createdAt desc)
-`;
-
-export const singleFamilyHouseBySlugQuery = `
-  *[_type == "singleFamilyHouse" && slug.current == $slug][0]{
-    _id,
-    title,
-    "slug": slug.current,
-    price,
-    beds,
-    baths,
-    cars,
-    sqft,
-    "gallery": gallery[]{
-      "src": asset->url,
-      "alt": coalesce(alt, ^.title)
-    },
-    "floorplan": select(
-      defined(floorplan) => {
-        "src": floorplan.asset->url,
-        "alt": coalesce(floorplan.alt, "Floorplan")
-      },
-      null
-    ),
-    matterportModelId,
-    matterportUrl,
-    mapPoint->{
-      lat,
-      lng,
-      address
-    }
-  }
-`;
-
-export const singleFamilyHouseSlugsQuery = `
-  *[_type == "singleFamilyHouse" && defined(slug.current)]{
-    "slug": slug.current
-  }
-`;
-
 export const mapPointsByProductTypeQuery = `
   *[_type == "mapPoint" && productType == $type]{
     _id,
@@ -197,5 +136,21 @@ export const allMapPointsQuery = `
     productType,
     blurb,
     href
+  } | order(_createdAt desc)
+`;
+
+export const collectionQuery = `
+  *[_type == "collection"]{
+    _id,
+    address,
+    "image": {
+      "src": photo.asset->url,
+      "alt": coalesce(photo.alt, address)
+    },
+    "style": style->title,        // ✅ pull the title from reference
+    "styleSlug": style->slug.current, // optional, if you ever want to link to style pages
+    status,
+    price,
+    returnRate
   } | order(_createdAt desc)
 `;

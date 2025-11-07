@@ -1,36 +1,32 @@
-// File: src/app/(site)/single-family/page.tsx
 import Header from "../../../components/site-wide/Header";
 import Footer from "../../../components/site-wide/Footer";
 import InvestmentHero from "./components/SingleFamilyHero";
-import LocalizedSFHeading from "./components/LocalizedSFHeading";
-import HouseCard, {
-  HouseCardProps,
-} from "../../../components/site-wide/HouseCard";
+import HouseSection from "../collection/components/HouseSection";
 import { sanityClient } from "../../../sanity/lib/client";
 import {
-  singleFamilyHousesQuery,
+  collectionQuery,
   mapPointsByProductTypeQuery,
 } from "../../../sanity/lib/queries";
-
-// Map bits
 import SiteMap from "../../../components/site-wide/SiteMap";
 import type { Config, Point } from "../../../components/site-wide/map/types";
+import type { HouseCardProps } from "../../../components/site-wide/HouseCard";
+import CollectionDescription from "./components/CollectionDescription";
+import CollectionHighlights from "./components/CollectionHighlights";
 
-type SingleFamilyListItem = {
-  title: string;
-  slug: string;
+type CollectionItem = {
+  _id: string;
+  address: string;
+  image: { src: string; alt?: string };
+  style: string;
+  styleSlug: string; // ✅ new
+  status: "sold" | "available";
   price: number;
-  beds: number;
-  baths: number;
-  cars: number;
-  sqft: number;
-  gallery: { src: string; alt?: string }[];
+  returnRate?: number;
 };
 
 type MapPointDoc = {
   _id: string;
   title: string;
-  address?: string;
   lat: number;
   lng: number;
   productType: "btr" | "single" | "cluster";
@@ -38,36 +34,36 @@ type MapPointDoc = {
 
 export const revalidate = 60;
 
-export default async function SingleFamilyPage() {
-  // Houses (cards)
-  const data: SingleFamilyListItem[] = await sanityClient.fetch(
-    singleFamilyHousesQuery
-  );
+export default async function CollectionPage() {
+  // Fetch collection cards
+  const data: CollectionItem[] = await sanityClient.fetch(collectionQuery);
 
+  // Map Sanity data into HouseCardProps
   const houses: HouseCardProps[] = data.map((h) => ({
-    image: { src: h.gallery?.[0]?.src ?? "", alt: h.gallery?.[0]?.alt },
-    address: h.title,
+    id: h._id,
+    image: h.image,
+    address: h.address,
     price: h.price,
-    beds: h.beds,
-    baths: h.baths,
-    cars: h.cars,
-    sqft: h.sqft,
-    href: `/single-family/${h.slug}`,
+    sold: h.status === "sold",
+    styleBadge: h.style,
+    returnRate: h.returnRate,
+    href: `/collection/${h.styleSlug}`, // ✅ link to style page
   }));
 
-  // Map points for Single-Family
+  // Fetch map points
   const rawPoints: MapPointDoc[] = await sanityClient.fetch(
     mapPointsByProductTypeQuery,
     { type: "single" }
   );
 
-  // Convert to SiteMap Point[]
+  // Convert to SiteMap points
   const points: Point[] = rawPoints.map((p) => ({
     id: p._id,
     name: p.title,
     coords: [p.lng, p.lat],
   }));
 
+  // Configure map display
   const config: Config | null =
     points.length > 0
       ? {
@@ -78,26 +74,25 @@ export default async function SingleFamilyPage() {
         }
       : null;
 
+  // --- Render ---
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
         <InvestmentHero />
-        <LocalizedSFHeading />
+        <CollectionDescription />
+        <CollectionHighlights />
 
-        {/* Cards */}
-        <section className="w-full px-6 sm:px-12 lg:px-20 pb-10">
-          <div className="grid gap-6 lg:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {houses.map((house, i) => (
-              <HouseCard key={i} {...house} />
-            ))}
-          </div>
-        </section>
+        {/* Cards Section */}
+        <HouseSection
+          title="Our Single-Family Homes"
+          subtitle="Browse through all available single-family properties."
+          houses={houses}
+        />
 
-        {/* Map (multi-marker) */}
+        {/* Map Section */}
         {config && (
           <section className="w-full border-t border-b border-border">
-            {/* Section heading */}
             <div className="px-4 sm:px-6 lg:px-8 py-6">
               <h2 className="text-2xl font-semibold tracking-tight">
                 Our Single-Family Homes
@@ -107,7 +102,6 @@ export default async function SingleFamilyPage() {
               </p>
             </div>
 
-            {/* Map container */}
             <div style={{ height: "600px" }}>
               <SiteMap config={config} clickToUse />
             </div>

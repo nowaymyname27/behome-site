@@ -4,7 +4,7 @@ import type { Locale, EvergladesShowcaseStrings } from "./types";
 export const evergladesShowcaseCopy: Record<Locale, EvergladesShowcaseStrings> =
   {
     en: {
-      title: "The Everglades",
+      title: "The Everglades House",
       subtitle: "Designed for Living, Built for Returns",
       description:
         "Our flagship Build-to-Rent home, the Everglades, is thoughtfully engineered to maximize rental performance and long-term value. Its flexible design, durable construction, and modern features make it ideal for today’s families and investors alike.",
@@ -43,7 +43,7 @@ export const evergladesShowcaseCopy: Record<Locale, EvergladesShowcaseStrings> =
     },
 
     es: {
-      title: "El Everglades",
+      title: "Casa Everglades",
       subtitle: "Diseñado para vivir, construido para rendir",
       description:
         "Nuestra propiedad insignia Build-to-Rent, el Everglades, está diseñada cuidadosamente para maximizar el rendimiento del alquiler y el valor a largo plazo. Su diseño flexible, construcción duradera y características modernas la hacen ideal tanto para familias como para inversionistas.",
