@@ -6,3 +6,17 @@ export interface InvestmentHeroStrings {
   subtitle: string;
   listHeading: string;
 }
+
+export type OneDescriptionText = {
+  title: string;
+  subtitle: string;
+  description: string;
+};
+
+export type OneExpansionText = {
+  description: string;
+  points: {
+    title: string;
+    text: string;
+  }[];
+};

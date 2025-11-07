@@ -4,7 +4,7 @@ import InvestmentHero from "./components/SingleFamilyHero";
 import HouseSection from "../collection/components/HouseSection";
 import { sanityClient } from "../../../sanity/lib/client";
 import {
-  collectionQuery,
+  houseCardsQuery,
   mapPointsByProductTypeQuery,
 } from "../../../sanity/lib/queries";
 import SiteMap from "../../../components/site-wide/SiteMap";
@@ -13,15 +13,20 @@ import type { HouseCardProps } from "../../../components/site-wide/HouseCard";
 import CollectionDescription from "./components/CollectionDescription";
 import CollectionHighlights from "./components/CollectionHighlights";
 
-type CollectionItem = {
+type HouseCardItem = {
   _id: string;
   address: string;
   image: { src: string; alt?: string };
-  style: string;
-  styleSlug: string; // ✅ new
   status: "sold" | "available";
   price: number;
   returnRate?: number;
+  style?: {
+    title: string;
+    beds?: number;
+    baths?: number;
+    cars?: number;
+    sqft?: number;
+  };
 };
 
 type MapPointDoc = {
@@ -35,35 +40,39 @@ type MapPointDoc = {
 export const revalidate = 60;
 
 export default async function CollectionPage() {
-  // Fetch collection cards
-  const data: CollectionItem[] = await sanityClient.fetch(collectionQuery);
+  // ✅ Fetch all house cards from Sanity
+  const data: HouseCardItem[] = await sanityClient.fetch(houseCardsQuery);
 
-  // Map Sanity data into HouseCardProps
+  // ✅ Map Sanity data into HouseCardProps
   const houses: HouseCardProps[] = data.map((h) => ({
     id: h._id,
     image: h.image,
     address: h.address,
     price: h.price,
     sold: h.status === "sold",
-    styleBadge: h.style,
+    styleBadge: h.style?.title,
     returnRate: h.returnRate,
-    href: `/collection/${h.styleSlug}`, // ✅ link to style page
+    beds: h.style?.beds,
+    baths: h.style?.baths,
+    cars: h.style?.cars,
+    sqft: h.style?.sqft,
+    href: "#", // will update later to route to details
   }));
 
-  // Fetch map points
+  // ✅ Fetch map points
   const rawPoints: MapPointDoc[] = await sanityClient.fetch(
     mapPointsByProductTypeQuery,
     { type: "single" }
   );
 
-  // Convert to SiteMap points
+  // ✅ Convert to SiteMap points
   const points: Point[] = rawPoints.map((p) => ({
     id: p._id,
     name: p.title,
     coords: [p.lng, p.lat],
   }));
 
-  // Configure map display
+  // ✅ Configure map
   const config: Config | null =
     points.length > 0
       ? {
@@ -74,7 +83,7 @@ export default async function CollectionPage() {
         }
       : null;
 
-  // --- Render ---
+  // ✅ Render
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -85,8 +94,8 @@ export default async function CollectionPage() {
 
         {/* Cards Section */}
         <HouseSection
-          title="Our Single-Family Homes"
-          subtitle="Browse through all available single-family properties."
+          title="360 Collection"
+          subtitle="Browse through our curated selection of stabilized, income-producing homes"
           houses={houses}
         />
 

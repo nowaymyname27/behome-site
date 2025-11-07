@@ -5,7 +5,7 @@ import mapPoint from "./mapPoint";
 import style from "./style";
 import singleFamilyHouse from "./singleFamilyHouse";
 import { localeString, localeText } from "./_locale";
-import collection from "./collection";
+import house_card from "./house_card";
 
 const schemaTypes: SchemaTypeDefinition[] = [
   localeString,
@@ -14,7 +14,7 @@ const schemaTypes: SchemaTypeDefinition[] = [
   mapPoint,
   style,
   singleFamilyHouse,
-  collection,
+  house_card,
 ];
 
 export default schemaTypes;

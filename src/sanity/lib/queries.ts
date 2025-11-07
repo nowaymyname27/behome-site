@@ -139,16 +139,22 @@ export const allMapPointsQuery = `
   } | order(_createdAt desc)
 `;
 
-export const collectionQuery = `
-  *[_type == "collection"]{
+export const houseCardsQuery = `
+  *[_type == "house_card"]{
     _id,
     address,
+    "slug": slug.current,
     "image": {
-      "src": photo.asset->url,
-      "alt": coalesce(photo.alt, address)
+      "src": image.asset->url,
+      "alt": coalesce(image.alt, address)
     },
-    "style": style->title,        // ✅ pull the title from reference
-    "styleSlug": style->slug.current, // optional, if you ever want to link to style pages
+    "style": style->{
+      title,
+      beds,
+      baths,
+      cars,
+      sqft
+    },
     status,
     price,
     returnRate

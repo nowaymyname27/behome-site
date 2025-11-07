@@ -1,4 +1,3 @@
-// File: src/components/site-wide/HouseCard.tsx
 "use client";
 
 import * as React from "react";
@@ -7,11 +6,15 @@ export type HouseCardProps = {
   id?: string;
   image: { src: string; alt?: string };
   address: string;
-  price: number; // asking or sold price
-  sold?: boolean; // true = sold, false = available
-  styleBadge?: string; // e.g. "Modern", "Colonial"
-  returnRate?: number; // % return from renting
-  href: string; // details link
+  price: number;
+  sold?: boolean;
+  styleBadge?: string;
+  returnRate?: number;
+  beds?: number;
+  baths?: number;
+  cars?: number;
+  sqft?: number;
+  href: string;
   className?: string;
 };
 
@@ -31,45 +34,50 @@ export default function HouseCard({
   sold = false,
   styleBadge,
   returnRate,
+  beds,
+  baths,
+  cars,
+  sqft,
   href,
   className,
 }: HouseCardProps) {
   const statusLabel = sold ? "Sold" : "Available";
   const statusColor = sold
-    ? "bg-red-600/90 text-white shadow-sm shadow-red-400/40"
+    ? "bg-red-500/90 text-white shadow-sm shadow-red-400/40"
     : "bg-emerald-500/90 text-white shadow-sm shadow-emerald-400/40";
 
   return (
     <article
       id={id}
       className={[
-        "group relative overflow-hidden rounded-2xl border border-border/50",
-        "bg-background text-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-border",
+        "group relative overflow-hidden rounded-3xl border border-border/50",
+        "bg-chrome text-chrome-foreground shadow-md transition-all duration-500",
+        "hover:-translate-y-1 hover:border-FL hover:shadow-[0_0_30px_rgba(240,166,101,0.45)]",
         className ?? "",
       ].join(" ")}
     >
       {/* Image */}
-      <figure className="relative w-full aspect-square overflow-hidden">
+      <figure className="relative w-full aspect-[4/3] overflow-hidden">
         <img
           src={image.src}
           alt={image.alt ?? address}
-          className="h-full w-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transform transition-transform duration-700 group-hover:scale-110"
           loading="lazy"
         />
 
-        {/* gradient overlay for subtle fade */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
 
-        {/* Style badge (top-left) */}
+        {/* Style badge */}
         {styleBadge && (
-          <div className="absolute left-3 top-3 rounded-full bg-accent/90 text-accent-foreground text-xs px-2 py-1 backdrop-blur-sm">
+          <div className="absolute left-3 top-3 rounded-full bg-FL text-FL-foreground text-xs px-3 py-1 font-medium shadow-sm">
             {styleBadge}
           </div>
         )}
 
-        {/* Status badge (top-right) */}
+        {/* Status badge */}
         <div
-          className={`absolute right-3 top-3 rounded-full text-xs px-2 py-1 font-semibold ${statusColor}`}
+          className={`absolute right-3 top-3 rounded-full text-xs px-3 py-1 font-semibold ${statusColor}`}
         >
           {statusLabel}
         </div>
@@ -77,27 +85,54 @@ export default function HouseCard({
 
       {/* Body */}
       <div className="p-5 flex flex-col">
-        <h3 className="text-lg font-semibold leading-tight tracking-tight line-clamp-2 mb-2">
+        {/* Address */}
+        <h3 className="text-xl font-semibold leading-snug mb-3 text-white">
           {address}
         </h3>
 
-        <div className="text-sm text-muted-foreground">
-          {sold ? "Sold price" : "Asking price"}
-        </div>
-        <div className="text-xl font-semibold mb-3">{formatMoney(price)}</div>
-
-        {typeof returnRate === "number" && (
-          <div className="text-sm text-muted-foreground mb-4">
-            Est. Return:{" "}
-            <span className="font-semibold text-foreground">
-              {returnRate.toFixed(1)}%
-            </span>
+        {/* Price + Return row */}
+        <div className="flex items-end justify-between mb-5">
+          <div>
+            <p className="text-xs text-white/70 mb-0.5">
+              {sold ? "Sold price" : "Asking price"}
+            </p>
+            <p className="text-2xl font-semibold text-white">
+              {formatMoney(price)}
+            </p>
           </div>
-        )}
+          {typeof returnRate === "number" && (
+            <div className="text-right leading-tight">
+              <p className="text-xs text-white/70 mb-0.5">Est. Return</p>
+              <p className="text-sm font-semibold text-FL">
+                {returnRate.toFixed(1)}%
+              </p>
+            </div>
+          )}
+        </div>
 
+        {/* Specs row */}
+        <div className="border-t border-white/10 pt-3 mb-6 flex justify-between text-sm text-white/85 tracking-tight">
+          {[
+            beds !== undefined ? `${beds} Beds` : null,
+            baths !== undefined ? `${baths} Baths` : null,
+            cars !== undefined ? `${cars} Cars` : null,
+            sqft !== undefined ? `${sqft.toLocaleString()} Sq Ft` : null,
+          ]
+            .filter(Boolean)
+            .map((item, i, arr) => (
+              <React.Fragment key={i}>
+                <span>{item}</span>
+                {i < arr.length - 1 && (
+                  <span className="h-3 w-px bg-white/20 mx-2" />
+                )}
+              </React.Fragment>
+            ))}
+        </div>
+
+        {/* CTA */}
         <a
           href={href}
-          className="mt-auto btn btn-primary w-full group-hover:shadow-md transition-all duration-300"
+          className="mt-auto inline-flex justify-center items-center rounded-full bg-FL text-FL-foreground font-semibold text-sm py-2.5 transition-all duration-300 hover:bg-FL/90 hover:shadow-[0_0_8px_rgba(240,166,101,0.5)]"
           aria-label={`See details for ${address}`}
         >
           See Details

@@ -1,28 +1,34 @@
-// File: app/(site)/build-to-rent/page.tsx
 import Header from "../../../components/site-wide/Header";
 import Footer from "../../../components/site-wide/Footer";
 import InvestmentHero from "./components/BTRHero";
 import LocalizedBtrHeading from "./components/LocalizedBtrHeading";
-import BtrHouseCard, {
-  HouseCardProps,
-} from "../../../components/site-wide/BtrHouseCard";
 import { sanityClient } from "../../../sanity/lib/client";
 import {
-  housesByTypeQuery,
+  houseCardsQuery,
   mapPointsByProductTypeQuery,
 } from "../../../sanity/lib/queries";
 
-// Map bits
 import SiteMap from "../../../components/site-wide/SiteMap";
 import type { Config, Point } from "../../../components/site-wide/map/types";
+import OneDescription from "./components/OneDescription";
+import OneExpansion from "./components/OneExpansion";
+import PortfolioSection from "./components/PortfolioSection";
+import type { HouseCardProps } from "../../../components/site-wide/HouseCard";
 
-type HouseListItem = {
-  image: { src: string; alt?: string };
+type HouseCardItem = {
+  _id: string;
   address: string;
+  image: { src: string; alt?: string };
+  status: "sold" | "available";
   price: number;
-  slug: string;
-  style?: string; // from style->title
-  styleSlug?: string; // from style->slug.current
+  returnRate?: number;
+  style?: {
+    title: string;
+    beds?: number;
+    baths?: number;
+    cars?: number;
+    sqft?: number;
+  };
 };
 
 type MapPointDoc = {
@@ -37,24 +43,32 @@ type MapPointDoc = {
 export const revalidate = 60;
 
 export default async function BuildToRentPage() {
-  // Houses (cards)
-  const data: HouseListItem[] = await sanityClient.fetch(housesByTypeQuery);
+  // ✅ Fetch Build-to-Rent house data
+  const data: HouseCardItem[] = await sanityClient.fetch(houseCardsQuery);
+
+  // ✅ Map into HouseCardProps for display
   const houses: HouseCardProps[] = data.map((h) => ({
+    id: h._id,
     image: h.image,
     address: h.address,
     price: h.price,
-    href: h.styleSlug ? `/build-to-rent/${h.styleSlug}` : "#",
-    style: h.style,
+    sold: h.status === "sold",
+    styleBadge: h.style?.title,
+    returnRate: h.returnRate,
+    beds: h.style?.beds,
+    baths: h.style?.baths,
+    cars: h.style?.cars,
+    sqft: h.style?.sqft,
+    href: "#", // can be updated later to link to detail pages
   }));
 
-  // Map points for BTR
+  // ✅ Fetch map points for BTR communities
   const rawPoints: MapPointDoc[] = await sanityClient.fetch(
     mapPointsByProductTypeQuery,
     { type: "btr" }
   );
-  console.log("Map points:", rawPoints);
 
-  // Convert to SiteMap Point[]
+  // ✅ Convert to SiteMap format
   const points: Point[] = rawPoints.map((p) => ({
     id: p._id,
     name: p.title,
@@ -70,27 +84,26 @@ export default async function BuildToRentPage() {
           points,
         }
       : null;
-  console.log("Map config:", config);
+
+  // ✅ Render page
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
         <InvestmentHero />
-        <LocalizedBtrHeading />
+        <OneDescription />
+        <OneExpansion />
 
-        {/* Cards */}
-        <section className="w-full px-6 sm:px-12 lg:px-20 pb-10">
-          <div className="grid gap-6 lg:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {houses.map((house, i) => (
-              <BtrHouseCard key={i} {...house} />
-            ))}
-          </div>
-        </section>
+        {/* Portfolio Section */}
+        <PortfolioSection
+          title="Expand Your Portfolio"
+          subtitle="Build and rent properties designed for long-term growth and stable returns."
+          houses={houses}
+        />
 
-        {/* Map (multi-marker) */}
+        {/* Map Section */}
         {config && (
           <section className="w-full border-t border-b border-border">
-            {/* Section heading */}
             <div className="px-4 sm:px-6 lg:px-8 py-6">
               <h2 className="text-2xl font-semibold tracking-tight">
                 Our Communities
@@ -100,7 +113,6 @@ export default async function BuildToRentPage() {
               </p>
             </div>
 
-            {/* Map container */}
             <div style={{ height: "600px" }}>
               <SiteMap config={config} clickToUse />
             </div>

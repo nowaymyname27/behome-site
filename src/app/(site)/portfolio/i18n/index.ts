@@ -1,6 +1,19 @@
-// File: src/app/(site)/(invest)/i18n/index.ts
-import type { Locale, InvestmentHeroStrings } from "./types";
-import { tInvestmentHero } from "./hero";
+// file: src/app/(site)/portfolio/i18n/index.ts
+import type {
+  Locale,
+  InvestmentHeroStrings,
+  OneDescriptionText,
+  OneExpansionText,
+} from "./types";
 
-export { tInvestmentHero };
-export type { Locale, InvestmentHeroStrings };
+import { tInvestmentHero } from "./hero";
+import { tOneDescription } from "./oneDescription";
+import { tOneExpansion } from "./oneExpansion";
+
+export { tInvestmentHero, tOneDescription, tOneExpansion };
+export type {
+  Locale,
+  InvestmentHeroStrings,
+  OneDescriptionText,
+  OneExpansionText,
+};

@@ -1,0 +1,71 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { CheckCircle } from "lucide-react";
+
+export default function OneExpansion() {
+  const points = [
+    {
+      title: "Immediate Income Potential",
+      text: "Once completed, your home is ready to rent and start generating positive cash flow in one of Florida’s strongest rental markets.",
+    },
+    {
+      title: "Low Carrying Costs",
+      text: "Enjoy no HOA fees, no flood-zone insurance, and durable construction designed for low maintenance and long-term savings.",
+    },
+    {
+      title: "Rapid Appreciation",
+      text: "North Port’s fast-growing population and expanding economy continue to drive strong property value growth year after year.",
+    },
+    {
+      title: "Prime Location",
+      text: "Minutes from Venice Beach, Siesta Key, and Manasota Key, and connected via I-75 to more than 1.6 million residents from Tampa to Naples — a perfect blend of lifestyle and accessibility.",
+    },
+    {
+      title: "Built for Florida Living",
+      text: "Homes are engineered to withstand tropical storms and built with modern materials for safety, durability, and peace of mind.",
+    },
+  ];
+
+  return (
+    <section className="w-full bg-chrome text-chrome-foreground py-24 px-6 sm:px-12 lg:px-24">
+      {/* Description */}
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="text-center text-base sm:text-lg leading-relaxed text-chrome-foreground/90 mb-16 max-w-5xl mx-auto"
+      >
+        Start with one home, earn steady cash flow, and stay in full control —
+        you decide when to sell, reinvest, or keep building your wealth.
+      </motion.p>
+
+      {/* Points grid */}
+      <div className="grid gap-10 sm:gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {points.map((p, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.05 }}
+            viewport={{ once: true }}
+            whileHover={{
+              y: -4,
+              transition: { type: "spring", stiffness: 300, damping: 20 },
+            }}
+            className="flex flex-col gap-3 bg-white text-foreground border border-border rounded-2xl p-8 shadow-sm transition-all duration-300 ease-out hover:shadow-[0_0_20px_rgba(240,166,101,0.35)] hover:border-FL/50"
+          >
+            <div className="flex items-center gap-3">
+              <CheckCircle className="w-6 h-6 text-FL" />
+              <h3 className="text-lg font-semibold">{p.title}</h3>
+            </div>
+            <p className="text-sm text-foreground/80 leading-relaxed">
+              {p.text}
+            </p>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
