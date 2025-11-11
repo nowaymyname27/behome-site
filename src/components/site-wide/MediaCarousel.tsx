@@ -151,7 +151,7 @@ export default function MediaCarousel({
         tabIndex={0}
         onKeyDown={onKeyDown}
         className={cx(
-          "w-full overflow-x-auto no-scrollbar",
+          "w-full overflow-x-auto overflow-y-hidden no-scrollbar",
           "scroll-smooth snap-x snap-mandatory",
           heightVar && "h-[var(--carousel-h)]"
         )}
