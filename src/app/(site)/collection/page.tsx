@@ -12,6 +12,7 @@ import type { Config, Point } from "../../../components/site-wide/map/types";
 import type { HouseCardProps } from "../../../components/site-wide/HouseCard";
 import CollectionDescription from "./components/CollectionDescription";
 import CollectionHighlights from "./components/CollectionHighlights";
+import CollectionSection from "./components/CollectionSection";
 
 type HouseCardItem = {
   _id: string;
@@ -36,6 +37,50 @@ type MapPointDoc = {
   lng: number;
   productType: "btr" | "single" | "cluster";
 };
+
+// mock data just for testing
+const sampleCards = [
+  {
+    id: "1",
+    image: { src: "/SF1.jpg", alt: "Sample Home" },
+    sold: false,
+    address: "123 Palm Drive, North Port, FL",
+    price: 450000,
+    rent: 2800,
+    renewalDate: "12/2025",
+    cap: 6.8,
+    bedrooms: 3,
+    bathrooms: 2,
+    sqft: {
+      ac: 1850,
+      garage: 400,
+      lanai: 200,
+      entry: 75,
+      total: 2525,
+      lot: 8000,
+    },
+  },
+  {
+    id: "2",
+    image: { src: "/SF2.jpg", alt: "Sample Home" },
+    sold: true,
+    address: "123 Palm Drive, North Port, FL",
+    price: 450000,
+    rent: 2800,
+    renewalDate: "12/2025",
+    cap: 6.8,
+    bedrooms: 3,
+    bathrooms: 2,
+    sqft: {
+      ac: 1850,
+      garage: 400,
+      lanai: 200,
+      entry: 75,
+      total: 2525,
+      lot: 8000,
+    },
+  },
+];
 
 export const revalidate = 60;
 
@@ -91,14 +136,7 @@ export default async function CollectionPage() {
         <InvestmentHero />
         <CollectionDescription />
         <CollectionHighlights />
-
-        {/* Cards Section */}
-        <HouseSection
-          title="360 Collection"
-          subtitle="Browse through our curated selection of stabilized, income-producing homes"
-          houses={houses}
-        />
-
+        <CollectionSection cards={sampleCards} />
         {/* Map Section */}
         {config && (
           <section className="w-full border-t border-b border-border">
