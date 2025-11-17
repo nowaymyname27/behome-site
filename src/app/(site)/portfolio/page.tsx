@@ -14,6 +14,8 @@ import OneDescription from "./components/OneDescription";
 import OneExpansion from "./components/OneExpansion";
 import PortfolioSection from "./components/PortfolioSection";
 import type { HouseCardProps } from "../../../components/site-wide/HouseCard";
+import DesignPortfolio from "./components/DesignPortfolio";
+import PortfolioCard from "./components/PortfolioCard";
 
 type HouseCardItem = {
   _id: string;
@@ -95,12 +97,17 @@ export default async function BuildToRentPage() {
         <OneExpansion />
 
         {/* Portfolio Section */}
-        <PortfolioSection
-          title="Expand Your Portfolio"
-          subtitle="Build and rent properties designed for long-term growth and stable returns."
-          houses={houses}
-        />
-
+        <DesignPortfolio />
+        {/* Sample Portfolio Card */}
+        <div className="px-6 py-8">
+          <PortfolioCard
+            type="Everglades"
+            finish="Flagship Model"
+            needed={45000}
+            rent={2200}
+            cap={5.8}
+          />
+        </div>
         {/* Map Section */}
         {config && (
           <section className="w-full border-t border-b border-border">
