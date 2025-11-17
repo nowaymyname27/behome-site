@@ -87,7 +87,19 @@ export default async function CollectionPage() {
   const collectionDocs = await sanityClient.fetch(collectionCardsQuery);
 
   const collectionCards: CollectionCardProps[] = collectionDocs.map(
-    (doc: any) => ({
+    (doc: {
+      _id: string;
+      address: string;
+      sold: boolean;
+      price: number;
+      rent: number;
+      renewalDate?: string;
+      cap?: number;
+      bedrooms: number;
+      bathrooms: number;
+      sqft: CollectionCardProps["sqft"];
+      image: { src: string; alt?: string };
+    }) => ({
       id: doc._id,
       address: doc.address,
       sold: doc.sold,
