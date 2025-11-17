@@ -6,10 +6,12 @@ import { sanityClient } from "../../../sanity/lib/client";
 import {
   houseCardsQuery,
   mapPointsByProductTypeQuery,
+  collectionCardsQuery,
 } from "../../../sanity/lib/queries";
 import SiteMap from "../../../components/site-wide/SiteMap";
 import type { Config, Point } from "../../../components/site-wide/map/types";
 import type { HouseCardProps } from "../../../components/site-wide/HouseCard";
+import type { CollectionCardProps } from "./components/CollectionCard";
 import CollectionDescription from "./components/CollectionDescription";
 import CollectionHighlights from "./components/CollectionHighlights";
 import CollectionSection from "./components/CollectionSection";
@@ -38,57 +40,12 @@ type MapPointDoc = {
   productType: "btr" | "single" | "cluster";
 };
 
-// mock data just for testing
-const sampleCards = [
-  {
-    id: "1",
-    image: { src: "/SF1.jpg", alt: "Sample Home" },
-    sold: false,
-    address: "123 Palm Drive, North Port, FL",
-    price: 450000,
-    rent: 2800,
-    renewalDate: "12/2025",
-    cap: 6.8,
-    bedrooms: 3,
-    bathrooms: 2,
-    sqft: {
-      ac: 1850,
-      garage: 400,
-      lanai: 200,
-      entry: 75,
-      total: 2525,
-      lot: 8000,
-    },
-  },
-  {
-    id: "2",
-    image: { src: "/SF2.jpg", alt: "Sample Home" },
-    sold: true,
-    address: "123 Palm Drive, North Port, FL",
-    price: 450000,
-    rent: 2800,
-    renewalDate: "12/2025",
-    cap: 6.8,
-    bedrooms: 3,
-    bathrooms: 2,
-    sqft: {
-      ac: 1850,
-      garage: 400,
-      lanai: 200,
-      entry: 75,
-      total: 2525,
-      lot: 8000,
-    },
-  },
-];
-
 export const revalidate = 60;
 
 export default async function CollectionPage() {
-  // ✅ Fetch all house cards from Sanity
+  // Fetch house cards
   const data: HouseCardItem[] = await sanityClient.fetch(houseCardsQuery);
 
-  // ✅ Map Sanity data into HouseCardProps
   const houses: HouseCardProps[] = data.map((h) => ({
     id: h._id,
     image: h.image,
@@ -101,23 +58,21 @@ export default async function CollectionPage() {
     baths: h.style?.baths,
     cars: h.style?.cars,
     sqft: h.style?.sqft,
-    href: "#", // will update later to route to details
+    href: "#",
   }));
 
-  // ✅ Fetch map points
+  // Fetch map points
   const rawPoints: MapPointDoc[] = await sanityClient.fetch(
     mapPointsByProductTypeQuery,
     { type: "single" }
   );
 
-  // ✅ Convert to SiteMap points
   const points: Point[] = rawPoints.map((p) => ({
     id: p._id,
     name: p.title,
     coords: [p.lng, p.lat],
   }));
 
-  // ✅ Configure map
   const config: Config | null =
     points.length > 0
       ? {
@@ -128,7 +83,28 @@ export default async function CollectionPage() {
         }
       : null;
 
-  // ✅ Render
+  // Fetch CollectionCards (BTR Collection)
+  const collectionDocs = await sanityClient.fetch(collectionCardsQuery);
+
+  const collectionCards: CollectionCardProps[] = collectionDocs.map(
+    (doc: any) => ({
+      id: doc._id,
+      address: doc.address,
+      sold: doc.sold,
+      price: doc.price,
+      rent: doc.rent,
+      renewalDate: doc.renewalDate,
+      cap: doc.cap,
+      bedrooms: doc.bedrooms,
+      bathrooms: doc.bathrooms,
+      sqft: doc.sqft,
+      image: {
+        src: doc.image.src,
+        alt: doc.image.alt,
+      },
+    })
+  );
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -136,7 +112,10 @@ export default async function CollectionPage() {
         <InvestmentHero />
         <CollectionDescription />
         <CollectionHighlights />
-        <CollectionSection cards={sampleCards} />
+
+        {/* BTR Collection Cards */}
+        <CollectionSection cards={collectionCards} />
+
         {/* Map Section */}
         {config && (
           <section className="w-full border-t border-b border-border">

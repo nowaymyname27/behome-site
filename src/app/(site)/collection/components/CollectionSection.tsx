@@ -28,12 +28,9 @@ export default function CollectionSection({
         className ?? "",
       ].join(" ")}
     >
-      {/* Background gradient for subtle light sweep */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent/40 via-accent/20 to-transparent pointer-events-none" />
 
-      {/* Content */}
       <div className="relative z-10">
-        {/* Heading */}
         <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -58,7 +55,6 @@ export default function CollectionSection({
           )}
         </div>
 
-        {/* Cards grid */}
         <motion.div
           initial="hidden"
           whileInView="visible"

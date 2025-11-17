@@ -160,3 +160,22 @@ export const houseCardsQuery = `
     returnRate
   } | order(_createdAt desc)
 `;
+
+export const collectionCardsQuery = `
+  *[_type == "collectionCard"]{
+    _id,
+    address,
+    sold,
+    price,
+    rent,
+    renewalDate,
+    cap,
+    bedrooms,
+    bathrooms,
+    sqft,
+    "image": {
+      "src": image.asset->url,
+      "alt": coalesce(image.alt, address)
+    }
+  } | order(_createdAt desc)
+`;
