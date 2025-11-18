@@ -2,9 +2,35 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import PortfolioCard from "./PortfolioCard";
 
 const OPTIONS = [1, 2, 4, 8];
 const CARD_COUNT = 3;
+
+// Base data per model (per single unit)
+const MODELS = [
+  {
+    type: "Everglades",
+    finish: "Flagship Model",
+    baseNeeded: 45000,
+    baseRent: 2200,
+    cap: 5.8,
+  },
+  {
+    type: "Sabal",
+    finish: "Premium Model",
+    baseNeeded: 40000,
+    baseRent: 2050,
+    cap: 5.5,
+  },
+  {
+    type: "Cypress",
+    finish: "Core Model",
+    baseNeeded: 36000,
+    baseRent: 1900,
+    cap: 5.2,
+  },
+];
 
 export default function DesignPortfolio() {
   const [selected, setSelected] = useState<number>(1);
@@ -18,10 +44,16 @@ export default function DesignPortfolio() {
     setTimeout(() => setDisplayActiveLabel(n), 280);
   };
 
-  const computeCardData = (i: number) => {
+  const computeCardData = (index: number) => {
+    const model = MODELS[index % MODELS.length];
+    const units = selected;
+
     return {
-      label: `Card ${i + 1}`,
-      homes: selected,
+      type: model.type,
+      finish: model.finish,
+      needed: model.baseNeeded * units,
+      rent: model.baseRent * units,
+      cap: model.cap,
     };
   };
 
@@ -30,7 +62,7 @@ export default function DesignPortfolio() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="w-full bg-surface text-foreground py-12"
+      className="w-full bg-accent text-accent-foreground py-12"
     >
       <div className="w-full px-6 mb-10">
         <h2 className="text-2xl font-semibold tracking-tight mb-3">
@@ -38,7 +70,7 @@ export default function DesignPortfolio() {
         </h2>
 
         <p className="text-sm text-foreground/70 mb-6">
-          Select how many units you want to model. The investment cards below
+          Select how many units you want to model. The portfolio cards below
           will adjust automatically.
         </p>
 
@@ -59,8 +91,8 @@ export default function DesignPortfolio() {
                 className={[
                   "h-12 rounded-full flex items-center justify-center border overflow-hidden transition-all select-none",
                   active
-                    ? "text-accent-foreground shadow-md bg-gradient-to-r from-accent/90 to-accent border-accent"
-                    : "bg-chrome text-chrome-foreground border-border hover:bg-chrome/80 hover:shadow-sm",
+                    ? "text-chrome-foreground shadow-md bg-NC border-NC"
+                    : "bg-chrome text-chrome-foreground border-border hover:bg-NC/80 hover:shadow-sm",
                 ].join(" ")}
                 whileTap={{ scale: 0.92 }}
                 initial={false}
@@ -105,25 +137,23 @@ export default function DesignPortfolio() {
         </div>
       </div>
 
-      <div className="w-full px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-        {Array.from({ length: CARD_COUNT }).map((_, i) => {
-          const cardProps = computeCardData(i);
+      <div className="w-full px-6 flex justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-4xl w-full">
+          {Array.from({ length: CARD_COUNT }).map((_, i) => {
+            const cardProps = computeCardData(i);
 
-          return (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="rounded-2xl border border-border bg-chrome p-6 text-chrome-foreground shadow-sm"
-            >
-              <div className="text-lg font-semibold mb-2">
-                {cardProps.label}
-              </div>
-              <div className="text-sm">Selected homes: {cardProps.homes}</div>
-            </motion.div>
-          );
-        })}
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+              >
+                <PortfolioCard {...cardProps} />
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </motion.section>
   );

@@ -1,7 +1,6 @@
 import Header from "../../../components/site-wide/Header";
 import Footer from "../../../components/site-wide/Footer";
 import InvestmentHero from "./components/BTRHero";
-import LocalizedBtrHeading from "./components/LocalizedBtrHeading";
 import { sanityClient } from "../../../sanity/lib/client";
 import {
   houseCardsQuery,
@@ -12,10 +11,8 @@ import SiteMap from "../../../components/site-wide/SiteMap";
 import type { Config, Point } from "../../../components/site-wide/map/types";
 import OneDescription from "./components/OneDescription";
 import OneExpansion from "./components/OneExpansion";
-import PortfolioSection from "./components/PortfolioSection";
 import type { HouseCardProps } from "../../../components/site-wide/HouseCard";
 import DesignPortfolio from "./components/DesignPortfolio";
-import PortfolioCard from "./components/PortfolioCard";
 
 type HouseCardItem = {
   _id: string;
@@ -98,16 +95,6 @@ export default async function BuildToRentPage() {
 
         {/* Portfolio Section */}
         <DesignPortfolio />
-        {/* Sample Portfolio Card */}
-        <div className="px-6 py-8">
-          <PortfolioCard
-            type="Everglades"
-            finish="Flagship Model"
-            needed={45000}
-            rent={2200}
-            cap={5.8}
-          />
-        </div>
         {/* Map Section */}
         {config && (
           <section className="w-full border-t border-b border-border">
