@@ -1,106 +1,135 @@
 // file: src/components/site-wide/Brochure.tsx
 "use client";
 
-import * as React from "react";
+import { useRef, useState, useEffect, ReactNode } from "react";
+import ScrollChevron from "./primitives/ScrollChevron";
+import Panel from "./Panel";
+import type { StaticImageData } from "next/image";
 
-type Ctx = {
-  openIndex: number | null;
-  setOpenIndex: (i: number | null) => void;
-  trackRef: React.RefObject<HTMLDivElement | null>;
-  scrollByPanel: (dir: -1 | 1) => void;
+export type BrochureSlide = {
+  src: string | StaticImageData;
+  title: string;
+  caption: string;
+  body?: string;
 };
 
-const BrochureCtx = React.createContext<Ctx | null>(null);
-export function useBrochure() {
-  const ctx = React.useContext(BrochureCtx);
-  if (!ctx) throw new Error("useBrochure must be used inside <Brochure>");
-  return ctx;
-}
+type BrochureProps = {
+  title: string;
+  leadEm: string;
+  leadRest: string;
+  tip: string;
+  slides: ReadonlyArray<BrochureSlide>;
+  ariaPanels: string;
+  ariaPrev: string;
+  ariaNext: string;
+};
 
-function Root({ children }: { children: React.ReactNode }) {
-  const [openIndex, setOpenIndex] = React.useState<number | null>(null);
-  const trackRef = React.useRef<HTMLDivElement | null>(null);
+export default function Brochure({
+  title,
+  leadEm,
+  leadRest,
+  tip,
+  slides,
+  ariaPanels,
+  ariaPrev,
+  ariaNext,
+}: BrochureProps) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
 
-  const scrollByPanel = React.useCallback((dir: -1 | 1) => {
+  const scrollByPanel = (dir: -1 | 1) => {
     const el = trackRef.current;
     if (!el) return;
-    const child = el.firstElementChild as HTMLElement | null;
-    const childWidth = child?.clientWidth ?? 0;
-    el.scrollBy({ left: dir * (childWidth + 16), behavior: "smooth" });
-  }, []);
+    const first = el.firstElementChild as HTMLElement | null;
+    const width = first?.clientWidth ?? 0;
+    el.scrollBy({ left: dir * (width + 16), behavior: "smooth" });
+  };
 
-  React.useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      if (openIndex === null) {
-        if (e.key === "ArrowRight") {
-          e.preventDefault();
-          scrollByPanel(1);
-        } else if (e.key === "ArrowLeft") {
-          e.preventDefault();
-          scrollByPanel(-1);
-        }
-      } else if (e.key === "Escape") {
-        setOpenIndex(null);
+  // keyboard: left / right scroll, esc closes
+  useEffect(() => {
+    const handle = (e: KeyboardEvent) => {
+      if (openIndex !== null) {
+        if (e.key === "Escape") setOpenIndex(null);
+        return;
       }
-    }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [openIndex, scrollByPanel]);
 
-  const value = React.useMemo(
-    () => ({ openIndex, setOpenIndex, trackRef, scrollByPanel }),
-    [openIndex, scrollByPanel]
-  );
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        scrollByPanel(1);
+      }
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        scrollByPanel(-1);
+      }
+    };
+
+    window.addEventListener("keydown", handle);
+    return () => window.removeEventListener("keydown", handle);
+  }, [openIndex]);
 
   return (
-    <BrochureCtx.Provider value={value}>
-      <section className="w-full bg-chrome text-chrome-foreground section-pad">
-        {children}
-      </section>
-    </BrochureCtx.Provider>
+    <section className="w-full bg-chrome text-chrome-foreground py-16 px-6">
+      <div className="max-w-none mx-auto grid md:grid-cols-3 gap-10 items-start">
+        {/* Left text */}
+        <aside>
+          <h2 className="h2">{title}</h2>
+          <p className="mt-6 text-lg max-w-sm">
+            <span className="text-accent font-semibold">{leadEm}</span>{" "}
+            {leadRest}
+          </p>
+          <p className="mt-3 text-sm opacity-80">{tip}</p>
+        </aside>
+
+        {/* Right side */}
+        <div className="md:col-span-2 relative">
+          <div
+            ref={trackRef}
+            aria-label={ariaPanels}
+            className="
+              flex gap-4 overflow-x-auto snap-x snap-mandatory
+              [scrollbar-width:thin]
+              [&::-webkit-scrollbar]:h-2
+              [&::-webkit-scrollbar-track]:bg-chrome/30
+              [&::-webkit-scrollbar-thumb]:bg-background/40
+              pb-2
+            "
+          >
+            {slides.map((s, idx) => {
+              const flipped = openIndex === idx;
+              return (
+                <Panel
+                  key={idx}
+                  src={s.src}
+                  title={s.title}
+                  caption={s.caption}
+                  body={s.body}
+                  isFlipped={flipped}
+                  onOpen={() => setOpenIndex(flipped ? null : idx)}
+                  className="
+                    relative snap-start shrink-0
+                    w-[80%] sm:w-[60%] lg:w-[42%] xl:w-[32%]
+                    aspect-[2/3]
+                  "
+                />
+              );
+            })}
+          </div>
+
+          {/* Chevrons */}
+          <ScrollChevron
+            dir={-1}
+            side="left"
+            ariaLabel={ariaPrev}
+            onClick={() => scrollByPanel(-1)}
+          />
+          <ScrollChevron
+            dir={1}
+            side="right"
+            ariaLabel={ariaNext}
+            onClick={() => scrollByPanel(1)}
+          />
+        </div>
+      </div>
+    </section>
   );
 }
-
-function Grid({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="px-6 lg:px-8 grid md:grid-cols-3 gap-8 items-start">
-      {children}
-    </div>
-  );
-}
-
-function Left({ children }: { children: React.ReactNode }) {
-  return <aside className="md:col-span-1">{children}</aside>;
-}
-
-function Right({ children }: { children: React.ReactNode }) {
-  return <div className="md:col-span-2 relative">{children}</div>;
-}
-
-function Track({
-  children,
-  ariaLabel,
-}: {
-  children: React.ReactNode;
-  ariaLabel?: string;
-}) {
-  const { trackRef } = useBrochure();
-  return (
-    <div
-      ref={trackRef}
-      className="
-        flex gap-4 overflow-x-auto snap-x snap-mandatory
-        [scrollbar-width:thin] [&::-webkit-scrollbar]:h-2
-        [&::-webkit-scrollbar-track]:bg-chrome/30
-        [&::-webkit-scrollbar-thumb]:bg-background/40
-        pb-2
-      "
-      aria-label={ariaLabel}
-    >
-      {children}
-    </div>
-  );
-}
-
-const Brochure = Object.assign(Root, { Grid, Left, Right, Track });
-export default Brochure;

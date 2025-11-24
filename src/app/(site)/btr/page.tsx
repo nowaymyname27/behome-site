@@ -3,7 +3,6 @@
 
 import Header from "../../../components/site-wide/Header";
 import Footer from "../../../components/site-wide/Footer";
-import ClusterHero from "./components/ClusterHero";
 import ClusterSubmenuWrapper from "./components/ClusterSubmenuWrapper";
 import HomeShowcase from "../../../components/site-wide/HomeShowcase";
 import MediaCarousel from "../../../components/site-wide/MediaCarousel";
@@ -23,6 +22,7 @@ import K7 from "./images/townhomes/K7.png";
 import SectionTransition from "./components/SectionTransition";
 import EvergladesShowcase from "./components/EvergladesShowcase";
 import OtherStylesComparison from "./components/OtherStylesComparison";
+import BtrHero from "./components/ClusterHero";
 
 export default function Page() {
   const { locale } = useLocale();
@@ -97,7 +97,7 @@ export default function Page() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <ClusterHero />
+        <BtrHero />
         <BuiltForInvestors />
         <EvergladesShowcase />
         <OtherStylesComparison />

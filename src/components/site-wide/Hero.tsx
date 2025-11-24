@@ -1,55 +1,105 @@
-// file: src/components/site-wide/Hero.tsx
-import * as React from "react";
+// src/components/site-wide/Hero.tsx
+"use client";
 
-/** Pure layout primitives – no props, no content */
-function Root({ children }: { children: React.ReactNode }) {
-  return <section className="relative min-h-screen w-full">{children}</section>;
-}
+import Image from "next/image";
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
-function Background({ children }: { children: React.ReactNode }) {
-  return <div className="absolute inset-0">{children}</div>;
-}
+type HeroProps = {
+  title: string;
+  subtitle?: string;
+  background?: string;
+  backgroundNode?: ReactNode;
+  children?: ReactNode;
+  scrim?: string;
+};
 
-function Scrim({ className = "bg-black/40" }: { className?: string }) {
-  return <div className={`absolute inset-0 ${className}`} />;
-}
-
-function Container({ children }: { children: React.ReactNode }) {
-  return <div className="relative section h-full">{children}</div>;
-}
-
-function Grid({ children }: { children: React.ReactNode }) {
+export default function Hero({
+  title,
+  subtitle,
+  background,
+  backgroundNode,
+  children,
+  scrim = "bg-black/40",
+}: HeroProps) {
   return (
-    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[1fr_auto] items-center gap-8">
-      {children}
-    </div>
+    <section className="relative w-full min-h-screen">
+      {/* background override */}
+      {backgroundNode ? (
+        <div className="absolute inset-0">{backgroundNode}</div>
+      ) : (
+        background && (
+          <div className="absolute inset-0">
+            {background.endsWith(".mp4") ? (
+              <video
+                src={background}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            ) : (
+              <Image
+                src={background}
+                alt=""
+                fill
+                priority
+                className="object-cover"
+              />
+            )}
+          </div>
+        )
+      )}
+
+      <div className={`absolute inset-0 ${scrim}`} />
+
+      {/* Main content */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative w-full min-h-screen flex items-center px-6 md:px-10 py-24"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center w-full gap-8">
+          {/* Left copy */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 }}
+            className="text-white max-w-2xl"
+          >
+            <h1 className="h1 text-xl">{title}</h1>
+            {subtitle && (
+              <p className="mt-4 text-xl text-white/90">{subtitle}</p>
+            )}
+          </motion.div>
+
+          {/* Right content aligned right */}
+          {children && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
+              className="hidden lg:flex justify-end"
+            >
+              {children}
+            </motion.div>
+          )}
+        </div>
+
+        {/* Mobile version */}
+        {children && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+            className="lg:hidden mt-8"
+          >
+            {children}
+          </motion.div>
+        )}
+      </motion.div>
+    </section>
   );
 }
-
-function Copy({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="max-w-2xl text-white text-center mx-auto lg:text-left lg:mx-0">
-      {children}
-    </div>
-  );
-}
-
-function PromoDesktop({ children }: { children: React.ReactNode }) {
-  return <div className="hidden lg:block">{children}</div>;
-}
-
-function PromoMobile({ children }: { children: React.ReactNode }) {
-  return <div className="lg:hidden pb-8">{children}</div>;
-}
-
-const Hero = Object.assign(Root, {
-  Background,
-  Scrim,
-  Container,
-  Grid,
-  Copy,
-  PromoDesktop,
-  PromoMobile,
-});
-
-export default Hero;

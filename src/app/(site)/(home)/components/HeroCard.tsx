@@ -20,47 +20,41 @@ export default function HeroCard({
 }: HeroCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
+      whileHover={{
+        backgroundColor: "rgba(255,255,255,0.22)",
+        backdropFilter: "blur(14px)",
+      }}
       className={[
-        "relative z-10 w-full max-w-sm",
-        "rounded-2xl bg-background/95 text-foreground border border-border/60",
-        "shadow-lg hover:shadow-xl transition-all duration-300",
-        "pt-9 pb-8 px-8 text-center backdrop-blur-sm",
+        "relative w-full max-w-sm rounded-xl",
+        "bg-white/15 border border-white/20",
+        "backdrop-blur-[6px] transition-all duration-300",
+        "hover:border-white/30 hover:shadow-xl",
+        "p-8 text-center",
         className,
       ].join(" ")}
     >
-      {/* Title */}
-      <motion.h2
-        className="text-xl font-semibold mb-3 leading-snug"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.5 }}
-      >
-        {title}
-      </motion.h2>
+      <h2 className="text-white text-lg font-semibold mb-3">{title}</h2>
 
-      {/* Subtitle */}
-      <motion.p
-        className="text-sm text-foreground/80 mb-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.5 }}
-      >
-        {subtitle}
-      </motion.p>
+      <p className="text-white/85 text-sm mb-6">{subtitle}</p>
 
-      {/* CTA Button */}
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.97 }}
         onClick={onClick}
-        className={[
-          "px-6 py-3 rounded-full font-semibold text-sm",
-          "bg-FL text-FL-foreground shadow-md",
-          "hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300",
-        ].join(" ")}
+        className="
+          px-6 py-3 rounded-full text-sm font-semibold
+          text-white
+          border border-white/30
+          backdrop-blur-md
+          transition-all duration-300
+          hover:shadow-lg hover:-translate-y-0.5
+        "
+        style={{
+          backgroundColor: "var(--color-FL)",
+        }}
       >
         {buttonText}
       </motion.button>

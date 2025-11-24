@@ -1,6 +1,6 @@
 import Header from "../../../components/site-wide/Header";
 import Footer from "../../../components/site-wide/Footer";
-import InvestmentHero from "./components/SingleFamilyHero";
+import CollectionHero from "./components/CollectionHero";
 import HouseSection from "../collection/components/HouseSection";
 import { sanityClient } from "../../../sanity/lib/client";
 import {
@@ -121,7 +121,7 @@ export default async function CollectionPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <InvestmentHero />
+        <CollectionHero />
         <CollectionDescription />
         <CollectionHighlights />
 

@@ -82,6 +82,7 @@ export default function Page() {
         <BTRExplained />
         <Phrase />
         <HomeFeatureCards />
+        {/*         
         <div className="w-full p-4 md:p-6 bg-accent">
           <h1 className="h2 mb-6">{i.heading}</h1>
 
@@ -100,7 +101,7 @@ export default function Page() {
               className="w-full"
             />
           )}
-        </div>
+        </div> */}
 
         <FloridaBrochure />
         <HomeDisplay />

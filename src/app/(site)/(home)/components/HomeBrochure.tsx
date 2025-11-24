@@ -3,102 +3,24 @@
 
 import { useLocale } from "../../../../i18n/locale-context";
 import { tHomePhilosophy, getHomePhilosophySlides } from "../i18n";
-
-import Brochure, {
-  useBrochure,
-} from "../../../../components/site-wide/Brochure";
-import Panel from "../../../../components/site-wide/Panel";
-import ScrollChevron from "../../../../components/site-wide/primitives/ScrollChevron";
-import type { StaticImageData } from "next/image";
+import Brochure from "../../../../components/site-wide/Brochure";
 
 export default function HomeBrochure() {
   const { locale } = useLocale();
   const i = tHomePhilosophy(locale);
-  const slides = getHomePhilosophySlides(locale); // readonly array
+
+  const slides = getHomePhilosophySlides(locale);
 
   return (
-    <Brochure>
-      <Brochure.Grid>
-        <Brochure.Left>
-          <h2 className="h2">{i.left.title}</h2>
-          <p className="mt-3 text-lg max-w-sm">
-            <span className="text-accent font-semibold">{i.left.leadEm}</span>{" "}
-            {i.left.leadRest}
-          </p>
-          <p className="mt-3 text-sm opacity-80">{i.tip}</p>
-        </Brochure.Left>
-
-        <Brochure.Right>
-          <Brochure.Track ariaLabel={i.aria.panels}>
-            <PanelsList slides={slides} />
-          </Brochure.Track>
-
-          <Chevrons prevLabel={i.aria.previous} nextLabel={i.aria.next} />
-        </Brochure.Right>
-      </Brochure.Grid>
-    </Brochure>
-  );
-}
-
-/* --- helpers (inside provider) --- */
-
-type HomeSlide = {
-  src: string | StaticImageData; // builder returns string paths
-  title: string;
-  caption: string;
-  body?: string;
-};
-
-function PanelsList({ slides }: { slides: ReadonlyArray<HomeSlide> }) {
-  const { openIndex, setOpenIndex } = useBrochure();
-
-  return (
-    <>
-      {slides.map((s, idx) => {
-        const flipped = openIndex === idx;
-        return (
-          <Panel
-            key={idx}
-            src={s.src}
-            title={s.title}
-            caption={s.caption}
-            body={s.body}
-            isFlipped={flipped}
-            onOpen={() => setOpenIndex(flipped ? null : idx)}
-            className="
-              relative snap-start shrink-0
-              w-[80%] sm:w-[60%] lg:w-[42%] xl:w-[32%]
-              aspect-[2/3]
-            "
-          />
-        );
-      })}
-    </>
-  );
-}
-
-function Chevrons({
-  prevLabel,
-  nextLabel,
-}: {
-  prevLabel: string;
-  nextLabel: string;
-}) {
-  const { scrollByPanel } = useBrochure();
-  return (
-    <>
-      <ScrollChevron
-        dir={-1}
-        side="left"
-        ariaLabel={prevLabel}
-        onClick={() => scrollByPanel(-1)}
-      />
-      <ScrollChevron
-        dir={1}
-        side="right"
-        ariaLabel={nextLabel}
-        onClick={() => scrollByPanel(1)}
-      />
-    </>
+    <Brochure
+      title={i.left.title}
+      leadEm={i.left.leadEm}
+      leadRest={i.left.leadRest}
+      tip={i.tip}
+      slides={slides}
+      ariaPanels={i.aria.panels}
+      ariaPrev={i.aria.previous}
+      ariaNext={i.aria.next}
+    />
   );
 }

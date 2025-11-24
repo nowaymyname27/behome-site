@@ -81,7 +81,7 @@ export default function HomeDisplay() {
 
         {/* RIGHT COLUMN (desktop-only video) */}
         <div
-          className="relative col-span-2 overflow-hidden hidden md:block h-full"
+          className="relative col-span-2 overflow-hidden hidden md:flex items-center justify-center h-full"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
@@ -91,7 +91,7 @@ export default function HomeDisplay() {
             loop
             muted
             playsInline
-            className="absolute inset-0 h-full w-full object-cover"
+            className="h-[80vh] w-full object-cover rounded-2xl shadow-2xl"
             aria-label={i.media.videoAria}
           />
         </div>

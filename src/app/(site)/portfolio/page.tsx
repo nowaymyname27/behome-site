@@ -1,6 +1,6 @@
 import Header from "../../../components/site-wide/Header";
 import Footer from "../../../components/site-wide/Footer";
-import InvestmentHero from "./components/BTRHero";
+import PortfolioHero from "./components/PortfolioHero";
 import { sanityClient } from "../../../sanity/lib/client";
 import {
   houseCardsQuery,
@@ -89,7 +89,7 @@ export default async function BuildToRentPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <InvestmentHero />
+        <PortfolioHero />
         <OneDescription />
         <OneExpansion />
 
