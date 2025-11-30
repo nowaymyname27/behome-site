@@ -116,7 +116,7 @@ export default function SectionSubmenu({
       )}
       style={{ top: stickyTop }}
     >
-      <div className="w-full px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 lg:px-16">
         <div
           role="tablist"
           aria-orientation="horizontal"

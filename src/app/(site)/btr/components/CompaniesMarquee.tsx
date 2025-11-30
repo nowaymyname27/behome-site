@@ -1,14 +1,17 @@
-// File: src/app/btr/components/CompaniesMarquee.tsx
 "use client";
 
 import Image from "next/image";
 import { COMPANIES } from "../data/companies";
+
+// Derive the exact type of a Company from the COMPANIES array
+type Company = (typeof COMPANIES)[number];
 
 export default function CompaniesMarquee() {
   const midpoint = Math.ceil(COMPANIES.length / 2);
   const topRow = COMPANIES.slice(0, midpoint);
   const bottomRow = COMPANIES.slice(midpoint);
 
+  // duplicate arrays for smooth infinite scroll
   const row1 = [...topRow, ...topRow];
   const row2 = [...bottomRow, ...bottomRow];
 
@@ -18,10 +21,7 @@ export default function CompaniesMarquee() {
         We Are in Good Company
       </h2>
 
-      {/* ONLY CHANGE ↓↓↓ */}
       <div className="relative w-full space-y-8 overflow-visible">
-        {/* ONLY CHANGE ↑↑↑ */}
-
         {/* TOP ROW — leftward */}
         <div
           className="flex gap-6 whitespace-nowrap"
@@ -46,7 +46,7 @@ export default function CompaniesMarquee() {
   );
 }
 
-function CompanyCard({ c }: { c: any }) {
+function CompanyCard({ c }: { c: Company }) {
   return (
     <div className="relative group">
       {/* Tooltip */}

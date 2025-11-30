@@ -1,4 +1,3 @@
-// file: src/components/site-wide/HomeShowcase.tsx
 "use client";
 
 import * as React from "react";
@@ -9,13 +8,10 @@ export type HomeSpec = {
   id: string;
   name: string;
   sqft: number;
-  stories: string;
   beds: number;
   baths: number;
   cars: number;
-  price: number;
-  estPayment?: number;
-  cta?: { label: string; href: string }; // label no longer needed, kept for back-compat
+  cta?: { href: string }; // label removed
 };
 
 export type HomeShowcaseProps = {
@@ -23,16 +19,8 @@ export type HomeShowcaseProps = {
   children?: React.ReactNode;
   className?: string;
   stickyHeader?: boolean;
-  stickyTop?: number; // combined header+submenu from hook
+  stickyTop?: number;
 };
-
-function formatMoney(v: number, locale: "en" | "es" = "en") {
-  return new Intl.NumberFormat(locale === "es" ? "es-US" : "en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(v);
-}
 
 function formatNumber(v: number, locale: "en" | "es" = "en") {
   return new Intl.NumberFormat(locale === "es" ? "es-US" : "en-US").format(v);
@@ -63,16 +51,15 @@ export default function HomeShowcase({
         ].join(" ")}
         style={stickyHeader ? { top: stickyTop } : undefined}
       >
-        {/* tighter header */}
         <header className="py-3 lg:py-4">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3">
             <div>
               <h2 className="h2 leading-tight">{home.name}</h2>
+
               <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1.5 text-sm sm:text-[15px] text-foreground/80">
                 <span>
                   {formatNumber(home.sqft, locale)} {i18n.sqftUnit}
                 </span>
-                <span>{home.stories}</span>
                 <span>
                   {home.beds} {i18n.bedsLabel}
                 </span>
@@ -84,36 +71,6 @@ export default function HomeShowcase({
                 </span>
               </div>
             </div>
-
-            <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-8">
-              <div>
-                <div className="text-xs sm:text-sm text-foreground/70">
-                  {i18n.estimatedPaymentLabel}
-                </div>
-                {home.estPayment ? (
-                  <div className="text-lg sm:text-xl font-semibold leading-none">
-                    {formatMoney(home.estPayment, locale)}
-                    <span className="text-sm font-normal">
-                      {i18n.perMonthSuffix}
-                    </span>
-                  </div>
-                ) : (
-                  <div className="text-base font-semibold">—</div>
-                )}
-              </div>
-
-              <div>
-                <div className="text-xs sm:text-sm text-foreground/70">
-                  {i18n.startingPriceLabel}
-                </div>
-                <div className="text-lg sm:text-xl font-semibold leading-none">
-                  {formatMoney(home.price, locale)}
-                </div>
-                <div className="text-[11px] sm:text-xs text-foreground/60 mt-1">
-                  {i18n.startingPriceNote}
-                </div>
-              </div>
-            </div>
           </div>
 
           {home.cta && (
@@ -123,8 +80,8 @@ export default function HomeShowcase({
                 className="text-sm underline-offset-2 hover:underline focus:underline outline-none"
                 style={{ color: "var(--color-NC)" }}
               >
-                {/* Use i18n label; fallback to data label if present */}
-                {i18n.viewDetailsLabel ?? home.cta.label}
+                {/* Always use i18n label */}
+                {i18n.viewDetailsLabel}
               </a>
             </div>
           )}

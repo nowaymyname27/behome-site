@@ -179,3 +179,27 @@ export const collectionCardsQuery = `
     }
   } | order(_createdAt desc)
 `;
+
+// file: sanity/lib/queries.ts
+
+export const allStylesQuery = `
+  *[_type == "style"]{
+    _id,
+    title,
+    "slug": slug.current,
+    beds,
+    baths,
+    cars,
+    sqft,
+    gallery[]{
+      "src": asset->url,
+      alt
+    },
+    floorplan{
+      "src": asset->url,
+      alt
+    },
+    matterportModelId,
+    matterportUrl
+  } | order(title asc)
+`;
