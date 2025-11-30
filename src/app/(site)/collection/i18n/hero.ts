@@ -3,9 +3,9 @@ import type { Locale } from "./types";
 
 const INVESTMENT_HERO = {
   en: {
-    title: "Invest in Our Single Family Homes",
+    title: "Turnkey Ownership. 360° Returns",
     subtitle:
-      "Diversified exposure to new-build homes with professional operations and steady income targets.",
+      "Discover the 360 Collection — a limited selection of turnkey, income-producing homes already built, leased, and generating steady cash flow from day one. These performing assets offer investors a simple, hassle-free way to own real estate that’s already working for them. Invest today and start earning immediately.",
     listHeading: "Single Family Homes",
   },
   es: {

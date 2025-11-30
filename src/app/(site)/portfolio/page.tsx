@@ -96,7 +96,7 @@ export default async function BuildToRentPage() {
         {/* Portfolio Section */}
         <DesignPortfolio />
         {/* Map Section */}
-        {config && (
+        {/* {config && (
           <section className="w-full border-t border-b border-border">
             <div className="px-4 sm:px-6 lg:px-8 py-6">
               <h2 className="text-2xl font-semibold tracking-tight">
@@ -111,7 +111,7 @@ export default async function BuildToRentPage() {
               <SiteMap config={config} clickToUse />
             </div>
           </section>
-        )}
+        )} */}
       </main>
       <Footer />
     </div>

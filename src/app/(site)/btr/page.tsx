@@ -22,7 +22,8 @@ import K7 from "./images/townhomes/K7.png";
 import SectionTransition from "./components/SectionTransition";
 import EvergladesShowcase from "./components/EvergladesShowcase";
 import OtherStylesComparison from "./components/OtherStylesComparison";
-import BtrHero from "./components/ClusterHero";
+import BtrHero from "./components/BtrHero";
+import CompaniesMarquee from "./components/CompaniesMarquee";
 
 export default function Page() {
   const { locale } = useLocale();
@@ -98,6 +99,7 @@ export default function Page() {
       <Header />
       <main className="flex-1">
         <BtrHero />
+        <CompaniesMarquee />
         <BuiltForInvestors />
         <EvergladesShowcase />
         <OtherStylesComparison />
