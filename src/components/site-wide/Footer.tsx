@@ -121,7 +121,7 @@ export default function Footer() {
       </section>
 
       {/* ===== Brand + Contact ===== */}
-      <section className="px-6 lg:px-8 py-12 grid gap-10 sm:grid-cols-3">
+      <section className="px-6 bg-chrome text-chrome-foreground lg:px-8 py-12 grid gap-10 sm:grid-cols-3">
         <div>
           <div className="font-semibold text-lg">{i.brand}</div>
           <p className="mt-2 text-sm opacity-80">{i.tagline}</p>
@@ -146,7 +146,7 @@ export default function Footer() {
       </section>
 
       {/* ===== Bottom bar ===== */}
-      <div className="bg-accent border-t border-border">
+      <div className="bg-chrome text-chrome-foreground border-t border-border">
         <div className="px-6 lg:px-8 py-6 text-xs opacity-70">
           © {new Date().getFullYear()} {i.brand}. {i.legal.rights}
         </div>
