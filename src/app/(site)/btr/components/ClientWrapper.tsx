@@ -13,6 +13,7 @@ import type { MappedHomeSpec } from "../../../../lib/types/styles";
 export default function ClientWrapper({ homes }: { homes: MappedHomeSpec[] }) {
   const stickyTop = useStickyOffsets();
   const { locale } = useLocale();
+  // site is unused now if we aren't passing the label, but keeping it harmlessly
   const site = tSite(locale);
 
   const SHOWCASE_HEADER_PX = 64;
@@ -36,9 +37,6 @@ export default function ClientWrapper({ homes }: { homes: MappedHomeSpec[] }) {
           <MediaCarousel
             media={home.media}
             viewportOffset={stickyTop + SHOWCASE_HEADER_PX}
-            showDetailsCard
-            detailsLink={home.cta?.href ?? "#"}
-            detailsLabel={site.homeShowcase.viewDetailsLabel}
           />
         </HomeShowcase>
       ))}
