@@ -9,7 +9,8 @@ export default function BtrHero() {
       title="Follow The Smart Money"
       subtitle="Build. Rent. Earn."
       scrim="bg-black/50"
-      background="/videos/cluster-hero.mp4"
+      // Added f_auto,q_auto for optimization
+      background="https://res.cloudinary.com/dsdkxdwvf/video/upload/f_auto,q_auto/v1764628026/iflqckr5pblro3ezmkp6.mp4"
     ></Hero>
   );
 }

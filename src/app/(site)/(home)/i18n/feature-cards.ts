@@ -31,17 +31,17 @@ const BASE_CARDS: ReadonlyArray<BaseCard> = [
   {
     id: "one",
     href: "/invest/one",
-    imageSrc: "/images/home/feature-one.jpg",
+    imageSrc: "/photos/one.png",
   },
   {
     id: "portfolios",
     href: "/invest/portfolios",
-    imageSrc: "/images/home/feature-portfolios.jpg",
+    imageSrc: "/photos/portfolio.png",
   },
   {
     id: "collection",
     href: "/invest/360-collection",
-    imageSrc: "/images/home/feature-360.jpg",
+    imageSrc: "/photos/collection.png",
   },
 ];
 

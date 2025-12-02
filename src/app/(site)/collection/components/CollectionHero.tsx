@@ -14,7 +14,7 @@ export default function CollectionHero() {
       title={i.title}
       subtitle={i.subtitle}
       scrim="bg-black/50"
-      background="/videos/cluster-hero.mp4"
+      background="https://res.cloudinary.com/dsdkxdwvf/video/upload/v1764628020/jblrcy6jjl7pzu8m81kg.mp4"
     ></Hero>
   );
 }

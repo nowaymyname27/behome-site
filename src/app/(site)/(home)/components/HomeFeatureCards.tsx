@@ -33,14 +33,16 @@ export default function HomeFeatureCards() {
                          shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl
                          flex flex-col"
             >
-              {/* Image */}
-              <div className="relative aspect-[16/10]">
+              {/* Image Container */}
+              <div className="relative aspect-[16/10] w-full bg-gray-50/50">
                 <Image
                   src={f.imageSrc}
                   alt={f.imageAlt}
                   fill
                   sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
-                  className="object-cover"
+                  // Changed object-cover to object-contain so the full image shows
+                  // Added p-4 to prevent it from touching the edges
+                  className="object-contain p-4"
                 />
               </div>
 

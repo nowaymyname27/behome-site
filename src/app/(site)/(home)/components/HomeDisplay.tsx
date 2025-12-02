@@ -1,99 +1,152 @@
 // File: src/app/(site)/(home)/components/HomeDisplay.tsx
 "use client";
 
-import { useState } from "react";
-import { ChevronDown } from "lucide-react"; // ✅ small, elegant icon
+import { useEffect, useState } from "react";
 import { useLocale } from "../../../../i18n/locale-context";
 import { tHomeDisplay } from "../i18n";
+import { CheckCircle2 } from "lucide-react";
+import { motion, Variants, AnimatePresence } from "framer-motion";
+import { homeDisplayVideos } from "../data/homeDisplayVideos";
 
-const VIDEO_SRC = "/hero.mp4";
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 50, duration: 0.8 },
+  },
+};
 
 export default function HomeDisplay() {
   const { locale } = useLocale();
   const i = tHomeDisplay(locale);
-  const [paused, setPaused] = useState(false);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [playlist, setPlaylist] = useState<string[]>([]);
+
+  useEffect(() => {
+    setPlaylist([...homeDisplayVideos].sort(() => 0.5 - Math.random()));
+  }, []);
+
+  const handleVideoEnded = () => {
+    setCurrentIndex((prev) => (prev + 1) % playlist.length);
+  };
 
   return (
-    <section className="relative w-full min-h-screen bg-accent">
-      {/* ===== MOBILE/TABLET BACKGROUND VIDEO ===== */}
-      <div className="absolute inset-0 md:hidden">
-        <video
-          src={VIDEO_SRC}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover"
-          aria-label={i.media.videoAria}
-        />
-        <div className="absolute inset-0 bg-accent/90" />
-      </div>
-
-      {/* ===== CONTENT GRID ===== */}
-      <div className="relative grid grid-cols-1 md:grid-cols-3 min-h-screen">
-        {/* LEFT COLUMN (text) */}
-        <aside className="flex flex-col justify-center px-6 sm:px-10 py-16 text-foreground z-10 h-full max-w-3xl">
-          <div
-            className="rounded-2xl bg-background/80 backdrop-blur-sm border border-border/50 shadow-xl 
-                       p-8 sm:p-10 transform transition-transform duration-500 hover:-translate-y-2 hover:shadow-2xl"
+    <section className="relative w-full bg-accent overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
+        {/* ===== LEFT COLUMN ===== */}
+        <div className="flex flex-col justify-center px-6 py-20 lg:pl-16 lg:pr-12">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={containerVariants}
+            className="max-w-2xl"
           >
-            {/* Heading */}
-            <h2 className="h2 text-balance text-foreground">{i.heading}</h2>
+            <motion.div variants={itemVariants} className="mb-12">
+              <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl mb-6">
+                {i.heading}
+              </h2>
+              <div className="space-y-5 text-lg text-foreground/80 leading-relaxed">
+                {i.description.map((para, idx) => (
+                  <p key={idx}>{para}</p>
+                ))}
+              </div>
+            </motion.div>
 
-            {/* Description */}
-            <div className="mt-5 space-y-4 text-[1.05rem] leading-relaxed text-foreground/90">
-              {i.description.map((para, idx) => (
-                <p key={idx}>{para}</p>
-              ))}
-            </div>
-
-            {/* Divider */}
-            <div className="my-8 h-px w-full bg-border/40" />
-
-            {/* Points with hover expansion and chevron */}
-            <div className="space-y-4">
+            <motion.div
+              variants={containerVariants}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-5"
+            >
               {i.points.map((p, idx) => (
-                <div
+                <motion.div
                   key={idx}
-                  className="group border-b border-border/40 pb-3 transition-all cursor-pointer"
+                  variants={itemVariants}
+                  className="group bg-background/60 backdrop-blur-sm border border-border/50 rounded-xl p-5 shadow-sm 
+                             hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 cursor-default"
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="text-lg font-semibold tracking-tight uppercase text-foreground transition-colors group-hover:text-foreground">
-                      {p.title}
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="p-1.5 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors duration-300">
+                      <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
                     </div>
-                    <ChevronDown
-                      className="w-5 h-5 text-foreground/60 transform transition-transform duration-300 group-hover:rotate-180"
-                      aria-hidden="true"
-                    />
+                    <h3 className="font-bold text-foreground text-[1.05rem] group-hover:text-fl transition-colors duration-300">
+                      {p.title}
+                    </h3>
                   </div>
-
-                  <p
-                    className="mt-2 text-base leading-relaxed text-foreground/80 opacity-0 max-h-0 overflow-hidden
-                               group-hover:opacity-100 group-hover:max-h-40 transition-all duration-300 ease-in-out"
-                  >
+                  <p className="text-[15px] text-foreground/70 leading-relaxed">
                     {p.body}
                   </p>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
-        </aside>
+            </motion.div>
+          </motion.div>
+        </div>
 
-        {/* RIGHT COLUMN (desktop-only video) */}
-        <div
-          className="relative col-span-2 overflow-hidden hidden md:flex items-center justify-center h-full"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-        >
-          <video
-            src={VIDEO_SRC}
-            autoPlay={!paused}
-            loop
-            muted
-            playsInline
-            className="h-[80vh] w-full object-cover rounded-2xl shadow-2xl"
-            aria-label={i.media.videoAria}
-          />
+        {/* ===== RIGHT COLUMN: Video Player ===== */}
+        <div className="relative hidden lg:flex flex-col justify-center sticky top-0 h-screen pr-8">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ type: "spring", stiffness: 40, damping: 20 }}
+            whileHover={{
+              y: -4,
+              boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.2)",
+            }}
+            // Added: border-4 border-white/50 (white frame with 50% opacity)
+            className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl bg-black cursor-pointer group border-4 border-black"
+          >
+            <AnimatePresence mode="popLayout">
+              {playlist.length > 0 && (
+                <motion.video
+                  key={playlist[currentIndex]}
+                  src={playlist[currentIndex]}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8 }}
+                  autoPlay
+                  muted
+                  playsInline
+                  onEnded={handleVideoEnded}
+                  className="absolute inset-0 w-full h-full object-contain"
+                  aria-label={i.media.videoAria}
+                />
+              )}
+            </AnimatePresence>
+
+            {playlist.length > 0 && (
+              <link
+                rel="preload"
+                as="video"
+                href={playlist[(currentIndex + 1) % playlist.length]}
+              />
+            )}
+          </motion.div>
+        </div>
+
+        {/* ===== MOBILE VIDEO FALLBACK ===== */}
+        <div className="lg:hidden relative w-full mt-8 aspect-video bg-black border-y-4 border-white/20">
+          {playlist.length > 0 && (
+            <video
+              src={playlist[currentIndex]}
+              autoPlay
+              muted
+              playsInline
+              onEnded={handleVideoEnded}
+              className="w-full h-full object-contain"
+              aria-label={i.media.videoAria}
+            />
+          )}
         </div>
       </div>
     </section>
