@@ -25,9 +25,6 @@ export type MediaCarouselProps = {
   initial?: number;
   label?: string;
   className?: string;
-  showDetailsCard?: boolean;
-  detailsLink?: string;
-  detailsLabel?: string;
   /** Total px occupied by sticky headers above the viewport */
   viewportOffset?: number; // e.g. 192
 };
@@ -41,7 +38,7 @@ function isVideo(m: MediaItem): m is Extract<MediaItem, { type: "video" }> {
   return m.type === "video";
 }
 
-// Helper for CSS var typing (avoid `any`)
+// Helper for CSS var typing
 type CSSVars = React.CSSProperties & { ["--carousel-h"]?: string };
 
 export default function MediaCarousel({
@@ -50,16 +47,12 @@ export default function MediaCarousel({
   initial = 0,
   label, // default from i18n below
   className,
-  showDetailsCard = false,
-  detailsLink = "#",
-  detailsLabel, // default from i18n below
   viewportOffset = 0,
 }: MediaCarouselProps) {
   const { locale } = useLocale();
   const i18n = tSite(locale).mediaCarousel;
 
   const resolvedLabel = label ?? i18n.label;
-  const resolvedDetailsLabel = detailsLabel ?? i18n.seeDetails;
 
   const viewportRef = React.useRef<HTMLDivElement>(null);
   const slidesRef = React.useRef<HTMLDivElement>(null);
@@ -67,7 +60,7 @@ export default function MediaCarousel({
     Math.max(0, Math.min(initial, media.length - 1))
   );
 
-  const total = media.length + (showDetailsCard ? 1 : 0);
+  const total = media.length;
 
   const getSlideEl = (i: number) => {
     const slides = slidesRef.current;
@@ -113,6 +106,7 @@ export default function MediaCarousel({
   }, [total]);
 
   React.useEffect(() => {
+    // Ensure initial scroll position is correct
     const id = requestAnimationFrame(() => scrollToIndex(idx, "auto"));
     return () => cancelAnimationFrame(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -197,28 +191,6 @@ export default function MediaCarousel({
               )}
             </figure>
           ))}
-
-          {/* Final CTA slide */}
-          {showDetailsCard && (
-            <div
-              className="relative shrink-0 basis-full snap-center flex items-center justify-center bg-accent text-accent-foreground"
-              style={
-                heightVar
-                  ? { height: "var(--carousel-h)" }
-                  : { aspectRatio: aspect }
-              }
-            >
-              <div className="card p-8 text-center max-w-sm">
-                <h3 className="text-xl font-semibold mb-3">
-                  {i18n.learnMoreTitle}
-                </h3>
-                <p className="text-sm mb-5">{i18n.learnMoreBody}</p>
-                <a href={detailsLink} className="btn btn-primary">
-                  {resolvedDetailsLabel}
-                </a>
-              </div>
-            </div>
-          )}
         </div>
       </div>
 
@@ -228,14 +200,14 @@ export default function MediaCarousel({
           <button
             aria-label={i18n.prevAria}
             onClick={prev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-chrome/70 text-chrome-foreground p-2 shadow-sm hover:bg-chrome transition focus:outline-none focus:ring-2 focus:ring-accent"
+            className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-background/80 text-foreground p-2 shadow-sm hover:bg-background transition focus:outline-none focus:ring-2 focus:ring-accent"
           >
             <ChevronLeft />
           </button>
           <button
             aria-label={i18n.nextAria}
             onClick={next}
-            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-chrome/70 text-chrome-foreground p-2 shadow-sm hover:bg-chrome transition focus:outline-none focus:ring-2 focus:ring-accent"
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-background/80 text-foreground p-2 shadow-sm hover:bg-background transition focus:outline-none focus:ring-2 focus:ring-accent"
           >
             <ChevronRight />
           </button>
@@ -244,17 +216,15 @@ export default function MediaCarousel({
 
       {/* Dots */}
       {total > 1 && (
-        <div className="absolute inset-x-0 bottom-3 flex justify-center gap-2">
+        <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2">
           {Array.from({ length: total }).map((_, i) => (
             <button
               key={i}
               aria-label={i18n.goToSlideAria(i + 1)}
               onClick={() => scrollToIndex(i)}
               className={cx(
-                "h-1.5 rounded-full transition-all",
-                i === idx
-                  ? "w-6 bg-accent"
-                  : "w-3 bg-foreground/40 hover:bg-foreground/60"
+                "h-2 rounded-full transition-all shadow-sm",
+                i === idx ? "w-6 bg-white" : "w-2 bg-white/50 hover:bg-white/70"
               )}
             />
           ))}

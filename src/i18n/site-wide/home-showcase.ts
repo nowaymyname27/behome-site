@@ -10,7 +10,9 @@ export type HomeShowcaseStrings = {
   perMonthSuffix: string;
   startingPriceLabel: string;
   startingPriceNote: string;
-  viewDetailsLabel: string; // new
+  viewDetailsLabel: string;
+  floorplanLabel: string; // ✅ Added
+  matterportLabel: string; // ✅ Added
 };
 
 export const homeShowcaseCopy: Record<Locale, HomeShowcaseStrings> = {
@@ -24,6 +26,8 @@ export const homeShowcaseCopy: Record<Locale, HomeShowcaseStrings> = {
     startingPriceLabel: "Starting price",
     startingPriceNote: "Starting price may include lot premium",
     viewDetailsLabel: "View Home Details",
+    floorplanLabel: "View Floorplan", // ✅ Added
+    matterportLabel: "View 3D Tour", // ✅ Added
   },
   es: {
     sqftUnit: "pies²",
@@ -35,5 +39,7 @@ export const homeShowcaseCopy: Record<Locale, HomeShowcaseStrings> = {
     startingPriceLabel: "Precio desde",
     startingPriceNote: "El precio puede incluir prima del lote",
     viewDetailsLabel: "Ver detalles de la vivienda",
+    floorplanLabel: "Ver Plano", // ✅ Added
+    matterportLabel: "Ver Recorrido 3D", // ✅ Added
   },
 };

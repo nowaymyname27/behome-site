@@ -1,5 +1,4 @@
 // src/sanity/lib/queries.ts
-// Handles both label ("Single-Family") and value ("single") for $type
 
 export const housesQuery = `
   *[_type == "house"]{
@@ -91,7 +90,6 @@ export const styleBySlugQuery = `
       },
       null
     ),
-    matterportModelId,
     matterportUrl
   }
 `;
@@ -179,8 +177,6 @@ export const collectionCardsQuery = `
     }
   } | order(_createdAt desc)
 `;
-
-// file: sanity/lib/queries.ts
 
 export const allStylesQuery = `
   *[_type == "style"]{

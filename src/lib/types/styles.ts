@@ -1,5 +1,6 @@
-// Raw Sanity response type
-export type SanityStyle = {
+// src/lib/types/styles.ts
+
+export interface SanityStyle {
   _id: string;
   title: string;
   slug: string;
@@ -7,30 +8,20 @@ export type SanityStyle = {
   baths: number;
   cars: number;
   sqft: number;
-  gallery?: Array<{
-    src: string;
-    alt?: string;
-  }>;
-  floorplan?: {
-    src: string;
-    alt?: string;
-  };
-  matterportModelId?: string;
+  gallery?: Array<{ src: string; alt?: string }>;
+  floorplan?: { src: string; alt?: string };
   matterportUrl?: string;
-};
+}
 
-// Output type used by your components (HomeSpec + media)
-export type MappedHomeSpec = {
+export interface MappedHomeSpec {
   id: string;
   name: string;
   sqft: number;
   beds: number;
   baths: number;
   cars: number;
-  media: Array<{
-    type?: "image";
-    src: string;
-    alt: string;
-  }>;
-  cta?: { href: string }; // matches HomeSpec exactly
-};
+  media: Array<{ type: "image"; src: string; alt: string }>;
+  cta?: { href: string };
+  matterportHref?: string;
+  floorplanSrc?: string; // ✅ Added this for the modal
+}

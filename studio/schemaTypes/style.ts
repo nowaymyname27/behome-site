@@ -13,6 +13,7 @@ export default defineType({
       description: "Used both internally and on the website.",
       validation: (r) => r.required(),
     }),
+
     defineField({
       name: "slug",
       title: "Slug",
@@ -20,30 +21,35 @@ export default defineType({
       options: { source: "title", maxLength: 96 },
       validation: (r) => r.required(),
     }),
+
     defineField({
       name: "beds",
       title: "Beds",
       type: "number",
       validation: (r) => r.min(0).required(),
     }),
+
     defineField({
       name: "baths",
       title: "Baths",
       type: "number",
       validation: (r) => r.min(0).required(),
     }),
+
     defineField({
       name: "cars",
       title: "Cars (garage capacity)",
       type: "number",
       validation: (r) => r.min(0),
     }),
+
     defineField({
       name: "sqft",
       title: "Square Feet",
       type: "number",
       validation: (r) => r.min(0),
     }),
+
     defineField({
       name: "gallery",
       title: "Gallery",
@@ -52,31 +58,46 @@ export default defineType({
         {
           type: "image",
           options: { hotspot: true },
-          fields: [{ name: "alt", title: "Alt (optional)", type: "string" }],
+          fields: [
+            {
+              name: "alt",
+              title: "Alt (optional)",
+              type: "string",
+            },
+          ],
         },
       ],
     }),
+
     defineField({
       name: "floorplan",
       title: "Floorplan Image",
       type: "image",
       options: { hotspot: true },
-      fields: [{ name: "alt", title: "Alt (optional)", type: "string" }],
+      fields: [
+        {
+          name: "alt",
+          title: "Alt (optional)",
+          type: "string",
+        },
+      ],
     }),
-    defineField({
-      name: "matterportModelId",
-      title: "Matterport Model ID",
-      type: "string",
-      description:
-        "Example: 3DWalkThruID — keep just the ID, not the whole URL.",
-    }),
+
+    // ✅ Keep only this
     defineField({
       name: "matterportUrl",
-      title: "Matterport URL (optional)",
+      title: "Matterport URL",
       type: "url",
+      description:
+        "Full link to the 3D tour (e.g. https://my.matterport.com/show/?m=XXXXX)",
     }),
   ],
+
   preview: {
-    select: { title: "title", subtitle: "sqft", media: "floorplan" },
+    select: {
+      title: "title",
+      subtitle: "sqft",
+      media: "floorplan",
+    },
   },
 });

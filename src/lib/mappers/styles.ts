@@ -1,3 +1,4 @@
+// src/lib/mappers/styles.ts
 import type { SanityStyle, MappedHomeSpec } from "../types/styles";
 
 export function mapSanityStyleToHome(style: SanityStyle): MappedHomeSpec {
@@ -8,24 +9,23 @@ export function mapSanityStyleToHome(style: SanityStyle): MappedHomeSpec {
       alt: img.alt || style.title,
     })) ?? [];
 
-  const floorplanImage = style.floorplan
-    ? [
-        {
-          type: "image" as const,
-          src: style.floorplan.src,
-          alt: style.floorplan.alt || `${style.title} floorplan`,
-        },
-      ]
-    : [];
-
   return {
-    id: style.slug, // anchor id for scrolling
-    name: style.title, // shown in HomeShowcase + submenu
+    id: style.slug,
+    name: style.title,
     sqft: style.sqft,
     beds: style.beds,
     baths: style.baths,
     cars: style.cars,
-    media: [...galleryImages, ...floorplanImage],
-    cta: { href: `/styles/${style.slug}` }, // your chosen route
+    media: galleryImages, // We keep the gallery strictly for the slider/carousel
+
+    // ✅ 1. Pass the URL for the Modal
+    floorplanSrc: style.floorplan?.src,
+
+    // ✅ 2. Pass the Matterport URL
+    matterportHref: style.matterportUrl || undefined,
+
+    // Optional: We can keep this if you want a fallback link,
+    // but the component will prioritize floorplanSrc for the button now.
+    cta: { href: `/styles/${style.slug}` },
   };
 }
