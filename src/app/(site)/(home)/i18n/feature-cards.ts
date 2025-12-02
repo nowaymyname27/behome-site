@@ -30,17 +30,17 @@ type BaseCard = {
 const BASE_CARDS: ReadonlyArray<BaseCard> = [
   {
     id: "one",
-    href: "/invest/one",
+    href: "/portfolio",
     imageSrc: "/photos/one.png",
   },
   {
     id: "portfolios",
-    href: "/invest/portfolios",
+    href: "/portfolio",
     imageSrc: "/photos/portfolio.png",
   },
   {
     id: "collection",
-    href: "/invest/360-collection",
+    href: "/collection",
     imageSrc: "/photos/collection.png",
   },
 ];
