@@ -1,14 +1,34 @@
+{
+  /* Map Section */
+}
+{
+  /* {config && (
+          <section className="w-full border-t border-b border-border">
+            <div className="px-4 sm:px-6 lg:px-8 py-6">
+              <h2 className="text-2xl font-semibold tracking-tight">
+                Our Single-Family Homes
+              </h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Explore all single-family homes available on the map below.
+              </p>
+            </div>
+
+            <div style={{ height: "600px" }}>
+              <SiteMap config={config} clickToUse />
+            </div>
+          </section>
+        )} */
+}
+
 import Header from "../../../components/site-wide/Header";
 import Footer from "../../../components/site-wide/Footer";
 import CollectionHero from "./components/CollectionHero";
-import HouseSection from "../collection/components/HouseSection";
 import { sanityClient } from "../../../sanity/lib/client";
 import {
   houseCardsQuery,
   mapPointsByProductTypeQuery,
   collectionCardsQuery,
 } from "../../../sanity/lib/queries";
-import SiteMap from "../../../components/site-wide/SiteMap";
 import type { Config, Point } from "../../../components/site-wide/map/types";
 import type { HouseCardProps } from "../../../components/site-wide/HouseCard";
 import type { CollectionCardProps } from "./components/CollectionCard";
@@ -38,6 +58,22 @@ type MapPointDoc = {
   lat: number;
   lng: number;
   productType: "btr" | "single" | "cluster";
+};
+
+// Define the incoming Sanity document shape for Collection Cards
+type CollectionCardDoc = {
+  _id: string;
+  address: string;
+  location: string;
+  status: string; // "forSale" | "sold" | "rented" | "underConstruction"
+  price: number;
+  rent: number;
+  renewalDate?: string;
+  cap?: number;
+  bedrooms: number;
+  bathrooms: number;
+  sqft: CollectionCardProps["sqft"];
+  image: { src: string; alt?: string };
 };
 
 export const revalidate = 60;
@@ -87,22 +123,11 @@ export default async function CollectionPage() {
   const collectionDocs = await sanityClient.fetch(collectionCardsQuery);
 
   const collectionCards: CollectionCardProps[] = collectionDocs.map(
-    (doc: {
-      _id: string;
-      address: string;
-      sold: boolean;
-      price: number;
-      rent: number;
-      renewalDate?: string;
-      cap?: number;
-      bedrooms: number;
-      bathrooms: number;
-      sqft: CollectionCardProps["sqft"];
-      image: { src: string; alt?: string };
-    }) => ({
+    (doc: CollectionCardDoc) => ({
       id: doc._id,
       address: doc.address,
-      sold: doc.sold,
+      location: doc.location, // Added location
+      status: doc.status, // Pass the status string directly
       price: doc.price,
       rent: doc.rent,
       renewalDate: doc.renewalDate,
@@ -127,24 +152,6 @@ export default async function CollectionPage() {
 
         {/* BTR Collection Cards */}
         <CollectionSection cards={collectionCards} />
-
-        {/* Map Section */}
-        {/* {config && (
-          <section className="w-full border-t border-b border-border">
-            <div className="px-4 sm:px-6 lg:px-8 py-6">
-              <h2 className="text-2xl font-semibold tracking-tight">
-                Our Single-Family Homes
-              </h2>
-              <p className="text-sm text-muted-foreground mt-1">
-                Explore all single-family homes available on the map below.
-              </p>
-            </div>
-
-            <div style={{ height: "600px" }}>
-              <SiteMap config={config} clickToUse />
-            </div>
-          </section>
-        )} */}
       </main>
       <Footer />
     </div>

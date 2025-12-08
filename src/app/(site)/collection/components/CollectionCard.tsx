@@ -6,8 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 export type CollectionCardProps = {
   id?: string;
   image: { src: string; alt?: string };
-  sold?: boolean;
+  // Changed: 'sold' boolean removed, 'status' added
+  status: "forSale" | "sold" | "rented" | "underConstruction" | string;
   address: string;
+  // Added: 'location' for City, State, Zip
+  location: string;
   price: number;
   rent: number;
   renewalDate?: string;
@@ -33,11 +36,39 @@ function formatMoney(v: number) {
   }).format(v);
 }
 
+// Helper to get Label and Color based on status
+function getStatusConfig(status: string) {
+  switch (status) {
+    case "sold":
+      return {
+        label: "SOLD",
+        color: "bg-red-600/90 text-white shadow-sm shadow-red-400/30",
+      };
+    case "rented":
+      return {
+        label: "CURRENTLY RENTED",
+        color: "bg-blue-600/90 text-white shadow-sm shadow-blue-400/30",
+      };
+    case "underConstruction":
+      return {
+        label: "UNDER CONSTRUCTION",
+        color: "bg-orange-500/90 text-white shadow-sm shadow-orange-400/30",
+      };
+    case "available":
+    default:
+      return {
+        label: "FOR SALE",
+        color: "bg-emerald-500/90 text-white shadow-sm shadow-emerald-400/30",
+      };
+  }
+}
+
 export default function CollectionCard({
   id,
   image,
-  sold = false,
+  status = "available",
   address,
+  location,
   price,
   rent,
   renewalDate,
@@ -48,10 +79,8 @@ export default function CollectionCard({
   className,
 }: CollectionCardProps) {
   const [open, setOpen] = React.useState(false);
-  const statusLabel = sold ? "SOLD" : "FOR SALE";
-  const statusColor = sold
-    ? "bg-red-600/90 text-white shadow-sm shadow-red-400/30"
-    : "bg-emerald-500/90 text-white shadow-sm shadow-emerald-400/30";
+
+  const { label: statusLabel, color: statusColor } = getStatusConfig(status);
 
   return (
     <article
@@ -79,10 +108,13 @@ export default function CollectionCard({
 
       {/* BODY */}
       <div className="p-6">
-        {/* Address */}
-        <h3 className="text-lg font-semibold tracking-tight mb-4 leading-snug text-white">
-          {address}
-        </h3>
+        {/* Address & Location */}
+        <div className="mb-5">
+          <h3 className="text-lg font-semibold tracking-tight leading-snug text-white">
+            {address}
+          </h3>
+          <p className="text-sm text-muted-foreground mt-0.5">{location}</p>
+        </div>
 
         {/* Price / Rent / CAP */}
         <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm mb-5">

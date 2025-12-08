@@ -16,7 +16,7 @@ export default function BTRExplained() {
       <div className="pointer-events-none absolute inset-y-0 right-0 left-1/2 bg-[#2b3a46] md:block hidden" />
 
       {/* Content above the band */}
-      <div className="relative z-10 px-6 md:px-12 lg:px-24 grid md:grid-cols-2 gap-16 items-center">
+      <div className="relative z-10 px-6 lg:px-24 grid md:grid-cols-2 gap-16 items-center">
         {/* --- Left Column --- */}
         <div className="space-y-6 animate-fadeInUp">
           <h2 className="h1 text-white">{title}</h2>

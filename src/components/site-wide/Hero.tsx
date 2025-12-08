@@ -59,7 +59,7 @@ export default function Hero({
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative w-full min-h-screen flex items-center px-6 md:px-24 py-24"
+        className="relative w-full min-h-screen flex items-center px-6 lg:px-24 py-24"
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center w-full gap-8">
           {/* Left copy */}

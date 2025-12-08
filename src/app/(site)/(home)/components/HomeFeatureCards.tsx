@@ -24,7 +24,7 @@ export default function HomeFeatureCards() {
       )}
 
       {/* Cards */}
-      <div className="px-4 sm:px-6 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-24">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f) => (
             <article
@@ -34,7 +34,7 @@ export default function HomeFeatureCards() {
                          flex flex-col"
             >
               {/* Image Container */}
-              <div className="relative aspect-[16/10] w-full bg-gray-50/50">
+              <div className="relative aspect-[18/10] w-full bg-gray-50/50">
                 <Image
                   src={f.imageSrc}
                   alt={f.imageAlt}
@@ -52,7 +52,7 @@ export default function HomeFeatureCards() {
                   <h3 className="text-2xl font-semibold tracking-tight text-foreground">
                     {f.heading}
                   </h3>
-                  <div className="h-[2px] w-12 bg-accent mt-2 mb-4" />
+                  <div className="h-[2px] w-12 bg-NC mt-2 mb-4" />
                   <p className="text-base text-foreground/90 leading-relaxed">
                     {f.description}
                   </p>
@@ -61,7 +61,7 @@ export default function HomeFeatureCards() {
                 <div className="mt-8">
                   <Link
                     href={f.href}
-                    className="btn btn-FL w-full sm:w-auto text-sm md:text-base px-6 py-2.5"
+                    className="btn btn-NC w-full sm:w-auto text-sm md:text-base px-6 py-2.5"
                     aria-label={`Learn More: ${f.heading}`}
                   >
                     Learn More

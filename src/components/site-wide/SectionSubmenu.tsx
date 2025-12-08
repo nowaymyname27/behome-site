@@ -116,7 +116,7 @@ export default function SectionSubmenu({
       )}
       style={{ top: stickyTop }}
     >
-      <div className="w-full px-4 sm:px-6 lg:px-16">
+      <div className="w-full px-6 lg:px-21">
         <div
           role="tablist"
           aria-orientation="horizontal"
@@ -133,7 +133,7 @@ export default function SectionSubmenu({
                 aria-controls={item.id}
                 onClick={() => handleClick(item.id)}
                 className={cx(
-                  "relative shrink-0 px-3 sm:px-4 py-3 text-sm sm:text-base font-medium",
+                  "relative shrink-0 px-3 py-3 text-sm sm:text-base font-medium",
                   "text-foreground/80 hover:text-foreground transition-colors"
                 )}
               >

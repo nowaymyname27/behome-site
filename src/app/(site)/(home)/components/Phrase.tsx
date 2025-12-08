@@ -16,7 +16,7 @@ export default function Phrase() {
         whileHover={{ scale: 1.02 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 w-full px-6 md:px-12 lg:px-24 cursor-default select-none"
+        className="relative z-10 w-full px-6 lg:px-24 cursor-default select-none"
       >
         <p
           className="font-semibold text-chrome leading-tight tracking-tight text-3xl sm:text-4xl md:text-5xl

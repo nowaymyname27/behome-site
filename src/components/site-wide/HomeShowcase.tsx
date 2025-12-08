@@ -65,7 +65,7 @@ export default function HomeShowcase({
       >
         <div
           className={[
-            "w-full px-6 sm:px-12 lg:px-20",
+            "w-full px-6 lg:px-24",
             stickyHeader
               ? "sticky z-20 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/85"
               : "",

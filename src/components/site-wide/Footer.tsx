@@ -57,7 +57,7 @@ export default function Footer() {
   return (
     <footer className="w-full bg-accent text-accent-foreground">
       {/* ===== Legal (full-width, appears first) ===== */}
-      <section className="px-6 lg:px-8 py-10 border-b border-border/50">
+      <section className="px-6 lg:px-24 py-10 border-b border-border/50">
         <h3 className="font-semibold text-lg">{i.legal.title}</h3>
 
         {hasDocuments && (
@@ -105,13 +105,13 @@ export default function Footer() {
           </div>
 
           {!expanded && (
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-accent to-accent/0" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10" />
           )}
 
           <button
             type="button"
             onClick={() => setExpanded((v) => !v)}
-            className="mt-2 text-xs underline underline-offset-2 hover:opacity-90"
+            className="mt-2 text-xs underline underline-offset-2 opacity-70 hover:opacity-90"
             aria-expanded={expanded}
             aria-controls={legalId}
           >
@@ -121,7 +121,7 @@ export default function Footer() {
       </section>
 
       {/* ===== Brand + Contact ===== */}
-      <section className="px-6 bg-chrome text-chrome-foreground lg:px-8 py-12 grid gap-10 sm:grid-cols-3">
+      <section className="px-6 bg-chrome text-chrome-foreground lg:px-24 py-12 grid gap-10 sm:grid-cols-3">
         <div>
           <div className="font-semibold text-lg">{i.brand}</div>
           <p className="mt-2 text-sm opacity-80">{i.tagline}</p>
@@ -147,7 +147,7 @@ export default function Footer() {
 
       {/* ===== Bottom bar ===== */}
       <div className="bg-chrome text-chrome-foreground border-t border-border">
-        <div className="px-6 lg:px-8 py-6 text-xs opacity-70">
+        <div className="px-6 lg:px-24 py-6 text-xs opacity-70">
           © {new Date().getFullYear()} {i.brand}. {i.legal.rights}
         </div>
       </div>

@@ -163,7 +163,8 @@ export const collectionCardsQuery = `
   *[_type == "collectionCard"]{
     _id,
     address,
-    sold,
+    location,
+    status,
     price,
     rent,
     renewalDate,

@@ -19,7 +19,7 @@ export default function Header() {
       id="site-header"
       className="sticky top-0 z-[2000] w-full border-b border-border bg-chrome text-chrome-foreground"
     >
-      <div className="h-16 flex items-center justify-between px-6 lg:px-8">
+      <div className="h-16 flex items-center justify-between px-6 lg:px-24">
         <Link href="/" className="font-semibold tracking-tight text-xl">
           {i.brand}
         </Link>

@@ -68,7 +68,7 @@ export default function Brochure({
   }, [openIndex]);
 
   return (
-    <section className="w-full bg-chrome text-chrome-foreground py-16 px-6">
+    <section className="w-full bg-chrome text-chrome-foreground py-16 pr-2 pl-6 lg:pl-24">
       <div className="max-w-none mx-auto grid md:grid-cols-3 gap-10 items-start">
         {/* Left text */}
         <aside>

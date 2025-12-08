@@ -63,7 +63,7 @@ export default function DesignPortfolio() {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="w-full bg-accent text-accent-foreground py-12"
     >
-      <div className="w-full px-6 flex flex-col md:flex-row gap-10">
+      <div className="w-full px-6 lg:px-24 flex flex-col md:flex-row gap-10">
         {/* LEFT SIDE */}
         <div className="w-full md:w-1/3">
           <h2 className="text-2xl font-semibold tracking-tight mb-3">
