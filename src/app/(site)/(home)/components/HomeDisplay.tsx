@@ -41,10 +41,10 @@ export default function HomeDisplay() {
   };
 
   return (
-    <section className="relative w-full bg-accent overflow-hidden py-20 px-6 lg:px-12 xl:px-24">
-      <div className="max-w-[1600px] mx-auto flex flex-col gap-16">
+    <section className="relative w-full bg-accent overflow-hidden py-20 px-6 lg:px-24">
+      {/* Removed mx-auto so it respects the left padding of the parent */}
+      <div className="max-w-[1600px] flex flex-col gap-16">
         {/* ===== TOP SECTION: Text (Left) & Video (Right) ===== */}
-        {/* Changed grid cols to give video more space: lg:grid-cols-[40%_60%] */}
         <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] gap-12 lg:gap-16 items-center">
           {/* Left: Text Content */}
           <motion.div
