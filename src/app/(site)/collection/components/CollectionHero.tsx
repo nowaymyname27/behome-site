@@ -2,8 +2,19 @@
 "use client";
 
 import Hero from "../../../../components/site-wide/Hero";
+import MultiVideoBackground from "../../../../components/site-wide/MultiVideoBackground";
 import { useLocale } from "../../../../i18n/locale-context";
 import { tInvestmentHero } from "../i18n";
+
+// Add your additional videos to this array
+const collectionVideos = [
+"https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313683/vaupkigpz90ksedgac13.mp4",
+"https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313663/zk987xgzmsnu1ceexrao.mp4",
+"https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313658/v5fu1ai77i0twlyibh1w.mp4",
+"https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313654/puuguifdkgz3ubithoxk.mp4",
+"https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313652/f675jqhxruqlslckene9.mp4",
+"https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313648/i3bijjqnxtnjlov6tago.mp4"
+];
 
 export default function CollectionHero() {
   const { locale } = useLocale();
@@ -14,7 +25,12 @@ export default function CollectionHero() {
       title={i.title}
       subtitle={i.subtitle}
       scrim="bg-black/50"
-      background="https://res.cloudinary.com/dsdkxdwvf/video/upload/v1764628020/jblrcy6jjl7pzu8m81kg.mp4"
-    ></Hero>
+      backgroundNode={
+        <MultiVideoBackground
+          videos={collectionVideos}
+          ariaLabel="Collection background video"
+        />
+      }
+    />
   );
 }
