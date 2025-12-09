@@ -12,9 +12,9 @@ type BaseSlide = {
 // Slides (images + per-card copy)
 // ------------------------------
 const BASE_SLIDES: BaseSlide[] = [
-  { id: "track", src: "/images/philosophy/track.jpg" },
-  { id: "cashflow", src: "/images/philosophy/cashflow.jpg" },
-  { id: "transparency", src: "/images/philosophy/transparency.jpg" },
+  { id: "track", src: "/brochures/Arquitectura.jpg" },
+  { id: "cashflow", src: "/brochures/Lifestyle.jpg" },
+  { id: "transparency", src: "/brochures/Palmeras.jpg" },
 ];
 
 const LABELS = {

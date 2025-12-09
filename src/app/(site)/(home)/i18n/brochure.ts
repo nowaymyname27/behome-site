@@ -1,4 +1,13 @@
 // File: src/app/(site)/florida/i18n/brochure.ts
+
+// Shared image paths
+const images = [
+  "/brochures/Playa.jpg",
+  "/brochures/Casa-Llaves.jpg",
+  "/brochures/Parques.jpg",
+  "/brochures/Golf.jpg",
+];
+
 export const brochure = {
   en: {
     left: {
@@ -15,28 +24,28 @@ export const brochure = {
     },
     slides: [
       {
-        src: "/images/florida/northport/beaches.jpg",
+        src: images[0],
         title: "Best Beaches in Florida",
         caption:
           "Minutes from Venice Beach and Siesta Key—sun, surf, and Gulf sunsets await.",
         body: "Only a short drive from the white sands of Venice Beach and Siesta Key, North Port residents enjoy easy access to some of Florida’s most beautiful Gulf Coast beaches — perfect for swimming, boating, and unforgettable sunsets.",
       },
       {
-        src: "/images/florida/northport/neighborhoods.jpg",
+        src: images[1],
         title: "Livable Neighborhoods",
         caption:
           "Safe, modern communities with new homes and top-rated schools.",
         body: "Thoughtfully planned communities with new homes, safe streets, and excellent schools make North Port ideal for families and professionals seeking comfort, value, and long-term stability.",
       },
       {
-        src: "/images/florida/northport/culture.jpg",
+        src: images[2],
         title: "Parks, Culture & Dining",
         caption:
           "Outdoor recreation meets art, dining, and community all year long.",
         body: "From miles of greenways and natural springs to local art venues and diverse restaurants, North Port offers a rich lifestyle where outdoor recreation, culture, and cuisine come together year-round.",
       },
       {
-        src: "/images/florida/northport/golf.jpg",
+        src: images[3],
         title: "Golf & Recreation",
         caption:
           "Dozens of golf courses and outdoor escapes within easy reach.",
@@ -60,28 +69,28 @@ export const brochure = {
     },
     slides: [
       {
-        src: "/images/florida/northport/beaches.jpg",
+        src: images[0],
         title: "Las Mejores Playas de Florida",
         caption:
           "A minutos de Venice Beach y Siesta Key: sol, mar y atardeceres del Golfo.",
         body: "A poca distancia de las arenas blancas de Venice Beach y Siesta Key, los residentes de North Port disfrutan fácil acceso a algunas de las playas más hermosas de la costa oeste de Florida — perfectas para nadar, navegar y disfrutar de atardeceres inolvidables.",
       },
       {
-        src: "/images/florida/northport/neighborhoods.jpg",
+        src: images[1],
         title: "Barrios Habitables",
         caption:
           "Comunidades seguras y modernas con viviendas nuevas y excelentes escuelas.",
         body: "Comunidades cuidadosamente planificadas con calles seguras y escuelas de calidad hacen de North Port un lugar ideal para familias y profesionales que buscan comodidad, valor y estabilidad a largo plazo.",
       },
       {
-        src: "/images/florida/northport/culture.jpg",
+        src: images[2],
         title: "Parques, Cultura y Gastronomía",
         caption:
           "Naturaleza, arte y buena comida: un estilo de vida activo todo el año.",
         body: "Desde kilómetros de senderos y manantiales naturales hasta galerías locales y restaurantes diversos, North Port ofrece un estilo de vida rico donde la recreación al aire libre, la cultura y la gastronomía se unen durante todo el año.",
       },
       {
-        src: "/images/florida/northport/golf.jpg",
+        src: images[3],
         title: "Golf y Recreación",
         caption:
           "Docenas de campos de golf y espacios naturales a pocos minutos.",
