@@ -1,13 +1,12 @@
-// File: src/app/(site)/(home)/components/HeroCard.tsx
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export type HeroCardProps = {
   title?: string;
   subtitle?: string;
   buttonText?: string;
-  onClick?: () => void;
   className?: string;
 };
 
@@ -15,7 +14,6 @@ export default function HeroCard({
   title = "Ready to invest in BTR properties?",
   subtitle = "Choose the path that fits your goals:",
   buttonText = "Learn More",
-  onClick,
   className = "",
 }: HeroCardProps) {
   return (
@@ -40,24 +38,23 @@ export default function HeroCard({
 
       <p className="text-white/85 text-sm mb-6">{subtitle}</p>
 
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.97 }}
-        onClick={onClick}
-        className="
-          px-6 py-3 rounded-full text-sm font-semibold
-          text-white
-          border border-white/30
-          backdrop-blur-md
-          transition-all duration-300
-          hover:shadow-lg hover:-translate-y-0.5
-        "
-        style={{
-          backgroundColor: "var(--color-FL)",
-        }}
-      >
-        {buttonText}
-      </motion.button>
+      <Link href="/btr">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.97 }}
+          className="
+            px-6 py-3 rounded-full text-sm font-semibold
+            text-white
+            border border-white/30
+            backdrop-blur-md
+            transition-all duration-300
+            hover:shadow-lg hover:-translate-y-0.5
+          "
+          style={{ backgroundColor: "var(--color-FL)" }}
+        >
+          {buttonText}
+        </motion.button>
+      </Link>
     </motion.div>
   );
 }
