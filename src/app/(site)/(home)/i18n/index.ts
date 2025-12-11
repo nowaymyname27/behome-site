@@ -14,16 +14,15 @@ import { homeDisplayCopy } from "./display";
 import { homeFeatureCardsCopy } from "./feature-cards";
 import { project } from "./project";
 import { brochure } from "./brochure";
-import { hero } from "./hero2";
 import { description } from "./description";
 import { map } from "./map";
-import { tHeroCard } from "./hero-card";
 import { tHomeBTRExplained } from "./btrExplained";
+import { tHeroCard } from "./heroCard"; // <--- Added import
 
 const dict = {
   en: {
     heading: "Florida Portfolio",
-    hero: hero.en,
+    hero: tHomeHero("en"),
     description: description.en,
     map: map.en,
     project: project.en,
@@ -31,7 +30,7 @@ const dict = {
   } satisfies FloridaStrings,
   es: {
     heading: "Portafolio de Florida",
-    hero: hero.es,
+    hero: tHomeHero("es"),
     description: description.es,
     map: map.es,
     project: project.es,
@@ -40,7 +39,13 @@ const dict = {
 } as const;
 
 // --- Section helpers (exported to components) ---
-export { tHomeHero, tHomePhilosophy, tHomePhrase, tHomeBTRExplained };
+export {
+  tHomeHero,
+  tHomePhilosophy,
+  tHomePhrase,
+  tHomeBTRExplained,
+  tHeroCard, // <--- Added export
+};
 
 // display
 export function tHomeDisplay(locale: Locale): HomeDisplayStrings {
@@ -55,7 +60,6 @@ export function tHomeFeatureCards(locale: Locale) {
 // builder exports
 export { getHomeFeatureCards } from "./feature-cards";
 export { getHomePhilosophySlides } from "./philosophy";
-export { tHeroCard } from "./hero-card";
 
 // re-export types
 export type { Locale, HomeFeatureCard } from "./types";

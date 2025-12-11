@@ -1,11 +1,11 @@
 // File: src/app/(site)/(home)/i18n/types.ts
 
-export type Locale = "en" | "es";
+// 1. IMPORT THE HERO TYPE
+import { HomeHeroStrings } from "./hero";
 
-// Reusable function type for aria formatters
+export type Locale = "en" | "es";
 export type Formatter = (n: number) => string;
 
-// ✅ Expanded union so both legacy and new IDs are valid
 export type CardId =
   | "fl-plans"
   | "nc-communities"
@@ -14,10 +14,7 @@ export type CardId =
   | "portfolios"
   | "collection";
 
-export type Point = {
-  title: string;
-  body: string;
-};
+export type Point = { title: string; body: string };
 
 export type HomeBTRExplainedStat = {
   label: string;
@@ -32,20 +29,14 @@ export type HomeBTRExplained = {
   stats: HomeBTRExplainedStat[];
 };
 
-// ---- Home Display section
 export type HomeDisplayStrings = {
   heading: string;
   description: ReadonlyArray<string>;
   points: ReadonlyArray<Point>;
-  aria: {
-    previous: string;
-    next: string;
-    goToSlide: Formatter;
-  };
+  aria: { previous: string; next: string; goToSlide: Formatter };
   media: { videoAria: string };
 };
 
-// ---- Home page text bundles
 export type HomeStrings = {
   hero: { title: string; subtitle: string; videoAria: string };
   phrase: { text: string; attribution: string };
@@ -58,21 +49,14 @@ export type HomeStrings = {
   display: HomeDisplayStrings;
 };
 
-// ---- HeroCard types
-export type Cta = {
-  href: string;
-  label: string;
-};
+export type Cta = { href: string; label: string };
 
 export type HeroCardStrings = {
-  aria: { promotion: string };
-  title?: string; // kept optional for backward compatibility
-  heading: string;
-  subheading: string;
-  tabs: readonly [string, string, string];
+  title: string;
+  subtitle: string;
+  buttonText: string;
 };
 
-// ---- Home brochure / philosophy slides
 export type HomePhilosophySlide = {
   src: string;
   title: string;
@@ -80,12 +64,8 @@ export type HomePhilosophySlide = {
   body?: string;
 };
 
-export type HomeDisplaySlide = {
-  src: string;
-  alt: string;
-};
+export type HomeDisplaySlide = { src: string; alt: string };
 
-// ---- Home Feature Cards
 export type HomeFeatureCard = {
   id: CardId;
   href: string;
@@ -104,7 +84,6 @@ export type HomeFeatureCardsStrings = {
 
 export type ProductId = "single-family" | "btr" | "cluster";
 
-// ---- Florida page types
 export type Slide = {
   src: string;
   title: string;
@@ -112,15 +91,14 @@ export type Slide = {
   body?: string;
 };
 
+// --- THIS IS THE PART THAT WAS WRONG ---
 export type FloridaStrings = {
   heading: string;
-  hero: {
-    title: string;
-    subtitle: string;
-    promoTitle: string;
-    promoText: string;
-    promoCta: string;
-  };
+
+  // 1. KEEP THIS: Use the new Hero type
+  hero: HomeHeroStrings;
+
+  // 2. RESTORE THESE: Use the correct structure for your data
   description: {
     desc: { title: string; body: string };
   };

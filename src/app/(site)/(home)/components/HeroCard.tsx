@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLocale } from "../../../../i18n/locale-context"; // Adjust path if needed
+import { tHeroCard } from "../i18n"; // We will create this next
 
 export type HeroCardProps = {
+  // We keep these as optional overrides in case you want to reuse the card with different text
   title?: string;
   subtitle?: string;
   buttonText?: string;
@@ -11,11 +14,19 @@ export type HeroCardProps = {
 };
 
 export default function HeroCard({
-  title = "Ready to invest in BTR properties?",
-  subtitle = "Choose the path that fits your goals:",
-  buttonText = "Learn More",
+  title,
+  subtitle,
+  buttonText,
   className = "",
 }: HeroCardProps) {
+  const { locale } = useLocale();
+  const t = tHeroCard(locale);
+
+  // Use props if provided, otherwise fallback to the translation file
+  const displayTitle = title || t.title;
+  const displaySubtitle = subtitle || t.subtitle;
+  const displayButton = buttonText || t.buttonText;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -34,9 +45,9 @@ export default function HeroCard({
         className,
       ].join(" ")}
     >
-      <h2 className="text-white text-lg font-semibold mb-3">{title}</h2>
+      <h2 className="text-white text-lg font-semibold mb-3">{displayTitle}</h2>
 
-      <p className="text-white/85 text-sm mb-6">{subtitle}</p>
+      <p className="text-white/85 text-sm mb-6">{displaySubtitle}</p>
 
       <Link href="/btr">
         <motion.button
@@ -52,7 +63,7 @@ export default function HeroCard({
           "
           style={{ backgroundColor: "var(--color-FL)" }}
         >
-          {buttonText}
+          {displayButton}
         </motion.button>
       </Link>
     </motion.div>

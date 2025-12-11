@@ -1,5 +1,18 @@
 import type { Locale } from "./types";
 
+// 1. Define the type manually so it accepts ANY string, not just the English ones
+export type HomeHeroStrings = {
+  copies: readonly {
+    title: string;
+    subtitle: string;
+  }[];
+  videoAria: string;
+  phrase: {
+    text: string;
+    attribution: string;
+  };
+};
+
 const HERO = {
   en: {
     copies: [
@@ -51,7 +64,8 @@ const HERO = {
   },
 } as const;
 
-export function tHomeHero(locale: Locale) {
+// 2. Now the return type is 'HomeHeroStrings', which allows both EN and ES
+export function tHomeHero(locale: Locale): HomeHeroStrings {
   return locale === "es" ? HERO.es : HERO.en;
 }
 
