@@ -2,30 +2,12 @@
 
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
+import { useLocale } from "../../../../i18n/locale-context";
+import { tOneExpansion } from "../i18n"; // We will create this next
 
 export default function OneExpansion() {
-  const points = [
-    {
-      title: "Immediate Income Potential",
-      text: "Once completed, your home is ready to rent and start generating positive cash flow in one of Florida’s strongest rental markets.",
-    },
-    {
-      title: "Low Carrying Costs",
-      text: "Enjoy no HOA fees, no flood-zone insurance, and durable construction designed for low maintenance and long-term savings.",
-    },
-    {
-      title: "Rapid Appreciation",
-      text: "North Port’s fast-growing population and expanding economy continue to drive strong property value growth year after year.",
-    },
-    {
-      title: "Prime Location",
-      text: "Minutes from Venice Beach, Siesta Key, and Manasota Key, and connected via I-75 to more than 1.6 million residents from Tampa to Naples — a perfect blend of lifestyle and accessibility.",
-    },
-    {
-      title: "Built for Florida Living",
-      text: "Homes are engineered to withstand tropical storms and built with modern materials for safety, durability, and peace of mind.",
-    },
-  ];
+  const { locale } = useLocale();
+  const t = tOneExpansion(locale);
 
   return (
     <section className="w-full bg-chrome text-chrome-foreground py-24 px-6 sm:px-12 lg:px-24">
@@ -37,13 +19,12 @@ export default function OneExpansion() {
         viewport={{ once: true }}
         className="text-center text-base sm:text-lg leading-relaxed text-chrome-foreground/90 mb-16 max-w-5xl mx-auto"
       >
-        Start with one home, earn steady cash flow, and stay in full control —
-        you decide when to sell, reinvest, or keep building your wealth.
+        {t.description}
       </motion.p>
 
       {/* Points grid */}
       <div className="grid gap-10 sm:gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {points.map((p, index) => (
+        {t.points.map((p, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 20 }}

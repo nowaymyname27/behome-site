@@ -1,148 +1,103 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
-export type PortfolioCardProps = {
+type PortfolioCardProps = {
   type: string;
   finish: string;
   needed: number;
   rent: number;
   cap: number;
-  className?: string;
+  units: number;
+  image: {
+    src: string;
+    alt: string;
+  };
 };
 
-function formatMoney(v: number) {
+function formatMoney(n: number) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     maximumFractionDigits: 0,
-  }).format(v);
+  }).format(n);
 }
 
-export default function PortfolioCard({
-  type,
-  finish,
-  needed,
-  rent,
-  cap,
-  className,
-}: PortfolioCardProps) {
-  const [open, setOpen] = useState(false);
-  const popupRef = useRef<HTMLDivElement | null>(null);
+function formatPercent(n: number) {
+  return `${n.toFixed(1)}%`;
+}
+
+export default function PortfolioCard(props: PortfolioCardProps) {
+  const { type, finish, needed, rent, cap, units, image } = props;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      // Clicking anywhere on the card closes the popup
-      onClick={() => setOpen(false)}
-      className={[
-        "rounded-2xl border border-border bg-chrome text-chrome-foreground",
-        "p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300",
-        "max-w-xs w-full mx-auto relative",
-        className ?? "",
-      ].join(" ")}
+    <motion.article
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="overflow-hidden rounded-2xl bg-slate-900 shadow-xl" // Dark background for the whole card
     >
-      {/* HEADER */}
-      <div className="mb-6">
-        <h3 className="text-3xl font-bold tracking-tight mb-1 text-white">
-          {type}
-        </h3>
-        <p className="text-md font-medium text-accent">{finish}</p>
-      </div>
-
-      {/* METRICS GRID */}
-      <div className="grid grid-cols-2 gap-4">
-        <Metric label="Investment Needed" value={formatMoney(needed)} />
-        <Metric
-          label="Estimated Rent"
-          value={formatMoney(rent)}
-          highlight="text-emerald-300"
+      {/* Image Header */}
+      <div className="relative aspect-video w-full">
+        <Image
+          src={image.src}
+          alt={image.alt}
+          fill
+          className="object-cover transition-transform duration-700 hover:scale-105"
         />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
+
+        {/* Top Badge */}
+        <div className="absolute left-4 top-4">
+          <span className="rounded-md bg-white px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-900 shadow-sm">
+            {finish}
+          </span>
+        </div>
+
+        {/* Bottom Title */}
+        <div className="absolute bottom-4 left-6 right-6">
+          <h3 className="text-2xl font-bold text-white tracking-tight">
+            {type} Model
+          </h3>
+          <p className="text-sm font-medium text-slate-300">
+            {units} {units === 1 ? "Unit Configuration" : "Units Configuration"}
+          </p>
+        </div>
       </div>
 
-      {/* CAP + INFO BUTTON */}
-      <div className="mt-6 pt-4 border-t border-white/10 relative flex items-start justify-between">
-        <Metric
-          label="Target CAP"
-          value={`${cap.toFixed(2)}%`}
-          highlight="text-amber-300"
-        />
+      {/* Stats Grid */}
+      <div className="p-6 bg-slate-900">
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            {/* Lighter label color for dark background */}
+            <div className="text-[10px] uppercase tracking-wider font-semibold text-slate-400">
+              Capital
+            </div>
+            <div className="mt-1 text-lg font-bold text-white">
+              {formatMoney(needed)}
+            </div>
+          </div>
 
-        {/* Info Button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation(); // prevent card's click handler
-            setOpen((p) => !p); // toggle open/close
-          }}
-          className="ml-3 mt-1 h-6 w-6 rounded-full flex items-center justify-center 
-                     bg-white/10 text-white/80 text-xs font-bold 
-                     hover:bg-white/20 transition-colors z-30 relative"
-        >
-          i
-        </button>
+          <div>
+            <div className="text-[10px] uppercase tracking-wider font-semibold text-slate-400">
+              Rent / Mo
+            </div>
+            <div className="mt-1 text-lg font-bold text-white">
+              {formatMoney(rent)}
+            </div>
+          </div>
 
-        {/* Popup */}
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              ref={popupRef}
-              onClick={(e) => e.stopPropagation()} // clicking inside should NOT close it
-              initial={{ opacity: 0, scale: 0.95, y: -6 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -6 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
-              className="
-                absolute right-0 bottom-10 z-20
-                w-64 rounded-xl border border-border 
-                bg-chrome/95 backdrop-blur-md shadow-lg p-4
-              "
-            >
-              <div className="text-sm font-semibold mb-1 text-white">
-                What is CAP?
-              </div>
-              <p className="text-xs leading-relaxed text-white/80">
-                CAP tells you how much money a property makes each year compared
-                to what it costs.
-                <br />
-                <br />
-                A higher CAP = a better return.
-                <br />
-                <br />
-                Quick formula: CAP = yearly profit / price
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          <div>
+            <div className="text-[10px] uppercase tracking-wider font-semibold text-slate-400">
+              Cap Rate
+            </div>
+            <div className="mt-1 text-lg font-bold text-white">
+              {formatPercent(cap)}
+            </div>
+          </div>
+        </div>
       </div>
-    </motion.div>
-  );
-}
-
-/* Metric Component */
-function Metric({
-  label,
-  value,
-  highlight,
-}: {
-  label: string;
-  value: string;
-  highlight?: string;
-}) {
-  return (
-    <div className="flex flex-col">
-      <div className="text-xs uppercase tracking-wide text-white/40 mb-1">
-        {label}
-      </div>
-      <div
-        className={`text-lg font-semibold leading-tight ${
-          highlight ?? "text-white"
-        }`}
-      >
-        {value}
-      </div>
-    </div>
+    </motion.article>
   );
 }
