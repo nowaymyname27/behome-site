@@ -58,3 +58,16 @@ export type OtherStylesStrings = {
   subtitle: string;
   models: OtherStyleModel[];
 };
+
+// --- Add this ---
+export type BtrHeroStrings = {
+  title: string;
+  subtitle: string;
+  videoAria: string;
+};
+
+export type CompaniesMarqueeStrings = {
+  title: string;
+  groupValuedAt: string;
+  logoAlt: string;
+};

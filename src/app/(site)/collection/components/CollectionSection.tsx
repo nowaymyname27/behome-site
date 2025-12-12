@@ -2,8 +2,11 @@
 
 import { motion } from "framer-motion";
 import CollectionCard, { CollectionCardProps } from "./CollectionCard";
+import { useLocale } from "../../../../i18n/locale-context";
+import { tCollectionSection } from "../i18n"; // We will create this next
 
 type CollectionSectionProps = {
+  // Optional overrides
   title?: string;
   subtitle?: string;
   cards: CollectionCardProps[];
@@ -11,11 +14,18 @@ type CollectionSectionProps = {
 };
 
 export default function CollectionSection({
-  title = "Our Collection",
-  subtitle = "Explore our curated single-family portfolio below.",
+  title,
+  subtitle,
   cards,
   className,
 }: CollectionSectionProps) {
+  const { locale } = useLocale();
+  const t = tCollectionSection(locale);
+
+  // Use prop if provided, otherwise fallback to translation
+  const displayTitle = title || t.title;
+  const displaySubtitle = subtitle || t.subtitle;
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 40 }}
@@ -39,10 +49,10 @@ export default function CollectionSection({
             viewport={{ once: true }}
             className="text-3xl sm:text-4xl font-semibold tracking-tight drop-shadow-sm text-black"
           >
-            {title}
+            {displayTitle}
           </motion.h2>
 
-          {subtitle && (
+          {displaySubtitle && (
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -50,7 +60,7 @@ export default function CollectionSection({
               viewport={{ once: true }}
               className="text-base text-black/70 mt-3 max-w-2xl mx-auto"
             >
-              {subtitle}
+              {displaySubtitle}
             </motion.p>
           )}
         </div>

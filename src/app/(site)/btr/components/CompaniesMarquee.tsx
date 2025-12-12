@@ -2,11 +2,16 @@
 
 import Image from "next/image";
 import { COMPANIES } from "../data/companies";
+import { useLocale } from "../../../../i18n/locale-context";
+import { tCompaniesMarquee } from "../i18n"; // We will create this next
 
 // Derive the exact type of a Company from the COMPANIES array
 type Company = (typeof COMPANIES)[number];
 
 export default function CompaniesMarquee() {
+  const { locale } = useLocale();
+  const t = tCompaniesMarquee(locale);
+
   const midpoint = Math.ceil(COMPANIES.length / 2);
   const topRow = COMPANIES.slice(0, midpoint);
   const bottomRow = COMPANIES.slice(midpoint);
@@ -18,7 +23,7 @@ export default function CompaniesMarquee() {
   return (
     <section className="w-full py-24 bg-accent text-accent-foreground overflow-hidden">
       <h2 className="text-center text-3xl text-accent-foreground font-semibold mb-12">
-        We Are in Good Company
+        {t.title}
       </h2>
 
       <div className="relative w-full space-y-8 overflow-visible">
@@ -28,7 +33,7 @@ export default function CompaniesMarquee() {
           style={{ animation: "marquee-left 95s linear infinite" }}
         >
           {row1.map((c, idx) => (
-            <CompanyCard key={`row1-${idx}`} c={c} />
+            <CompanyCard key={`row1-${idx}`} c={c} t={t} />
           ))}
         </div>
 
@@ -38,7 +43,7 @@ export default function CompaniesMarquee() {
           style={{ animation: "marquee-right 90s linear infinite" }}
         >
           {row2.map((c, idx) => (
-            <CompanyCard key={`row2-${idx}`} c={c} />
+            <CompanyCard key={`row2-${idx}`} c={c} t={t} />
           ))}
         </div>
       </div>
@@ -46,7 +51,14 @@ export default function CompaniesMarquee() {
   );
 }
 
-function CompanyCard({ c }: { c: Company }) {
+// Pass translations (t) down to the card
+function CompanyCard({
+  c,
+  t,
+}: {
+  c: Company;
+  t: ReturnType<typeof tCompaniesMarquee>;
+}) {
   return (
     <div className="relative group">
       {/* Tooltip */}
@@ -79,7 +91,7 @@ function CompanyCard({ c }: { c: Company }) {
             <div className="relative w-[150px] h-[60px]">
               <Image
                 src={c.logo}
-                alt={`${c.name} logo`}
+                alt={`${c.name} ${t.logoAlt}`}
                 fill
                 className="object-contain opacity-90"
               />
@@ -109,7 +121,7 @@ function CompanyCard({ c }: { c: Company }) {
 
           {c.groupValue && (
             <div className="text-black/60 text-[11px] text-center pt-2 border-t border-black/10">
-              Group valued at {c.groupValue}
+              {t.groupValuedAt} {c.groupValue}
             </div>
           )}
         </div>

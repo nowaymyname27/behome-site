@@ -1,21 +1,17 @@
-// File: src/app/(site)/single-family/i18n/hero.ts
-import type { Locale } from "./types";
+import type { Locale, CollectionHeroStrings } from "./types";
 
-const INVESTMENT_HERO = {
-  en: {
-    title: "Turnkey Ownership. 360° Returns",
-    subtitle:
-      "Discover the 360 Collection — a limited selection of turnkey, income-producing homes already built, leased, and generating steady cash flow from day one. These performing assets offer investors a simple, hassle-free way to own real estate that’s already working for them. Invest today and start earning immediately.",
-    listHeading: "Single Family Homes",
-  },
-  es: {
-    title: "Invierte en Nuestras Viviendas Unifamiliares",
-    subtitle:
-      "Exposición diversificada a viviendas nuevas con gestión profesional y objetivos de ingresos estables.",
-    listHeading: "Casas Unifamiliares",
-  },
-} as const;
+const en: CollectionHeroStrings = {
+  title: "The 360 Collection",
+  subtitle: "Immersive tours of our premier properties.",
+  videoAria: "Collection background video",
+};
 
-export function tInvestmentHero(locale: Locale) {
-  return locale === "es" ? INVESTMENT_HERO.es : INVESTMENT_HERO.en;
+const es: CollectionHeroStrings = {
+  title: "La Colección 360",
+  subtitle: "Recorridos inmersivos de nuestras mejores propiedades.",
+  videoAria: "Video de fondo de la colección",
+};
+
+export function tCollectionHero(locale: Locale): CollectionHeroStrings {
+  return locale === "es" ? es : en;
 }

@@ -5,12 +5,16 @@ import type {
   BtrBuiltForInvestorsStrings,
   EvergladesShowcaseStrings,
   OtherStylesStrings,
+  BtrHeroStrings, // <--- Added type import
+  CompaniesMarqueeStrings,
 } from "./types";
 
 import { clusterDescriptionCopy } from "./description";
 import { tBtrBuiltForInvestors } from "./builtForInvestors";
 import { evergladesShowcaseCopy } from "./everglades-showcase";
 import { otherStylesCopy } from "./other-styles";
+import { tBtrHero } from "./btrHero"; // <--- Added file import
+import { tCompaniesMarquee } from "./companiesMarquee";
 
 // Re-export types so components can import them directly if needed
 export type {
@@ -19,6 +23,8 @@ export type {
   BtrBuiltForInvestorsStrings,
   EvergladesShowcaseStrings,
   OtherStylesStrings,
+  BtrHeroStrings, // <--- Added type export
+  CompaniesMarqueeStrings,
 } from "./types";
 
 // --- Existing cluster helper ---
@@ -46,3 +52,7 @@ export function tOtherStyles(locale: Locale): OtherStylesStrings {
 // --- Existing exports (if any) ---
 export { tInvestmentHero } from "./hero";
 export type { InvestmentHeroStrings } from "./types";
+
+// --- New Hero Export ---
+export { tBtrHero }; // <--- Added function export
+export { tCompaniesMarquee };
