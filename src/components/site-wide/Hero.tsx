@@ -51,12 +51,12 @@ export default function Hero({
         ) : null}
       </div>
 
-      {/* Scrim layer */}
+      {/* Scrim */}
       <div className={`absolute inset-0 -z-10 pointer-events-none ${scrim}`} />
 
-      {/* Content layer */}
+      {/* Content */}
       <motion.div
-        initial={reduceMotion ? false : { opacity: 0, y: 30 }}
+        initial={false}
         animate={reduceMotion ? false : { opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={[
@@ -71,7 +71,6 @@ export default function Hero({
         <div className="grid w-full grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-12">
           {/* Copy */}
           <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={reduceMotion ? false : { opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 }}
             className="mx-auto max-w-2xl text-center text-white lg:mx-0 lg:text-left"
@@ -87,10 +86,9 @@ export default function Hero({
             )}
           </motion.div>
 
-          {/* Card/content (stacked on mobile, right on desktop) */}
+          {/* Card / children */}
           {children && (
             <motion.div
-              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               animate={reduceMotion ? false : { opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
               className="flex w-full justify-center lg:justify-end"
