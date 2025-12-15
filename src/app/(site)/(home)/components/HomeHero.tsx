@@ -1,7 +1,6 @@
-// file: src/app/(site)/(home)/components/HomeHero.tsx
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Hero from "../../../../components/site-wide/Hero";
 import HeroCard from "./HeroCard";
 import { useLocale } from "../../../../i18n/locale-context";
@@ -17,18 +16,22 @@ export default function HomeHero() {
   const [current, setCurrent] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [activeBuffer, setActiveBuffer] = useState(0);
+
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
   const videoRefs = [
     useRef<HTMLVideoElement>(null),
     useRef<HTMLVideoElement>(null),
   ];
 
-  const fadeDuration = 500;
+  const fadeDuration = prefersReducedMotion ? 0 : 500;
 
   const shuffle = (arr: string[]) => {
     const result = [...arr];
-    for (let i = result.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [result[i], result[j]] = [result[j], result[i]];
+    for (let k = result.length - 1; k > 0; k--) {
+      const j = Math.floor(Math.random() * (k + 1));
+      [result[k], result[j]] = [result[j], result[k]];
     }
     return result;
   };
@@ -37,10 +40,36 @@ export default function HomeHero() {
     setVideos(shuffle(homeHeroVideos));
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const rm = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mq = window.matchMedia("(max-width: 767px)");
+
+    const sync = () => {
+      setPrefersReducedMotion(rm.matches);
+      setIsMobile(mq.matches);
+    };
+
+    sync();
+
+    rm.addEventListener("change", sync);
+    mq.addEventListener("change", sync);
+
+    return () => {
+      rm.removeEventListener("change", sync);
+      mq.removeEventListener("change", sync);
+    };
+  }, []);
+
   const preload = (index: number, buffer: number) => {
     const video = videoRefs[buffer].current;
-    if (!video || !videos[index]) return;
-    video.src = videos[index];
+    const src = videos[index];
+    if (!video || !src) return;
+
+    if (video.src === src) return;
+
+    video.src = src;
     video.load();
   };
 
@@ -57,16 +86,32 @@ export default function HomeHero() {
     preload(nextIndex, nextBuffer);
     nextVid.currentTime = 0;
 
-    setIsFading(true);
-    nextVid.play().catch(() => {});
-
-    setTimeout(() => {
+    if (fadeDuration === 0) {
       setCurrent(nextIndex);
       setActiveBuffer(nextBuffer);
       setIsFading(false);
 
-      const afterNext = (nextIndex + 1) % videos.length;
-      preload(afterNext, activeBuffer);
+      if (!isMobile) {
+        const afterNext = (nextIndex + 1) % videos.length;
+        preload(afterNext, activeBuffer);
+      }
+
+      nextVid.play().catch(() => {});
+      return;
+    }
+
+    setIsFading(true);
+    nextVid.play().catch(() => {});
+
+    window.setTimeout(() => {
+      setCurrent(nextIndex);
+      setActiveBuffer(nextBuffer);
+      setIsFading(false);
+
+      if (!isMobile) {
+        const afterNext = (nextIndex + 1) % videos.length;
+        preload(afterNext, activeBuffer);
+      }
     }, fadeDuration);
   };
 
@@ -77,16 +122,21 @@ export default function HomeHero() {
     const onEnd = () => playNext();
     vid.addEventListener("ended", onEnd);
     return () => vid.removeEventListener("ended", onEnd);
-  }, [activeBuffer, current, videos]);
+  }, [activeBuffer, current, videos, fadeDuration, isMobile]);
 
   useEffect(() => {
     if (videos.length > 0) {
       videoRefs[0].current?.play().catch(() => {});
-      if (videos.length > 1) preload(1, 1);
+      if (videos.length > 1 && !isMobile) preload(1, 1);
     }
-  }, [videos]);
+  }, [videos, isMobile]);
 
-  const copy = copies[current % copies.length];
+  const copy = useMemo(() => {
+    return copies[current % copies.length];
+  }, [copies, current]);
+
+  const videoBaseClass =
+    "absolute inset-0 h-full w-full object-cover transition-opacity motion-reduce:transition-none";
 
   return (
     <Hero
@@ -94,16 +144,17 @@ export default function HomeHero() {
       subtitle={copy.subtitle}
       scrim="bg-black/40"
       backgroundNode={
-        <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <div className="h-full w-full overflow-hidden bg-black">
           <video
             ref={videoRefs[0]}
-            src={videos[0]}
+            src={videos[0] ?? ""}
             muted
             playsInline
             autoPlay
-            preload="auto"
+            preload={isMobile ? "metadata" : "auto"}
             aria-label={i.videoAria}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            disablePictureInPicture
+            className={`${videoBaseClass} duration-500 ${
               activeBuffer === 0
                 ? isFading
                   ? "opacity-0"
@@ -116,8 +167,10 @@ export default function HomeHero() {
             ref={videoRefs[1]}
             muted
             playsInline
-            preload="auto"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            preload={isMobile ? "metadata" : "auto"}
+            aria-hidden="true"
+            disablePictureInPicture
+            className={`${videoBaseClass} duration-500 ${
               activeBuffer === 1
                 ? isFading
                   ? "opacity-0"

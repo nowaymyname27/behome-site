@@ -1,9 +1,8 @@
-// src/components/site-wide/Hero.tsx
 "use client";
 
 import Image from "next/image";
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 type HeroProps = {
   title: string;
@@ -22,83 +21,84 @@ export default function Hero({
   children,
   scrim = "bg-black/40",
 }: HeroProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <section className="relative w-full min-h-screen">
-      {/* background override */}
-      {backgroundNode ? (
-        <div className="absolute inset-0">{backgroundNode}</div>
-      ) : (
-        background && (
-          <div className="absolute inset-0">
-            {background.endsWith(".mp4") ? (
-              <video
-                src={background}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            ) : (
-              <Image
-                src={background}
-                alt=""
-                fill
-                priority
-                className="object-cover"
-              />
-            )}
-          </div>
-        )
-      )}
+    <section className="relative isolate w-full min-h-screen supports-[height:100svh]:min-h-[100svh]">
+      {/* Background layer */}
+      <div className="absolute inset-0 -z-20 pointer-events-none">
+        {backgroundNode ? (
+          backgroundNode
+        ) : background ? (
+          background.endsWith(".mp4") ? (
+            <video
+              src={background}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          ) : (
+            <Image
+              src={background}
+              alt=""
+              fill
+              priority
+              className="object-cover"
+            />
+          )
+        ) : null}
+      </div>
 
-      <div className={`absolute inset-0 ${scrim}`} />
+      {/* Scrim layer */}
+      <div className={`absolute inset-0 -z-10 pointer-events-none ${scrim}`} />
 
-      {/* Main content */}
+      {/* Content layer */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 30 }}
+        animate={reduceMotion ? false : { opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative w-full min-h-screen flex items-center px-6 lg:px-24 py-24"
+        className={[
+          "relative z-10",
+          "mx-auto w-full max-w-7xl",
+          "min-h-screen supports-[height:100svh]:min-h-[100svh]",
+          "flex items-center",
+          "px-4 sm:px-6 lg:px-24",
+          "py-16 sm:py-24",
+        ].join(" ")}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center w-full gap-8">
-          {/* Left copy */}
+        <div className="grid w-full grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-12">
+          {/* Copy */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+            animate={reduceMotion ? false : { opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 }}
-            className="text-white max-w-2xl"
+            className="mx-auto max-w-2xl text-center text-white lg:mx-0 lg:text-left"
           >
-            <h1 className="h1 text-xl">{title}</h1>
+            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+              {title}
+            </h1>
+
             {subtitle && (
-              <p className="mt-4 text-xl text-white/90">{subtitle}</p>
+              <p className="mt-4 text-base text-white/90 sm:text-lg">
+                {subtitle}
+              </p>
             )}
           </motion.div>
 
-          {/* Right content aligned right */}
+          {/* Card/content (stacked on mobile, right on desktop) */}
           {children && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+              animate={reduceMotion ? false : { opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
-              className="hidden lg:flex justify-end"
+              className="flex w-full justify-center lg:justify-end"
             >
               {children}
             </motion.div>
           )}
         </div>
-
-        {/* Mobile version */}
-        {children && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-            className="lg:hidden mt-8"
-          >
-            {children}
-          </motion.div>
-        )}
       </motion.div>
     </section>
   );

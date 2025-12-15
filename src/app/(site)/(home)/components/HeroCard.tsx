@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useLocale } from "../../../../i18n/locale-context"; // Adjust path if needed
-import { tHeroCard } from "../i18n"; // We will create this next
+import { motion, useReducedMotion } from "framer-motion";
+import { useLocale } from "../../../../i18n/locale-context";
+import { tHeroCard } from "../i18n";
 
 export type HeroCardProps = {
-  // We keep these as optional overrides in case you want to reuse the card with different text
   title?: string;
   subtitle?: string;
   buttonText?: string;
@@ -21,46 +20,54 @@ export default function HeroCard({
 }: HeroCardProps) {
   const { locale } = useLocale();
   const t = tHeroCard(locale);
+  const reduceMotion = useReducedMotion();
 
-  // Use props if provided, otherwise fallback to the translation file
   const displayTitle = title || t.title;
   const displaySubtitle = subtitle || t.subtitle;
   const displayButton = buttonText || t.buttonText;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+      animate={reduceMotion ? false : { opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      whileHover={{
-        backgroundColor: "rgba(255,255,255,0.22)",
-        backdropFilter: "blur(14px)",
-      }}
+      whileHover={
+        reduceMotion
+          ? undefined
+          : {
+              backgroundColor: "rgba(255,255,255,0.22)",
+              backdropFilter: "blur(14px)",
+            }
+      }
       className={[
-        "relative w-full max-w-sm rounded-xl",
-        "bg-white/15 border border-white/20",
+        "relative w-full max-w-md",
+        "rounded-xl bg-white/15 border border-white/20",
         "backdrop-blur-[6px] transition-all duration-300",
         "hover:border-white/30 hover:shadow-xl",
-        "p-8 text-center",
+        "p-5 sm:p-8 text-center",
         className,
       ].join(" ")}
     >
-      <h2 className="text-white text-lg font-semibold mb-3">{displayTitle}</h2>
+      <h2 className="mb-3 text-base font-semibold text-white sm:text-lg">
+        {displayTitle}
+      </h2>
 
-      <p className="text-white/85 text-sm mb-6">{displaySubtitle}</p>
+      <p className="mb-6 text-sm leading-relaxed text-white/85">
+        {displaySubtitle}
+      </p>
 
-      <Link href="/btr">
+      <Link href="/btr" className="block">
         <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
-          className="
-            px-6 py-3 rounded-full text-sm font-semibold
-            text-white
-            border border-white/30
-            backdrop-blur-md
-            transition-all duration-300
-            hover:shadow-lg hover:-translate-y-0.5
-          "
+          whileHover={reduceMotion ? undefined : { scale: 1.03 }}
+          whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+          className={[
+            "w-full sm:w-auto",
+            "min-h-11",
+            "px-6 py-3 rounded-full text-sm font-semibold",
+            "text-white border border-white/30",
+            "backdrop-blur-md transition-all duration-300",
+            "hover:shadow-lg hover:-translate-y-0.5",
+          ].join(" ")}
           style={{ backgroundColor: "var(--color-FL)" }}
         >
           {displayButton}
