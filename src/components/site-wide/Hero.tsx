@@ -61,7 +61,7 @@ export default function Hero({
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={[
           "relative z-10",
-          "mx-auto w-full max-w-7xl",
+          "mx-auto w-full",
           "min-h-screen supports-[height:100svh]:min-h-[100svh]",
           "flex items-center",
           "px-4 sm:px-6 lg:px-24",
@@ -76,7 +76,7 @@ export default function Hero({
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 }}
             className="mx-auto max-w-2xl text-center text-white lg:mx-0 lg:text-left"
           >
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-6xl">
               {title}
             </h1>
 
