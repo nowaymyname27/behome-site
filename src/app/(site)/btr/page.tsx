@@ -7,7 +7,6 @@ import MediaCarousel from "../../../components/site-wide/MediaCarousel";
 import SectionTransition from "./components/SectionTransition";
 import BuiltForInvestors from "./components/BuiltForInvestors";
 import EvergladesShowcase from "./components/EvergladesShowcase";
-import OtherStylesComparison from "./components/OtherStylesComparison";
 import BtrHero from "./components/BtrHero";
 import CompaniesMarquee from "./components/CompaniesMarquee";
 
@@ -39,7 +38,6 @@ export default async function Page() {
         <CompaniesMarquee />
         <BuiltForInvestors />
         <EvergladesShowcase />
-        <OtherStylesComparison />
         <SectionTransition />
 
         {/* Pass homes into a small client bridge so sticky offsets still work */}

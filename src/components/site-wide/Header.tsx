@@ -74,7 +74,7 @@ export default function Header() {
       {/* Mobile dropdown (links only) */}
       {isOpen && (
         <div className="md:hidden border-t border-border bg-chrome">
-          <nav className="flex flex-col px-6 py-4 gap-4">
+          <nav className="flex flex-col items-center px-6 py-6 gap-6">
             {nav.map((item) => {
               const isActive =
                 item.href !== "/" && pathname.startsWith(item.href);
@@ -84,9 +84,13 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className={`text-sm ${
-                    isActive ? "text-accent font-semibold" : "opacity-80"
-                  }`}
+                  className={[
+                    "text-center",
+                    "text-lg font-medium",
+                    "transition",
+                    "px-4 py-2",
+                    isActive ? "text-accent" : "opacity-80 hover:text-accent",
+                  ].join(" ")}
                 >
                   {item.label}
                 </Link>

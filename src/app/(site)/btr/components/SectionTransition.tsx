@@ -13,7 +13,7 @@ export default function SectionTransition() {
       : "Check out our different house styles";
 
   return (
-    <section className="w-full bg-chrome text-white pt-15 md:pt-10 pb-10 text-center m-0 relative">
+    <section className="w-full bg-background text-black pt-15 md:pt-10 pb-10 text-center m-0 relative">
       <motion.h2
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -22,7 +22,7 @@ export default function SectionTransition() {
           duration: 0.8,
           ease: [0.25, 0.1, 0.25, 1],
         }}
-        className="text-3xl md:text-4xl font-semibold tracking-tight"
+        className="text-4xl md:text-5xl font-semibold tracking-tight"
       >
         {text}
       </motion.h2>
