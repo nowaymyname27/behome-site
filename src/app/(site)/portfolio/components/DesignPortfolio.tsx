@@ -38,7 +38,7 @@ export default function DesignPortfolio() {
 
   return (
     // Applied your specific padding here
-    <section className="w-full bg-accent text-accent-foreground pt-15 pb-0 px-6 sm:px-12 lg:px-24">
+    <section className="w-full bg-background text-accent-foreground py-15 px-6 sm:px-12 lg:px-24">
       {/* 
         CARD CONTAINER:
         - Removed 'max-w-7xl mx-auto' so it fills the available space.
