@@ -26,50 +26,63 @@ export default function HeroCard({
   const displaySubtitle = subtitle || t.subtitle;
   const displayButton = buttonText || t.buttonText;
 
-  // FIX: Removed initial/animate/transition for entrance.
-  // The parent Hero component handles the fade-in.
   return (
     <motion.div
       whileHover={
         reduceMotion
           ? undefined
           : {
-              backgroundColor: "rgba(255,255,255,0.22)",
-              backdropFilter: "blur(14px)",
+              y: -5,
+              backgroundColor: "rgba(255,255,255,0.25)",
+              backdropFilter: "blur(20px)",
             }
       }
       className={[
-        "relative w-full max-w-md",
-        "rounded-xl bg-white/15 border border-white/20",
-        "backdrop-blur-[6px] transition-all duration-300",
-        "hover:border-white/30 hover:shadow-xl",
-        "p-5 sm:p-8 text-center",
+        "relative flex flex-col justify-between", // Stacks content vertically
+        "w-full max-w-[350px]", // Narrow width
+        "min-h-[460px]", // Tall height
+        "rounded-2xl bg-white/15 border border-white/20",
+        "backdrop-blur-xl shadow-2xl",
+        "p-8 md:p-10 text-center",
+        "transition-all duration-300",
         className,
       ].join(" ")}
     >
-      <h2 className="mb-3 text-3xl font-bold text-white">{displayTitle}</h2>
+      {/* Content Wrapper */}
+      <div className="mt-4 flex flex-col items-center gap-6">
+        {/* Main Title */}
+        <h2 className="text-4xl font-bold text-white leading-tight drop-shadow-sm">
+          {displayTitle}
+        </h2>
 
-      <p className="mb-6 text-xl leading-relaxed text-white/85">
-        {displaySubtitle}
-      </p>
+        {/* Decorative Divider */}
+        <div className="w-12 h-1 bg-FL rounded-full opacity-80" />
 
-      <Link href="/btr" className="block">
-        <motion.button
-          whileHover={reduceMotion ? undefined : { scale: 1.03 }}
-          whileTap={reduceMotion ? undefined : { scale: 0.98 }}
-          className={[
-            "w-full sm:w-auto",
-            "min-h-11",
-            "px-6 py-3 rounded-full text-sm font-semibold",
-            "text-white border border-white/30",
-            "backdrop-blur-md transition-all duration-300",
-            "hover:shadow-lg hover:-translate-y-0.5",
-          ].join(" ")}
-          style={{ backgroundColor: "var(--color-FL)" }}
-        >
-          {displayButton}
-        </motion.button>
-      </Link>
+        {/* Subtitle */}
+        <p className="text-lg leading-relaxed text-white/90 font-medium">
+          {displaySubtitle}
+        </p>
+      </div>
+
+      {/* Button Section - Anchored at bottom */}
+      <div className="mt-8 w-full">
+        <Link href="/btr" className="block w-full">
+          <motion.button
+            whileHover={reduceMotion ? undefined : { scale: 1.02 }}
+            whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+            className={[
+              "w-full",
+              "py-4 rounded-full text-base font-bold",
+              "text-white shadow-lg",
+              "transition-all duration-300",
+              "hover:shadow-xl hover:brightness-110",
+            ].join(" ")}
+            style={{ backgroundColor: "var(--color-FL)" }}
+          >
+            {displayButton}
+          </motion.button>
+        </Link>
+      </div>
     </motion.div>
   );
 }

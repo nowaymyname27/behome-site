@@ -23,7 +23,7 @@ export default function OneDescription() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.5 }}
-                className="text-4xl sm:text-5xl font-semibold tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]"
+                className="text-4xl sm:text-5xl font-serif font-semibold tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]"
               >
                 {i.title.replace("Uno", "")}
                 <span className="inline-block font-bold text-[2.9rem] sm:text-[3.3rem] leading-tight bg-gradient-to-r from-FL to-amber-300 text-transparent bg-clip-text">
@@ -37,7 +37,7 @@ export default function OneDescription() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.5 }}
-                className="text-4xl sm:text-5xl font-semibold tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]"
+                className="text-4xl sm:text-5xl font-serif font-semibold tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]"
               >
                 {i.title.replace("One", "")}
                 <span className="inline-block font-bold text-[2.9rem] sm:text-[3.3rem] leading-tight bg-gradient-to-r from-FL to-amber-300 text-transparent bg-clip-text">

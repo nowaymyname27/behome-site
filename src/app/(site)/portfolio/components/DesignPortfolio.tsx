@@ -34,7 +34,7 @@ const MODEL_INFO = {
   type: "Everglades", // Matches your image name
   finish: "Flagship Model",
   image: {
-    src: "/SF1.jpg",
+    src: "/everglades.jpg",
     alt: "Everglade model home exterior",
   },
 };
