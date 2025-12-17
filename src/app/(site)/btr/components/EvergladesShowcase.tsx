@@ -6,53 +6,71 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLocale } from "../../../../i18n/locale-context";
 import { tEvergladesShowcase } from "../i18n";
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
 export default function EvergladesShowcase() {
   const [expanded, setExpanded] = useState(false);
   const { locale } = useLocale();
   const i = tEvergladesShowcase(locale);
 
   return (
-    <section className="relative w-full bg-accent text-accent-foreground py-24 md:py-32">
-      {/* Grid switches at lg breakpoint instead of md */}
-      <div className="grid lg:grid-cols-[1.65fr_1fr] gap-16 lg:gap-20 px-6 md:px-12 lg:px-24 items-start w-full">
-        {/* --- Left Column --- */}
-        <div>
-          <h2 className="h1 text-chrome">{i.title}</h2>
-          <p className="text-2xl text-FL font-semibold mt-2">{i.subtitle}</p>
-          <p className="mt-6 text-lg leading-relaxed">{i.description}</p>
+    <section className="relative w-full bg-accent text-accent-foreground py-24 md:py-32 overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-1/2 left-0 w-[800px] h-[800px] bg-white/40 blur-[120px] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/2 mix-blend-overlay" />
 
-          {/* Expand/Collapse */}
+      <div className="relative z-10 px-6 md:px-12 lg:px-24 grid lg:grid-cols-12 gap-12 lg:gap-20 items-start w-full">
+        {/* --- LEFT COLUMN --- */}
+        {/* Added 'lg:pt-28' to push this down so the Title aligns with the Top of the Cards */}
+        <div className="lg:col-span-5 lg:pt-28">
+          <h2 className="h1 font-serif text-chrome">{i.title}</h2>
+          <p className="text-xl text-chrome/70 font-medium mt-3 border-l-4 border-FL pl-4">
+            {i.subtitle}
+          </p>
+          <p className="mt-8 text-lg leading-relaxed text-chrome/80">
+            {i.description}
+          </p>
+
           <button
             onClick={() => setExpanded((v) => !v)}
-            className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-chrome/20 text-chrome
-                       hover:bg-chrome/10 hover:border-chrome/40 hover:text-FL transition-all duration-300"
+            className="group mt-8 inline-flex items-center gap-2 text-xs font-bold text-chrome uppercase tracking-widest
+                       hover:text-FL transition-colors duration-300"
           >
-            {expanded ? i.toggleHide : i.toggleShow}
+            <span>{expanded ? i.toggleHide : i.toggleShow}</span>
+            <span
+              className={`block h-1.5 w-1.5 border-r-2 border-b-2 border-current transition-transform duration-300 ${expanded ? "-rotate-135 translate-y-0.5" : "rotate-45 -translate-y-0.5"}`}
+            />
           </button>
 
-          {/* Features */}
           <AnimatePresence>
             {expanded && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="overflow-hidden"
               >
-                <div className="mt-10 flex flex-wrap gap-3">
+                <div className="mt-6 pt-6 border-t border-chrome/10 flex flex-wrap gap-2">
                   {i.features.map((item, index) => (
-                    <motion.span
+                    <span
                       key={index}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.02 }}
-                      className="px-4 py-2 rounded-full bg-white/40 border border-chrome/10 text-sm text-chrome
-                                 hover:border-FL/50 hover:bg-FL/20 transition-all duration-300"
+                      className="px-3 py-1.5 rounded-lg bg-white border border-chrome/5 text-xs font-medium text-chrome/70 shadow-sm"
                     >
                       {item}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
               </motion.div>
@@ -60,30 +78,57 @@ export default function EvergladesShowcase() {
           </AnimatePresence>
         </div>
 
-        {/* --- Right Column: Stats (Chrome Theme) --- */}
+        {/* --- RIGHT COLUMN --- */}
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-chrome text-chrome-foreground border border-white/10 rounded-3xl shadow-xl 
-                     p-10 md:p-12 max-w-lg mx-auto lg:max-w-none lg:mx-0
-                     hover:border-FL/30 hover:shadow-2xl transition-all duration-300"
+          className="lg:col-span-7 w-full"
         >
-          <h3 className="text-2xl font-semibold text-FL mb-6">
-            {i.statsTitle}
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-6">
-            {i.stats.map((s, index) => (
-              <div
-                key={index}
-                className="bg-white/10 border border-white/10 rounded-2xl p-4 text-center
-                           hover:border-FL/40 hover:bg-white/15 transition-all duration-300"
-              >
-                <p className="text-xl font-semibold text-FL">{s.value}</p>
-                <p className="text-sm text-white/70 mt-1">{s.label}</p>
-              </div>
-            ))}
+          {/* Header */}
+          <div className="mb-8 border-b border-chrome/10 pb-4">
+            <h3 className="text-xl font-semibold text-chrome">
+              {i.statsTitle}
+            </h3>
+            <p className="text-sm text-chrome/60">Live Projections</p>
+          </div>
+
+          {/* Grid of Cards */}
+          <div className="grid sm:grid-cols-2 gap-4">
+            {i.stats.map((s, index) => {
+              return (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  className="
+                    group relative overflow-hidden
+                    rounded-2xl border border-white/10
+                    bg-chrome text-white shadow-md
+                    p-6
+                    transition-all duration-300 ease-out
+                    hover:bg-white hover:text-chrome hover:border-chrome/10 hover:shadow-xl
+                  "
+                >
+                  <div className="relative z-10 flex flex-col h-full justify-between gap-4">
+                    {/* Label */}
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-bold uppercase tracking-wider text-white/60 group-hover:text-chrome/50 transition-colors">
+                        {s.label}
+                      </p>
+                      {/* Decorative dot */}
+                      <div className="h-1.5 w-1.5 rounded-full bg-FL/0 group-hover:bg-FL transition-colors" />
+                    </div>
+
+                    {/* Value */}
+                    <p className="text-3xl font-bold tracking-tight text-white group-hover:text-chrome transition-colors">
+                      {s.value}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>
