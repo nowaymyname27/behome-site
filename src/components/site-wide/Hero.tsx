@@ -75,7 +75,7 @@ export default function Hero({
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 }}
             className="mx-auto max-w-2xl text-center text-white lg:mx-0 lg:text-left"
           >
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-6xl">
+            <h1 className="text-4xl font-serif tracking-tight sm:text-5xl lg:text-7xl">
               {title}
             </h1>
 
@@ -89,6 +89,8 @@ export default function Hero({
           {/* Card / children */}
           {children && (
             <motion.div
+              // FIX: Explicitly set initial={false} here too for safety
+              initial={false}
               animate={reduceMotion ? false : { opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
               className="flex w-full justify-center lg:justify-end"

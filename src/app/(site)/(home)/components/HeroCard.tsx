@@ -26,11 +26,10 @@ export default function HeroCard({
   const displaySubtitle = subtitle || t.subtitle;
   const displayButton = buttonText || t.buttonText;
 
+  // FIX: Removed initial/animate/transition for entrance.
+  // The parent Hero component handles the fade-in.
   return (
     <motion.div
-      initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-      animate={reduceMotion ? false : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
       whileHover={
         reduceMotion
           ? undefined
@@ -48,11 +47,9 @@ export default function HeroCard({
         className,
       ].join(" ")}
     >
-      <h2 className="mb-3 text-base font-semibold text-white sm:text-lg">
-        {displayTitle}
-      </h2>
+      <h2 className="mb-3 text-3xl font-bold text-white">{displayTitle}</h2>
 
-      <p className="mb-6 text-sm leading-relaxed text-white/85">
+      <p className="mb-6 text-xl leading-relaxed text-white/85">
         {displaySubtitle}
       </p>
 
