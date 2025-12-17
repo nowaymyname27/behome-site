@@ -19,7 +19,7 @@ export default function BTRExplained() {
       <div className="relative z-10 px-6 lg:px-24 grid md:grid-cols-2 gap-16 items-center">
         {/* --- Left Column --- */}
         <div className="space-y-6 animate-fadeInUp">
-          <h2 className="h1 text-white">{title}</h2>
+          <h2 className="h1 font-serif text-white lg:text-md">{title}</h2>
           <p className="text-lg leading-relaxed text-white/90">{description}</p>
           <p className="uppercase tracking-wide font-semibold text-FL mt-8">
             {quote}

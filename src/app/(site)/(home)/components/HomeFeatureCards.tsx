@@ -47,7 +47,7 @@ export default function HomeFeatureCards() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center text-accent-foreground mb-10"
+          className="text-center font-serif text-accent-foreground mb-10"
         >
           {i.title && <h2 className="h2">{i.title}</h2>}
           {i.blurb && <p className="mt-3 text-lg opacity-80">{i.blurb}</p>}

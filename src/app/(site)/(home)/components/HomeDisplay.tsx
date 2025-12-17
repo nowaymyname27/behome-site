@@ -54,7 +54,7 @@ export default function HomeDisplay() {
             variants={containerVariants}
           >
             <motion.div variants={itemVariants}>
-              <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl mb-6">
+              <h2 className="text-3xl font-bold font-serif tracking-tight text-foreground sm:text-4xl md:text-5xl mb-6">
                 {i.heading}
               </h2>
               <div className="space-y-5 text-lg text-foreground/80 leading-relaxed">

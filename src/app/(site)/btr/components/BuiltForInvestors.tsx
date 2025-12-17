@@ -18,7 +18,7 @@ export default function BuiltForInvestors() {
       <div className="relative z-10 px-6 md:px-12 lg:px-24 grid md:grid-cols-2 gap-16 items-stretch">
         {/* --- Left Column --- */}
         <div className="space-y-6 self-center animate-fadeInUp">
-          <h2 className="h1 text-white">{title}</h2>
+          <h2 className="h1 font-serif text-white">{title}</h2>
 
           <div className="space-y-5 text-lg leading-relaxed text-white/90">
             {paragraphs.map((p, idx) => (
