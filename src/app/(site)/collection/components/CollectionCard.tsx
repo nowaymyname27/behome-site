@@ -28,16 +28,15 @@ export type CollectionCardProps = {
   className?: string;
 };
 
-// Inline helper for formatting currency
-function formatCurrency(amount: number, locale: string) {
-  return new Intl.NumberFormat(locale === "es" ? "es-ES" : "en-US", {
+// FIX: Always use "en-US" to enforce "$375,000" format
+function formatCurrency(amount: number) {
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     maximumFractionDigits: 0,
   }).format(amount);
 }
 
-// Helper to get Label and Color based on status (now using translations)
 function getStatusConfig(
   status: string,
   t: ReturnType<typeof tCollectionCard>
@@ -93,70 +92,86 @@ export default function CollectionCard({
       id={id}
       className={[
         "group relative overflow-hidden rounded-2xl border border-border/50",
-        "bg-chrome text-chrome-foreground shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300",
+        "bg-chrome text-chrome-foreground shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300",
         className ?? "",
       ].join(" ")}
     >
       {/* IMAGE */}
-      <figure className="relative w-full aspect-video overflow-hidden">
+      <figure className="relative w-full aspect-[16/10] overflow-hidden">
         <img
           src={image.src}
           alt={image.alt ?? address}
-          className="h-full w-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transform transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
         />
         <div
-          className={`absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full ${statusColor}`}
+          className={`absolute top-3 left-3 text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full backdrop-blur-md ${statusColor}`}
         >
           {statusLabel}
         </div>
       </figure>
 
       {/* BODY */}
-      <div className="p-6">
-        {/* Address & Location */}
-        <div className="mb-5">
-          <h3 className="text-lg font-semibold tracking-tight leading-snug text-white">
-            {address}
-          </h3>
-          <p className="text-sm text-muted-foreground mt-0.5">{location}</p>
-        </div>
+      <div className="p-5 sm:p-6">
+        {/* HERO SECTION: ADDRESS vs CAP */}
+        <div className="flex items-start justify-between mb-6">
+          <div className="pr-4">
+            <div className="text-xs font-medium text-white/50 mb-1 uppercase tracking-wide">
+              {location}
+            </div>
+            <h3 className="text-xl font-bold text-white tracking-tight leading-snug">
+              {address}
+            </h3>
+          </div>
 
-        {/* Price / Rent / CAP */}
-        <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm mb-5">
-          <div>
-            <span className="text-xs uppercase tracking-wide text-muted-foreground">
-              {t.labels.price}
-            </span>
-            <div className="text-lg font-semibold text-white">
-              {formatCurrency(price, locale)}
-            </div>
-          </div>
-          <div>
-            <span className="text-xs uppercase tracking-wide text-muted-foreground">
-              {t.labels.rent}
-            </span>
-            <div className="text-lg font-semibold text-emerald-400">
-              {formatCurrency(rent, locale)}
-            </div>
-          </div>
-          {renewalDate && (
-            <div>
-              <span className="text-xs uppercase tracking-wide text-muted-foreground">
-                {t.labels.renewalDate}
+          {typeof cap === "number" && (
+            <div className="flex flex-col items-end shrink-0">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400/80 mb-1">
+                {t.labels.cap}
               </span>
-              <div className="text-sm font-medium text-white/90">
-                {renewalDate}
+              <div className="relative px-3 py-1 -mr-2 rounded-lg bg-amber-400/10 border border-amber-400/20 backdrop-blur-sm">
+                <div className="text-3xl font-bold text-amber-400 leading-none tabular-nums tracking-tight">
+                  {cap.toFixed(2)}%
+                </div>
               </div>
             </div>
           )}
-          {typeof cap === "number" && (
-            <div>
-              <span className="text-xs uppercase tracking-wide text-muted-foreground">
-                {t.labels.cap}
+        </div>
+
+        {/* BOTTOM METRICS */}
+        <div className="grid grid-cols-2 gap-4 py-4 border-t border-border/40">
+          {/* Price */}
+          <div>
+            <span className="text-[10px] uppercase tracking-wide text-muted-foreground block mb-1">
+              {t.labels.price}
+            </span>
+            <div className="text-lg font-bold text-white">
+              {formatCurrency(price)}
+            </div>
+          </div>
+
+          {/* Rent */}
+          <div>
+            <span className="text-[10px] uppercase tracking-wide text-muted-foreground block mb-1">
+              {t.labels.rent}
+            </span>
+            <div className="text-lg font-bold text-emerald-400">
+              {formatCurrency(rent)}
+              {/* FIX: Dynamic suffix based on locale */}
+              <span className="text-xs font-normal text-white/50">
+                {locale === "es" ? " /mes" : " /mo"}
               </span>
-              <div className="text-sm font-semibold text-amber-400">
-                {cap.toFixed(2)}%
+            </div>
+          </div>
+
+          {/* Renewal Date */}
+          {renewalDate && (
+            <div className="col-span-2 mt-1 pt-3 border-t border-white/5 flex items-center gap-2">
+              <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
+                {t.labels.renewalDate}:
+              </span>
+              <div className="text-sm font-medium text-white/90">
+                {renewalDate}
               </div>
             </div>
           )}
@@ -165,7 +180,7 @@ export default function CollectionCard({
         {/* Toggle */}
         <button
           onClick={() => setOpen((p) => !p)}
-          className="w-full flex items-center justify-between text-sm font-medium text-muted-foreground hover:text-FL transition-colors py-2 border-t border-border/40"
+          className="w-full mt-1 flex items-center justify-between text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-white transition-colors py-3"
         >
           <span>{t.toggle}</span>
           <ChevronIcon open={open} />
@@ -175,58 +190,59 @@ export default function CollectionCard({
         <AnimatePresence initial={false}>
           {open && (
             <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.98 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="overflow-hidden mt-4 rounded-xl bg-chrome/60 backdrop-blur-md border border-border/30 shadow-inner shadow-black/20 p-4 text-sm"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <div className="flex gap-6 mb-3 text-white/90">
-                <div>
-                  <span className="text-muted-foreground">
-                    {t.metrics.bedrooms}:
-                  </span>{" "}
-                  <span className="font-semibold">{bedrooms}</span>
+              <div className="overflow-hidden mt-2 rounded-xl bg-black/20 border border-white/5 p-4 text-sm">
+                <div className="flex gap-6 mb-4 pb-4 border-b border-white/5 text-white/90">
+                  <div>
+                    <span className="text-muted-foreground text-xs uppercase mr-2">
+                      {t.metrics.bedrooms}
+                    </span>
+                    <span className="font-bold text-lg">{bedrooms}</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground text-xs uppercase mr-2">
+                      {t.metrics.bathrooms}
+                    </span>
+                    <span className="font-bold text-lg">{bathrooms}</span>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-muted-foreground">
-                    {t.metrics.bathrooms}:
-                  </span>{" "}
-                  <span className="font-semibold">{bathrooms}</span>
-                </div>
-              </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2 text-white/90">
-                <Metric
-                  label={t.metrics.ac}
-                  value={sqft.ac}
-                  unit={t.metrics.unit}
-                />
-                <Metric
-                  label={t.metrics.garage}
-                  value={sqft.garage}
-                  unit={t.metrics.unit}
-                />
-                <Metric
-                  label={t.metrics.lanai}
-                  value={sqft.lanai}
-                  unit={t.metrics.unit}
-                />
-                <Metric
-                  label={t.metrics.entry}
-                  value={sqft.entry}
-                  unit={t.metrics.unit}
-                />
-                <Metric
-                  label={t.metrics.total}
-                  value={sqft.total}
-                  unit={t.metrics.unit}
-                />
-                <Metric
-                  label={t.metrics.lot}
-                  value={sqft.lot}
-                  unit={t.metrics.unit}
-                />
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3 text-white/90">
+                  <Metric
+                    label={t.metrics.ac}
+                    value={sqft.ac}
+                    unit={t.metrics.unit}
+                  />
+                  <Metric
+                    label={t.metrics.garage}
+                    value={sqft.garage}
+                    unit={t.metrics.unit}
+                  />
+                  <Metric
+                    label={t.metrics.lanai}
+                    value={sqft.lanai}
+                    unit={t.metrics.unit}
+                  />
+                  <Metric
+                    label={t.metrics.entry}
+                    value={sqft.entry}
+                    unit={t.metrics.unit}
+                  />
+                  <Metric
+                    label={t.metrics.total}
+                    value={sqft.total}
+                    unit={t.metrics.unit}
+                  />
+                  <Metric
+                    label={t.metrics.lot}
+                    value={sqft.lot}
+                    unit={t.metrics.unit}
+                  />
+                </div>
               </div>
             </motion.div>
           )}
@@ -251,11 +267,12 @@ function Metric({
 }) {
   return (
     <div>
-      <span className="text-muted-foreground text-xs uppercase tracking-wide">
+      <span className="text-muted-foreground text-[10px] uppercase tracking-wide block mb-0.5">
         {label}
       </span>
-      <div className="font-semibold">
-        {value.toLocaleString()} {unit}
+      <div className="font-semibold text-sm">
+        {value.toLocaleString()}{" "}
+        <span className="text-xs text-white/50">{unit}</span>
       </div>
     </div>
   );
