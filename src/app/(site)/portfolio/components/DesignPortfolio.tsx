@@ -1,13 +1,14 @@
-// file: src/app/(site)/btr/components/DesignPortfolio.tsx
 "use client";
 
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useLocale } from "../../../../i18n/locale-context";
+import { tDesignPortfolio } from "../i18n";
 
 const OPTIONS = [1, 2, 4, 8] as const;
 
-// Helper to format currency nicely
+// Always uses en-US to ensure $125,000 format in both languages
 const formatCurrency = (val: number) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -26,114 +27,113 @@ const PORTFOLIO_DATA = {
 
 const MODEL_INFO = {
   type: "Everglades",
-  finish: "Flagship Model",
-  image: "/everglades.jpg", // Ensure this exists in public folder
+  image: "/everglades.jpg",
 };
 
 export default function DesignPortfolio() {
+  const { locale } = useLocale();
+  const t = tDesignPortfolio(locale);
   const [units, setUnits] = useState<(typeof OPTIONS)[number]>(1);
 
   const data = useMemo(() => PORTFOLIO_DATA[units], [units]);
   const monthlyRent = data.annualRent / 12;
 
   return (
-    // Applied your specific padding here
-    <section className="w-full bg-background text-accent-foreground py-15 px-6 sm:px-12 lg:px-24">
-      {/* 
-        CARD CONTAINER:
-        - Removed 'max-w-7xl mx-auto' so it fills the available space.
-        - Kept 'w-full'.
-      */}
-      <div className="w-full bg-chrome text-chrome-foreground rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl shadow-black/20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[500px]">
+    <section className="w-full bg-background text-accent-foreground py-16 sm:py-24 px-6 lg:px-24">
+      <div className="w-full bg-chrome text-chrome-foreground rounded-[2rem] lg:rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl">
+        <div className="grid grid-cols-1 lg:grid-cols-12">
           {/* --- LEFT COLUMN: Controls --- */}
-          <div className="lg:col-span-5 p-10 md:p-14 flex flex-col justify-between relative z-10">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-serif text-white mb-6">
-                Design Your Portfolio
+          <div className="lg:col-span-5 p-8 sm:p-12 xl:p-14 flex flex-col justify-between">
+            <div className="max-w-xl">
+              <h2 className="text-3xl xl:text-4xl font-bold text-white mb-6 tracking-tight">
+                {t.title}
               </h2>
-              <p className="text-lg text-white/70 leading-relaxed mb-10">
-                Select how many units you want to model. Returns are based on
-                projected performance for the SF1 model.
+              <p className="text-base text-white/70 leading-relaxed mb-10">
+                {t.description}
               </p>
 
-              {/* Selector */}
-              <div className="inline-flex p-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+              <div className="flex w-full max-w-sm sm:max-w-md p-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
                 {OPTIONS.map((n) => {
                   const active = n === units;
-                  const label = n === 1 ? "1 unit" : `${n} units`;
+                  const label =
+                    n === 1
+                      ? t.unitSingular
+                      : t.unitPlural.replace("{{n}}", n.toString());
 
                   return (
                     <button
                       key={n}
                       onClick={() => setUnits(n)}
                       className={`
-                        relative px-6 py-3 rounded-full text-sm font-bold tracking-wide transition-colors
+                        relative flex-1 px-2 py-2.5 sm:py-3 rounded-full text-[10px] sm:text-xs md:text-sm font-bold tracking-wide transition-colors
                         ${active ? "text-chrome" : "text-white/60 hover:text-white"}
                       `}
                     >
                       {active && (
                         <motion.div
                           layoutId="active-pill"
-                          className="absolute inset-0 bg-white rounded-full shadow-md"
+                          className="absolute inset-0 bg-white rounded-full shadow-lg"
                           transition={{
                             type: "spring",
-                            stiffness: 300,
+                            stiffness: 350,
                             damping: 30,
                           }}
                         />
                       )}
-                      <span className="relative z-10">{label}</span>
+                      <span className="relative z-10 block truncate">
+                        {label}
+                      </span>
                     </button>
                   );
                 })}
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="mt-12 lg:mt-0">
-              <div className="flex items-center gap-3 text-sm font-medium text-white/90 mb-3">
-                <span className="uppercase tracking-widest text-accent">
+            <div className="mt-12">
+              <div className="flex items-center gap-3 text-sm font-medium text-white/90 mb-2">
+                <span className="uppercase tracking-widest text-amber-400">
                   {MODEL_INFO.type}
                 </span>
                 <span className="h-1 w-1 rounded-full bg-white/30" />
-                <span className="text-white/60">{MODEL_INFO.finish}</span>
+                <span className="text-white/60">{t.modelFinish}</span>
               </div>
-              <p className="text-xs text-white/40 leading-relaxed max-w-xs">
-                Calculations are estimates based on current market rates. Cap
-                rates reflect improved efficiency at scale.
+              <p className="text-[10px] uppercase tracking-widest text-white/30">
+                {t.estimatedRates}
               </p>
             </div>
           </div>
 
           {/* --- MIDDLE COLUMN: Stats --- */}
-          <div className="lg:col-span-2 border-t lg:border-t-0 lg:border-l lg:border-r border-white/10 bg-white/[0.02] p-6 md:p-4 flex flex-col justify-between">
+          <div
+            className="lg:col-span-3 bg-white/[0.03] border-y lg:border-y-0 lg:border-l lg:border-r border-white/10 
+            p-8 sm:p-12 lg:px-6 xl:px-14 lg:py-14 
+            flex flex-col gap-10 md:gap-12"
+          >
             <StatBlock
-              label="Capital Needed"
+              label={t.labels.capital}
               value={formatCurrency(data.needed)}
             />
-            <div className="my-8 lg:my-0">
-              <StatBlock
-                label="Rent (Monthly)"
-                value={formatCurrency(monthlyRent)}
-              />
-            </div>
             <StatBlock
-              label="Cap Rate"
+              label={t.labels.rent}
+              value={formatCurrency(monthlyRent)}
+            />
+            <StatBlock
+              label={t.labels.cap}
               value={formatPercent(data.cap)}
               isHighlight
             />
           </div>
 
           {/* --- RIGHT COLUMN: Image --- */}
-          <div className="lg:col-span-5 relative min-h-[300px] lg:min-h-full">
+          <div className="lg:col-span-4 relative min-h-[350px] lg:min-h-full">
             <Image
               src={MODEL_INFO.image}
               alt={MODEL_INFO.type}
               fill
               className="object-cover"
+              priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-chrome/80 via-transparent to-transparent opacity-60" />
+            <div className="absolute inset-0 bg-gradient-to-t from-chrome/60 to-transparent lg:hidden" />
           </div>
         </div>
       </div>
@@ -151,22 +151,26 @@ function StatBlock({
   isHighlight?: boolean;
 }) {
   return (
-    <div>
-      <p className="text-xs font-bold uppercase tracking-widest text-white/40 mb-2">
+    <div className="flex flex-col">
+      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 mb-3">
         {label}
       </p>
-      <AnimatePresence mode="popLayout">
-        <motion.p
-          key={value}
-          initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-          transition={{ duration: 0.3 }}
-          className={`text-3xl md:text-4xl font-bold tracking-tight ${isHighlight ? "text-accent" : "text-white"}`}
-        >
-          {value}
-        </motion.p>
-      </AnimatePresence>
+      <div className="flex">
+        <AnimatePresence mode="popLayout">
+          <motion.p
+            key={value}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            transition={{ duration: 0.3 }}
+            className={`text-2xl sm:text-3xl xl:text-4xl font-bold tracking-tight tabular-nums whitespace-nowrap ${
+              isHighlight ? "text-amber-400" : "text-white"
+            }`}
+          >
+            {value}
+          </motion.p>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

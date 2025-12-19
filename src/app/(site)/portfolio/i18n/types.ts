@@ -20,3 +20,17 @@ export type OneExpansionText = {
     text: string;
   }[];
 };
+
+export type DesignPortfolioStrings = {
+  title: string;
+  description: string;
+  unitSingular: string;
+  unitPlural: string;
+  modelFinish: string;
+  estimatedRates: string;
+  labels: {
+    capital: string;
+    rent: string;
+    cap: string;
+  };
+};
