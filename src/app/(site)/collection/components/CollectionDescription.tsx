@@ -17,7 +17,7 @@ export default function CollectionDescription() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-4xl sm:text-5xl font-semibold tracking-tight"
+          className="text-4xl sm:text-5xl font-serif font-semibold tracking-tight"
         >
           <span className="text-FL">360</span> {i.title.replace("360 ", "")}
         </motion.h2>

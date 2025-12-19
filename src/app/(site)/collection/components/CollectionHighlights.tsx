@@ -23,7 +23,7 @@ export default function CollectionHighlights() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="text-center text-3xl sm:text-4xl font-semibold tracking-tight mb-16"
+        className="text-center text-3xl sm:text-4xl font-serif font-semibold tracking-tight mb-16"
       >
         {i.title}
       </motion.h2>

@@ -72,7 +72,7 @@ export default function Brochure({
       <div className="max-w-none mx-auto grid md:grid-cols-3 gap-10 items-start">
         {/* Left text */}
         <aside>
-          <h2 className="h2">{title}</h2>
+          <h2 className="h2 font-serif">{title}</h2>
           <p className="mt-6 text-lg max-w-sm">
             <span className="text-accent font-semibold">{leadEm}</span>{" "}
             {leadRest}

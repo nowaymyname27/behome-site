@@ -107,7 +107,7 @@ export default function DesignPortfolio() {
           </div>
 
           {/* --- MIDDLE COLUMN: Stats --- */}
-          <div className="lg:col-span-2 border-t lg:border-t-0 lg:border-l lg:border-r border-white/10 bg-white/[0.02] p-10 md:p-14 flex flex-col justify-between">
+          <div className="lg:col-span-2 border-t lg:border-t-0 lg:border-l lg:border-r border-white/10 bg-white/[0.02] p-6 md:p-4 flex flex-col justify-between">
             <StatBlock
               label="Capital Needed"
               value={formatCurrency(data.needed)}

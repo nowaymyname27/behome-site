@@ -28,7 +28,6 @@ export type CollectionCardProps = {
   className?: string;
 };
 
-// FIX: Always use "en-US" to enforce "$375,000" format
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -96,7 +95,7 @@ export default function CollectionCard({
         className ?? "",
       ].join(" ")}
     >
-      {/* IMAGE */}
+      {/* IMAGE SECTION */}
       <figure className="relative w-full aspect-[16/10] overflow-hidden">
         <img
           src={image.src}
@@ -104,43 +103,46 @@ export default function CollectionCard({
           className="h-full w-full object-cover transform transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
         />
+
+        {/* Status Badge (Top Left) */}
         <div
           className={`absolute top-3 left-3 text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full backdrop-blur-md ${statusColor}`}
         >
           {statusLabel}
         </div>
+
+        {/* CAP Rate Badge (Bottom Right) */}
+        {typeof cap === "number" && (
+          <div className="absolute bottom-3 right-3 flex flex-col items-end">
+            <span className="text-[16px] font-bold uppercase tracking-widest text-amber-400 drop-shadow-md mb-1">
+              {t.labels.cap}
+            </span>
+            <div className="px-3 py-1.5 rounded-lg bg-black/40 border border-white/20 backdrop-blur-md">
+              <div className="text-2xl font-bold text-amber-400 leading-none tabular-nums tracking-tight">
+                {cap.toFixed(2)}%
+              </div>
+            </div>
+          </div>
+        )}
       </figure>
 
       {/* BODY */}
       <div className="p-5 sm:p-6">
-        {/* HERO SECTION: ADDRESS vs CAP */}
-        <div className="flex items-start justify-between mb-6">
-          <div className="pr-4">
-            <div className="text-xs font-medium text-white/50 mb-1 uppercase tracking-wide">
-              {location}
-            </div>
-            <h3 className="text-xl font-bold text-white tracking-tight leading-snug">
-              {address}
-            </h3>
+        {/* HEADER SECTION: Now has full width */}
+        <div className="mb-4">
+          <h3 className="text-xl font-bold text-white tracking-tight leading-snug mb-1 truncate whitespace-nowrap">
+            {address}
+          </h3>
+          <div className="text-xs font-medium text-white/50 uppercase tracking-wide truncate whitespace-nowrap">
+            {location}
           </div>
-
-          {typeof cap === "number" && (
-            <div className="flex flex-col items-end shrink-0">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400/80 mb-1">
-                {t.labels.cap}
-              </span>
-              <div className="relative px-3 py-1 -mr-2 rounded-lg bg-amber-400/10 border border-amber-400/20 backdrop-blur-sm">
-                <div className="text-3xl font-bold text-amber-400 leading-none tabular-nums tracking-tight">
-                  {cap.toFixed(2)}%
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
+        {/* DIVIDER LINE */}
+        <div className="border-t border-border/40 mb-6" />
+
         {/* BOTTOM METRICS */}
-        <div className="grid grid-cols-2 gap-4 py-4 border-t border-border/40">
-          {/* Price */}
+        <div className="grid grid-cols-2 gap-4 pb-4">
           <div>
             <span className="text-[10px] uppercase tracking-wide text-muted-foreground block mb-1">
               {t.labels.price}
@@ -150,21 +152,18 @@ export default function CollectionCard({
             </div>
           </div>
 
-          {/* Rent */}
           <div>
             <span className="text-[10px] uppercase tracking-wide text-muted-foreground block mb-1">
               {t.labels.rent}
             </span>
             <div className="text-lg font-bold text-emerald-400">
               {formatCurrency(rent)}
-              {/* FIX: Dynamic suffix based on locale */}
-              <span className="text-xs font-normal text-white/50">
-                {locale === "es" ? " /mes" : " /mo"}
+              <span className="text-xs font-normal text-white/50 ml-1">
+                {locale === "es" ? "/mes" : "/mo"}
               </span>
             </div>
           </div>
 
-          {/* Renewal Date */}
           {renewalDate && (
             <div className="col-span-2 mt-1 pt-3 border-t border-white/5 flex items-center gap-2">
               <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
@@ -180,13 +179,12 @@ export default function CollectionCard({
         {/* Toggle */}
         <button
           onClick={() => setOpen((p) => !p)}
-          className="w-full mt-1 flex items-center justify-between text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-white transition-colors py-3"
+          className="w-full mt-1 flex items-center justify-between text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-white transition-colors py-3 border-t border-border/40"
         >
           <span>{t.toggle}</span>
           <ChevronIcon open={open} />
         </button>
 
-        {/* Dropdown */}
         <AnimatePresence initial={false}>
           {open && (
             <motion.div
@@ -251,10 +249,6 @@ export default function CollectionCard({
     </article>
   );
 }
-
-/* ------------------ */
-/* HELPER COMPONENTS  */
-/* ------------------ */
 
 function Metric({
   label,
