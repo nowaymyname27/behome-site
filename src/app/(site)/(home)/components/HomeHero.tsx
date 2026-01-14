@@ -142,7 +142,7 @@ export default function HomeHero() {
     <Hero
       title={copy.title}
       subtitle={copy.subtitle}
-      scrim="bg-black/40"
+      scrim="bg-black/20"
       backgroundNode={
         <div className="h-full w-full overflow-hidden bg-black">
           <video
