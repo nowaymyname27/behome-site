@@ -121,7 +121,7 @@ export default function SectionSubmenu({
       )}
       style={{ top: stickyTop }}
     >
-      <div className="mx-auto w-full max-w-screen-2xl px-6 lg:px-20">
+      <div className="mx-auto w-full px-6 lg:px-20">
         <div
           role="tablist"
           aria-orientation="horizontal"
