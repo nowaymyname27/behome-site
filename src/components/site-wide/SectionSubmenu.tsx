@@ -67,6 +67,7 @@ export default function SectionSubmenu({
       },
       {
         root: null,
+        // Adjusted margin slightly for better trigger timing
         rootMargin: `-${getOffset(scrollOffset)}px 0px -70% 0px`,
         threshold: [0, 0.25, 0.5, 0.75, 1],
       }
@@ -86,7 +87,10 @@ export default function SectionSubmenu({
     if (!el) return;
     const top =
       el.getBoundingClientRect().top + window.scrollY - getOffset(scrollOffset);
+
+    // Optional: Update URL hash without jumping
     window.history.replaceState(null, "", `#${id}`);
+
     window.scrollTo({ top, behavior: "smooth" });
     if (!controlledActive) setActiveId(id);
     onActiveChange?.(id);
@@ -108,19 +112,20 @@ export default function SectionSubmenu({
 
   return (
     <nav
-      id={id} // <-- now accepted
-      aria-label="Homes"
+      id={id}
+      aria-label="Section Navigation"
       className={cx(
-        "sticky z-30 border-b border-border bg-background",
+        "sticky z-30 w-full border-b border-border/50",
+        "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
         className
       )}
       style={{ top: stickyTop }}
     >
-      <div className="w-full px-6 lg:px-21">
+      <div className="mx-auto w-full max-w-screen-2xl px-6 lg:px-20">
         <div
           role="tablist"
           aria-orientation="horizontal"
-          className="flex gap-2 sm:gap-4 overflow-x-auto no-scrollbar"
+          className="flex items-center gap-2 overflow-x-auto py-3 no-scrollbar mask-gradient"
           onKeyDown={onKeyDown}
         >
           {items.map((item) => {
@@ -133,17 +138,20 @@ export default function SectionSubmenu({
                 aria-controls={item.id}
                 onClick={() => handleClick(item.id)}
                 className={cx(
-                  "relative shrink-0 px-3 py-3 text-sm sm:text-base font-medium",
-                  "text-foreground/80 hover:text-foreground transition-colors"
+                  "relative shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200 ease-in-out",
+                  isActive
+                    ? "text-foreground font-semibold"
+                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                 )}
               >
-                <span className="whitespace-nowrap">{item.label}</span>
-                <span
-                  className={cx(
-                    "pointer-events-none absolute left-2 right-2 -bottom-px h-0.5 rounded",
-                    isActive ? "bg-accent" : "bg-transparent"
-                  )}
-                />
+                {/* Active Pill Background */}
+                {isActive && (
+                  <span className="absolute inset-0 rounded-full bg-accent/80 shadow-sm -z-10 animate-in fade-in zoom-in-95 duration-200" />
+                )}
+
+                <span className="relative z-10 whitespace-nowrap">
+                  {item.label}
+                </span>
               </button>
             );
           })}
