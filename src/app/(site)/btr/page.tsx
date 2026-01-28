@@ -16,6 +16,13 @@ import { mapSanityStyleToHome } from "../../../lib/mappers/styles";
 import type { SanityStyle } from "../../../lib/types/styles";
 
 import ClientWrapper from "./components/ClientWrapper";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Build-to-Rent Investment Model",
+  description:
+    "Learn why Build-to-Rent (BTR) is the future of real estate investing. RentPortfolio manages purpose-built communities optimized for long-term returns.",
+};
 
 /**
  * Server-side Sanity fetch

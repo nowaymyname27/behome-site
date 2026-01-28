@@ -36,6 +36,14 @@ import CollectionDescription from "./components/CollectionDescription";
 import CollectionHighlights from "./components/CollectionHighlights";
 import CollectionSection from "./components/CollectionSection";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "The Collection",
+  description:
+    "Browse our exclusive collection of new construction homes in Sarasota. View rental rates, cap rates, and floor plans for available properties.",
+};
+
 type HouseCardItem = {
   _id: string;
   address: string;
@@ -100,7 +108,7 @@ export default async function CollectionPage() {
   // Fetch map points
   const rawPoints: MapPointDoc[] = await sanityClient.fetch(
     mapPointsByProductTypeQuery,
-    { type: "single" }
+    { type: "single" },
   );
 
   const points: Point[] = rawPoints.map((p) => ({
@@ -139,7 +147,7 @@ export default async function CollectionPage() {
         src: doc.image.src,
         alt: doc.image.alt,
       },
-    })
+    }),
   );
 
   return (

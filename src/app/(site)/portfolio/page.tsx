@@ -14,6 +14,14 @@ import OneExpansion from "./components/OneExpansion";
 import type { HouseCardProps } from "../../../components/site-wide/HouseCard";
 import DesignPortfolio from "./components/DesignPortfolio";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Our Portfolio",
+  description:
+    "Explore RentPortfolio's completed communities and architectural designs. See how we blend single-family privacy with community amenities.",
+};
+
 type HouseCardItem = {
   _id: string;
   address: string;
@@ -64,7 +72,7 @@ export default async function BuildToRentPage() {
   // ✅ Fetch map points for BTR communities
   const rawPoints: MapPointDoc[] = await sanityClient.fetch(
     mapPointsByProductTypeQuery,
-    { type: "btr" }
+    { type: "btr" },
   );
 
   // ✅ Convert to SiteMap format
