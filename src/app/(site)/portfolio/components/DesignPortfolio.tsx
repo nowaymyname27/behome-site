@@ -19,10 +19,10 @@ const formatCurrency = (val: number) =>
 const formatPercent = (val: number) => `${val}%`;
 
 const PORTFOLIO_DATA = {
-  1: { needed: 125000, annualRent: 31200, cap: 6.5 },
-  2: { needed: 250000, annualRent: 62400, cap: 6.57 },
-  4: { needed: 500000, annualRent: 124800, cap: 6.61 },
-  8: { needed: 1000000, annualRent: 249600, cap: 6.65 },
+  1: { needed: 150000, annualRent: 31200, cap: 6.5 },
+  2: { needed: 300000, annualRent: 62400, cap: 6.57 },
+  4: { needed: 600000, annualRent: 124800, cap: 6.61 },
+  8: { needed: 1200000, annualRent: 249600, cap: 6.65 },
 };
 
 const MODEL_INFO = {
