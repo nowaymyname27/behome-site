@@ -63,7 +63,7 @@ const LABELS = {
     },
     collection: {
       imageAlt: "Turnkey rental home generating income",
-      heading: "360° Collection",
+      heading: "SaraHomes",
       description:
         "Discover the 360° Collection — a limited selection of turnkey, income-producing homes already built, leased, and generating steady cash flow from day one. These performing assets offer investors a simple, hassle-free way to own real estate that’s already working for them. Invest today and start earning immediately.",
       ctaLabel: "Explore Collection",
@@ -86,7 +86,7 @@ const LABELS = {
     },
     collection: {
       imageAlt: "Casa alquilada y generando ingresos desde el primer día",
-      heading: "Colección 360°",
+      heading: "SaraHomes",
       description:
         "Descubra la Colección 360° — una selección limitada de viviendas llave en mano, generadoras de ingresos, ya construidas, alquiladas y produciendo flujo de efectivo desde el primer día. Estos activos listos ofrecen a los inversores una manera simple y sin complicaciones de poseer bienes raíces que ya están trabajando para ellos. Invierta hoy y comience a ganar de inmediato.",
       ctaLabel: "Explorar Colección",
@@ -98,7 +98,7 @@ const LABELS = {
    3️⃣  Builder (safe with dynamic narrowing)
    ============================================ */
 export function getHomeFeatureCards(
-  locale: Locale
+  locale: Locale,
 ): ReadonlyArray<HomeFeatureCard> {
   const dict = locale === "es" ? LABELS.es : LABELS.en;
 
@@ -114,6 +114,6 @@ export function getHomeFeatureCards(
         description: d.description,
         ctaLabel: d.ctaLabel,
       };
-    }
+    },
   );
 }

@@ -26,12 +26,12 @@ const LABELS = {
   en: {
     pf: "Portfolio",
     btr: "Build-to-rent",
-    collection: "360 Collection",
+    collection: "SaraHomes",
   },
   es: {
     pf: "Portafolio",
     btr: "Build-to-rent",
-    collection: "360 Colleccion",
+    collection: "SaraHomes",
   },
 } as const;
 

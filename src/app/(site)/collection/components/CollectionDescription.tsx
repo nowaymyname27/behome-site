@@ -19,7 +19,8 @@ export default function CollectionDescription() {
           viewport={{ once: true }}
           className="text-4xl sm:text-5xl font-serif font-semibold tracking-tight"
         >
-          <span className="text-FL">360</span> {i.title.replace("360 ", "")}
+          <span className="text-FL">SaraHomes - </span>{" "}
+          {i.title.replace("", "")}
         </motion.h2>
 
         {/* Subtitle */}
