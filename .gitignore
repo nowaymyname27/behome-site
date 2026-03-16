@@ -19,6 +19,7 @@
 
 # production
 /build
+/studio/dist
 
 # misc
 .DS_Store
@@ -42,3 +43,6 @@ next-env.d.ts
 
 /public/videos/*
 !public/videos/.gitkeep
+
+# agent docs
+AGENTS.md

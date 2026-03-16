@@ -1,7 +1,7 @@
 // File: src/app/(site)/(home)/components/HomeDisplay.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocale } from "../../../../i18n/locale-context";
 import { tHomeDisplay } from "../i18n";
 import { CheckCircle2 } from "lucide-react";
@@ -30,11 +30,9 @@ export default function HomeDisplay() {
   const i = tHomeDisplay(locale);
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [playlist, setPlaylist] = useState<string[]>([]);
-
-  useEffect(() => {
-    setPlaylist([...homeDisplayVideos].sort(() => 0.5 - Math.random()));
-  }, []);
+  const [playlist] = useState<string[]>(() =>
+    [...homeDisplayVideos].sort(() => 0.5 - Math.random())
+  );
 
   const handleVideoEnded = () => {
     setCurrentIndex((prev) => (prev + 1) % playlist.length);

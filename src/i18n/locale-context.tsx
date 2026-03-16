@@ -24,13 +24,9 @@ export function LocaleProvider({
   children: React.ReactNode;
   initialLocale?: Locale;
 }) {
-  const [locale, setLocale] = useState<Locale>(initialLocale);
-
-  // Read once on mount
-  useEffect(() => {
-    const fromCookie = getCookieLocale();
-    if (fromCookie) setLocale(fromCookie);
-  }, []);
+  const [locale, setLocale] = useState<Locale>(
+    () => getCookieLocale() ?? initialLocale
+  );
 
   // Persist + reflect in <html lang="">
   useEffect(() => {

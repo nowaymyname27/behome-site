@@ -14,16 +14,12 @@ export default function MultiVideoBackground({
   ariaLabel = "Background video",
   shouldShuffle = true,
 }: MultiVideoBackgroundProps) {
-  const [videos, setVideos] = useState<string[]>([]);
   const [current, setCurrent] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [activeBuffer, setActiveBuffer] = useState(0);
-  
-  // Create refs for the two video elements
-  const videoRefs = [
-    useRef<HTMLVideoElement>(null),
-    useRef<HTMLVideoElement>(null),
-  ];
+
+  const videoRefA = useRef<HTMLVideoElement>(null);
+  const videoRefB = useRef<HTMLVideoElement>(null);
 
   const fadeDuration = 500;
 
@@ -36,17 +32,12 @@ export default function MultiVideoBackground({
     return result;
   };
 
-  // Initialize videos on mount
-  useEffect(() => {
-    if (shouldShuffle) {
-      setVideos(shuffle(initialVideos));
-    } else {
-      setVideos(initialVideos);
-    }
-  }, [initialVideos, shouldShuffle]);
+  const [videos] = useState<string[]>(
+    () => (shouldShuffle ? shuffle(initialVideos) : initialVideos)
+  );
 
   const preload = (index: number, buffer: number) => {
-    const video = videoRefs[buffer].current;
+    const video = buffer === 0 ? videoRefA.current : videoRefB.current;
     if (!video || !videos[index]) return;
     video.src = videos[index];
     video.load();
@@ -58,8 +49,8 @@ export default function MultiVideoBackground({
     const nextIndex = (current + 1) % videos.length;
     const nextBuffer = 1 - activeBuffer;
 
-    const currentVid = videoRefs[activeBuffer].current;
-    const nextVid = videoRefs[nextBuffer].current;
+    const currentVid = activeBuffer === 0 ? videoRefA.current : videoRefB.current;
+    const nextVid = nextBuffer === 0 ? videoRefA.current : videoRefB.current;
     if (!currentVid || !nextVid) return;
 
     preload(nextIndex, nextBuffer);
@@ -80,7 +71,7 @@ export default function MultiVideoBackground({
 
   // Listen for the "ended" event
   useEffect(() => {
-    const vid = videoRefs[activeBuffer].current;
+    const vid = activeBuffer === 0 ? videoRefA.current : videoRefB.current;
     if (!vid) return;
 
     const onEnd = () => playNext();
@@ -91,7 +82,7 @@ export default function MultiVideoBackground({
   // Start playing when videos are loaded
   useEffect(() => {
     if (videos.length > 0) {
-      videoRefs[0].current?.play().catch(() => {});
+      videoRefA.current?.play().catch(() => {});
       if (videos.length > 1) preload(1, 1);
     }
   }, [videos]);
@@ -99,7 +90,7 @@ export default function MultiVideoBackground({
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden">
       <video
-        ref={videoRefs[0]}
+        ref={videoRefA}
         src={videos[0]}
         muted
         playsInline
@@ -116,7 +107,7 @@ export default function MultiVideoBackground({
       />
 
       <video
-        ref={videoRefs[1]}
+        ref={videoRefB}
         muted
         playsInline
         preload="auto"

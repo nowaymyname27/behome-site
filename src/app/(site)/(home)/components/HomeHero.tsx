@@ -12,7 +12,16 @@ export default function HomeHero() {
   const i = tHomeHero(locale);
   const copies = i.copies;
 
-  const [videos, setVideos] = useState<string[]>([]);
+  function shuffle(arr: string[]) {
+    const result = [...arr];
+    for (let k = result.length - 1; k > 0; k--) {
+      const j = Math.floor(Math.random() * (k + 1));
+      [result[k], result[j]] = [result[j], result[k]];
+    }
+    return result;
+  }
+
+  const [videos] = useState<string[]>(() => shuffle(homeHeroVideos));
   const [current, setCurrent] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [activeBuffer, setActiveBuffer] = useState(0);
@@ -20,25 +29,10 @@ export default function HomeHero() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  const videoRefs = [
-    useRef<HTMLVideoElement>(null),
-    useRef<HTMLVideoElement>(null),
-  ];
+  const videoRefA = useRef<HTMLVideoElement>(null);
+  const videoRefB = useRef<HTMLVideoElement>(null);
 
   const fadeDuration = prefersReducedMotion ? 0 : 500;
-
-  const shuffle = (arr: string[]) => {
-    const result = [...arr];
-    for (let k = result.length - 1; k > 0; k--) {
-      const j = Math.floor(Math.random() * (k + 1));
-      [result[k], result[j]] = [result[j], result[k]];
-    }
-    return result;
-  };
-
-  useEffect(() => {
-    setVideos(shuffle(homeHeroVideos));
-  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -63,7 +57,7 @@ export default function HomeHero() {
   }, []);
 
   const preload = (index: number, buffer: number) => {
-    const video = videoRefs[buffer].current;
+    const video = buffer === 0 ? videoRefA.current : videoRefB.current;
     const src = videos[index];
     if (!video || !src) return;
 
@@ -79,8 +73,8 @@ export default function HomeHero() {
     const nextIndex = (current + 1) % videos.length;
     const nextBuffer = 1 - activeBuffer;
 
-    const currentVid = videoRefs[activeBuffer].current;
-    const nextVid = videoRefs[nextBuffer].current;
+    const currentVid = activeBuffer === 0 ? videoRefA.current : videoRefB.current;
+    const nextVid = nextBuffer === 0 ? videoRefA.current : videoRefB.current;
     if (!currentVid || !nextVid) return;
 
     preload(nextIndex, nextBuffer);
@@ -116,7 +110,7 @@ export default function HomeHero() {
   };
 
   useEffect(() => {
-    const vid = videoRefs[activeBuffer].current;
+    const vid = activeBuffer === 0 ? videoRefA.current : videoRefB.current;
     if (!vid) return;
 
     const onEnd = () => playNext();
@@ -126,7 +120,7 @@ export default function HomeHero() {
 
   useEffect(() => {
     if (videos.length > 0) {
-      videoRefs[0].current?.play().catch(() => {});
+      videoRefA.current?.play().catch(() => {});
       if (videos.length > 1 && !isMobile) preload(1, 1);
     }
   }, [videos, isMobile]);
@@ -146,7 +140,7 @@ export default function HomeHero() {
       backgroundNode={
         <div className="h-full w-full overflow-hidden bg-black">
           <video
-            ref={videoRefs[0]}
+            ref={videoRefA}
             src={videos[0] ?? ""}
             muted
             playsInline
@@ -164,7 +158,7 @@ export default function HomeHero() {
           />
 
           <video
-            ref={videoRefs[1]}
+            ref={videoRefB}
             muted
             playsInline
             preload={isMobile ? "metadata" : "auto"}
