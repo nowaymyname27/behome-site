@@ -33,13 +33,13 @@ export default function Footer() {
   const socialLinks = [
     {
       id: "instagram",
-      href: "#",
+      href: "https://www.instagram.com/rentportfolio_usa/",
       label: i.social.instagram,
       icon: Instagram,
     },
     {
       id: "linkedin",
-      href: "#",
+      href: "https://www.linkedin.com/company/rentportfolio/",
       label: i.social.linkedin,
       icon: Linkedin,
     },
