@@ -46,7 +46,7 @@ export default function Footer() {
   ] as const;
 
   return (
-    <footer className="w-full bg-chrome text-chrome-foreground">
+    <footer className="w-full border-t border-white/25 bg-[#2c4050] text-chrome-foreground">
       <section className="px-6 lg:px-24 py-10 grid gap-6 md:grid-cols-[1.15fr_0.9fr_0.95fr] md:gap-5 lg:gap-6">
         <div>
           <div className="font-semibold text-lg">{i.brand}</div>
