@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
 import CollectionCard, { CollectionCardProps } from "./CollectionCard";
 import { useLocale } from "../../../../i18n/locale-context";
 import { tCollectionSection } from "../i18n";
@@ -23,6 +24,41 @@ export default function CollectionSection({
 
   const displayTitle = title || t.title;
   const displaySubtitle = subtitle || t.subtitle;
+
+  const [columns, setColumns] = useState(1);
+  const [visibleRows, setVisibleRows] = useState(3);
+
+  useEffect(() => {
+    const measureColumns = () => {
+      if (window.matchMedia("(min-width: 1280px)").matches) {
+        setColumns(4);
+        return;
+      }
+
+      if (window.matchMedia("(min-width: 1024px)").matches) {
+        setColumns(3);
+        return;
+      }
+
+      if (window.matchMedia("(min-width: 640px)").matches) {
+        setColumns(2);
+        return;
+      }
+
+      setColumns(1);
+    };
+
+    measureColumns();
+    window.addEventListener("resize", measureColumns);
+    return () => window.removeEventListener("resize", measureColumns);
+  }, []);
+
+  const visibleCount = visibleRows * columns;
+  const visibleCards = useMemo(
+    () => cards.slice(0, visibleCount),
+    [cards, visibleCount]
+  );
+  const hasMore = visibleCards.length < cards.length;
 
   return (
     <motion.section
@@ -72,31 +108,30 @@ export default function CollectionSection({
             - 3 cols on large laptops/desktops
             - 4 cols on extra large screens 
         */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.1 },
-            },
-          }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-10"
-        >
-          {cards.map((card, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-10">
+          {visibleCards.map((card, i) => (
             <motion.div
               key={card.id ?? i}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0 },
-              }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
               <CollectionCard {...card} />
             </motion.div>
           ))}
-        </motion.div>
+        </div>
+
+        {hasMore && (
+          <div className="mt-12 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setVisibleRows((rows) => rows + 3)}
+              className="btn btn-primary"
+            >
+              {t.showMore}
+            </button>
+          </div>
+        )}
       </div>
     </motion.section>
   );

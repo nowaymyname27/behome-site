@@ -26,6 +26,7 @@ export type CollectionHeroStrings = {
 export type CollectionSectionStrings = {
   title: string;
   subtitle: string;
+  showMore: string;
 };
 export type CollectionCardStrings = {
   status: {

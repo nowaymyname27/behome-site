@@ -3,12 +3,14 @@ import type { Locale, CollectionSectionStrings } from "./types";
 const en: CollectionSectionStrings = {
   title: "SaraHomes",
   subtitle: "Explore our curated single-family portfolio below.",
+  showMore: "Show more",
 };
 
 const es: CollectionSectionStrings = {
   title: "SaraHomes",
   subtitle:
     "Explore nuestro portafolio seleccionado de viviendas unifamiliares a continuación.",
+  showMore: "Ver más",
 };
 
 export function tCollectionSection(locale: Locale): CollectionSectionStrings {
