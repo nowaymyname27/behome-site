@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+
 import SectionSubmenu from "../../../../components/site-wide/SectionSubmenu";
 
 type Item = { id: string; label: string };
@@ -22,7 +23,6 @@ export default function SubmenuWrapper({
   const [measuredTop, setMeasuredTop] = React.useState<number | null>(null);
   const sentinelRef = React.useRef<HTMLDivElement | null>(null);
 
-  // Measure header height
   React.useEffect(() => {
     if (typeof headerOffset === "number") {
       setMeasuredTop(headerOffset);
@@ -49,7 +49,6 @@ export default function SubmenuWrapper({
     return () => ro.disconnect();
   }, [headerOffset]);
 
-  // Sticky appear/disappear
   React.useEffect(() => {
     if (!sentinelRef.current || measuredTop == null) return;
 
@@ -73,7 +72,7 @@ export default function SubmenuWrapper({
       <div ref={sentinelRef} aria-hidden className="h-px w-full" />
 
       <SectionSubmenu
-        id="cluster-submenu"
+        id="sarahomes-submenu"
         items={items}
         stickyTop={stickyTop}
         className={[

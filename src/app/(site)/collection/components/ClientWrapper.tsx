@@ -1,21 +1,15 @@
 "use client";
 
-import SubmenuWrapper from "./SubmenuWrapper";
 import HomeShowcase from "../../../../components/site-wide/HomeShowcase";
 import MediaCarousel from "../../../../components/site-wide/MediaCarousel";
 
+import SubmenuWrapper from "./SubmenuWrapper";
 import useStickyOffsets from "./useStickyOffsets";
-import { useLocale } from "../../../../i18n/locale-context";
-import { tSite } from "../../../../i18n/site-wide";
 
 import type { MappedHomeSpec } from "../../../../lib/types/styles";
 
 export default function ClientWrapper({ homes }: { homes: MappedHomeSpec[] }) {
   const stickyTop = useStickyOffsets();
-  const { locale } = useLocale();
-  // site is unused now if we aren't passing the label, but keeping it harmlessly
-  const site = tSite(locale);
-
   const SHOWCASE_HEADER_PX = 64;
 
   return (
@@ -28,12 +22,7 @@ export default function ClientWrapper({ homes }: { homes: MappedHomeSpec[] }) {
       />
 
       {homes.map((home) => (
-        <HomeShowcase
-          key={home.id}
-          home={home}
-          stickyHeader
-          stickyTop={stickyTop}
-        >
+        <HomeShowcase key={home.id} home={home} stickyHeader stickyTop={stickyTop}>
           <MediaCarousel
             media={home.media}
             viewportOffset={stickyTop + SHOWCASE_HEADER_PX}

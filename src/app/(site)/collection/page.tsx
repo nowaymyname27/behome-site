@@ -25,47 +25,25 @@ import Footer from "../../../components/site-wide/Footer";
 import CollectionHero from "./components/CollectionHero";
 import { sanityClient } from "../../../sanity/lib/client";
 import {
-  houseCardsQuery,
-  mapPointsByProductTypeQuery,
+  allStylesQuery,
   collectionCardsQuery,
 } from "../../../sanity/lib/queries";
-import type { Config, Point } from "../../../components/site-wide/map/types";
-import type { HouseCardProps } from "../../../components/site-wide/HouseCard";
 import type { CollectionCardProps } from "./components/CollectionCard";
+import type { SanityStyle } from "../../../lib/types/styles";
+import { mapSanityStyleToHome } from "../../../lib/mappers/styles";
+
 import CollectionDescription from "./components/CollectionDescription";
 import CollectionHighlights from "./components/CollectionHighlights";
 import CollectionSection from "./components/CollectionSection";
+import ClientWrapper from "./components/ClientWrapper";
+import SectionTransition from "../btr/components/SectionTransition";
 
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "The Collection",
+  title: "SaraHomes",
   description:
-    "Browse our exclusive collection of new construction homes in Sarasota. View rental rates, cap rates, and floor plans for available properties.",
-};
-
-type HouseCardItem = {
-  _id: string;
-  address: string;
-  image: { src: string; alt?: string };
-  status: "sold" | "available";
-  price: number;
-  returnRate?: number;
-  style?: {
-    title: string;
-    beds?: number;
-    baths?: number;
-    cars?: number;
-    sqft?: number;
-  };
-};
-
-type MapPointDoc = {
-  _id: string;
-  title: string;
-  lat: number;
-  lng: number;
-  productType: "btr" | "single" | "cluster";
+    "Browse SaraHomes and explore immersive floorplan and media showcases for our Sarasota styles.",
 };
 
 // Define the incoming Sanity document shape for Collection Cards
@@ -87,47 +65,9 @@ type CollectionCardDoc = {
 export const revalidate = 60;
 
 export default async function CollectionPage() {
-  // Fetch house cards
-  const data: HouseCardItem[] = await sanityClient.fetch(houseCardsQuery);
+  const styleDocs = await sanityClient.fetch<SanityStyle[]>(allStylesQuery);
+  const homes = styleDocs.map(mapSanityStyleToHome);
 
-  const houses: HouseCardProps[] = data.map((h) => ({
-    id: h._id,
-    image: h.image,
-    address: h.address,
-    price: h.price,
-    sold: h.status === "sold",
-    styleBadge: h.style?.title,
-    returnRate: h.returnRate,
-    beds: h.style?.beds,
-    baths: h.style?.baths,
-    cars: h.style?.cars,
-    sqft: h.style?.sqft,
-    href: "#",
-  }));
-
-  // Fetch map points
-  const rawPoints: MapPointDoc[] = await sanityClient.fetch(
-    mapPointsByProductTypeQuery,
-    { type: "single" },
-  );
-
-  const points: Point[] = rawPoints.map((p) => ({
-    id: p._id,
-    name: p.title,
-    coords: [p.lng, p.lat],
-  }));
-
-  const config: Config | null =
-    points.length > 0
-      ? {
-          theme: "light",
-          center: points[0].coords,
-          zoom: 8,
-          points,
-        }
-      : null;
-
-  // Fetch CollectionCards (BTR Collection)
   const collectionDocs = await sanityClient.fetch(collectionCardsQuery);
 
   const collectionCards: CollectionCardProps[] = collectionDocs.map(
@@ -157,9 +97,9 @@ export default async function CollectionPage() {
         <CollectionHero />
         <CollectionDescription />
         <CollectionHighlights />
-
-        {/* BTR Collection Cards */}
         <CollectionSection cards={collectionCards} />
+        <SectionTransition />
+        <ClientWrapper homes={homes} />
       </main>
       <Footer />
     </div>

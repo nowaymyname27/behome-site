@@ -1,15 +1,15 @@
-// file: src/app/(site)/cluster/components/useStickyOffsets.ts
 "use client";
+
 import * as React from "react";
 
-const OVERLAP = 2; // subtract a hair to avoid seams/rounding issues
+const OVERLAP = 2;
 
 export default function useStickyOffsets() {
   const [top, setTop] = React.useState(0);
 
   React.useEffect(() => {
     const header = document.getElementById("site-header");
-    const submenu = document.getElementById("cluster-submenu");
+    const submenu = document.getElementById("sarahomes-submenu");
 
     const measure = () => {
       const hh = header ? header.getBoundingClientRect().height : 0;

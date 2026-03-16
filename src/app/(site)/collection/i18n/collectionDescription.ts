@@ -11,7 +11,7 @@ export const tCollectionDescription = (
   locale: Locale
 ): CollectionDescriptionText => {
   const en: CollectionDescriptionText = {
-    title: "360 Collection",
+    title: "SaraHomes",
     subtitle: "Built, rented and generating cash flow",
     heading: "A curated selection of stabilized, income-producing homes",
     description:
@@ -19,7 +19,7 @@ export const tCollectionDescription = (
   };
 
   const es: CollectionDescriptionText = {
-    title: "Colección 360",
+    title: "SaraHomes",
     subtitle: "Construidas, alquiladas y generando flujo de efectivo",
     heading:
       "Una selección exclusiva de hogares estabilizados que generan ingresos",
