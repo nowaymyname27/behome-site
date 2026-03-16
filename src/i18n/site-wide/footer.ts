@@ -5,6 +5,15 @@ import type { Locale } from "../locale-context";
 const en = {
   brand: "RentPortfolio",
   tagline: "Built to Rent. Designed to Grow.",
+  navigation: {
+    title: "Navigation",
+    home: "Home",
+  },
+  social: {
+    title: "Follow us",
+    instagram: "Instagram",
+    linkedin: "LinkedIn",
+  },
   contact: {
     title: "Contact",
     phoneLabel: "Phone",
@@ -52,6 +61,15 @@ export type FooterSchema = DeepString<typeof en>;
 const es: FooterSchema = {
   brand: "RentPortfolio",
   tagline: "Construido para rentar. Diseñado para crecer.",
+  navigation: {
+    title: "Navegación",
+    home: "Inicio",
+  },
+  social: {
+    title: "Síguenos",
+    instagram: "Instagram",
+    linkedin: "LinkedIn",
+  },
   contact: {
     title: "Contacto",
     phoneLabel: "Teléfono",
