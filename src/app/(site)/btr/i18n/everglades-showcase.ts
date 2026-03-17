@@ -68,7 +68,7 @@ export const evergladesShowcaseCopy: Record<Locale, EvergladesShowcaseStrings> =
 
       statsTitle: "Resumen de Inversión",
       stats: [
-        { label: "Inversión mínima", value: "$125,000" },
+        { label: "Inversión mínima", value: "$150,000" },
         { label: "Proyección IRR", value: "16% anual" },
         { label: "Múltiplo de capital", value: "1.5x" },
         { label: "Plazo", value: "3+ años" },
