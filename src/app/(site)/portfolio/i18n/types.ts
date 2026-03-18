@@ -30,7 +30,8 @@ export type DesignPortfolioStrings = {
   estimatedRates: string;
   labels: {
     capital: string;
-    rent: string;
-    cap: string;
+    saleIncome: string;
+    profit: string;
+    irrExit15: string;
   };
 };

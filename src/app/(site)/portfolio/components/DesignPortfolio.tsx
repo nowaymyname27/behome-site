@@ -16,13 +16,13 @@ const formatCurrency = (val: number) =>
     maximumFractionDigits: 0,
   }).format(val);
 
-const formatPercent = (val: number) => `${val}%`;
+const formatPercent = (val: number) => `${val.toFixed(2)}%`;
 
 const PORTFOLIO_DATA = {
-  1: { needed: 150000, annualRent: 31200, cap: 6.5 },
-  2: { needed: 300000, annualRent: 62400, cap: 6.57 },
-  4: { needed: 600000, annualRent: 124800, cap: 6.61 },
-  8: { needed: 1200000, annualRent: 249600, cap: 6.65 },
+  1: { capital: 150000, saleIncome: 441360, profit: 68056, irr: 18.69 },
+  2: { capital: 300000, saleIncome: 882719, profit: 136111, irr: 18.69 },
+  4: { capital: 600000, saleIncome: 1765438, profit: 280696, irr: 19.3 },
+  8: { capital: 1200000, saleIncome: 3530876, profit: 586816, irr: 20.24 },
 };
 
 const MODEL_INFO = {
@@ -36,7 +36,6 @@ export default function DesignPortfolio() {
   const [units, setUnits] = useState<(typeof OPTIONS)[number]>(1);
 
   const data = useMemo(() => PORTFOLIO_DATA[units], [units]);
-  const monthlyRent = data.annualRent / 12;
 
   return (
     <section className="w-full bg-background text-accent-foreground py-16 sm:py-24 px-6 lg:px-24">
@@ -111,15 +110,19 @@ export default function DesignPortfolio() {
           >
             <StatBlock
               label={t.labels.capital}
-              value={formatCurrency(data.needed)}
+              value={formatCurrency(data.capital)}
             />
             <StatBlock
-              label={t.labels.rent}
-              value={formatCurrency(monthlyRent)}
+              label={t.labels.saleIncome}
+              value={formatCurrency(data.saleIncome)}
             />
             <StatBlock
-              label={t.labels.cap}
-              value={formatPercent(data.cap)}
+              label={t.labels.profit}
+              value={formatCurrency(data.profit)}
+            />
+            <StatBlock
+              label={t.labels.irrExit15}
+              value={formatPercent(data.irr)}
               isHighlight
             />
           </div>
