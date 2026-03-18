@@ -4,15 +4,15 @@ const en: DesignPortfolioStrings = {
   title: "Design Your Portfolio",
   description:
     "Select how many homes you want to model. Returns are based on projected performance for the Everglades model.",
-  unitSingular: "1 Casa",
-  unitPlural: "{{n}} Casas",
+  unitSingular: "1 House",
+  unitPlural: "{{n}} Houses",
   modelFinish: "Flagship Model",
   estimatedRates: "Estimated market rates",
   labels: {
-    capital: "Capital Inicial",
-    saleIncome: "Ingreso por Venta",
-    profit: "Utilidad",
-    irrExit15: "TIR (Exit mes 15)",
+    capital: "Initial Capital",
+    saleIncome: "Sale Income",
+    profit: "Profit",
+    irrExit15: "IRR (Exit month 15)",
   },
 };
 
