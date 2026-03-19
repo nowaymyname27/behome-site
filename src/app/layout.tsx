@@ -58,6 +58,12 @@ export default async function RootLayout({
 
   return (
     <html lang={cookieLocale}>
+      <head>
+        <link rel="preconnect" href="https://api.maptiler.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="//api.maptiler.com" />
+        <link rel="preconnect" href="https://tiles.maptiler.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="//tiles.maptiler.com" />
+      </head>
       <body>
         <Providers initialLocale={cookieLocale}>
           <main>{children}</main>

@@ -35,6 +35,10 @@ export type CollectionCardStrings = {
     underConstruction: string;
     forSale: string;
   };
+  actions: {
+    viewOnMap: string;
+    closeMap: string;
+  };
   labels: {
     price: string;
     rent: string;

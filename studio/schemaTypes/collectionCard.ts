@@ -21,6 +21,27 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
 
+    defineField({
+      name: "coordinates",
+      title: "Coordinates",
+      type: "object",
+      description: "Used for map pin placement on the SaraHomes page.",
+      fields: [
+        defineField({
+          name: "lat",
+          title: "Latitude",
+          type: "number",
+          validation: (Rule) => Rule.min(-90).max(90),
+        }),
+        defineField({
+          name: "lng",
+          title: "Longitude",
+          type: "number",
+          validation: (Rule) => Rule.min(-180).max(180),
+        }),
+      ],
+    }),
+
     // --- 2. New Status Field ---
     defineField({
       name: "status",

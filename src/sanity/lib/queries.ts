@@ -164,6 +164,13 @@ export const collectionCardsQuery = `
     _id,
     address,
     location,
+    "coordinates": select(
+      defined(coordinates) => {
+        "lat": coordinates.lat,
+        "lng": coordinates.lng
+      },
+      null
+    ),
     status,
     price,
     rent,

@@ -11,6 +11,7 @@ export type CollectionCardProps = {
   status: "forSale" | "sold" | "rented" | "underConstruction" | string;
   address: string;
   location: string;
+  coordinates?: { lat: number; lng: number };
   price: number;
   rent: number;
   renewalDate?: string;
@@ -25,6 +26,13 @@ export type CollectionCardProps = {
     total: number;
     lot: number;
   };
+  onViewMap?: (card: {
+    id?: string;
+    address: string;
+    location: string;
+    coordinates: { lat: number; lng: number };
+  }) => void;
+  onMapIntent?: () => void;
   className?: string;
 };
 
@@ -71,6 +79,7 @@ export default function CollectionCard({
   status = "available",
   address,
   location,
+  coordinates,
   price,
   rent,
   renewalDate,
@@ -78,6 +87,8 @@ export default function CollectionCard({
   bedrooms,
   bathrooms,
   sqft,
+  onViewMap,
+  onMapIntent,
   className,
 }: CollectionCardProps) {
   const [open, setOpen] = React.useState(false);
@@ -85,6 +96,8 @@ export default function CollectionCard({
   const t = tCollectionCard(locale);
 
   const { label: statusLabel, color: statusColor } = getStatusConfig(status, t);
+  const hasCoordinates =
+    typeof coordinates?.lat === "number" && typeof coordinates?.lng === "number";
 
   return (
     <article
@@ -177,13 +190,30 @@ export default function CollectionCard({
         </div>
 
         {/* Toggle */}
-        <button
-          onClick={() => setOpen((p) => !p)}
-          className="w-full mt-1 flex items-center justify-between text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-white transition-colors py-3 border-t border-border/40"
-        >
-          <span>{t.toggle}</span>
-          <ChevronIcon open={open} />
-        </button>
+        <div className="mt-1 border-t border-border/40 pt-3 flex items-center justify-between gap-3">
+          <button
+            onClick={() => setOpen((p) => !p)}
+            className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-white transition-colors"
+          >
+            <span>{t.toggle}</span>
+            <ChevronIcon open={open} />
+          </button>
+
+          {hasCoordinates && (
+            <button
+              type="button"
+              onMouseEnter={onMapIntent}
+              onFocus={onMapIntent}
+              onClick={() => {
+                if (!coordinates || !onViewMap) return;
+                onViewMap({ id, address, location, coordinates });
+              }}
+              className="text-xs font-semibold uppercase tracking-widest text-amber-400 hover:text-amber-300 transition-colors"
+            >
+              {t.actions.viewOnMap}
+            </button>
+          )}
+        </div>
 
         <AnimatePresence initial={false}>
           {open && (
@@ -246,6 +276,7 @@ export default function CollectionCard({
           )}
         </AnimatePresence>
       </div>
+
     </article>
   );
 }

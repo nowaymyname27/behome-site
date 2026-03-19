@@ -51,6 +51,7 @@ type CollectionCardDoc = {
   _id: string;
   address: string;
   location: string;
+  coordinates?: { lat: number; lng: number } | null;
   status: string; // "forSale" | "sold" | "rented" | "underConstruction"
   price: number;
   rent: number;
@@ -75,6 +76,7 @@ export default async function CollectionPage() {
       id: doc._id,
       address: doc.address,
       location: doc.location, // Added location
+      coordinates: doc.coordinates ?? undefined,
       status: doc.status, // Pass the status string directly
       price: doc.price,
       rent: doc.rent,

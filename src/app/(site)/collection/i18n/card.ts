@@ -7,6 +7,10 @@ const en: CollectionCardStrings = {
     underConstruction: "UNDER CONSTRUCTION",
     forSale: "FOR SALE",
   },
+  actions: {
+    viewOnMap: "View on map",
+    closeMap: "Close map",
+  },
   labels: {
     price: "Price",
     rent: "Rent",
@@ -33,6 +37,10 @@ const es: CollectionCardStrings = {
     rented: "ALQUILADO",
     underConstruction: "EN CONSTRUCCIÓN",
     forSale: "EN VENTA",
+  },
+  actions: {
+    viewOnMap: "Ver en mapa",
+    closeMap: "Cerrar mapa",
   },
   labels: {
     price: "Precio",
