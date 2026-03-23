@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import HomeShowcase from "../../../../components/site-wide/HomeShowcase";
 import MediaCarousel from "../../../../components/site-wide/MediaCarousel";
 import { useLocale } from "../../../../i18n/locale-context";
 import { tEvergladesShowcase } from "../i18n";
+import EvergladesKeyFeatures from "./EvergladesKeyFeatures";
 
 import type { MappedHomeSpec } from "../../../../lib/types/styles";
 
@@ -30,7 +31,6 @@ const itemVariants = {
 };
 
 export default function EvergladesShowcase({ home }: EvergladesShowcaseProps) {
-  const [expanded, setExpanded] = useState(false);
   const [stickyTop, setStickyTop] = useState(80);
   const { locale } = useLocale();
   const i = tEvergladesShowcase(locale);
@@ -51,7 +51,7 @@ export default function EvergladesShowcase({ home }: EvergladesShowcaseProps) {
   }, []);
 
   return (
-    <section className="relative w-full bg-accent text-accent-foreground pt-24 md:pt-32 pb-0 border-y border-border">
+    <section className="relative w-full bg-accent text-accent-foreground pt-16 md:pt-24 pb-0 border-y border-border">
       <div className="absolute top-1/2 left-0 w-[800px] h-[800px] bg-white/40 blur-[120px] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/2 mix-blend-overlay" />
 
       <div className="relative z-10 px-6 md:px-12 lg:px-24 grid lg:grid-cols-12 gap-12 lg:gap-20 items-start w-full">
@@ -63,40 +63,6 @@ export default function EvergladesShowcase({ home }: EvergladesShowcaseProps) {
           <p className="mt-8 text-lg leading-relaxed text-chrome/80">
             {i.description}
           </p>
-
-          <button
-            type="button"
-            onClick={() => setExpanded((v) => !v)}
-            className="group mt-8 inline-flex items-center gap-2 text-xs font-bold text-chrome uppercase tracking-widest hover:text-FL transition-colors duration-300"
-          >
-            <span>{expanded ? i.toggleHide : i.toggleShow}</span>
-            <span
-              className={`block h-1.5 w-1.5 border-r-2 border-b-2 border-current transition-transform duration-300 ${expanded ? "-rotate-135 translate-y-0.5" : "rotate-45 -translate-y-0.5"}`}
-            />
-          </button>
-
-          <AnimatePresence>
-            {expanded && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="overflow-hidden"
-              >
-                <div className="mt-6 pt-6 border-t border-chrome/10 flex flex-wrap gap-2">
-                  {i.features.map((feature) => (
-                    <span
-                      key={feature}
-                      className="px-3 py-1.5 rounded-lg bg-white border border-chrome/5 text-xs font-medium text-chrome/70 shadow-sm"
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
 
         <motion.div
@@ -137,8 +103,12 @@ export default function EvergladesShowcase({ home }: EvergladesShowcaseProps) {
         </motion.div>
       </div>
 
+      <div className="mt-12 md:mt-14">
+        <EvergladesKeyFeatures />
+      </div>
+
       {home && (
-        <div className="relative z-10 mt-16">
+        <div className="relative z-10">
           <HomeShowcase
             home={home}
             stickyHeader

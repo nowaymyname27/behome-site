@@ -33,11 +33,16 @@ export type StatItem = {
   value: string;
 };
 
+export type FeatureGroup = {
+  title: string;
+  items: string[];
+};
+
 export type EvergladesShowcaseStrings = {
   title: string;
   subtitle: string;
   description: string;
-  features: string[];
+  featureGroups: FeatureGroup[];
   statsTitle: string;
   stats: StatItem[];
   toggleShow: string;

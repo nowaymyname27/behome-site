@@ -9,22 +9,42 @@ export const evergladesShowcaseCopy: Record<Locale, EvergladesShowcaseStrings> =
       description:
         "Our flagship Build-to-Rent home, the Everglades, is thoughtfully engineered to maximize rental performance and long-term value. Its flexible design, durable construction, and modern features make it ideal for today’s families and investors alike.",
 
-      features: [
-        "Versatile layout — accommodates families or shared living.",
-        "No HOA fees — built on independent single-family lots.",
-        "Prime location — close to schools and employment centers.",
-        "Mid-income appeal — broad tenant demand and stability.",
-        "Flexible den/office — easily converts into an extra bedroom.",
-        "Energy-efficient design — lowers utility costs and increases comfort.",
-        "Impact-resistant windows — built for safety and storm protection.",
-        "Open-concept living area — ideal for entertaining and family life.",
-        "Spacious lanai and backyard — private outdoor space tenants love.",
-        "Two-car garage — convenience and added storage.",
-        "Dedicated laundry room — practical and well-designed layout.",
-        "Mud room for kids — function meets everyday family living.",
-        "Large master suite — walk-in closet and double vanities.",
-        "Modern kitchen — stainless steel appliances and a large island.",
-        "Covered front porch — elegant entrance with curb appeal.",
+      featureGroups: [
+        {
+          title: "Layout & Comfort",
+          items: [
+            "Versatile layout for families or shared living.",
+            "Open-concept living area for entertaining.",
+            "Flexible den/office converts to an extra bedroom.",
+            "Large primary suite with walk-in closet and double vanities.",
+          ],
+        },
+        {
+          title: "Build Quality",
+          items: [
+            "Energy-efficient design for lower utility costs.",
+            "Impact-resistant windows for safety and storm protection.",
+            "Modern kitchen with stainless steel appliances and island.",
+            "Dedicated laundry room and practical mud room.",
+          ],
+        },
+        {
+          title: "Outdoor & Access",
+          items: [
+            "Spacious lanai and backyard with private outdoor space.",
+            "Two-car garage with added storage.",
+            "Covered front porch with strong curb appeal.",
+            "Prime location near schools and employment centers.",
+          ],
+        },
+        {
+          title: "Investment Profile",
+          items: [
+            "No HOA fees on independent single-family lots.",
+            "Mid-income appeal with broad tenant demand.",
+            "Durable construction aligned with long-term hold strategy.",
+          ],
+        },
       ],
 
       statsTitle: "Investment Overview",
@@ -38,8 +58,8 @@ export const evergladesShowcaseCopy: Record<Locale, EvergladesShowcaseStrings> =
         { label: "Distribution", value: "Monthly" },
       ],
 
-      toggleShow: "View Key Features ▼",
-      toggleHide: "Hide Features ▲",
+      toggleShow: "View Key Features",
+      toggleHide: "Hide Features",
     },
 
     es: {
@@ -48,22 +68,42 @@ export const evergladesShowcaseCopy: Record<Locale, EvergladesShowcaseStrings> =
       description:
         "Nuestra propiedad insignia Build-to-Rent, el Everglades, está diseñada cuidadosamente para maximizar el rendimiento del alquiler y el valor a largo plazo. Su diseño flexible, construcción duradera y características modernas la hacen ideal tanto para familias como para inversionistas.",
 
-      features: [
-        "Diseño versátil: acomoda familias o convivencias compartidas.",
-        "Sin cuotas HOA: construida en lotes unifamiliares independientes.",
-        "Ubicación privilegiada: cerca de escuelas y centros laborales.",
-        "Atractiva para ingresos medios: alta demanda y estabilidad.",
-        "Oficina flexible: se convierte fácilmente en un dormitorio extra.",
-        "Diseño eficiente: reduce costos de servicios y mejora el confort.",
-        "Ventanas resistentes a impactos: seguridad y protección contra tormentas.",
-        "Área social abierta: ideal para reuniones y vida familiar.",
-        "Amplio patio y terraza: espacios privados al aire libre.",
-        "Garaje doble: comodidad y almacenamiento adicional.",
-        "Lavandería independiente: práctica y funcional.",
-        "Cuarto de entrada: pensado para la vida diaria en familia.",
-        "Suite principal amplia: vestidor y doble tocador.",
-        "Cocina moderna: electrodomésticos de acero inoxidable e isla central.",
-        "Porche cubierto: entrada elegante con atractivo exterior.",
+      featureGroups: [
+        {
+          title: "Diseño y Confort",
+          items: [
+            "Diseño versátil para familias o convivencias compartidas.",
+            "Área social abierta ideal para reuniones.",
+            "Oficina flexible que se convierte en dormitorio extra.",
+            "Suite principal amplia con vestidor y doble tocador.",
+          ],
+        },
+        {
+          title: "Calidad Constructiva",
+          items: [
+            "Diseño eficiente para reducir costos de servicios.",
+            "Ventanas resistentes a impactos para mayor seguridad.",
+            "Cocina moderna con electrodomésticos de acero inoxidable e isla.",
+            "Lavandería independiente y cuarto de entrada funcional.",
+          ],
+        },
+        {
+          title: "Exterior y Ubicación",
+          items: [
+            "Amplio patio y terraza con espacios privados.",
+            "Garaje doble con almacenamiento adicional.",
+            "Porche cubierto con excelente atractivo exterior.",
+            "Ubicación privilegiada cerca de escuelas y centros laborales.",
+          ],
+        },
+        {
+          title: "Perfil de Inversión",
+          items: [
+            "Sin cuotas HOA en lotes unifamiliares independientes.",
+            "Atractiva para ingresos medios con demanda estable.",
+            "Construcción duradera para una estrategia de largo plazo.",
+          ],
+        },
       ],
 
       statsTitle: "Resumen de Inversión",
@@ -77,7 +117,7 @@ export const evergladesShowcaseCopy: Record<Locale, EvergladesShowcaseStrings> =
         { label: "Distribución", value: "Mensual" },
       ],
 
-      toggleShow: "Ver características ▼",
-      toggleHide: "Ocultar características ▲",
+      toggleShow: "Ver características clave",
+      toggleHide: "Ocultar características",
     },
   };
