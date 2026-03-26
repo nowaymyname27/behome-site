@@ -21,7 +21,7 @@ export default function AboutHero() {
       <div className="pointer-events-none absolute left-1/2 top-[44%] h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-FL/20 blur-[110px]" />
       <div className="pointer-events-none absolute -bottom-28 -left-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
 
-      <div className="relative px-6 md:px-12 lg:px-24 py-20 md:py-28 text-center">
+      <div className="relative px-6 sm:px-12 lg:px-24 py-20 md:py-28 text-center">
         <p className="text-[11px] uppercase tracking-[0.24em] text-white/65">
           {i.eyebrow}
         </p>

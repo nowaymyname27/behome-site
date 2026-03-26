@@ -30,11 +30,18 @@ export type OwnerProfile = {
   role: string;
   bio: string;
   quote: string;
+  imageSrc: string;
+  imageAlt: string;
+  linkedinUrl: string;
 };
 
 export type AboutOwnersStrings = {
   heading: string;
   subheading: string;
+  profileLabel: string;
+  readMoreLabel: string;
+  showLessLabel: string;
+  linkedinLabel: string;
   owners: OwnerProfile[];
 };
 
