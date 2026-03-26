@@ -17,50 +17,55 @@ export default function AboutOwnersShowcase() {
   const i = tAboutOwners(locale);
 
   return (
-    <section className="w-full bg-surface text-foreground border-b border-border">
+    <section className="w-full bg-background text-foreground border-b border-border">
       <div className="px-6 md:px-12 lg:px-24 py-16 md:py-20">
-        <div className="max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-serif text-foreground">
-            {i.heading}
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-foreground/80">
-            {i.subheading}
-          </p>
-        </div>
+        <div className="mx-auto max-w-5xl">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.22em] text-foreground/55">
+              RentPortfolio
+            </p>
+            <h2 className="text-3xl md:text-4xl font-serif text-foreground">
+              {i.heading}
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-foreground/80">
+              {i.subheading}
+            </p>
+          </div>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
-          {i.owners.map((owner, index) => (
-            <motion.article
-              key={`${owner.name}-${index}`}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
-              className="rounded-2xl border border-border bg-background p-6"
-            >
-              <div className="flex items-center gap-4">
-                <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-chrome text-white text-sm font-bold tracking-widest">
-                  {initialsFromName(owner.name)}
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {i.owners.map((owner, index) => (
+              <motion.article
+                key={`${owner.name}-${index}`}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                className="rounded-2xl border border-border bg-accent/12 p-6"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-chrome text-white text-sm font-bold tracking-widest">
+                    {initialsFromName(owner.name)}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-foreground">
+                      {owner.name}
+                    </h3>
+                    <p className="text-sm text-foreground/65 uppercase tracking-[0.12em]">
+                      {owner.role}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground">
-                    {owner.name}
-                  </h3>
-                  <p className="text-sm text-foreground/65 uppercase tracking-[0.12em]">
-                    {owner.role}
-                  </p>
-                </div>
-              </div>
 
-              <p className="mt-5 text-sm leading-relaxed text-foreground/85">
-                {owner.bio}
-              </p>
+                <p className="mt-5 text-sm leading-relaxed text-foreground/85">
+                  {owner.bio}
+                </p>
 
-              <blockquote className="mt-5 border-l-2 border-FL/70 pl-4 text-sm italic leading-relaxed text-foreground/75">
-                &ldquo;{owner.quote}&rdquo;
-              </blockquote>
-            </motion.article>
-          ))}
+                <blockquote className="mt-5 border-l-2 border-FL/70 pl-4 text-sm italic leading-relaxed text-foreground/75">
+                  &ldquo;{owner.quote}&rdquo;
+                </blockquote>
+              </motion.article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

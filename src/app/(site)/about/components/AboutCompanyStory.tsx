@@ -12,17 +12,18 @@ export default function AboutCompanyStory() {
   return (
     <section className="w-full bg-background text-foreground border-b border-border">
       <div className="px-6 md:px-12 lg:px-24 py-16 md:py-20">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-serif text-foreground">
-              {i.heading}
-            </h2>
+        <div className="mx-auto max-w-5xl">
+          <p className="text-[11px] uppercase tracking-[0.22em] text-foreground/55">
+            {i.eyebrow}
+          </p>
+          <h2 className="mt-4 text-3xl md:text-4xl font-serif text-foreground">
+            {i.heading}
+          </h2>
 
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-foreground/85">
-              {i.body.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
+          <div className="mt-8 space-y-5 text-base md:text-lg leading-relaxed text-foreground/85">
+            {i.body.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
 
           <motion.div
@@ -30,18 +31,18 @@ export default function AboutCompanyStory() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.45, ease: "easeOut" }}
-            className="grid gap-4"
+            className="mt-10 grid gap-3 rounded-2xl border border-border bg-accent/15 p-5 md:grid-cols-3"
           >
-            {i.pillars.map((pillar) => (
+            {i.stats.map((stat) => (
               <article
-                key={pillar.title}
-                className="rounded-2xl border border-border bg-accent/20 p-5"
+                key={stat.label}
+                className="rounded-xl border border-border/80 bg-background/85 p-4"
               >
-                <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-foreground/75">
-                  {pillar.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/85">
-                  {pillar.description}
+                <p className="text-[10px] uppercase tracking-[0.16em] text-foreground/55">
+                  {stat.label}
+                </p>
+                <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
+                  {stat.value}
                 </p>
               </article>
             ))}

@@ -13,10 +13,16 @@ export type AboutPillar = {
   description: string;
 };
 
+export type AboutCompanyStat = {
+  label: string;
+  value: string;
+};
+
 export type AboutCompanyStrings = {
+  eyebrow: string;
   heading: string;
   body: string[];
-  pillars: AboutPillar[];
+  stats: AboutCompanyStat[];
 };
 
 export type OwnerProfile = {
