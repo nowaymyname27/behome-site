@@ -35,6 +35,7 @@ import { mapSanityStyleToHome } from "../../../lib/mappers/styles";
 import CollectionDescription from "./components/CollectionDescription";
 import CollectionSection from "./components/CollectionSection";
 import ClientWrapper from "./components/ClientWrapper";
+import FloatingContactBox from "./components/FloatingContactBox";
 import FloorPlanShowcase from "./components/FloorPlanShowcase";
 import VeronaShowcase from "./components/VeronaShowcase";
 import SectionTransition from "../btr/components/SectionTransition";
@@ -100,6 +101,7 @@ export default async function CollectionPage() {
         <CollectionHero />
         <FloorPlanShowcase />
         <CollectionDescription />
+        <FloatingContactBox />
         <VeronaShowcase />
         <CollectionSection cards={collectionCards} />
         <SectionTransition />
