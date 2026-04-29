@@ -1,4 +1,4 @@
-// File: src/app/(site)/collection/i18n/index.ts
+// File: src/app/(site)/sarahomes/i18n/index.ts
 
 import type { Locale } from "../../../../i18n/locale-context";
 import type {

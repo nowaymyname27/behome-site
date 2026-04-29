@@ -40,7 +40,7 @@ const BASE_CARDS: ReadonlyArray<BaseCard> = [
   },
   {
     id: "collection",
-    href: "/collection",
+    href: "/sarahomes",
     imageSrc: "/photos/collection.png",
   },
 ];

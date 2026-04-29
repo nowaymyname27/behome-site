@@ -18,7 +18,7 @@ const BASE_NAV: Array<{
 }> = [
   { id: "btr", href: "/btr" },
   { id: "pf", href: "/portfolio" },
-  { id: "collection", href: "/collection" },
+  { id: "collection", href: "/sarahomes" },
   { id: "about", href: "/about" },
 ];
 

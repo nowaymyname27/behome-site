@@ -12,7 +12,7 @@ export default function AboutHero() {
   const i = tAboutHero(locale);
   const nav = useMemo(() => getHeaderNav(locale), [locale]);
   const heroNav = useMemo(
-    () => nav.filter((item) => ["/btr", "/portfolio", "/collection"].includes(item.href)),
+    () => nav.filter((item) => ["/btr", "/portfolio", "/sarahomes"].includes(item.href)),
     [nav]
   );
 
