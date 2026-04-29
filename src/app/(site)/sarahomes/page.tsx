@@ -33,9 +33,10 @@ import type { SanityStyle } from "../../../lib/types/styles";
 import { mapSanityStyleToHome } from "../../../lib/mappers/styles";
 
 import CollectionDescription from "./components/CollectionDescription";
-import CollectionHighlights from "./components/CollectionHighlights";
 import CollectionSection from "./components/CollectionSection";
 import ClientWrapper from "./components/ClientWrapper";
+import FloorPlanShowcase from "./components/FloorPlanShowcase";
+import VeronaShowcase from "./components/VeronaShowcase";
 import SectionTransition from "../btr/components/SectionTransition";
 
 import type { Metadata } from "next";
@@ -97,8 +98,9 @@ export default async function CollectionPage() {
       <Header />
       <main className="flex-1">
         <CollectionHero />
+        <FloorPlanShowcase />
         <CollectionDescription />
-        <CollectionHighlights />
+        <VeronaShowcase />
         <CollectionSection cards={collectionCards} />
         <SectionTransition />
         <ClientWrapper homes={homes} />
