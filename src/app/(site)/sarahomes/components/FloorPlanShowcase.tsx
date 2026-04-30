@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 import { useLocale } from "../../../../i18n/locale-context";
 
@@ -56,56 +57,101 @@ const COPY = {
 export default function FloorPlanShowcase() {
   const { locale } = useLocale();
   const copy = locale === "es" ? COPY.es : COPY.en;
+  const sectionInitial = { opacity: 0, y: 54 };
+  const sectionAnimate = { opacity: 1, y: 0 };
 
   return (
-    <section className="w-full border-b border-black/10 bg-[#ececec] text-[#111111]">
-      <div className="grid grid-cols-1 xl:min-h-[88vh] xl:grid-cols-[31%_69%]">
-        <div className="flex flex-col justify-between px-6 py-10 sm:px-10 sm:py-12 lg:px-12 lg:py-14 xl:py-20">
-          <div>
+    <motion.section
+      initial={sectionInitial}
+      whileInView={sectionAnimate}
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.92, ease: "easeOut" }}
+      viewport={{ once: false, amount: 0.25 }}
+      className="group w-full border-b border-black/10 bg-[#ececec] text-[#111111]"
+    >
+      <div className="grid grid-cols-1 xl:min-h-[96vh] xl:grid-cols-[31%_69%]">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.78, delay: 0.12, ease: "easeOut" }}
+          viewport={{ once: false, amount: 0.25 }}
+          className="flex flex-col justify-between px-6 py-10 transition-transform duration-500 sm:px-10 sm:py-12 lg:px-12 lg:py-14 xl:py-24"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.52, delay: 0.2, ease: "easeOut" }}
+            viewport={{ once: false, amount: 0.3 }}
+          >
             <p className="text-[1.1rem] leading-none tracking-tight italic font-serif text-black/85 sm:text-[1.3rem] lg:text-[1.45rem]">
               {copy.brand}
             </p>
 
-            <h2 className="mt-8 max-w-md text-[2.5rem] leading-[0.98] text-black sm:mt-10 sm:text-[3.35rem] lg:text-[4.2rem] xl:mt-14 xl:text-[5rem]">
+            <h2 className="mt-8 max-w-md text-[2.5rem] leading-[0.98] text-black sm:mt-10 sm:text-[3.35rem] lg:text-[4.2rem] xl:mt-14 xl:text-[5.5rem]">
               <span className="block font-serif">{copy.intro}</span>
               <span className="mt-2 block font-serif italic">{copy.title}</span>
             </h2>
-          </div>
+          </motion.div>
 
-          <p className="mt-8 font-serif text-[1.55rem] leading-none text-black/90 sm:text-[1.8rem] lg:text-[2rem] xl:mt-0 xl:text-[2.35rem]">
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.62, delay: 0.28, ease: "easeOut" }}
+            viewport={{ once: false, amount: 0.3 }}
+            className="mt-8 font-serif text-[1.55rem] leading-none text-black/90 sm:text-[1.8rem] lg:text-[2rem] xl:mt-0 xl:text-[2.35rem]"
+          >
             {copy.price}
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className="relative min-h-[18rem] sm:min-h-[24rem] lg:min-h-[30rem] xl:min-h-full">
+        <motion.div
+          initial={{ opacity: 0, y: 24, x: -14, scale: 1.05 }}
+          whileInView={{ opacity: 1, y: 0, x: 0, scale: 1 }}
+          transition={{ duration: 0.88, delay: 0.16, ease: "easeOut" }}
+          viewport={{ once: false, amount: 0.25 }}
+          className="relative min-h-[18rem] overflow-hidden sm:min-h-[24rem] lg:min-h-[30rem] xl:min-h-full"
+        >
           <Image
             src="/everglades_interior.png"
             alt="Everglades residence interior"
             fill
             priority
-            className="object-cover object-center xl:object-center"
+            className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.012] xl:object-center"
             sizes="(min-width: 1280px) 69vw, 100vw"
           />
 
-          <div className="bg-[#1e1c21] px-6 py-7 text-white sm:px-10 sm:py-8 lg:px-12 xl:absolute xl:inset-x-0 xl:bottom-0 xl:py-8">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.34, ease: "easeOut" }}
+            viewport={{ once: false, amount: 0.3 }}
+            className="bg-[#1e1c21] px-6 py-7 text-white sm:px-10 sm:py-8 lg:px-12 xl:absolute xl:inset-x-0 xl:bottom-0 xl:py-8"
+          >
             <div className="grid gap-7 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 md:gap-6 lg:gap-8">
-              {copy.stats.map((stat) => (
-                <div key={stat.label}>
-                  <p className="font-serif text-[2.25rem] leading-none tracking-[-0.01em] text-white sm:text-[2.65rem] lg:text-[3rem] xl:text-[3.4rem]">
+              {copy.stats.map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.46, delay: 0.4 + index * 0.12, ease: "easeOut" }}
+                  viewport={{ once: false, amount: 0.35 }}
+                  className="transition-transform duration-300 hover:-translate-y-0.5"
+                >
+                  <p className="font-serif text-[2.25rem] leading-none tracking-[-0.01em] text-white sm:text-[2.65rem] lg:text-[3rem] xl:text-[3.75rem]">
                     {stat.value}
-                    <span className="ml-2 text-[1.35rem] align-baseline sm:text-[1.5rem] lg:text-[1.8rem] xl:text-[2.2rem]">
+                    <span className="ml-2 text-[1.35rem] align-baseline sm:text-[1.5rem] lg:text-[1.8rem] xl:text-[2.4rem]">
                       {stat.label}
                     </span>
                   </p>
                   <p className="mt-3 max-w-[18rem] text-[0.98rem] font-semibold leading-[1.25] text-white/95 sm:mt-4 sm:text-[1.02rem] lg:text-[1.08rem]">
                     {stat.detail}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -32,11 +32,12 @@ import type { CollectionCardProps } from "./components/CollectionCard";
 import type { SanityStyle } from "../../../lib/types/styles";
 import { mapSanityStyleToHome } from "../../../lib/mappers/styles";
 
-import CollectionDescription from "./components/CollectionDescription";
 import CollectionSection from "./components/CollectionSection";
 import ClientWrapper from "./components/ClientWrapper";
+import EvergladesFloorPlan from "./components/EvergladesFloorPlan";
 import FloatingContactBox from "./components/FloatingContactBox";
 import FloorPlanShowcase from "./components/FloorPlanShowcase";
+import VeronaFloorPlan from "./components/VeronaFloorPlan";
 import VeronaShowcase from "./components/VeronaShowcase";
 import SectionTransition from "../btr/components/SectionTransition";
 
@@ -100,9 +101,10 @@ export default async function CollectionPage() {
       <main className="flex-1">
         <CollectionHero />
         <FloorPlanShowcase />
-        <CollectionDescription />
+        <EvergladesFloorPlan />
         <FloatingContactBox />
         <VeronaShowcase />
+        <VeronaFloorPlan />
         <CollectionSection cards={collectionCards} />
         <SectionTransition />
         <ClientWrapper homes={homes} />
