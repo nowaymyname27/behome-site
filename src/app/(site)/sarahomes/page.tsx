@@ -37,6 +37,7 @@ import ClientWrapper from "./components/ClientWrapper";
 import EvergladesFloorPlan from "./components/EvergladesFloorPlan";
 import FloatingContactBox from "./components/FloatingContactBox";
 import FloorPlanShowcase from "./components/FloorPlanShowcase";
+import SaraHomesWelcomeTransition from "./components/SaraHomesWelcomeTransition";
 import VeronaFloorPlan from "./components/VeronaFloorPlan";
 import VeronaShowcase from "./components/VeronaShowcase";
 import SectionTransition from "../btr/components/SectionTransition";
@@ -100,6 +101,7 @@ export default async function CollectionPage() {
       <Header />
       <main className="flex-1">
         <CollectionHero />
+        <SaraHomesWelcomeTransition />
         <FloorPlanShowcase />
         <EvergladesFloorPlan />
         <FloatingContactBox />

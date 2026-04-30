@@ -10,7 +10,7 @@ const COPY = {
     brand: "Sara Homes",
     intro: "Presenting",
     title: "The Verona Residence",
-    price: "PRICED FROM $380.000",
+    price: "PRICED FROM $415.000",
     stats: [
       {
         value: "1,768",
@@ -33,7 +33,7 @@ const COPY = {
     brand: "Sara Homes",
     intro: "Presentando",
     title: "La Residencia Verona",
-    price: "DESDE $380.000",
+    price: "DESDE $415.000",
     stats: [
       {
         value: "1,768",
@@ -73,7 +73,7 @@ export default function VeronaShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.78, delay: 0.12, ease: "easeOut" }}
           viewport={{ once: false, amount: 0.25 }}
-          className="flex flex-col justify-between px-6 py-10 transition-transform duration-500 sm:px-10 sm:py-12 lg:px-12 lg:py-14 xl:py-24"
+          className="flex flex-col justify-between px-6 py-9 transition-transform duration-500 sm:px-10 sm:py-11 lg:px-12 lg:py-14 xl:py-24"
         >
           <motion.div
             initial={{ opacity: 0 }}
@@ -85,7 +85,7 @@ export default function VeronaShowcase() {
               {copy.brand}
             </p>
 
-            <h2 className="mt-8 max-w-md text-[2.5rem] leading-[0.98] text-black sm:mt-10 sm:text-[3.35rem] lg:text-[4.2rem] xl:mt-14 xl:text-[5.5rem]">
+            <h2 className="mt-6 max-w-lg text-[2.1rem] leading-[1.02] text-black sm:mt-8 sm:text-[2.8rem] lg:text-[3.3rem] xl:mt-14 xl:text-[4.6rem] 2xl:text-[5.5rem]">
               <span className="block font-serif">{copy.intro}</span>
               <span className="mt-2 block font-serif italic">{copy.title}</span>
             </h2>
@@ -96,7 +96,7 @@ export default function VeronaShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.62, delay: 0.28, ease: "easeOut" }}
             viewport={{ once: false, amount: 0.3 }}
-            className="mt-8 font-serif text-[1.55rem] leading-none text-black/90 sm:text-[1.8rem] lg:text-[2rem] xl:mt-0 xl:text-[2.35rem]"
+            className="mt-6 font-serif text-[1.25rem] leading-none text-black/90 sm:text-[1.5rem] lg:text-[1.9rem] xl:mt-0 xl:text-[2.35rem]"
           >
             {copy.price}
           </motion.p>
@@ -107,24 +107,26 @@ export default function VeronaShowcase() {
           whileInView={{ opacity: 1, y: 0, x: 0, scale: 1 }}
           transition={{ duration: 0.88, delay: 0.16, ease: "easeOut" }}
           viewport={{ once: false, amount: 0.25 }}
-          className="relative min-h-[18rem] overflow-hidden sm:min-h-[24rem] lg:min-h-[30rem] xl:min-h-full"
+          className="relative min-h-[15rem] sm:min-h-[20rem] lg:min-h-[28rem] xl:min-h-full"
         >
-          <Image
-            src="/verona_sala.png"
-            alt="Verona residence interior"
-            fill
-            className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.012] xl:object-center"
-            sizes="(min-width: 1280px) 69vw, 100vw"
-          />
+          <div className="relative min-h-[15rem] overflow-hidden sm:min-h-[20rem] lg:min-h-[28rem] xl:min-h-full">
+            <Image
+              src="/verona_sala.png"
+              alt="Verona residence interior"
+              fill
+              className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.012] xl:object-center"
+              sizes="(min-width: 1280px) 69vw, 100vw"
+            />
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.34, ease: "easeOut" }}
             viewport={{ once: false, amount: 0.3 }}
-            className="bg-[#1e1c21] px-6 py-7 text-white sm:px-10 sm:py-8 lg:px-12 xl:absolute xl:inset-x-0 xl:bottom-0 xl:py-8"
+            className="bg-[#1e1c21] px-5 py-6 text-white sm:px-8 sm:py-7 lg:px-12 xl:absolute xl:inset-x-0 xl:bottom-0 xl:py-8"
           >
-            <div className="grid gap-7 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 md:gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 md:gap-6 lg:gap-8">
               {copy.stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -134,13 +136,13 @@ export default function VeronaShowcase() {
                   viewport={{ once: false, amount: 0.35 }}
                   className="transition-transform duration-300 hover:-translate-y-0.5"
                 >
-                  <p className="font-serif text-[2.25rem] leading-none tracking-[-0.01em] text-white sm:text-[2.65rem] lg:text-[3rem] xl:text-[3.75rem]">
+                  <p className="font-serif text-[1.75rem] leading-none tracking-[-0.01em] text-white sm:text-[2.15rem] lg:text-[2.85rem] xl:text-[3.75rem]">
                     {stat.value}
-                    <span className="ml-2 text-[1.35rem] align-baseline sm:text-[1.5rem] lg:text-[1.8rem] xl:text-[2.4rem]">
+                    <span className="ml-2 text-[1rem] align-baseline sm:text-[1.2rem] lg:text-[1.7rem] xl:text-[2.4rem]">
                       {stat.label}
                     </span>
                   </p>
-                  <p className="mt-3 max-w-[18rem] text-[0.98rem] font-semibold leading-[1.25] text-white/95 sm:mt-4 sm:text-[1.02rem] lg:text-[1.08rem]">
+                  <p className="mt-2 max-w-[18rem] text-[0.92rem] font-semibold leading-[1.3] text-white/95 sm:mt-3 sm:text-[0.98rem] lg:text-[1.05rem]">
                     {stat.detail}
                   </p>
                 </motion.div>
