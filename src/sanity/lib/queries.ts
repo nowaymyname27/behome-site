@@ -191,6 +191,7 @@ export const allStylesQuery = `
     _id,
     title,
     "slug": slug.current,
+    displayOrder,
     beds,
     baths,
     cars,
@@ -205,5 +206,5 @@ export const allStylesQuery = `
     },
     matterportModelId,
     matterportUrl
-  } | order(title asc)
+  } | order(coalesce(displayOrder, 9999) asc, title asc)
 `;

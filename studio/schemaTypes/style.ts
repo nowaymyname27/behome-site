@@ -51,6 +51,15 @@ export default defineType({
     }),
 
     defineField({
+      name: "displayOrder",
+      title: "Display Order",
+      type: "number",
+      description:
+        "Lower numbers appear first in the SaraHomes style nav and carousel. Keep values unique for predictable ordering.",
+      validation: (r) => r.min(0),
+    }),
+
+    defineField({
       name: "gallery",
       title: "Gallery",
       type: "array",
@@ -96,8 +105,19 @@ export default defineType({
   preview: {
     select: {
       title: "title",
+      order: "displayOrder",
       subtitle: "sqft",
       media: "floorplan",
+    },
+    prepare({ title, order, subtitle, media }) {
+      const orderText = typeof order === "number" ? `Order ${order}` : "No order";
+      const sqftText = typeof subtitle === "number" ? `${subtitle} sqft` : subtitle;
+
+      return {
+        title,
+        subtitle: `${orderText} • ${sqftText}`,
+        media,
+      };
     },
   },
 });

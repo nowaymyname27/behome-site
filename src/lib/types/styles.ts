@@ -4,6 +4,7 @@ export interface SanityStyle {
   _id: string;
   title: string;
   slug: string;
+  displayOrder?: number;
   beds: number;
   baths: number;
   cars: number;
