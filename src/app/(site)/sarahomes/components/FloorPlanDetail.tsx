@@ -35,7 +35,7 @@ export default function FloorPlanDetail({
           whileInView={{ opacity: 1, y: 0, x: 0, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
           viewport={{ once: false, amount: 0.25 }}
-          className="relative order-2 min-h-[18rem] overflow-hidden sm:min-h-[24rem] xl:order-1 xl:min-h-full"
+          className="relative order-2 min-h-[18rem] overflow-hidden bg-white sm:min-h-[24rem] xl:order-1 xl:min-h-full"
         >
           <Image
             src={imageSrc}
@@ -63,7 +63,7 @@ export default function FloorPlanDetail({
               {brand}
             </p>
 
-            <h2 className="mt-6 max-w-xl text-[2.1rem] leading-[0.98] text-black sm:mt-8 sm:text-[2.8rem] lg:text-[4rem] xl:mt-14 xl:text-[5.5rem]">
+            <h2 className="mt-6 max-w-xl text-[2.1rem] leading-[0.98] text-black sm:mt-8 sm:text-[2.8rem] lg:text-[4rem] xl:mt-14 xl:text-[4.8rem]">
               <span className="block font-serif italic">{title}</span>
               <span className="mt-1.5 block font-serif">{subtitle}</span>
             </h2>
@@ -84,7 +84,7 @@ export default function FloorPlanDetail({
                 transition={{ duration: 0.36, delay: 0.32 + index * 0.08, ease: "easeOut" }}
                 viewport={{ once: false, amount: 0.6 }}
                 className={[
-                  "py-1.5 text-[1.2rem] leading-[1.32] text-black/95 transition-transform duration-300 hover:translate-x-1 sm:text-[1.55rem] lg:text-[1.9rem] xl:text-[2.4rem]",
+                  "py-1.5 text-[1.2rem] leading-[1.32] text-black/95 transition-transform duration-300 hover:translate-x-1 sm:text-[1.55rem] lg:text-[1.9rem] xl:text-[2rem]",
                   index === 0 ? "font-semibold" : "font-normal",
                   index < specs.length - 1 ? "border-b border-black/20" : "",
                 ].join(" ")}

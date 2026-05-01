@@ -87,7 +87,7 @@ export default function FloorPlanShowcase() {
               {copy.brand}
             </p>
 
-            <h2 className="mt-6 max-w-lg text-[2.1rem] leading-[1.02] text-black sm:mt-8 sm:text-[2.8rem] lg:text-[3.3rem] xl:mt-14 xl:text-[4.6rem] 2xl:text-[5.5rem]">
+            <h2 className="mt-6 max-w-lg text-[2.1rem] leading-[1.02] text-black sm:mt-8 sm:text-[2.8rem] lg:text-[3.3rem] xl:mt-14 xl:text-[4rem] 2xl:text-[4.8rem]">
               <span className="block font-serif">{copy.intro}</span>
               <span className="mt-2 block font-serif italic">{copy.title}</span>
             </h2>
@@ -98,7 +98,7 @@ export default function FloorPlanShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.62, delay: 0.28, ease: "easeOut" }}
             viewport={{ once: false, amount: 0.3 }}
-            className="mt-6 font-serif text-[1.25rem] leading-none text-black/90 sm:text-[1.5rem] lg:text-[1.9rem] xl:mt-0 xl:text-[2.35rem]"
+            className="mt-6 font-serif text-[1.25rem] leading-none text-black/90 sm:text-[1.5rem] lg:text-[1.9rem] xl:mt-0 xl:text-[2rem]"
           >
             {copy.price}
           </motion.p>
@@ -139,9 +139,9 @@ export default function FloorPlanShowcase() {
                   viewport={{ once: false, amount: 0.35 }}
                   className="transition-transform duration-300 hover:-translate-y-0.5"
                 >
-                  <p className="font-serif text-[1.75rem] leading-none tracking-[-0.01em] text-white sm:text-[2.15rem] lg:text-[2.85rem] xl:text-[3.75rem]">
+                  <p className="font-serif text-[1.75rem] leading-none tracking-[-0.01em] text-white sm:text-[2.15rem] lg:text-[2.85rem] xl:text-[3.2rem]">
                     {stat.value}
-                    <span className="ml-2 text-[1rem] align-baseline sm:text-[1.2rem] lg:text-[1.7rem] xl:text-[2.4rem]">
+                    <span className="ml-2 text-[1rem] align-baseline sm:text-[1.2rem] lg:text-[1.7rem] xl:text-[2rem]">
                       {stat.label}
                     </span>
                   </p>

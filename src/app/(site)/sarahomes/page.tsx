@@ -107,9 +107,9 @@ export default async function CollectionPage() {
         <FloatingContactBox />
         <VeronaShowcase />
         <VeronaFloorPlan />
-        <CollectionSection cards={collectionCards} />
         <SectionTransition />
         <ClientWrapper homes={homes} />
+        <CollectionSection cards={collectionCards} />
       </main>
       <Footer />
     </div>
