@@ -37,6 +37,7 @@ import ClientWrapper from "./components/ClientWrapper";
 import EvergladesFloorPlan from "./components/EvergladesFloorPlan";
 import FloatingContactBox from "./components/FloatingContactBox";
 import FloorPlanShowcase from "./components/FloorPlanShowcase";
+import FloorplanQuoteTransition from "./components/FloorplanQuoteTransition";
 import HouseTransitionSlide from "./components/HouseTransitionSlide";
 import SaraHomesWelcomeTransition from "./components/SaraHomesWelcomeTransition";
 import VeronaFloorPlan from "./components/VeronaFloorPlan";
@@ -111,6 +112,10 @@ export default async function CollectionPage() {
         />
         <FloorPlanShowcase />
         <EvergladesFloorPlan />
+        <FloorplanQuoteTransition
+          quoteEn="A beautiful home in this coastal setting offers the foundation for a lifestyle defined by peace, balance, and everyday comfort while creating the right environment for personal growth, family development, and long-term well-being."
+          quoteEs="Un hermoso hogar en este entorno costero ofrece la base para un estilo de vida definido por la paz, el equilibrio y la comodidad diaria, mientras crea el ambiente ideal para el crecimiento personal, el desarrollo familiar y el bienestar a largo plazo."
+        />
         <FloatingContactBox />
         <HouseTransitionSlide
           imageSrc="/verona_exterior.png"
@@ -120,6 +125,10 @@ export default async function CollectionPage() {
         />
         <VeronaShowcase />
         <VeronaFloorPlan />
+        <FloorplanQuoteTransition
+          quoteEn="In this coastal landscape, this beautiful home becomes the backdrop for a lifestyle shaped by serenity, harmony, and daily ease, creating the ideal space for personal development, family flourishing, and lasting wellness."
+          quoteEs="En este paisaje costero, este hermoso hogar se convierte en el escenario de un estilo de vida marcado por la serenidad, la armonia y la facilidad cotidiana, creando el espacio ideal para el desarrollo personal, el florecimiento familiar y un bienestar duradero."
+        />
         <SectionTransition />
         <ClientWrapper homes={homes} />
         <CollectionSection cards={collectionCards} />
