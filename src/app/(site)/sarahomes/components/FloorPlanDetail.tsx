@@ -12,6 +12,30 @@ type FloorPlanDetailProps = {
   specs: readonly string[];
 };
 
+function renderSpecWithExponents(line: string) {
+  const parts = line.split(/(ft\^2|m\^2)/g);
+
+  return parts.map((part, index) => {
+    if (part === "ft^2") {
+      return (
+        <span key={`ft-${index}`}>
+          ft<sup>2</sup>
+        </span>
+      );
+    }
+
+    if (part === "m^2") {
+      return (
+        <span key={`m-${index}`}>
+          m<sup>2</sup>
+        </span>
+      );
+    }
+
+    return <span key={`t-${index}`}>{part}</span>;
+  });
+}
+
 export default function FloorPlanDetail({
   brand,
   title,
@@ -89,7 +113,7 @@ export default function FloorPlanDetail({
                   index < specs.length - 1 ? "border-b border-black/20" : "",
                 ].join(" ")}
               >
-                {line}
+                {renderSpecWithExponents(line)}
               </motion.p>
             ))}
           </motion.div>
