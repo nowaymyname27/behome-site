@@ -107,8 +107,8 @@ export default async function CollectionPage() {
         <HouseTransitionSlide
           imageSrc="/everglades_exterior.png"
           imageAlt="Everglades residence exterior"
-          titleEn="Everglades Residences"
-          titleEs="Residencias Everglades"
+          titleEn="The Everglades Residence"
+          titleEs="La Residencia Everglades"
         />
         <FloorPlanShowcase />
         <EvergladesFloorPlan />
