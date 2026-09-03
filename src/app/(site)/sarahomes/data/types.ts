@@ -1,7 +1,6 @@
 // src/app/(site)/single-family/data/types.ts
 import type { StaticImageData } from "next/image";
-
-export type LngLat = [number, number]; // [lng, lat]
+import type { LngLat } from "../../../../lib/types/geo";
 
 export type HouseImage = {
   src: StaticImageData | string;
