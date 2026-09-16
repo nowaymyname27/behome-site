@@ -9,11 +9,11 @@ export default function SectionTransition() {
 
   const text =
     locale === "es"
-      ? "Descubre nuestros diferentes estilos de vivienda"
-      : "Check out our different house styles";
+      ? "Selecciona tu estilo de casa preferido"
+      : "Select your preferred house style";
 
   return (
-    <section className="w-full bg-background text-black pt-15 md:pt-10 pb-10 text-center m-0 relative">
+    <section className="w-full bg-background text-black pt-20 md:pt-24 pb-4 text-center m-0 relative">
       <motion.h2
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

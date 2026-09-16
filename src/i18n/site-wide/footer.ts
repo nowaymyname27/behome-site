@@ -48,6 +48,13 @@ const en = {
         content:
           "Rent Portfolio Group, LLC (“Rent Portfolio,” “we,” “us,” or “our”) respects your privacy and is committed to protecting the personal information you provide through our websites, mobile applications, or interactions with our team. By using our services, you agree to the collection and use of your information under this Privacy Policy.\n\n1. Information We Collect\n• Contact details (name, email, phone, address)\n• Investment preferences and real estate interests\n• Financial information you voluntarily provide for purchases or opportunities\n• Device/usage data (IP, browser, cookies)\n• Communications (inquiries, emails, support)\nCollected when you fill forms, request info, interact with our site/social media, or contact us.\n\n2. How We Use Your Information\n• Respond to inquiries\n• Provide and improve services\n• Send property updates, opportunities, or newsletters\n• Comply with legal requirements\nYou may opt out of marketing at any time.\n\n3. Sharing Your Information\nWe may share information with service providers (legal, accounting, title, property management), financial institutions for transactions, and technology providers for performance/analytics, or as required by law. We do not sell personal information.\n\n4. Cookies and Tracking\nWe may use cookies or similar technologies. You may adjust browser settings to limit or block cookies.\n\n5. Your Rights\nDepending on your jurisdiction, you may have rights to access, update, delete, or restrict processing of your data, and opt out of certain communications.\n\n6. Data Security\nWe implement reasonable safeguards, though no system is 100% secure.\n\n7. Children’s Privacy\nOur services are not directed to children under 16, and we do not knowingly collect data from minors.\n\n8. Changes to This Policy\nWe may update this Policy periodically. The latest version will display its effective date.\n\n9. Contact Us\nprivacy@rentportfolio.com\nRent Portfolio Group, LLC – Privacy Officer\nSarasota, Florida",
       },
+      {
+        id: "cap-disclosure",
+        title: "CAP Rate Disclosure",
+        lastUpdated: "",
+        content:
+          "Cap rates shown are estimates based on current rental income, property taxes, insurance premiums, and other applicable assumptions.\n\nProperty taxes are reassessed following a change in ownership, and insurance premiums may change under a new owner’s policy.\n\nAccordingly, actual expenses and cap rates after closing may differ from those presented. Buyers should independently verify all income, expenses, taxes, insurance costs, and investment returns.",
+      },
     ],
   },
 } as const;
@@ -101,6 +108,13 @@ const es: FooterSchema = {
         lastUpdated: "Última actualización: 24 de junio de 2025",
         content:
           "Rent Portfolio Group, LLC (“Rent Portfolio”, “nosotros”) respeta su privacidad y protege la información personal que nos proporciona a través de nuestros sitios web, aplicaciones móviles o interacciones con nuestro equipo. Al usar nuestros servicios, usted acepta la recolección y uso de sus datos conforme a esta Política.\n\n1. Información que Recopilamos\n• Datos de contacto (nombre, correo, teléfono, dirección)\n• Preferencias de inversión e intereses inmobiliarios\n• Información financiera que usted aporte voluntariamente\n• Datos del dispositivo/uso (IP, navegador, cookies)\n• Comunicaciones (consultas, correos, soporte)\n\n2. Cómo Usamos su Información\n• Responder consultas\n• Prestar y mejorar servicios\n• Enviar actualizaciones de propiedades u oportunidades\n• Cumplir obligaciones legales\nPuede darse de baja de comunicaciones de marketing en cualquier momento.\n\n3. Compartir Información\nPodemos compartir datos con proveedores (legales, contables, títulos, administración), instituciones financieras para transacciones y proveedores tecnológicos para rendimiento/analítica, o cuando la ley lo requiera. No vendemos su información personal.\n\n4. Cookies y Rastreo\nPodemos usar cookies o tecnologías similares. Puede ajustar su navegador para limitarlas.\n\n5. Sus Derechos\nSegún su jurisdicción, puede tener derechos de acceso, actualización, eliminación o restricción de procesamiento, y optar por no recibir ciertas comunicaciones.\n\n6. Seguridad de Datos\nAplicamos salvaguardas razonables; ningún sistema es 100% seguro.\n\n7. Privacidad de Menores\nNuestros servicios no están dirigidos a menores de 16 años.\n\n8. Cambios a esta Política\nPodemos actualizarla periódicamente. La versión vigente mostrará la fecha de vigencia.\n\n9. Contacto\nprivacy@rentportfolio.com\nRent Portfolio Group, LLC – Privacy Officer\nSarasota, Florida",
+      },
+      {
+        id: "cap-disclosure",
+        title: "Aviso sobre tasas CAP",
+        lastUpdated: "",
+        content:
+          "Las tasas de capitalización (CAP) mostradas son estimaciones basadas en los ingresos actuales por alquiler, los impuestos sobre la propiedad, las primas de seguro y otros supuestos aplicables.\n\nLos impuestos sobre la propiedad se reevalúan tras un cambio de titularidad, y las primas de seguro pueden cambiar con la póliza del nuevo propietario.\n\nPor consiguiente, los gastos reales y las tasas CAP después del cierre pueden diferir de los presentados. Los compradores deben verificar de forma independiente todos los ingresos, gastos, impuestos, costos de seguro y rendimientos de la inversión.",
       },
     ],
   },

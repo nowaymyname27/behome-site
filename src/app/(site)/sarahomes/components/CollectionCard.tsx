@@ -12,20 +12,20 @@ export type CollectionCardProps = {
   address: string;
   location: string;
   coordinates?: { lat: number; lng: number };
-  price: number;
-  rent: number;
-  renewalDate?: string;
-  cap?: number;
-  bedrooms: number;
-  bathrooms: number;
-  sqft: {
-    ac: number;
-    garage: number;
-    lanai: number;
-    entry: number;
-    total: number;
-    lot: number;
-  };
+  price?: number | null;
+  rent?: number | null;
+  renewalDate?: string | null;
+  cap?: number | null;
+  bedrooms?: number | null;
+  bathrooms?: number | null;
+  sqft?: {
+    ac?: number | null;
+    garage?: number | null;
+    lanai?: number | null;
+    entry?: number | null;
+    total?: number | null;
+    lot?: number | null;
+  } | null;
   onViewMap?: (card: {
     id?: string;
     address: string;
@@ -42,6 +42,10 @@ function formatCurrency(amount: number) {
     currency: "USD",
     maximumFractionDigits: 0,
   }).format(amount);
+}
+
+function hasNumber(value: number | null | undefined): value is number {
+  return typeof value === "number" && Number.isFinite(value);
 }
 
 function getStatusConfig(
@@ -98,6 +102,15 @@ export default function CollectionCard({
   const { label: statusLabel, color: statusColor } = getStatusConfig(status, t);
   const hasCoordinates =
     typeof coordinates?.lat === "number" && typeof coordinates?.lng === "number";
+  const measurements = (["ac", "garage", "lanai", "entry", "total", "lot"] as const)
+    .flatMap((key) => {
+      const value = sqft?.[key];
+      return hasNumber(value) ? [{ key, value, label: t.metrics[key] }] : [];
+    });
+  const hasRooms = hasNumber(bedrooms) || hasNumber(bathrooms);
+  const hasDetails = hasRooms || measurements.length > 0;
+  const visibleRenewalDate = renewalDate?.trim();
+  const hasFinancials = hasNumber(price) || hasNumber(rent) || Boolean(visibleRenewalDate);
 
   return (
     <article
@@ -125,7 +138,7 @@ export default function CollectionCard({
         </div>
 
         {/* CAP Rate Badge (Bottom Right) */}
-        {typeof cap === "number" && (
+        {hasNumber(cap) && (
           <div className="absolute bottom-3 right-3 flex flex-col items-end">
             <span className="text-[16px] font-bold uppercase tracking-widest text-amber-400 drop-shadow-md mb-1">
               {t.labels.cap}
@@ -151,72 +164,79 @@ export default function CollectionCard({
           </div>
         </div>
 
-        {/* DIVIDER LINE */}
-        <div className="border-t border-border/40 mb-6" />
-
         {/* BOTTOM METRICS */}
-        <div className="grid grid-cols-2 gap-4 pb-4">
-          <div>
-            <span className="text-[10px] uppercase tracking-wide text-muted-foreground block mb-1">
-              {t.labels.price}
-            </span>
-            <div className="text-lg font-bold text-white">
-              {formatCurrency(price)}
-            </div>
-          </div>
-
-          <div>
-            <span className="text-[10px] uppercase tracking-wide text-muted-foreground block mb-1">
-              {t.labels.rent}
-            </span>
-            <div className="text-lg font-bold text-emerald-400">
-              {formatCurrency(rent)}
-              <span className="text-xs font-normal text-white/50 ml-1">
-                {locale === "es" ? "/mes" : "/mo"}
-              </span>
-            </div>
-          </div>
-
-          {renewalDate && (
-            <div className="col-span-2 mt-1 pt-3 border-t border-white/5 flex items-center gap-2">
-              <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
-                {t.labels.renewalDate}:
-              </span>
-              <div className="text-sm font-medium text-white/90">
-                {renewalDate}
+        {hasFinancials && (
+          <div className={`grid gap-4 border-t border-border/40 pt-6 pb-4 ${hasNumber(price) && hasNumber(rent) ? "grid-cols-2" : "grid-cols-1"}`}>
+            {hasNumber(price) && (
+              <div>
+                <span className="text-[10px] uppercase tracking-wide text-muted-foreground block mb-1">
+                  {t.labels.price}
+                </span>
+                <div className="text-lg font-bold text-white">
+                  {formatCurrency(price)}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+
+            {hasNumber(rent) && (
+              <div>
+                <span className="text-[10px] uppercase tracking-wide text-muted-foreground block mb-1">
+                  {t.labels.rent}
+                </span>
+                <div className="text-lg font-bold text-emerald-400">
+                  {formatCurrency(rent)}
+                  <span className="text-xs font-normal text-white/50 ml-1">
+                    {locale === "es" ? "/mes" : "/mo"}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {visibleRenewalDate && (
+              <div className={`col-span-full flex items-center gap-2 ${hasNumber(price) || hasNumber(rent) ? "mt-1 pt-3 border-t border-white/5" : ""}`}>
+                <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
+                  {t.labels.renewalDate}:
+                </span>
+                <div className="text-sm font-medium text-white/90">
+                  {visibleRenewalDate}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Toggle */}
-        <div className="mt-1 border-t border-border/40 pt-3 flex items-center justify-between gap-3">
-          <button
-            onClick={() => setOpen((p) => !p)}
-            className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-white transition-colors"
-          >
-            <span>{t.toggle}</span>
-            <ChevronIcon open={open} />
-          </button>
+        {(hasDetails || hasCoordinates) && (
+          <div className="mt-1 border-t border-border/40 pt-3 flex items-center justify-between gap-3">
+            {hasDetails && (
+              <button
+                onClick={() => setOpen((p) => !p)}
+                className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-white transition-colors"
+              >
+                <span>{t.toggle}</span>
+                <ChevronIcon open={open} />
+              </button>
+            )}
 
-          {hasCoordinates && (
-            <button
-              type="button"
-              onMouseEnter={onMapIntent}
-              onFocus={onMapIntent}
-              onClick={() => {
-                if (!coordinates || !onViewMap) return;
-                onViewMap({ id, address, location, coordinates });
-              }}
-              className="text-xs font-semibold uppercase tracking-widest text-amber-400 hover:text-amber-300 transition-colors"
-            >
-              {t.actions.viewOnMap}
-            </button>
-          )}
-        </div>
+            {hasCoordinates && (
+              <button
+                type="button"
+                onMouseEnter={onMapIntent}
+                onFocus={onMapIntent}
+                onClick={() => {
+                  if (!coordinates || !onViewMap) return;
+                  onViewMap({ id, address, location, coordinates });
+                }}
+                className="text-xs font-semibold uppercase tracking-widest text-amber-400 hover:text-amber-300 transition-colors"
+              >
+                {t.actions.viewOnMap}
+              </button>
+            )}
+          </div>
+        )}
 
         <AnimatePresence initial={false}>
-          {open && (
+          {open && hasDetails && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
@@ -224,53 +244,34 @@ export default function CollectionCard({
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <div className="overflow-hidden mt-2 rounded-xl bg-black/20 border border-white/5 p-4 text-sm">
-                <div className="flex gap-6 mb-4 pb-4 border-b border-white/5 text-white/90">
-                  <div>
-                    <span className="text-muted-foreground text-xs uppercase mr-2">
-                      {t.metrics.bedrooms}
-                    </span>
-                    <span className="font-bold text-lg">{bedrooms}</span>
+                {hasRooms && (
+                  <div className={`flex gap-6 text-white/90 ${measurements.length > 0 ? "mb-4 pb-4 border-b border-white/5" : ""}`}>
+                    {hasNumber(bedrooms) && (
+                      <div>
+                        <span className="text-muted-foreground text-xs uppercase mr-2">
+                          {t.metrics.bedrooms}
+                        </span>
+                        <span className="font-bold text-lg">{bedrooms}</span>
+                      </div>
+                    )}
+                    {hasNumber(bathrooms) && (
+                      <div>
+                        <span className="text-muted-foreground text-xs uppercase mr-2">
+                          {t.metrics.bathrooms}
+                        </span>
+                        <span className="font-bold text-lg">{bathrooms}</span>
+                      </div>
+                    )}
                   </div>
-                  <div>
-                    <span className="text-muted-foreground text-xs uppercase mr-2">
-                      {t.metrics.bathrooms}
-                    </span>
-                    <span className="font-bold text-lg">{bathrooms}</span>
-                  </div>
-                </div>
+                )}
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3 text-white/90">
-                  <Metric
-                    label={t.metrics.ac}
-                    value={sqft.ac}
-                    unit={t.metrics.unit}
-                  />
-                  <Metric
-                    label={t.metrics.garage}
-                    value={sqft.garage}
-                    unit={t.metrics.unit}
-                  />
-                  <Metric
-                    label={t.metrics.lanai}
-                    value={sqft.lanai}
-                    unit={t.metrics.unit}
-                  />
-                  <Metric
-                    label={t.metrics.entry}
-                    value={sqft.entry}
-                    unit={t.metrics.unit}
-                  />
-                  <Metric
-                    label={t.metrics.total}
-                    value={sqft.total}
-                    unit={t.metrics.unit}
-                  />
-                  <Metric
-                    label={t.metrics.lot}
-                    value={sqft.lot}
-                    unit={t.metrics.unit}
-                  />
-                </div>
+                {measurements.length > 0 && (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3 text-white/90">
+                    {measurements.map(({ key, label, value }) => (
+                      <Metric key={key} label={label} value={value} unit={t.metrics.unit} />
+                    ))}
+                  </div>
+                )}
               </div>
             </motion.div>
           )}

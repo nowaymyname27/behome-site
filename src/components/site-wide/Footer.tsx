@@ -29,6 +29,7 @@ export default function Footer() {
     const id = activeDocId ?? documents[0].id;
     return documents.find((d) => d.id === id) ?? documents[0];
   }, [documents, activeDocId]);
+  const showFullDocument = activeDoc?.id === "cap-disclosure";
 
   const socialLinks = [
     {
@@ -131,7 +132,7 @@ export default function Footer() {
           <div
             id={legalId}
             className={`transition-[max-height] duration-300 ease-in-out overflow-hidden ${
-              expanded ? "max-h-[64rem]" : "max-h-14"
+              showFullDocument ? "max-h-none" : expanded ? "max-h-[64rem]" : "max-h-14"
             }`}
             aria-live="polite"
           >
@@ -149,19 +150,21 @@ export default function Footer() {
             )}
           </div>
 
-          {!expanded && (
+          {!expanded && !showFullDocument && (
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-6" />
           )}
 
-          <button
-            type="button"
-            onClick={() => setExpanded((v) => !v)}
-            className="mt-1 text-[11px] underline underline-offset-2 opacity-80 hover:opacity-100"
-            aria-expanded={expanded}
-            aria-controls={legalId}
-          >
-            {expanded ? i.legal.less : i.legal.more}
-          </button>
+          {!showFullDocument && (
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              className="mt-1 text-[11px] underline underline-offset-2 opacity-80 hover:opacity-100"
+              aria-expanded={expanded}
+              aria-controls={legalId}
+            >
+              {expanded ? i.legal.less : i.legal.more}
+            </button>
+          )}
         </div>
 
         <div className="mt-4 pt-4 border-t border-white/20 text-xs opacity-80">

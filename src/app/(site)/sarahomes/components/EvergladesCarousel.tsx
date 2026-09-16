@@ -16,8 +16,9 @@ const COPY = {
     brand: "SaraHomes",
     intro: "Presenting",
     title: "The Everglades Residence",
+    attribution: "by SaraHomes",
     floorPlans: "Floor Plans",
-    price: "PRICED FROM $410,000",
+    price: "PRICED FROM $399,000",
     imageAlt: {
       exterior: "Everglades residence exterior",
       interior: "Everglades residence interior",
@@ -60,8 +61,9 @@ const COPY = {
     brand: "SaraHomes",
     intro: "Presentando",
     title: "La Residencia Everglades",
+    attribution: "de SaraHomes",
     floorPlans: "Planos de Planta",
-    price: "DESDE $410.000",
+    price: "DESDE $399.000",
     imageAlt: {
       exterior: "Exterior de la residencia Everglades",
       interior: "Interior de la residencia Everglades",
@@ -204,18 +206,16 @@ export default function EvergladesCarousel() {
                   />
                 </div>
 
-                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/60 via-black/20 to-black/10" />
-
                 <div
                   className={`relative flex items-end px-6 pb-10 sm:px-10 sm:pb-14 lg:px-16 lg:pb-16 xl:px-24 xl:pb-20 ${SLIDE_FRAME_CLASS}`}
                 >
-                  <div className="max-w-3xl">
-                    <p className="text-xs uppercase tracking-[0.25em] text-white/75 sm:text-sm">
-                      {copy.brand}
-                    </p>
-                    <h2 className="mt-3 font-serif text-4xl leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
+                  <div className="max-w-3xl rounded-2xl bg-black/45 p-5 sm:p-7 lg:p-8">
+                    <h2 className="font-serif text-4xl leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
                       {copy.title}
                     </h2>
+                    <p className="mt-4 text-base tracking-wide text-white/85 sm:text-lg">
+                      {copy.attribution}
+                    </p>
                   </div>
                 </div>
               </section>

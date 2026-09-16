@@ -24,8 +24,10 @@ export default function CollectionHero() {
   return (
     <Hero
       title={t.title}
+      eyebrow={t.eyebrow}
       subtitle={t.subtitle}
-      scrim="bg-black/20"
+      supportingText={t.supportingText}
+      scrim="bg-linear-to-r from-black/60 via-black/35 to-black/20"
       backgroundNode={
         <MultiVideoBackground
           videos={collectionVideos}

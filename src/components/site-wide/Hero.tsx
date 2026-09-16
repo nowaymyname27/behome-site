@@ -6,6 +6,8 @@ import { motion, useReducedMotion } from "framer-motion";
 
 type HeroProps = {
   title: string;
+  eyebrow?: string;
+  supportingText?: string;
   subtitle?: string;
   background?: string;
   backgroundNode?: ReactNode;
@@ -15,6 +17,8 @@ type HeroProps = {
 
 export default function Hero({
   title,
+  eyebrow,
+  supportingText,
   subtitle,
   background,
   backgroundNode,
@@ -75,13 +79,27 @@ export default function Hero({
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 }}
             className="mx-auto max-w-2xl text-center text-white lg:mx-0 lg:text-left"
           >
-            <h1 className="text-4xl font-serif tracking-tight sm:text-5xl lg:text-7xl">
+            {eyebrow && (
+              <p className="mb-5 text-xs font-medium uppercase tracking-[0.28em] text-white/85 sm:mb-6 sm:text-sm">
+                {eyebrow}
+              </p>
+            )}
+            <h1 className={eyebrow
+              ? "text-6xl font-serif leading-[1.05] tracking-tight text-balance sm:text-7xl xl:text-8xl"
+              : "text-4xl font-serif tracking-tight sm:text-5xl lg:text-7xl"}>
               {title}
             </h1>
 
             {subtitle && (
-              <p className="mt-4 text-base text-white/90 sm:text-lg">
+              <p className={supportingText
+                ? "mt-6 text-xl font-medium leading-snug text-balance text-white sm:mt-8 sm:text-2xl"
+                : "mt-4 text-base text-white/90 sm:text-lg"}>
                 {subtitle}
+              </p>
+            )}
+            {supportingText && (
+              <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-pretty text-white/85 sm:text-lg lg:mx-0">
+                {supportingText}
               </p>
             )}
           </motion.div>

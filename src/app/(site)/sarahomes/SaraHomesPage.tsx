@@ -14,7 +14,7 @@ import type { CollectionCardProps } from "./components/CollectionCard";
 import CollectionSection from "./components/CollectionSection";
 import EvergladesCarousel from "./components/EvergladesCarousel";
 import FloatingContactBox from "./components/FloatingContactBox";
-import FloorplanQuoteTransition from "./components/FloorplanQuoteTransition";
+import CollectionTransition from "./components/CollectionTransition";
 import SaraHomesWelcomeTransition from "./components/SaraHomesWelcomeTransition";
 import VeronaCarousel from "./components/VeronaCarousel";
 
@@ -24,13 +24,13 @@ type CollectionCardDoc = {
   location: string;
   coordinates?: { lat: number; lng: number } | null;
   status: string;
-  price: number;
-  rent: number;
-  renewalDate?: string;
-  cap?: number;
-  bedrooms: number;
-  bathrooms: number;
-  sqft: CollectionCardProps["sqft"];
+  price?: number | null;
+  rent?: number | null;
+  renewalDate?: string | null;
+  cap?: number | null;
+  bedrooms?: number | null;
+  bathrooms?: number | null;
+  sqft?: CollectionCardProps["sqft"];
   image: { src: string; alt?: string };
 };
 
@@ -38,7 +38,7 @@ export default async function SaraHomesPage() {
   const styleDocs = await sanityClient.fetch<SanityStyle[]>(allStylesQuery);
   const homes = styleDocs.map(mapSanityStyleToHome);
 
-  const collectionDocs = await sanityClient.fetch(collectionCardsQuery);
+  const collectionDocs = await sanityClient.fetch<CollectionCardDoc[]>(collectionCardsQuery);
 
   const collectionCards: CollectionCardProps[] = collectionDocs.map(
     (doc: CollectionCardDoc) => ({
@@ -68,10 +68,7 @@ export default async function SaraHomesPage() {
         <CollectionHero />
         <SaraHomesWelcomeTransition />
         <EvergladesCarousel />
-        <FloorplanQuoteTransition
-          quoteEn="In this coastal landscape, this beautiful home becomes the backdrop for a lifestyle shaped by serenity, harmony, and daily ease, creating the ideal space for personal development, family flourishing, and lasting wellness."
-          quoteEs="En este paisaje costero, este hermoso hogar se convierte en el escenario de un estilo de vida marcado por la serenidad, la armonia y la facilidad cotidiana, creando el espacio ideal para el desarrollo personal, el florecimiento familiar y un bienestar duradero."
-        />
+        <CollectionTransition />
         <FloatingContactBox />
         <VeronaCarousel />
         <SectionTransition />

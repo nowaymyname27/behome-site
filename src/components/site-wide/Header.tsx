@@ -32,7 +32,7 @@ export default function Header() {
             width={160} // Max width (adjust based on your logo's aspect ratio)
             height={40} // Max height
             priority // Loads immediately since it's above the fold
-            className="h-8 w-auto object-contain" // Keeps it constrained to header height
+            className="h-9 w-auto object-contain" // Keeps it constrained to header height
           />
         </Link>
 

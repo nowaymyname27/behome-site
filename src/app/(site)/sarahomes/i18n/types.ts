@@ -19,8 +19,10 @@ export type CollectionHighlightsText = {
   points: string[];
 };
 export type CollectionHeroStrings = {
+  eyebrow: string;
   title: string;
   subtitle: string;
+  supportingText: string;
   videoAria: string;
 };
 export type CollectionSectionStrings = {

@@ -79,86 +79,91 @@ export default defineType({
       name: "price",
       title: "Price",
       type: "number",
-      validation: (Rule) => Rule.required().min(0),
+      description: "Leave blank to hide the price on the card.",
+      validation: (Rule) => Rule.min(0),
     }),
 
     defineField({
       name: "rent",
       title: "Monthly Rent",
       type: "number",
-      validation: (Rule) => Rule.required().min(0),
+      description: "Leave blank to hide monthly rent on the card.",
+      validation: (Rule) => Rule.min(0),
     }),
 
     defineField({
       name: "renewalDate",
       title: "Lease Renewal Date",
       type: "string",
+      description: "Leave blank to hide the renewal date on the card.",
     }),
 
     defineField({
       name: "cap",
       title: "CAP Rate",
       type: "number",
-      description: "Enter as a number, e.g. 6.5 for 6.5%",
+      description: "Enter as a number, e.g. 6.5 for 6.5%. Leave blank to hide the CAP badge.",
     }),
 
     defineField({
       name: "bedrooms",
       title: "Bedrooms",
       type: "number",
-      validation: (Rule) => Rule.required().min(0),
+      description: "Leave blank to hide bedrooms on the card.",
+      validation: (Rule) => Rule.min(0),
     }),
 
     defineField({
       name: "bathrooms",
       title: "Bathrooms",
       type: "number",
-      validation: (Rule) => Rule.required().min(0),
+      description: "Leave blank to hide bathrooms on the card.",
+      validation: (Rule) => Rule.min(0),
     }),
 
     defineField({
       name: "sqft",
       title: "Square Footage",
       type: "object",
+      description: "Leave any measurement blank to hide it. Leave all details blank to hide the details toggle.",
       fields: [
         defineField({
           name: "ac",
           title: "A/C Area",
           type: "number",
-          validation: (Rule) => Rule.required(),
+          validation: (Rule) => Rule.min(0),
         }),
         defineField({
           name: "garage",
           title: "Garage",
           type: "number",
-          validation: (Rule) => Rule.required(),
+          validation: (Rule) => Rule.min(0),
         }),
         defineField({
           name: "lanai",
           title: "Lanai",
           type: "number",
-          validation: (Rule) => Rule.required(),
+          validation: (Rule) => Rule.min(0),
         }),
         defineField({
           name: "entry",
           title: "Entry",
           type: "number",
-          validation: (Rule) => Rule.required(),
+          validation: (Rule) => Rule.min(0),
         }),
         defineField({
           name: "total",
           title: "Total Area",
           type: "number",
-          validation: (Rule) => Rule.required(),
+          validation: (Rule) => Rule.min(0),
         }),
         defineField({
           name: "lot",
           title: "Lot Size",
           type: "number",
-          validation: (Rule) => Rule.required(),
+          validation: (Rule) => Rule.min(0),
         }),
       ],
-      validation: (Rule) => Rule.required(),
     }),
   ],
 
