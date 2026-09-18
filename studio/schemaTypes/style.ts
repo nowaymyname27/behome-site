@@ -23,8 +23,25 @@ export default defineType({
     }),
 
     defineField({
+      name: "status",
+      title: "Status",
+      type: "string",
+      options: {
+        list: [
+          { title: "On Sale", value: "forSale" },
+          { title: "Sold", value: "sold" },
+          { title: "Under Construction", value: "underConstruction" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "forSale",
+      description: "Controls the order in the Home Showcase: On Sale, Sold, then Under Construction.",
+      validation: (r) => r.required(),
+    }),
+
+    defineField({
       name: "beds",
-      title: "Beds",
+      title: "Bedrooms",
       type: "number",
       validation: (r) => r.min(0).required(),
     }),
@@ -55,7 +72,7 @@ export default defineType({
       title: "Display Order",
       type: "number",
       description:
-        "Lower numbers appear first in the SaraHomes style nav and carousel. Keep values unique for predictable ordering.",
+        "Lower numbers appear first in the SaraHomes style nav and carousel. Use this to place On Sale styles first, Sold styles next, and Under Construction styles last. Keep values unique for predictable ordering.",
       validation: (r) => r.min(0),
     }),
 

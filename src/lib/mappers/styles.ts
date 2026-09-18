@@ -12,6 +12,7 @@ export function mapSanityStyleToHome(style: SanityStyle): MappedHomeSpec {
   return {
     id: style.slug,
     name: style.title,
+    status: style.status,
     sqft: style.sqft,
     beds: style.beds,
     baths: style.baths,

@@ -18,7 +18,7 @@ export type HomeShowcaseStrings = {
 export const homeShowcaseCopy: Record<Locale, HomeShowcaseStrings> = {
   en: {
     sqftUnit: "Sq ft",
-    bedsLabel: "Beds",
+    bedsLabel: "Bedrooms",
     bathsLabel: "Baths",
     carsLabel: "Cars",
     estimatedPaymentLabel: "Estimated payment",
@@ -31,7 +31,7 @@ export const homeShowcaseCopy: Record<Locale, HomeShowcaseStrings> = {
   },
   es: {
     sqftUnit: "pies²",
-    bedsLabel: "Habitaciones",
+    bedsLabel: "Dormitorios",
     bathsLabel: "Baños",
     carsLabel: "Autos",
     estimatedPaymentLabel: "Pago estimado",

@@ -4,6 +4,7 @@ export interface SanityStyle {
   _id: string;
   title: string;
   slug: string;
+  status?: "forSale" | "sold" | "underConstruction";
   displayOrder?: number;
   beds: number;
   baths: number;
@@ -17,6 +18,7 @@ export interface SanityStyle {
 export interface MappedHomeSpec {
   id: string;
   name: string;
+  status?: "forSale" | "sold" | "underConstruction";
   sqft: number;
   beds: number;
   baths: number;

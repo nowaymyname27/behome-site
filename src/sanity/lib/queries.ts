@@ -191,6 +191,7 @@ export const allStylesQuery = `
     _id,
     title,
     "slug": slug.current,
+    status,
     displayOrder,
     beds,
     baths,

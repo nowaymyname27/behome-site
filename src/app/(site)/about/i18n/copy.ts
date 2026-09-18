@@ -49,7 +49,7 @@ export const aboutCopy: Record<"en" | "es", AboutPageStrings> = {
           bio: "Juan Carlos Ramirez is Co-Founder of Rent Portfolio and a professional with more than two decades of experience in real estate, specialized in strategy, capital structuring, and investor communication.\n\nHis career combines a creative foundation with a strong evolution into U.S. real estate finance, where he has contributed to positioning, expansion, and capital raising for large-scale projects, including investment platforms with international reach.\n\nThroughout his career, he has been involved in structuring opportunities that have directed capital into real estate projects across multiple markets, integrating strategic vision with a unique ability to turn complexity into clarity for investors.\n\nSince 2017, he has been actively involved in creating and developing real estate businesses on Florida's Gulf Coast, contributing to models focused on operating efficiency, cash flow generation, and scalability.",
           quote:
             "Juan Carlos brings a different dimension to the business: he not only structures projects, he builds them through vision, messaging, and investor connection - transforming ideas into real investment vehicles.",
-          imageSrc: "/Juan_Carlos_Ramirez.jpeg",
+          imageSrc: "/Juan_Carlos_Ramirez.jpg",
           imageAlt: "Portrait placeholder for Juan Carlos Ramírez",
           linkedinUrl: "https://www.linkedin.com/in/jcramirez90/",
         },
@@ -114,7 +114,7 @@ export const aboutCopy: Record<"en" | "es", AboutPageStrings> = {
           bio: "Juan Carlos Ramirez es cofundador de Rent Portfolio y un profesional con más de dos décadas de experiencia en el sector inmobiliario, especializado en estrategia, estructuración de capital y comunicación para inversionistas.\n\nSu trayectoria combina una base creativa con una evolución hacia el mundo financiero e inmobiliario en Estados Unidos, donde ha participado en procesos de posicionamiento, expansión y levantamiento de capital para proyectos de gran escala, incluyendo plataformas de inversión con alcance internacional.\n\nDurante su carrera, ha estado involucrado en la estructuración de oportunidades que han canalizado capital hacia proyectos inmobiliarios en múltiples mercados, integrando visión estratégica con una capacidad única para traducir complejidad en claridad para inversionistas.\n\nDesde 2017, ha sido parte activa en la creación y desarrollo de negocios inmobiliarios en la Costa Oeste de Florida, participando en la estructuración de modelos enfocados en eficiencia operativa, generación de flujo y escalabilidad.",
           quote:
             "Juan Carlos aporta una dimensión diferente al negocio: no solo estructura proyectos, sino que los construye desde la visión, el mensaje y la conexión con el inversionista, transformando ideas en vehículos reales de inversión.",
-          imageSrc: "/Juan_Carlos_Ramirez.jpeg",
+          imageSrc: "/Juan_Carlos_Ramirez.jpg",
           imageAlt: "Imagen de perfil de Juan Carlos Ramírez",
           linkedinUrl: "https://www.linkedin.com/in/jcramirez90/",
         },
