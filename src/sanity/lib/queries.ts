@@ -183,7 +183,16 @@ export const collectionCardsQuery = `
       "src": image.asset->url,
       "alt": coalesce(image.alt, address)
     }
-  } | order(_createdAt desc)
+  } | order(
+    select(
+      status == "forSale" || status == "available" => 0,
+      status == "sold" => 1,
+      status == "rented" => 2,
+      status == "underConstruction" => 3,
+      4
+    ) asc,
+    _createdAt desc
+  )
 `;
 
 export const allStylesQuery = `
