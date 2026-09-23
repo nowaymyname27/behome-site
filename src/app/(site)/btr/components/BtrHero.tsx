@@ -8,12 +8,18 @@ import { tBtrHero } from "../i18n"; // We will create this export next
 
 // Define your videos here.
 const btrVideos = [
-  "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313517/iliwmjowfritogglhwqe.mp4",
-  "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313522/bdoxf0zz72qrvmqjciuv.mp4",
-  "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313572/dtovclgj5ekyhzymoxmj.mp4",
-  "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313575/jchrmhq4qkmkyx5pdyfp.mp4",
-  "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313575/yj7ask9ce3bbynwjd39k.mp4",
-  "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313631/hguwgpkv4vablxkxrkpj.mp4",
+  {
+    label: "Drone Shot Baseball Stadium",
+    url: "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313572/dtovclgj5ekyhzymoxmj.mp4",
+  },
+  {
+    label: "Two Bridges Over a Lake Drone Shot",
+    url: "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313575/yj7ask9ce3bbynwjd39k.mp4",
+  },
+  {
+    label: "Drone Shot Over Traffic & Sarasota Homes",
+    url: "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313631/hguwgpkv4vablxkxrkpj.mp4",
+  },
 ];
 
 export default function BtrHero() {

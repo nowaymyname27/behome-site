@@ -30,7 +30,7 @@ export default function HomeDisplay() {
   const i = tHomeDisplay(locale);
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [playlist] = useState<string[]>(() =>
+  const [playlist] = useState(() =>
     [...homeDisplayVideos].sort(() => 0.5 - Math.random())
   );
 
@@ -67,8 +67,8 @@ export default function HomeDisplay() {
           <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl bg-accent">
             {playlist.length > 0 && (
               <video
-                key={playlist[currentIndex]}
-                src={playlist[currentIndex]}
+                key={playlist[currentIndex].url}
+                src={playlist[currentIndex].url}
                 autoPlay
                 muted
                 playsInline
@@ -82,7 +82,7 @@ export default function HomeDisplay() {
               <link
                 rel="preload"
                 as="video"
-                href={playlist[(currentIndex + 1) % playlist.length]}
+                href={playlist[(currentIndex + 1) % playlist.length].url}
               />
             )}
           </div>

@@ -12,7 +12,7 @@ export default function HomeHero() {
   const i = tHomeHero(locale);
   const copies = i.copies;
 
-  function shuffle(arr: string[]) {
+  function shuffle<T>(arr: T[]) {
     const result = [...arr];
     for (let k = result.length - 1; k > 0; k--) {
       const j = Math.floor(Math.random() * (k + 1));
@@ -21,7 +21,7 @@ export default function HomeHero() {
     return result;
   }
 
-  const [videos] = useState<string[]>(() => shuffle(homeHeroVideos));
+  const [videos] = useState(() => shuffle(homeHeroVideos));
   const [current, setCurrent] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [activeBuffer, setActiveBuffer] = useState(0);
@@ -58,7 +58,7 @@ export default function HomeHero() {
 
   const preload = (index: number, buffer: number) => {
     const video = buffer === 0 ? videoRefA.current : videoRefB.current;
-    const src = videos[index];
+    const src = videos[index]?.url;
     if (!video || !src) return;
 
     if (video.src === src) return;
@@ -141,7 +141,7 @@ export default function HomeHero() {
         <div className="h-full w-full overflow-hidden bg-black">
           <video
             ref={videoRefA}
-            src={videos[0] ?? ""}
+            src={videos[0]?.url ?? ""}
             muted
             playsInline
             autoPlay

@@ -54,7 +54,7 @@ export default function Header() {
                   aria-current={isActive ? "page" : undefined}
                   className={`text-sm transition ${
                     item.href === "/"
-                      ? "inline-flex items-center justify-center rounded-md p-1"
+                      ? "group relative inline-flex items-center justify-center rounded-md px-2 py-1"
                       : ""
                   } ${
                     isActive ? "text-accent" : "opacity-80 hover:text-accent"
@@ -63,7 +63,17 @@ export default function Header() {
                   title={item.href === "/" ? item.label : undefined}
                 >
                   {item.href === "/" ? (
-                    <House size={18} strokeWidth={1.8} aria-hidden="true" />
+                    <>
+                      <span className="transition-opacity group-hover:opacity-0 group-focus-visible:opacity-0">
+                        {item.label}
+                      </span>
+                      <House
+                        size={18}
+                        strokeWidth={1.8}
+                        aria-hidden="true"
+                        className="absolute opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+                      />
+                    </>
                   ) : (
                     item.label
                   )}

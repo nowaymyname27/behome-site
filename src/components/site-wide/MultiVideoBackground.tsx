@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 
 interface MultiVideoBackgroundProps {
-  videos: string[];
+  videos: { label: string; url: string }[];
   ariaLabel?: string;
   shouldShuffle?: boolean;
 }
@@ -23,7 +23,7 @@ export default function MultiVideoBackground({
 
   const fadeDuration = 500;
 
-  const shuffle = (arr: string[]) => {
+  const shuffle = <T,>(arr: T[]) => {
     const result = [...arr];
     for (let i = result.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -32,14 +32,14 @@ export default function MultiVideoBackground({
     return result;
   };
 
-  const [videos] = useState<string[]>(
+  const [videos] = useState(
     () => (shouldShuffle ? shuffle(initialVideos) : initialVideos)
   );
 
   const preload = (index: number, buffer: number) => {
     const video = buffer === 0 ? videoRefA.current : videoRefB.current;
     if (!video || !videos[index]) return;
-    video.src = videos[index];
+    video.src = videos[index].url;
     video.load();
   };
 
@@ -91,7 +91,7 @@ export default function MultiVideoBackground({
     <div className="absolute inset-0 w-full h-full overflow-hidden">
       <video
         ref={videoRefA}
-        src={videos[0]}
+        src={videos[0]?.url}
         muted
         playsInline
         autoPlay

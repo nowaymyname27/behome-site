@@ -14,7 +14,10 @@ const collectionVideos = [
   // "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313654/puuguifdkgz3ubithoxk.mp4",
   // "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313652/f675jqhxruqlslckene9.mp4",
   // "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1765313648/i3bijjqnxtnjlov6tago.mp4",
-  "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1788472666/odfqgbpq5finfqnmhyde.mp4",
+  {
+    label: "Sarahome Edited Video",
+    url: "https://res.cloudinary.com/dsdkxdwvf/video/upload/v1790180393/aw6ksw77qahgbyucichc.mp4",
+  },
 ];
 
 export default function CollectionHero() {
