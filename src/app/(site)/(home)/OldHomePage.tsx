@@ -2,23 +2,23 @@
 
 import Header from "../../../components/site-wide/Header";
 import Footer from "../../../components/site-wide/Footer";
-import BTRExplained from "./components/BTRExplained";
-import FloridaBrochure from "./components/FloridaBrochure";
-import HomeBrochure from "./components/HomeBrochure";
-import HomeDisplay from "./components/HomeDisplay";
-import HomeFeatureCards from "./components/HomeFeatureCards";
-import HomeHero from "./components/HomeHero";
-import Phrase from "./components/Phrase";
+import OldHomeBTRExplained from "./components/OldHomeBTRExplained";
+import OldHomeFloridaBrochure from "./components/OldHomeFloridaBrochure";
+import OldHomeBrochure from "./components/OldHomeBrochure";
+import OldHomeDisplay from "./components/OldHomeDisplay";
+import OldHomeFeatureCards from "./components/OldHomeFeatureCards";
+import OldHomeHero from "./components/OldHomeHero";
+import OldHomePhrase from "./components/OldHomePhrase";
 
-export default function HomeOldPage() {
+export default function OldHomePage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <HomeHero />
-        <BTRExplained />
-        <Phrase />
-        <HomeFeatureCards />
+        <OldHomeHero />
+        <OldHomeBTRExplained />
+        <OldHomePhrase />
+        <OldHomeFeatureCards />
         {/*
         <div className="w-full p-4 md:p-6 bg-accent">
           <h1 className="h2 mb-6">{i.heading}</h1>
@@ -40,9 +40,9 @@ export default function HomeOldPage() {
           )}
         </div> */}
 
-        <FloridaBrochure />
-        <HomeDisplay />
-        <HomeBrochure />
+        <OldHomeFloridaBrochure />
+        <OldHomeDisplay />
+        <OldHomeBrochure />
       </main>
       <Footer />
     </div>

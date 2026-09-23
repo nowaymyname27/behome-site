@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import HomeOldPage from "../(home)/HomeOldPage";
+import OldHomePage from "../(home)/OldHomePage";
 
 export const metadata: Metadata = {
   title: "Home Old",
@@ -13,5 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <HomeOldPage />;
+  return <OldHomePage />;
 }

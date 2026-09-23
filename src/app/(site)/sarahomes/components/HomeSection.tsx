@@ -3,10 +3,10 @@
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import CollectionCard, { CollectionCardProps } from "./CollectionCard";
-import { tCollectionCard } from "../i18n";
+import HomeCard, { HomeCardProps } from "./HomeCard";
+import { tHomeCard } from "../i18n";
 import { useLocale } from "../../../../i18n/locale-context";
-import { tCollectionSection } from "../i18n";
+import { tHomeSection } from "../i18n";
 
 import { MAP_THEMES } from "../../../../components/site-wide/map/types";
 
@@ -20,22 +20,22 @@ const LazySiteMap = dynamic(
   }
 );
 
-type CollectionSectionProps = {
+type HomeSectionProps = {
   title?: string;
   subtitle?: string;
-  cards: CollectionCardProps[];
+  cards: HomeCardProps[];
   className?: string;
 };
 
-export default function CollectionSection({
+export default function HomeSection({
   title,
   subtitle,
   cards,
   className,
-}: CollectionSectionProps) {
+}: HomeSectionProps) {
   const { locale } = useLocale();
-  const t = tCollectionSection(locale);
-  const cardText = tCollectionCard(locale);
+  const t = tHomeSection(locale);
+  const cardText = tHomeCard(locale);
 
   const displayTitle = title || t.title;
   const displaySubtitle = subtitle || t.subtitle;
@@ -140,7 +140,7 @@ export default function CollectionSection({
 
   return (
     <motion.section
-      id="sarahomes-collection"
+      id="sarahomes-home-listing"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -195,7 +195,7 @@ export default function CollectionSection({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <CollectionCard
+              <HomeCard
                 {...card}
                 onMapIntent={primeMap}
                 onViewMap={handleViewMap}

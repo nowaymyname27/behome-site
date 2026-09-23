@@ -1,16 +1,16 @@
 import type { Locale } from "../../../../i18n/locale-context";
 
-type CollectionDescriptionText = {
+type HomeDescriptionText = {
   title: string;
   subtitle: string;
   heading: string;
   description: string;
 };
 
-export const tCollectionDescription = (
+export const tHomeDescription = (
   locale: Locale
-): CollectionDescriptionText => {
-  const en: CollectionDescriptionText = {
+): HomeDescriptionText => {
+  const en: HomeDescriptionText = {
     title: "SaraHomes",
     subtitle: "Built, rented and generating cash flow",
     heading: "A curated selection of stabilized, income-producing homes",
@@ -18,7 +18,7 @@ export const tCollectionDescription = (
       "The 360 Investors Collection brings together a select group of stabilized, income-generating properties — professionally managed and delivering immediate returns. Each home comes with active tenants, efficient management, and transparent performance metrics, giving investors a true 360° view of their real estate income.",
   };
 
-  const es: CollectionDescriptionText = {
+  const es: HomeDescriptionText = {
     title: "SaraHomes",
     subtitle: "Construidas, alquiladas y generando flujo de efectivo",
     heading:

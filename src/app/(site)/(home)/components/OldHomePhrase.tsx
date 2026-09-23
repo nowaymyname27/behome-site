@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHomePhrase } from "../i18n";
+import { tOldHomePhrase } from "../i18n";
 
-export default function Phrase() {
+export default function OldHomePhrase() {
   const { locale } = useLocale();
-  const i = tHomePhrase(locale);
+  const i = tOldHomePhrase(locale);
 
   return (
     <section className="relative w-full bg-background text-center py-16 md:py-20 overflow-hidden">

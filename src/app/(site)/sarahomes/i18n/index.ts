@@ -3,32 +3,32 @@
 import type { Locale } from "../../../../i18n/locale-context";
 import type {
   InvestmentHeroStrings,
-  CollectionDescriptionText,
-  CollectionHighlightsText,
-  CollectionHeroStrings,
-  CollectionSectionStrings,
-  CollectionCardStrings,
+  HomeDescriptionText,
+  HomeHighlightsText,
+  HomeHeroStrings,
+  HomeSectionStrings,
+  HomeCardStrings,
 } from "./types";
 
-import { tCollectionHero } from "./hero";
-import { tCollectionDescription } from "./collectionDescription";
-import { tCollectionHighlights } from "./collectionHighlights";
-import { tCollectionSection } from "./section";
-import { tCollectionCard } from "./card";
+import { tHomeHero } from "./homeHero";
+import { tHomeDescription } from "./homeDescription";
+import { tHomeHighlights } from "./homeHighlights";
+import { tHomeSection } from "./homeSection";
+import { tHomeCard } from "./homeCard";
 
 export {
-  tCollectionHero,
-  tCollectionDescription,
-  tCollectionHighlights,
-  tCollectionSection,
-  tCollectionCard,
+  tHomeHero,
+  tHomeDescription,
+  tHomeHighlights,
+  tHomeSection,
+  tHomeCard,
 };
 export type {
   Locale,
   InvestmentHeroStrings,
-  CollectionDescriptionText,
-  CollectionHighlightsText,
-  CollectionHeroStrings,
-  CollectionSectionStrings,
-  CollectionCardStrings,
+  HomeDescriptionText,
+  HomeHighlightsText,
+  HomeHeroStrings,
+  HomeSectionStrings,
+  HomeCardStrings,
 };

@@ -3,9 +3,9 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale } from "../../../../i18n/locale-context";
-import { tCollectionCard } from "../i18n";
+import { tHomeCard } from "../i18n";
 
-export type CollectionCardProps = {
+export type HomeCardProps = {
   id?: string;
   image: { src: string; alt?: string };
   status: "forSale" | "sold" | "rented" | "underConstruction" | string;
@@ -50,7 +50,7 @@ function hasNumber(value: number | null | undefined): value is number {
 
 function getStatusConfig(
   status: string,
-  t: ReturnType<typeof tCollectionCard>
+  t: ReturnType<typeof tHomeCard>
 ) {
   switch (status) {
     case "sold":
@@ -77,7 +77,7 @@ function getStatusConfig(
   }
 }
 
-export default function CollectionCard({
+export default function HomeCard({
   id,
   image,
   status = "available",
@@ -94,10 +94,10 @@ export default function CollectionCard({
   onViewMap,
   onMapIntent,
   className,
-}: CollectionCardProps) {
+}: HomeCardProps) {
   const [open, setOpen] = React.useState(false);
   const { locale } = useLocale();
-  const t = tCollectionCard(locale);
+  const t = tHomeCard(locale);
 
   const { label: statusLabel, color: statusColor } = getStatusConfig(status, t);
   const hasCoordinates =

@@ -1,7 +1,7 @@
 // File: src/app/(site)/(home)/i18n/types.ts
 
 // 1. IMPORT THE HERO TYPE
-import { HomeHeroStrings } from "./hero";
+import { OldHomeHeroStrings } from "./hero";
 
 export type Locale = "en" | "es";
 export type Formatter = (n: number) => string;
@@ -16,20 +16,20 @@ export type CardId =
 
 export type Point = { title: string; body: string };
 
-export type HomeBTRExplainedStat = {
+export type OldHomeBTRExplainedStat = {
   label: string;
   value: string;
   detail: string;
 };
 
-export type HomeBTRExplained = {
+export type OldHomeBTRExplained = {
   title: string;
   description: string;
   quote: string;
-  stats: HomeBTRExplainedStat[];
+  stats: OldHomeBTRExplainedStat[];
 };
 
-export type HomeDisplayStrings = {
+export type OldHomeDisplayStrings = {
   heading: string;
   description: ReadonlyArray<string>;
   points: ReadonlyArray<Point>;
@@ -37,7 +37,7 @@ export type HomeDisplayStrings = {
   media: { videoAria: string };
 };
 
-export type HomeStrings = {
+export type OldHomeStrings = {
   hero: { title: string; subtitle: string; videoAria: string };
   phrase: { text: string; attribution: string };
   philosophy: {
@@ -46,27 +46,27 @@ export type HomeStrings = {
     aria: { panels: string; previous: string; next: string };
   };
   featureCards: { showHeader: boolean; title: string; blurb: string };
-  display: HomeDisplayStrings;
+  display: OldHomeDisplayStrings;
 };
 
 export type Cta = { href: string; label: string };
 
-export type HeroCardStrings = {
+export type OldHomeHeroCardStrings = {
   title: string;
   subtitle: string;
   buttonText: string;
 };
 
-export type HomePhilosophySlide = {
+export type OldHomePhilosophySlide = {
   src: string;
   title: string;
   caption: string;
   body?: string;
 };
 
-export type HomeDisplaySlide = { src: string; alt: string };
+export type OldHomeDisplaySlide = { src: string; alt: string };
 
-export type HomeFeatureCard = {
+export type OldHomeFeatureCard = {
   id: CardId;
   href: string;
   imageSrc: string;
@@ -76,7 +76,7 @@ export type HomeFeatureCard = {
   ctaLabel: string;
 };
 
-export type HomeFeatureCardsStrings = {
+export type OldHomeFeatureCardsStrings = {
   showHeader: boolean;
   title: string;
   blurb: string;
@@ -96,7 +96,7 @@ export type FloridaStrings = {
   heading: string;
 
   // 1. KEEP THIS: Use the new Hero type
-  hero: HomeHeroStrings;
+  hero: OldHomeHeroStrings;
 
   // 2. RESTORE THESE: Use the correct structure for your data
   description: {

@@ -1,10 +1,10 @@
-// File: src/app/(site)/(home)/components/HomeFeatureCards.tsx
+// File: src/app/(site)/(home)/components/OldHomeFeatureCards.tsx
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHomeFeatureCards, getHomeFeatureCards } from "../i18n";
+import { tOldHomeFeatureCards, getOldHomeFeatureCards } from "../i18n";
 import { motion, Variants } from "framer-motion";
 
 const containerVariants: Variants = {
@@ -31,10 +31,10 @@ const cardVariants: Variants = {
   },
 };
 
-export default function HomeFeatureCards() {
+export default function OldHomeFeatureCards() {
   const { locale } = useLocale();
-  const i = tHomeFeatureCards(locale);
-  const FEATURES = getHomeFeatureCards(locale);
+  const i = tOldHomeFeatureCards(locale);
+  const FEATURES = getOldHomeFeatureCards(locale);
 
   if (!FEATURES.length) return null;
 

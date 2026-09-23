@@ -1,6 +1,6 @@
-import type { Locale, CollectionCardStrings } from "./types";
+import type { Locale, HomeCardStrings } from "./types";
 
-const en: CollectionCardStrings = {
+const en: HomeCardStrings = {
   status: {
     sold: "SOLD",
     rented: "CURRENTLY RENTED",
@@ -31,7 +31,7 @@ const en: CollectionCardStrings = {
   },
 };
 
-const es: CollectionCardStrings = {
+const es: HomeCardStrings = {
   status: {
     sold: "VENDIDO",
     rented: "ALQUILADO",
@@ -62,6 +62,6 @@ const es: CollectionCardStrings = {
   },
 };
 
-export function tCollectionCard(locale: Locale): CollectionCardStrings {
+export function tHomeCard(locale: Locale): HomeCardStrings {
   return locale === "es" ? es : en;
 }

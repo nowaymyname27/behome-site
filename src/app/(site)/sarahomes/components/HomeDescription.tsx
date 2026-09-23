@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import { useLocale } from "../../../../i18n/locale-context";
-import { tCollectionDescription } from "../i18n";
+import { tHomeDescription } from "../i18n";
 
-export default function CollectionDescription() {
+export default function HomeDescription() {
   const { locale } = useLocale();
-  const i = tCollectionDescription(locale);
+  const i = tHomeDescription(locale);
 
   return (
     <section className="w-full bg-chrome text-chrome-foreground py-24 px-6 sm:px-12 lg:px-24">

@@ -1,7 +1,7 @@
 // File: src/app/(site)/(home)/i18n/display.ts
-import type { HomeDisplayStrings } from "./types";
+import type { OldHomeDisplayStrings } from "./types";
 
-const en: HomeDisplayStrings = {
+const en: OldHomeDisplayStrings = {
   heading: "The Smarter Way to Invest in Real Estate",
   description: [
     "At our core, we believe residential real estate should perform like a business — delivering steady income, low risk, and long-term value.",
@@ -44,7 +44,7 @@ const en: HomeDisplayStrings = {
   },
 };
 
-const es: HomeDisplayStrings = {
+const es: OldHomeDisplayStrings = {
   heading: "La forma más inteligente de invertir en bienes raíces",
   description: [
     "En esencia, creemos que el sector residencial debe funcionar como un negocio: generar ingresos estables, bajo riesgo y valor a largo plazo.",
@@ -87,4 +87,4 @@ const es: HomeDisplayStrings = {
   },
 };
 
-export const homeDisplayCopy = { en, es } as const;
+export const oldHomeDisplayCopy = { en, es } as const;

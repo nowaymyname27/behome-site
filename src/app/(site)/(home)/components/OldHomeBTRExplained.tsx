@@ -1,13 +1,13 @@
-// file: src/app/(site)/(home)/components/BTRExplained.tsx
+// file: src/app/(site)/(home)/components/OldHomeBTRExplained.tsx
 "use client";
 
 import { motion } from "framer-motion";
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHomeBTRExplained } from "../i18n";
+import { tOldHomeBTRExplained } from "../i18n";
 
-export default function BTRExplained() {
+export default function OldHomeBTRExplained() {
   const { locale } = useLocale();
-  const i = tHomeBTRExplained(locale);
+  const i = tOldHomeBTRExplained(locale);
   const { title, description, quote, stats } = i;
 
   return (

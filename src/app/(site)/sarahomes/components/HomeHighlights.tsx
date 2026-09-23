@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import { useLocale } from "../../../../i18n/locale-context";
-import { tCollectionHighlights } from "../i18n";
+import { tHomeHighlights } from "../i18n";
 
-export default function CollectionHighlights() {
+export default function HomeHighlights() {
   const { locale } = useLocale();
-  const i = tCollectionHighlights(locale);
+  const i = tHomeHighlights(locale);
 
   return (
     <motion.section

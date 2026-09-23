@@ -18,7 +18,7 @@ const es: PhraseSchema = {
 };
 
 export const dict = { en: en as PhraseSchema, es } as const;
-export type HomePhraseI18n = typeof dict.en;
+export type OldHomePhraseI18n = typeof dict.en;
 
 // ✅ Helper
-export const tHomePhrase = (locale: Locale) => dict[locale];
+export const tOldHomePhrase = (locale: Locale) => dict[locale];

@@ -1,7 +1,7 @@
 // file: src/app/(site)/(home)/i18n/btrExplained.ts
-import type { Locale, HomeBTRExplained } from "./types";
+import type { Locale, OldHomeBTRExplained } from "./types";
 
-export const tHomeBTRExplained = (locale: Locale): HomeBTRExplained => {
+export const tOldHomeBTRExplained = (locale: Locale): OldHomeBTRExplained => {
   switch (locale) {
     case "es":
       return {

@@ -1,12 +1,12 @@
-// File: src/app/(site)/(home)/components/HomeDisplay.tsx
+// File: src/app/(site)/(home)/components/OldHomeDisplay.tsx
 "use client";
 
 import { useState } from "react";
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHomeDisplay } from "../i18n";
+import { tOldHomeDisplay } from "../i18n";
 import { CheckCircle2 } from "lucide-react";
 import { motion, Variants } from "framer-motion";
-import { homeDisplayVideos } from "../data/homeDisplayVideos";
+import { oldHomeDisplayVideos } from "../data/oldHomeDisplayVideos";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -25,13 +25,13 @@ const itemVariants: Variants = {
   },
 };
 
-export default function HomeDisplay() {
+export default function OldHomeDisplay() {
   const { locale } = useLocale();
-  const i = tHomeDisplay(locale);
+  const i = tOldHomeDisplay(locale);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playlist] = useState(() =>
-    [...homeDisplayVideos].sort(() => 0.5 - Math.random())
+    [...oldHomeDisplayVideos].sort(() => 0.5 - Math.random())
   );
 
   const handleVideoEnded = () => {

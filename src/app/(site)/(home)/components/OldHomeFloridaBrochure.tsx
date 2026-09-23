@@ -1,11 +1,11 @@
-// file: src/components/florida/FloridaBrochure.tsx
+// file: src/app/(site)/(home)/components/OldHomeFloridaBrochure.tsx
 "use client";
 
 import { useLocale } from "../../../../i18n/locale-context";
 import { tFlorida } from "../i18n";
 import Brochure from "../../../../components/site-wide/Brochure";
 
-export default function FloridaBrochure() {
+export default function OldHomeFloridaBrochure() {
   const { locale } = useLocale();
   const i = tFlorida(locale).brochure;
 

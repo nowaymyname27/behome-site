@@ -11,6 +11,6 @@ const COPY = {
   },
 };
 
-export function tCollectionTransition(locale: Locale) {
+export function tHomeTransition(locale: Locale) {
   return COPY[locale];
 }

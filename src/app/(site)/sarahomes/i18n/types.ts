@@ -7,30 +7,30 @@ export interface InvestmentHeroStrings {
   listHeading: string;
 }
 
-export type CollectionDescriptionText = {
+export type HomeDescriptionText = {
   title: string;
   subtitle: string;
   heading: string;
   description: string;
 };
 
-export type CollectionHighlightsText = {
+export type HomeHighlightsText = {
   title: string;
   points: string[];
 };
-export type CollectionHeroStrings = {
+export type HomeHeroStrings = {
   eyebrow: string;
   title: string;
   subtitle: string;
   supportingText: string;
   videoAria: string;
 };
-export type CollectionSectionStrings = {
+export type HomeSectionStrings = {
   title: string;
   subtitle: string;
   showMore: string;
 };
-export type CollectionCardStrings = {
+export type HomeCardStrings = {
   status: {
     sold: string;
     rented: string;

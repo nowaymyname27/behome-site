@@ -3,23 +3,23 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHeroCard } from "../i18n";
+import { tOldHomeHeroCard } from "../i18n";
 
-export type HeroCardProps = {
+export type OldHomeHeroCardProps = {
   title?: string;
   subtitle?: string;
   buttonText?: string;
   className?: string;
 };
 
-export default function HeroCard({
+export default function OldHomeHeroCard({
   title,
   subtitle,
   buttonText,
   className = "",
-}: HeroCardProps) {
+}: OldHomeHeroCardProps) {
   const { locale } = useLocale();
-  const t = tHeroCard(locale);
+  const t = tOldHomeHeroCard(locale);
   const reduceMotion = useReducedMotion();
 
   const displayTitle = title || t.title;

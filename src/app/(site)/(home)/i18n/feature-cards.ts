@@ -1,5 +1,5 @@
 // File: src/app/(site)/(home)/i18n/feature-cards.ts
-import type { Locale, CardId, HomeFeatureCard } from "./types";
+import type { Locale, CardId, OldHomeFeatureCard } from "./types";
 
 /* ============================================
    1️⃣  Section-level i18n
@@ -16,7 +16,7 @@ const esFeatureCards = {
   blurb: "Tres caminos de inversión que se adaptan a sus objetivos.",
 };
 
-export const homeFeatureCardsCopy = { en: enFeatureCards, es: esFeatureCards };
+export const oldHomeFeatureCardsCopy = { en: enFeatureCards, es: esFeatureCards };
 
 /* ============================================
    2️⃣  Card definitions and builder
@@ -97,9 +97,9 @@ const LABELS = {
 /* ============================================
    3️⃣  Builder (safe with dynamic narrowing)
    ============================================ */
-export function getHomeFeatureCards(
+export function getOldHomeFeatureCards(
   locale: Locale,
-): ReadonlyArray<HomeFeatureCard> {
+): ReadonlyArray<OldHomeFeatureCard> {
   const dict = locale === "es" ? LABELS.es : LABELS.en;
 
   return BASE_CARDS.filter((c) => c.id in dict).map(

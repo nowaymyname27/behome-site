@@ -2,14 +2,14 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Hero from "../../../../components/site-wide/Hero";
-import HeroCard from "./HeroCard";
+import OldHomeHeroCard from "./OldHomeHeroCard";
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHomeHero } from "../i18n";
-import { homeHeroVideos } from "../data/homeHeroVideos";
+import { tOldHomeHero } from "../i18n";
+import { oldHomeHeroVideos } from "../data/oldHomeHeroVideos";
 
-export default function HomeHero() {
+export default function OldHomeHero() {
   const { locale } = useLocale();
-  const i = tHomeHero(locale);
+  const i = tOldHomeHero(locale);
   const copies = i.copies;
 
   function shuffle<T>(arr: T[]) {
@@ -21,7 +21,7 @@ export default function HomeHero() {
     return result;
   }
 
-  const [videos] = useState(() => shuffle(homeHeroVideos));
+  const [videos] = useState(() => shuffle(oldHomeHeroVideos));
   const [current, setCurrent] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [activeBuffer, setActiveBuffer] = useState(0);
@@ -175,7 +175,7 @@ export default function HomeHero() {
         </div>
       }
     >
-      <HeroCard />
+      <OldHomeHeroCard />
     </Hero>
   );
 }

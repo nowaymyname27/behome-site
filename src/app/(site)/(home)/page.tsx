@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import SaraHomesPage from "../sarahomes/SaraHomesPage";
+import HomePage from "../sarahomes/HomePage";
 
 export const revalidate = 60;
 
@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <SaraHomesPage />;
+  return <HomePage />;
 }

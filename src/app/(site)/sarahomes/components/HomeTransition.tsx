@@ -4,9 +4,9 @@ import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 
 import { useLocale } from "../../../../i18n/locale-context";
-import { tCollectionTransition } from "../i18n/collection-transition";
+import { tHomeTransition } from "../i18n/home-transition";
 
-export default function CollectionTransition() {
+export default function HomeTransition() {
   const { locale } = useLocale();
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
@@ -15,7 +15,7 @@ export default function CollectionTransition() {
     amount: 0.5,
     margin: "0px 0px -100px 0px",
   });
-  const t = tCollectionTransition(locale);
+  const t = tHomeTransition(locale);
 
   return (
     <motion.section

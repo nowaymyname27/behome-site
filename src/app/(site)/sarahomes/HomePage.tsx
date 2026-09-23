@@ -5,20 +5,20 @@ import type { SanityStyle } from "../../../lib/types/styles";
 import { sanityClient } from "../../../sanity/lib/client";
 import {
   allStylesQuery,
-  collectionCardsQuery,
+  homeCardsQuery,
 } from "../../../sanity/lib/queries";
 import SectionTransition from "../btr/components/SectionTransition";
 import ClientWrapper from "./components/ClientWrapper";
-import CollectionHero from "./components/CollectionHero";
-import type { CollectionCardProps } from "./components/CollectionCard";
-import CollectionSection from "./components/CollectionSection";
+import HomeHero from "./components/HomeHero";
+import type { HomeCardProps } from "./components/HomeCard";
+import HomeSection from "./components/HomeSection";
 import EvergladesCarousel from "./components/EvergladesCarousel";
 import FloatingContactBox from "./components/FloatingContactBox";
-import CollectionTransition from "./components/CollectionTransition";
+import HomeTransition from "./components/HomeTransition";
 import SaraHomesWelcomeTransition from "./components/SaraHomesWelcomeTransition";
 import VeronaCarousel from "./components/VeronaCarousel";
 
-type CollectionCardDoc = {
+type HomeCardDoc = {
   _id: string;
   address: string;
   location: string;
@@ -30,18 +30,18 @@ type CollectionCardDoc = {
   cap?: number | null;
   bedrooms?: number | null;
   bathrooms?: number | null;
-  sqft?: CollectionCardProps["sqft"];
+  sqft?: HomeCardProps["sqft"];
   image: { src: string; alt?: string };
 };
 
-export default async function SaraHomesPage() {
+export default async function HomePage() {
   const styleDocs = await sanityClient.fetch<SanityStyle[]>(allStylesQuery);
   const homes = styleDocs.map(mapSanityStyleToHome);
 
-  const collectionDocs = await sanityClient.fetch<CollectionCardDoc[]>(collectionCardsQuery);
+  const homeDocs = await sanityClient.fetch<HomeCardDoc[]>(homeCardsQuery);
 
-  const collectionCards: CollectionCardProps[] = collectionDocs.map(
-    (doc: CollectionCardDoc) => ({
+  const homeCards: HomeCardProps[] = homeDocs.map(
+    (doc: HomeCardDoc) => ({
       id: doc._id,
       address: doc.address,
       location: doc.location,
@@ -65,15 +65,15 @@ export default async function SaraHomesPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <CollectionHero />
+        <HomeHero />
         <SaraHomesWelcomeTransition />
         <EvergladesCarousel />
-        <CollectionTransition />
+        <HomeTransition />
         <FloatingContactBox />
         <VeronaCarousel />
         <SectionTransition />
         <ClientWrapper homes={homes} />
-        <CollectionSection cards={collectionCards} />
+        <HomeSection cards={homeCards} />
       </main>
       <Footer />
     </div>

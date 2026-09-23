@@ -1,14 +1,14 @@
 import type { Locale } from "../../../../i18n/locale-context";
 
-type CollectionHighlightsText = {
+type HomeHighlightsText = {
   title: string;
   points: string[];
 };
 
-export const tCollectionHighlights = (
+export const tHomeHighlights = (
   locale: Locale
-): CollectionHighlightsText => {
-  const en: CollectionHighlightsText = {
+): HomeHighlightsText => {
+  const en: HomeHighlightsText = {
     title: "Turnkey Ownership. 360˚ Returns.",
     points: [
       "Fully rented and stabilized properties",
@@ -21,7 +21,7 @@ export const tCollectionHighlights = (
     ],
   };
 
-  const es: CollectionHighlightsText = {
+  const es: HomeHighlightsText = {
     title: "Propiedad llave en mano. Rendimientos 360˚.",
     points: [
       "Propiedades totalmente alquiladas y estabilizadas",

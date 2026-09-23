@@ -1,28 +1,27 @@
 // File: src/app/(site)/(home)/i18n/index.ts
 import type {
   Locale,
-  HomeDisplayStrings,
-  HomeFeatureCard,
+  OldHomeDisplayStrings,
   FloridaStrings,
 } from "./types";
 
 // --- Section imports ---
-import { tHomeHero } from "./hero";
-import { tHomePhrase } from "./phrase";
-import { tHomePhilosophy, getHomePhilosophySlides } from "./philosophy";
-import { homeDisplayCopy } from "./display";
-import { homeFeatureCardsCopy } from "./feature-cards";
+import { tOldHomeHero } from "./hero";
+import { tOldHomePhrase } from "./phrase";
+import { tOldHomePhilosophy } from "./philosophy";
+import { oldHomeDisplayCopy } from "./display";
+import { oldHomeFeatureCardsCopy } from "./feature-cards";
 import { project } from "./project";
 import { brochure } from "./brochure";
 import { description } from "./description";
 import { map } from "./map";
-import { tHomeBTRExplained } from "./btrExplained";
-import { tHeroCard } from "./heroCard"; // <--- Added import
+import { tOldHomeBTRExplained } from "./btrExplained";
+import { tOldHomeHeroCard } from "./heroCard";
 
 const dict = {
   en: {
     heading: "Florida Portfolio",
-    hero: tHomeHero("en"),
+    hero: tOldHomeHero("en"),
     description: description.en,
     map: map.en,
     project: project.en,
@@ -30,7 +29,7 @@ const dict = {
   } satisfies FloridaStrings,
   es: {
     heading: "Portafolio de Florida",
-    hero: tHomeHero("es"),
+    hero: tOldHomeHero("es"),
     description: description.es,
     map: map.es,
     project: project.es,
@@ -40,29 +39,29 @@ const dict = {
 
 // --- Section helpers (exported to components) ---
 export {
-  tHomeHero,
-  tHomePhilosophy,
-  tHomePhrase,
-  tHomeBTRExplained,
-  tHeroCard, // <--- Added export
+  tOldHomeHero,
+  tOldHomePhilosophy,
+  tOldHomePhrase,
+  tOldHomeBTRExplained,
+  tOldHomeHeroCard,
 };
 
 // display
-export function tHomeDisplay(locale: Locale): HomeDisplayStrings {
-  return locale === "es" ? homeDisplayCopy.es : homeDisplayCopy.en;
+export function tOldHomeDisplay(locale: Locale): OldHomeDisplayStrings {
+  return locale === "es" ? oldHomeDisplayCopy.es : oldHomeDisplayCopy.en;
 }
 
 // feature cards
-export function tHomeFeatureCards(locale: Locale) {
-  return locale === "es" ? homeFeatureCardsCopy.es : homeFeatureCardsCopy.en;
+export function tOldHomeFeatureCards(locale: Locale) {
+  return locale === "es" ? oldHomeFeatureCardsCopy.es : oldHomeFeatureCardsCopy.en;
 }
 
 // builder exports
-export { getHomeFeatureCards } from "./feature-cards";
-export { getHomePhilosophySlides } from "./philosophy";
+export { getOldHomeFeatureCards } from "./feature-cards";
+export { getOldHomePhilosophySlides } from "./philosophy";
 
 // re-export types
-export type { Locale, HomeFeatureCard } from "./types";
+export type { Locale } from "./types";
 
 export function tFlorida(locale: Locale): FloridaStrings {
   return locale === "es" ? dict.es : dict.en;

@@ -1,5 +1,5 @@
 // File: src/app/(site)/(home)/i18n/philosophy.ts
-import type { Locale, HomePhilosophySlide } from "./types";
+import type { Locale, OldHomePhilosophySlide } from "./types";
 
 type SlideId = "track" | "cashflow" | "transparency";
 
@@ -58,9 +58,9 @@ const LABELS = {
 // ------------------------------
 // Slides builder
 // ------------------------------
-export function getHomePhilosophySlides(
+export function getOldHomePhilosophySlides(
   locale: Locale
-): ReadonlyArray<HomePhilosophySlide> {
+): ReadonlyArray<OldHomePhilosophySlide> {
   const dict = locale === "es" ? LABELS.es : LABELS.en;
   return BASE_SLIDES.map(({ id, src }) => ({
     src,
@@ -104,6 +104,6 @@ const PHILOSOPHY = {
   },
 } as const;
 
-export function tHomePhilosophy(locale: Locale) {
+export function tOldHomePhilosophy(locale: Locale) {
   return locale === "es" ? PHILOSOPHY.es : PHILOSOPHY.en;
 }

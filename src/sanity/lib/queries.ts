@@ -159,7 +159,7 @@ export const houseCardsQuery = `
   } | order(_createdAt desc)
 `;
 
-export const collectionCardsQuery = `
+export const homeCardsQuery = `
   *[_type == "collectionCard"]{
     _id,
     address,

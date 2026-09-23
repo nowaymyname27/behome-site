@@ -1,18 +1,18 @@
-import type { Locale, CollectionSectionStrings } from "./types";
+import type { Locale, HomeSectionStrings } from "./types";
 
-const en: CollectionSectionStrings = {
+const en: HomeSectionStrings = {
   title: "SaraHomes Portfolio",
   subtitle: "Explore our curated single-family portfolio below.",
   showMore: "Show more",
 };
 
-const es: CollectionSectionStrings = {
+const es: HomeSectionStrings = {
   title: "SaraHomes Portafolio",
   subtitle:
     "Explore nuestro portafolio seleccionado de viviendas unifamiliares a continuación.",
   showMore: "Ver más",
 };
 
-export function tCollectionSection(locale: Locale): CollectionSectionStrings {
+export function tHomeSection(locale: Locale): HomeSectionStrings {
   return locale === "es" ? es : en;
 }

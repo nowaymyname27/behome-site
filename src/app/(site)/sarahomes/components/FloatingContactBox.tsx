@@ -56,7 +56,7 @@ function extractNumbers(phoneText: string): ContactNumber[] {
 export default function FloatingContactBox() {
   const { locale } = useLocale();
   const i = tFooter(locale);
-  const [hasPassedCollection, setHasPassedCollection] = useState(false);
+  const [hasPassedHome, setHasPassedHome] = useState(false);
   const [minimized, setMinimized] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
     return sessionStorage.getItem(MINIMIZED_KEY) === "1";
@@ -67,14 +67,14 @@ export default function FloatingContactBox() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const target = document.getElementById("sarahomes-collection");
+    const target = document.getElementById("sarahomes-home-listing");
     if (!target) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const hasReachedCollection =
+        const hasReachedHome =
           entry.isIntersecting || entry.boundingClientRect.top < 0;
-        setHasPassedCollection(hasReachedCollection);
+        setHasPassedHome(hasReachedHome);
       },
       { threshold: 0 },
     );
@@ -89,7 +89,7 @@ export default function FloatingContactBox() {
     }
   }, [minimized]);
 
-  if (!hasPassedCollection) return null;
+  if (!hasPassedHome) return null;
 
   return (
     <motion.aside

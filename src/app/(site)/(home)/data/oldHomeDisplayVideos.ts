@@ -1,5 +1,5 @@
-// File: src/app/(site)/(home)/data/homeDisplayVideos.ts
-export const homeDisplayVideos = [
+// File: src/app/(site)/(home)/data/oldHomeDisplayVideos.ts
+export const oldHomeDisplayVideos = [
   {
     label: "Beach Orange Sun",
     url: "https://res.cloudinary.com/dsdkxdwvf/video/upload/f_auto,q_auto/v1764628033/z8sylsu18fvm5w8pte00.mp4",

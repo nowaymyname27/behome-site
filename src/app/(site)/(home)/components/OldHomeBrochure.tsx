@@ -1,15 +1,15 @@
-// File: src/app/(site)/(home)/components/HomeBrochure.tsx
+// File: src/app/(site)/(home)/components/OldHomeBrochure.tsx
 "use client";
 
 import { useLocale } from "../../../../i18n/locale-context";
-import { tHomePhilosophy, getHomePhilosophySlides } from "../i18n";
+import { tOldHomePhilosophy, getOldHomePhilosophySlides } from "../i18n";
 import Brochure from "../../../../components/site-wide/Brochure";
 
-export default function HomeBrochure() {
+export default function OldHomeBrochure() {
   const { locale } = useLocale();
-  const i = tHomePhilosophy(locale);
+  const i = tOldHomePhilosophy(locale);
 
-  const slides = getHomePhilosophySlides(locale);
+  const slides = getOldHomePhilosophySlides(locale);
 
   return (
     <Brochure
