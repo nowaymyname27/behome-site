@@ -24,7 +24,7 @@ export default function PortfolioHero() {
     <Hero
       title={i.title}
       subtitle={i.subtitle}
-      scrim="bg-black/20"
+      scrim="bg-transparent"
       backgroundNode={
         <MultiVideoBackground
           videos={portfolioVideos}

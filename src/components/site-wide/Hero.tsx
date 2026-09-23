@@ -23,7 +23,7 @@ export default function Hero({
   background,
   backgroundNode,
   children,
-  scrim = "bg-black/40",
+  scrim = "bg-transparent",
 }: HeroProps) {
   const reduceMotion = useReducedMotion();
 
@@ -77,7 +77,7 @@ export default function Hero({
           <motion.div
             animate={reduceMotion ? false : { opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 }}
-            className="mx-auto max-w-2xl text-center text-white lg:mx-0 lg:text-left"
+            className="mx-auto max-w-2xl rounded-2xl bg-black/45 p-6 text-center text-white sm:p-8 lg:mx-0 lg:p-10 lg:text-left"
           >
             {eyebrow && (
               <p className="mb-5 text-xs font-medium uppercase tracking-[0.28em] text-white/85 sm:mb-6 sm:text-sm">

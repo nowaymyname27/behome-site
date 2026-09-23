@@ -13,9 +13,10 @@ type HeaderStrings = {
 
 // 1) Static base nav (hrefs defined once)
 const BASE_NAV: Array<{
-  id: "about" | "btr" | "pf";
+  id: "home" | "about" | "btr" | "pf";
   href: string;
 }> = [
+  { id: "home", href: "/" },
   { id: "btr", href: "/btr" },
   { id: "pf", href: "/portfolio" },
   { id: "about", href: "/about" },
@@ -24,11 +25,13 @@ const BASE_NAV: Array<{
 // 2) Labels per locale
 const LABELS = {
   en: {
+    home: "Home",
     about: "About Us",
     pf: "Portfolio",
     btr: "Build-to-rent",
   },
   es: {
+    home: "Inicio",
     about: "Sobre Nosotros",
     pf: "Portafolio",
     btr: "Build-to-rent",

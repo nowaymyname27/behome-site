@@ -24,7 +24,7 @@ export default function BtrHero() {
     <Hero
       title={t.title}
       subtitle={t.subtitle}
-      scrim="bg-black/20"
+      scrim="bg-transparent"
       backgroundNode={
         <MultiVideoBackground videos={btrVideos} ariaLabel={t.videoAria} />
       }

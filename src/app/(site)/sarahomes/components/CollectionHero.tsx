@@ -27,7 +27,7 @@ export default function CollectionHero() {
       eyebrow={t.eyebrow}
       subtitle={t.subtitle}
       supportingText={t.supportingText}
-      scrim="bg-linear-to-r from-black/60 via-black/35 to-black/20"
+      scrim="bg-transparent"
       backgroundNode={
         <MultiVideoBackground
           videos={collectionVideos}

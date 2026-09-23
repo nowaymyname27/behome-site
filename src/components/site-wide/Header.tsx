@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { tHeader, getHeaderNav } from "../../i18n/site-wide/header";
 import { useLocale, uiLangCode } from "../../i18n/locale-context";
 import { useMemo, useState } from "react";
+import { House } from "lucide-react";
 
 export default function Header() {
   const pathname = usePathname() || "/";
@@ -42,7 +43,9 @@ export default function Header() {
           <nav className="hidden items-center gap-6 md:flex">
             {nav.map((item) => {
               const isActive =
-                item.href !== "/" && pathname.startsWith(item.href);
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
 
               return (
                 <Link
@@ -50,10 +53,20 @@ export default function Header() {
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
                   className={`text-sm transition ${
+                    item.href === "/"
+                      ? "inline-flex items-center justify-center rounded-md p-1"
+                      : ""
+                  } ${
                     isActive ? "text-accent" : "opacity-80 hover:text-accent"
                   }`}
+                  aria-label={item.href === "/" ? item.label : undefined}
+                  title={item.href === "/" ? item.label : undefined}
                 >
-                  {item.label}
+                  {item.href === "/" ? (
+                    <House size={18} strokeWidth={1.8} aria-hidden="true" />
+                  ) : (
+                    item.label
+                  )}
                 </Link>
               );
             })}
@@ -88,7 +101,9 @@ export default function Header() {
           <nav className="flex flex-col items-center px-6 py-6 gap-6">
             {nav.map((item) => {
               const isActive =
-                item.href !== "/" && pathname.startsWith(item.href);
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
 
               return (
                 <Link
