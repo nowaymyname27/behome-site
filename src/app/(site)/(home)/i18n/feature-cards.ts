@@ -7,13 +7,15 @@ import type { Locale, CardId, OldHomeFeatureCard } from "./types";
 const enFeatureCards = {
   showHeader: true,
   title: "Build your own RentPortfolio",
-  blurb: "Three investment paths to fit your goals.",
+  blurb: "Choose the investment path that fits your goals.",
+  eyebrow: "THREE WAYS TO INVEST",
 };
 
 const esFeatureCards = {
   showHeader: true,
   title: "Construya su propio RentPortfolio",
-  blurb: "Tres caminos de inversión que se adaptan a sus objetivos.",
+  blurb: "Elija el camino de inversión que mejor se adapte a sus objetivos.",
+  eyebrow: "TRES FORMAS DE INVERTIR",
 };
 
 export const oldHomeFeatureCardsCopy = { en: enFeatureCards, es: esFeatureCards };
@@ -51,21 +53,21 @@ const LABELS = {
       imageAlt: "Single build-to-rent home exterior",
       heading: "One",
       description:
-        "Start small, think big. Major institutional investors are pouring billions into Build-to-Rent communities — and you can follow their lead on a personal scale. By investing in just one or two BTR homes, you begin building a portfolio that generates rental income and appreciates over time. As your equity grows, so does your ability to expand — transforming a single investment into a long-term wealth strategy guided by the same fundamentals driving institutional success.",
+        "Start with one or two rental homes and grow at your own pace. Build rental income and long-term value using the same fundamentals that guide institutional investors.",
       ctaLabel: "Invest Now",
     },
     portfolios: {
       imageAlt: "Group of homes in a pre-construction community",
       heading: "Portfolios",
       description:
-        "High-net-worth investors, family offices, and wealth advisors can secure a position in this powerful asset class by acquiring a 4- or 8-unit BTR portfolio during the pre-construction phase. Early buyers benefit from preferred pricing and additional discounts from retail values, positioning themselves for attractive appreciation and strong future income once the homes are completed and leased. Don’t just follow the trend — get ahead of it.",
+        "Acquire a 4- or 8-home BTR portfolio before construction. Early buyers may access preferred pricing, with the potential for appreciation and rental income once the homes are completed and leased.",
       ctaLabel: "Learn More",
     },
     collection: {
       imageAlt: "Turnkey rental home generating income",
       heading: "SaraHomes",
       description:
-        "Discover the 360° Collection — a limited selection of turnkey, income-producing homes already built, leased, and generating steady cash flow from day one. These performing assets offer investors a simple, hassle-free way to own real estate that’s already working for them. Invest today and start earning immediately.",
+        "Explore a limited selection of completed, leased homes already generating income. These turnkey properties offer a straightforward way to start earning rental cash flow.",
       ctaLabel: "Explore Collection",
     },
   },
@@ -74,21 +76,21 @@ const LABELS = {
       imageAlt: "Fachada de una vivienda Build-to-Rent individual",
       heading: "Uno",
       description:
-        "Empiece en pequeño, piense en grande. Los principales inversores institucionales están invirtiendo miles de millones en comunidades Build-to-Rent, y usted puede seguir su ejemplo a escala personal. Al invertir en una o dos viviendas BTR, comienza a construir un portafolio que genera ingresos por alquiler y se aprecia con el tiempo. A medida que crece su capital, también crece su capacidad para expandirse, transformando una sola inversión en una estrategia de riqueza a largo plazo basada en los mismos principios que impulsan el éxito institucional.",
+        "Comience con una o dos viviendas de alquiler y amplíe su portafolio a su ritmo. Genere ingresos por alquiler y valor a largo plazo con principios usados por inversionistas institucionales.",
       ctaLabel: "Invertir Ahora",
     },
     portfolios: {
       imageAlt: "Grupo de viviendas en una comunidad en preventa",
       heading: "Portafolios",
       description:
-        "Los inversionistas de alto patrimonio, oficinas familiares y asesores financieros pueden asegurar su posición en esta poderosa clase de activos adquiriendo un portafolio BTR de 4 u 8 unidades durante la fase de preconstrucción. Los compradores tempranos se benefician de precios preferenciales y descuentos adicionales sobre los valores minoristas, posicionándose para una apreciación atractiva y sólidos ingresos futuros una vez completadas y alquiladas las viviendas. No solo siga la tendencia: anticípese a ella.",
+        "Adquiera un portafolio BTR de 4 u 8 viviendas antes de la construcción. Los compradores anticipados pueden acceder a precios preferenciales y obtener apreciación e ingresos por alquiler cuando las viviendas estén terminadas y alquiladas.",
       ctaLabel: "Más Información",
     },
     collection: {
       imageAlt: "Casa alquilada y generando ingresos desde el primer día",
       heading: "SaraHomes",
       description:
-        "Descubra la Colección 360° — una selección limitada de viviendas llave en mano, generadoras de ingresos, ya construidas, alquiladas y produciendo flujo de efectivo desde el primer día. Estos activos listos ofrecen a los inversores una manera simple y sin complicaciones de poseer bienes raíces que ya están trabajando para ellos. Invierta hoy y comience a ganar de inmediato.",
+        "Explore una selección limitada de viviendas terminadas y alquiladas que ya generan ingresos. Estas propiedades llave en mano ofrecen una forma sencilla de comenzar a recibir flujo de efectivo por alquiler.",
       ctaLabel: "Explorar Colección",
     },
   },

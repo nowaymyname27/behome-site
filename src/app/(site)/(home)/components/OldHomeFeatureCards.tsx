@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "../../../../i18n/locale-context";
 import { tOldHomeFeatureCards, getOldHomeFeatureCards } from "../i18n";
-import { motion, Variants } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import type { Variants } from "framer-motion";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -31,12 +33,106 @@ const cardVariants: Variants = {
   },
 };
 
-export default function OldHomeFeatureCards() {
+type OldHomeFeatureCardsProps = {
+  variant?: "legacy" | "modern";
+};
+
+export default function OldHomeFeatureCards({
+  variant = "legacy",
+}: OldHomeFeatureCardsProps) {
   const { locale } = useLocale();
   const i = tOldHomeFeatureCards(locale);
   const FEATURES = getOldHomeFeatureCards(locale);
+  const reduceMotion = useReducedMotion();
 
   if (!FEATURES.length) return null;
+
+  if (variant === "modern") {
+    return (
+      <section
+        id="btr-investment-paths"
+        aria-labelledby="btr-investment-paths-heading"
+        className="bg-accent px-5 py-12 sm:px-8 sm:py-14 lg:px-12 lg:py-16 xl:px-16"
+      >
+        <div className="mx-auto max-w-screen-2xl">
+          <motion.header
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5 }}
+            className="mb-8 flex flex-col gap-4 sm:mb-9 md:flex-row md:items-end md:justify-between"
+          >
+            <div>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-NC">
+                {i.eyebrow}
+              </p>
+              <h2
+                id="btr-investment-paths-heading"
+                className="font-serif text-3xl font-semibold tracking-tight text-chrome sm:text-4xl"
+              >
+                {i.title}
+              </h2>
+            </div>
+            <p className="max-w-md text-sm leading-relaxed text-accent-foreground/75 sm:text-base md:pb-1">
+              {i.blurb}
+            </p>
+          </motion.header>
+
+          <motion.div
+            variants={containerVariants}
+            initial={reduceMotion ? false : "hidden"}
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            className="grid gap-4 md:grid-cols-2 xl:grid-cols-3"
+          >
+            {FEATURES.map((feature, index) => (
+              <motion.article
+                key={feature.id}
+                variants={cardVariants}
+                whileHover={reduceMotion ? undefined : { y: -6 }}
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-chrome p-2.5 text-white shadow-md transition-shadow duration-300 hover:shadow-xl"
+              >
+                <div className="relative aspect-[16/8] overflow-hidden rounded-[1.35rem] bg-[#fffaf0]">
+                  <span className="absolute left-4 top-4 z-10 rounded-full border border-chrome/10 bg-white/85 px-3 py-1 text-xs font-semibold tabular-nums text-chrome backdrop-blur-sm">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <Image
+                    src={feature.imageSrc}
+                    alt={feature.imageAlt}
+                    fill
+                    sizes="(min-width:1280px) 33vw, (min-width:768px) 50vw, 100vw"
+                    className="object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+
+                <div className="flex flex-1 flex-col px-3 pb-3 pt-4 sm:px-4 sm:pb-4">
+                  <h3 className="font-serif text-xl font-semibold tracking-tight text-white sm:text-2xl">
+                    {feature.heading}
+                  </h3>
+                  <div className="mt-2 h-1 w-10 rounded-full bg-FL transition-all duration-300 group-hover:w-14" />
+                  <p className="mt-3 flex-1 text-sm leading-6 text-white/75">
+                    {feature.description}
+                  </p>
+                  <Link
+                    href={feature.href}
+                    aria-label={`${feature.ctaLabel}: ${feature.heading}`}
+                    className="mt-5 inline-flex min-h-10 items-center justify-between gap-3 rounded-xl bg-FL px-4 py-2.5 text-sm font-semibold text-FL-foreground transition-colors hover:bg-white hover:text-chrome focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-FL"
+                  >
+                    <span>{feature.ctaLabel}</span>
+                    <ArrowUpRight
+                      size={18}
+                      aria-hidden="true"
+                      className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    />
+                  </Link>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="section-pad bg-accent">
@@ -100,7 +196,7 @@ export default function OldHomeFeatureCards() {
                     className="btn btn-NC w-full sm:w-auto text-sm md:text-base px-6 py-2.5"
                     aria-label={`Learn More: ${f.heading}`}
                   >
-                    Learn More
+                    {f.ctaLabel}
                   </Link>
                 </div>
               </div>
