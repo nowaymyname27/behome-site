@@ -3,10 +3,17 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronUp, Mail, MessageCircle, Minimize2, Phone } from "lucide-react";
+import { usePathname } from "next/navigation";
+import {
+  ChevronUp,
+  Mail,
+  MessageCircle,
+  Minimize2,
+  Phone,
+} from "lucide-react";
 
-import { useLocale } from "../../../../i18n/locale-context";
-import { tFooter } from "../../../../i18n/site-wide/footer";
+import { useLocale } from "../../i18n/locale-context";
+import { tFooter } from "../../i18n/site-wide/footer";
 
 type ContactNumber = {
   display: string;
@@ -14,8 +21,6 @@ type ContactNumber = {
   telHref: string;
   whatsappHref: string;
 };
-
-const MINIMIZED_KEY = "sarahomes-contact-minimized";
 
 function extractNumbers(phoneText: string): ContactNumber[] {
   const matches = [
@@ -53,82 +58,57 @@ function extractNumbers(phoneText: string): ContactNumber[] {
   ];
 }
 
-export default function FloatingContactBox() {
+export default function ContactWidget() {
+  const pathname = usePathname();
   const { locale } = useLocale();
   const i = tFooter(locale);
-  const [hasPassedHome, setHasPassedHome] = useState(false);
-  const [minimized, setMinimized] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false;
-    return sessionStorage.getItem(MINIMIZED_KEY) === "1";
-  });
+  const [atPageBottom, setAtPageBottom] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const numbers = useMemo(() => extractNumbers(i.contact.phone), [i.contact.phone]);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    let frame = 0;
+    const syncPageBottom = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const { scrollHeight } = document.documentElement;
+        const reachedBottom =
+          window.scrollY + window.innerHeight >= scrollHeight - 400;
+        setAtPageBottom(reachedBottom);
+      });
+    };
 
-    const target = document.getElementById("sarahomes-home-listing");
-    if (!target) return;
+    syncPageBottom();
+    window.addEventListener("scroll", syncPageBottom, { passive: true });
+    window.addEventListener("resize", syncPageBottom);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const hasReachedHome =
-          entry.isIntersecting || entry.boundingClientRect.top < 0;
-        setHasPassedHome(hasReachedHome);
-      },
-      { threshold: 0 },
-    );
+    const resizeObserver = new ResizeObserver(syncPageBottom);
+    resizeObserver.observe(document.documentElement);
+    resizeObserver.observe(document.body);
 
-    observer.observe(target);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem(MINIMIZED_KEY, minimized ? "1" : "0");
-    }
-  }, [minimized]);
-
-  if (!hasPassedHome) return null;
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", syncPageBottom);
+      window.removeEventListener("resize", syncPageBottom);
+      resizeObserver.disconnect();
+    };
+  }, [pathname]);
 
   return (
     <motion.aside
-      initial={{ opacity: 0, y: 20, scale: 0.96 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.32, ease: "easeOut" }}
-      className={[
-        "fixed bottom-[max(0.25rem,env(safe-area-inset-bottom))] right-[max(0.25rem,env(safe-area-inset-right))] z-[1200]",
-        minimized ? "w-auto" : "w-[calc(100vw-2rem)] max-w-[25rem]",
-      ].join(" ")}
+      className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-[1200]"
     >
       <AnimatePresence mode="wait" initial={false}>
-        {minimized ? (
-          <motion.button
-            key="minimized"
-            type="button"
-            initial={{ opacity: 0, y: 14, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 14, scale: 0.95 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
-            onClick={() => setMinimized(false)}
-            aria-expanded="false"
-            aria-label={locale === "es" ? "Abrir contacto" : "Open contact"}
-            className="inline-flex w-auto min-w-[13rem] items-center justify-between rounded-full border border-white/20 bg-[#13202b]/95 px-4 py-3 text-white shadow-2xl backdrop-blur-md sm:min-w-[16rem]"
-          >
-            <span className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide">
-              <Phone size={14} />
-              {locale === "es" ? "Contacto" : "Contact Us"}
-            </span>
-            <ChevronUp size={14} className="text-white/80" />
-          </motion.button>
-        ) : (
+        {isOpen ? (
           <motion.div
             key="expanded"
+            id="contact-widget-panel"
             initial={{ opacity: 0, y: 14, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 14, scale: 0.97 }}
             transition={{ duration: 0.24, ease: "easeOut" }}
-            className="rounded-2xl border border-white/15 bg-[#13202b]/95 p-4 text-white shadow-2xl backdrop-blur-md sm:p-5"
+            className="w-[calc(100vw-2rem)] max-w-[25rem] rounded-2xl border border-white/15 bg-[#13202b]/95 p-4 text-white shadow-2xl backdrop-blur-md sm:p-5"
           >
             <div className="flex items-start justify-between gap-3">
               <div>
@@ -142,7 +122,7 @@ export default function FloatingContactBox() {
 
               <button
                 type="button"
-                onClick={() => setMinimized(true)}
+                onClick={() => setIsOpen(false)}
                 aria-expanded="true"
                 aria-label={locale === "es" ? "Minimizar contacto" : "Minimize contact"}
                 className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/30 text-white/85 transition hover:border-white/70 hover:text-white"
@@ -157,12 +137,9 @@ export default function FloatingContactBox() {
                   key={number.display}
                   className="rounded-xl border border-white/15 bg-white/5 p-3"
                 >
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="text-sm font-medium text-white/95">
-                      {number.display} ({number.language})
-                    </p>
-                  </div>
-
+                  <p className="text-sm font-medium text-white/95">
+                    {number.display} ({number.language})
+                  </p>
                   <div className="mt-2 flex gap-2">
                     <Link
                       href={number.telHref}
@@ -193,6 +170,42 @@ export default function FloatingContactBox() {
               {i.contact.email}
             </Link>
           </motion.div>
+        ) : atPageBottom ? (
+          <motion.button
+            key="contact-prompt"
+            type="button"
+            initial={{ opacity: 0, y: 8, scale: 0.92 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.92 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            onClick={() => setIsOpen(true)}
+            aria-expanded="false"
+            aria-controls="contact-widget-panel"
+            className="inline-flex min-h-12 items-center gap-3 rounded-full border border-white/25 bg-chrome/85 px-5 text-sm font-semibold text-white shadow-xl backdrop-blur-md transition hover:bg-chrome focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-FL"
+          >
+            <span className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide">
+              <Phone size={14} />
+              {locale === "es" ? "Contacto" : "Contact Us"}
+            </span>
+            <ChevronUp size={14} className="text-white/80" />
+          </motion.button>
+        ) : (
+          <motion.button
+            key="contact-circle"
+            type="button"
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.85 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            onClick={() => setIsOpen(true)}
+            aria-expanded="false"
+            aria-controls="contact-widget-panel"
+            aria-label={locale === "es" ? "Abrir contacto" : "Open contact"}
+            title={locale === "es" ? "Abrir contacto" : "Open contact"}
+            className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/35 bg-chrome/35 text-white/90 shadow-lg backdrop-blur-sm transition-colors hover:bg-chrome/75 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-FL"
+          >
+            <Phone size={20} aria-hidden="true" />
+          </motion.button>
         )}
       </AnimatePresence>
     </motion.aside>

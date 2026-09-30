@@ -13,7 +13,6 @@ import HomeHero from "./components/HomeHero";
 import type { HomeCardProps } from "./components/HomeCard";
 import HomeSection from "./components/HomeSection";
 import EvergladesCarousel from "./components/EvergladesCarousel";
-import FloatingContactBox from "./components/FloatingContactBox";
 import HomeTransition from "./components/HomeTransition";
 import SaraHomesWelcomeTransition from "./components/SaraHomesWelcomeTransition";
 import VeronaCarousel from "./components/VeronaCarousel";
@@ -69,7 +68,6 @@ export default async function HomePage() {
         <SaraHomesWelcomeTransition />
         <EvergladesCarousel />
         <HomeTransition />
-        <FloatingContactBox />
         <VeronaCarousel />
         <SectionTransition />
         <ClientWrapper homes={homes} />

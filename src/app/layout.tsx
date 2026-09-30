@@ -3,6 +3,7 @@ import "./globals.css";
 import { cookies } from "next/headers";
 import Providers from "./providers";
 import type { Metadata } from "next";
+import ContactWidget from "../components/site-wide/ContactWidget";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.rentportfolio.com"),
@@ -67,6 +68,7 @@ export default async function RootLayout({
       <body>
         <Providers initialLocale={cookieLocale}>
           <main>{children}</main>
+          <ContactWidget />
         </Providers>
       </body>
     </html>
